@@ -23,14 +23,14 @@
         android:layout_below="@+id/tv_header"
         android:background="@color/grey"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/rv_history"
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/v_divider"
         android:scrollbars="vertical">
-    </android.support.v7.widget.RecyclerView>
+    </androidx.appcompat.widget.RecyclerView>
 
     <ImageView
         android:layout_width="wrap_content"

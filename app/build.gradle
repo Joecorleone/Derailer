@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.example.cetty.derailer"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -16,8 +16,6 @@ android {
         main.res.srcDirs = [main.res.srcDirs, "build/generated/res/main"]
         // assets specfic transcoding
         main.assets.srcDirs = [main.assets.srcDirs, "build/generated/assets/main"]
-        // flavor specific transcoding
-        flavor1.res.srcDirs = [flavor1.res.srcDirs, "build/generated/res/flavor1"]
     }
 
     buildTypes {
@@ -35,54 +33,10 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
 }
 
-// create a task to convert SVG to PNG DRAWABLE
-task svgToDrawablePng(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
-    // specify where to pick SVG from
-    from = files('src/main/svg-png')
-    // specify the android res folder
-    to = file('build/generated/res/main')
-    // create qualified directories if missing
-    createMissingDirectories = true
-    // override files only if necessary: ifModified, override all files: always
-    overwriteMode = 'ifModified'
-    // let generate PNG for the following densities only
-    // if none specified, all densities will be used
-    targetedDensities = ['ldpi', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
-    // relative path of the file specifying nine patch specs
-    ninePatchConfig = file('src/main/svg-png/9patch.json')
-    // output format of the generated resources
-    outputFormat = 'PNG'
-    // output type is drawable (default)
-    outputType = 'drawable'
-
-    // this is an experimental feature
-    // it allow composition of SVG two generate resources for multiple combinations
-    //svgMaskFiles = files('src/main/svg-png/mask')
-    //svgMaskResourceFiles = files('src/main/svg-png/mask/svg')
-}
-
-// create a task to convert SVG to PNG MIPMAP
-task svgToMipmapPng(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
-    // specify where to pick SVG from
-    from = files('src/main/svg-mipmap')
-    // specify the android res folder
-    to = file('build/generated/res/main')
-    // create qualified directories if missing
-    createMissingDirectories = true
-    // override files only if necessary
-    overwriteMode = 'ifModified'
-    // let generate PNG for the following densities only
-    targetedDensities = ['ldpi', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
-    // output format of the generated resources
-    outputFormat = 'PNG'
-    // output type is mipmap
-    outputType = 'mipmap'
-}
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:transition:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13.1'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.transition:transition:1.4.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }

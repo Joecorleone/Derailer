@@ -6,7 +6,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import android.util.Log;
 
 import com.example.cetty.derailer.objects.MoveAnimSecondary;
@@ -14,7 +14,6 @@ import com.example.cetty.derailer.objects.Smoke;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;

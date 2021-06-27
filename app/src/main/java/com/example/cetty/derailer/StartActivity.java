@@ -1,9 +1,8 @@
 package com.example.cetty.derailer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by cetty on 26.07.16.

@@ -1,13 +1,11 @@
 package com.example.cetty.derailer.objects;
 
 import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.example.cetty.derailer.R;
 

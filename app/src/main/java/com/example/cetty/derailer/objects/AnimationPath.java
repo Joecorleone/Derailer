@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
-import android.support.v4.util.Pair;
-import android.util.Log;
+import androidx.core.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by reim on 12.02.17.

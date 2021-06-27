@@ -5,18 +5,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.support.transition.ChangeBounds;
-import android.support.transition.Transition;
-import android.support.transition.TransitionManager;
-import android.support.transition.TransitionSet;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
+import androidx.transition.TransitionSet;
 import android.view.Display;
 import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity implements OnClickListener{

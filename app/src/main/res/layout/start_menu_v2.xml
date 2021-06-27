@@ -73,7 +73,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/rv_carts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
         android:textAppearance="@android:style/TextAppearance.Large"/>
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.RecyclerView
         android:id="@+id/rv_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
         android:layout_centerHorizontal="true"
         android:weightSum="1">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.appcompat.widget.RecyclerView>
 
     <TextView
         android:id="@+id/tv_connections"

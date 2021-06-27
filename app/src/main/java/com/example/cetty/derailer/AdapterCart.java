@@ -2,15 +2,9 @@ package com.example.cetty.derailer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.appcompat.widget.RecyclerView;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -18,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.cetty.derailer.objects.PlayerSelection;
 import com.example.cetty.derailer.objects.Theme;
