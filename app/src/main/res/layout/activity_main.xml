@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_main"
+    tools:context="com.example.cetty.derailer.MainActivity"
+    android:background="@color/sand">
+    <ImageView
+        android:id="@+id/iv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:layout_above="@+id/rl_menu"
+        android:src="@drawable/title_screen"/>
+
+
+    <LinearLayout
+        android:id="@+id/rl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/menu_vertical_margin"
+        android:layout_marginBottom="@dimen/menu_vertical_margin"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/ll_menu01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_menu02"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/menu_background01">
+            <Button
+                android:id="@+id/bLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="       Start       "
+                android:lines="1"
+                android:fontFamily="sans-serif"
+                android:textSize="@dimen/menu_text_size"
+                android:background="@drawable/menu_cart01" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/ll_menu02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/menu_vertical_margin"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/menu_background02">
+            <Button
+                android:id="@+id/bTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_cart02"
+                android:text="   Theme   "
+                android:fontFamily="sans-serif"
+                android:textSize="@dimen/menu_text_size"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

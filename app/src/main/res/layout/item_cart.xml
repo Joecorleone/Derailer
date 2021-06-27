@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_cart"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_vertical_margin_small"
+    android:layout_marginRight="@dimen/activity_vertical_margin_small">
+
+    <ImageView
+        android:id="@+id/iv_cart_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/theme01_cart01_color"/>
+
+    <ImageView
+        android:id="@+id/iv_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/theme01_cart01"/>
+
+    <ImageView
+        android:id="@+id/iv_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_cart"
+        android:layout_alignEnd="@+id/iv_cart"
+        android:layout_alignRight="@+id/iv_cart"/>
+
+</RelativeLayout>

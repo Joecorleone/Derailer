@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="textColor">#000000</color>
+    <color name="grey">#8c8c8c</color>
+
+
+    <color name="theme01">#860000</color>
+    <color name="theme02">#1c0da3</color>
+    <color name="theme03">#9a2727</color>
+    <color name="theme04">#e70000</color>
+    <color name="gras">#076512</color>
+    <color name="sand">#eec974</color>
+
+
+    <color name="cartdefault">#ffffff</color>
+    <color name="cart01">#f5b728</color>
+    <color name="cart02">#ff342d</color>
+    <color name="cart03">#d8ff4c</color>
+    <color name="cart04">#31e92b</color>
+    <color name="cart05">#49c4c0</color>
+    <color name="cart06">#3e53ba</color>
+    <color name="cart07">#9859da</color>
+    <color name="cart08">#a42272</color>
+    <color name="cart09">#ee7499</color>
+    <color name="cart10">#2cab61</color>
+
+</resources>

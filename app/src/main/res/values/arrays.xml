@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array
+        name="theme_titles"
+        translatable = "true">
+        <item>Steam engine</item>
+        <item>Electric engine</item>
+        <item>Vintage car</item>
+        <item>Cadillac</item>
+    </string-array>
+
+
+    <string-array
+        name="carts"
+        translatable = "false">
+        <item>@drawable/theme01_cart01</item>
+        <item>@drawable/theme02_cart01</item>
+        <item>@drawable/theme03_cart01</item>
+        <item>@drawable/theme04_cart01</item>
+    </string-array>
+
+    <string-array
+        name="carts_color"
+        translatable = "false">
+        <item>@drawable/theme01_cart01_color</item>
+        <item>@drawable/theme02_cart01_color</item>
+        <item>@drawable/theme03_cart01_color</item>
+        <item>@drawable/theme04_cart01_color</item>
+    </string-array>
+
+    <string-array
+        name="theme_backgrounds"
+        translatable = "false">
+        <item>@drawable/menu_background01</item>
+        <item>@drawable/menu_background01</item>
+        <item>@drawable/menu_background02</item>
+        <item>@drawable/menu_background02</item>
+    </string-array>
+
+    <string-array
+        name="theme_colors"
+        translatable = "false">
+        <item>@color/theme01</item>
+        <item>@color/theme02</item>
+        <item>@color/theme03</item>
+        <item>@color/theme04</item>
+    </string-array>
+
+    <!-- list of cart colors -->
+    <string-array
+        name="cart_color_selection"
+        translatable = "false">
+        <item>@color/cart01</item>
+        <item>@color/cart02</item>
+        <item>@color/cart03</item>
+        <item>@color/cart04</item>
+        <item>@color/cart05</item>
+        <item>@color/cart06</item>
+        <item>@color/cart07</item>
+        <item>@color/cart08</item>
+        <item>@color/cart09</item>
+        <item>@color/cart10</item>
+    </string-array>
+
+    <string-array
+        name="option_titles">
+        <item>Obstacles</item>
+        <item>Day/Night</item>
+        <item>Draw</item>
+        <item>Order</item>
+        <item>Sudden death</item>
+    </string-array>
+
+
+    <!-- tiles with 4 connections -->
+    <!-- base tiles -->
+    <string-array
+        name="con4_tile01"
+        translatable = "false">
+        <item>@drawable/theme01_4_tile01</item>
+        <item>@drawable/theme01_4_tile01</item>
+        <item>@drawable/theme03_4_tile01</item>
+        <item>@drawable/theme03_4_tile01</item>
+    </string-array>
+
+    <string-array
+        name="con4_tile02"
+        translatable = "false">
+        <item>@drawable/theme01_4_tile02</item>
+        <item>@drawable/theme01_4_tile02</item>
+        <item>@drawable/theme03_4_tile02</item>
+        <item>@drawable/theme03_4_tile02</item>
+    </string-array>
+
+    <string-array
+        name="con4_tile03"
+        translatable = "false">
+        <item>@drawable/theme01_4_tile03</item>
+        <item>@drawable/theme01_4_tile03</item>
+        <item>@drawable/theme03_4_tile03</item>
+        <item>@drawable/theme03_4_tile03</item>
+    </string-array>
+
+    <!-- top designs -->
+    <string-array
+        name="con4_tile01_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/theme02_4_tile01_top</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con4_tile02_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/theme02_4_tile02_top</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con4_tile03_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/theme02_4_tile03_top</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+
+    <!-- tiles with 4 connections -->
+    <!-- base tiles -->
+    <string-array
+        name="con8_10325476"
+        translatable = "false">
+        <item>@drawable/theme01_10325476</item>
+        <item>@drawable/theme01_10325476</item>
+        <item>@drawable/theme01_10325476</item>
+        <item>@drawable/theme01_10325476</item>
+    </string-array>
+
+    <string-array
+        name="con8_10326745"
+        translatable = "false">
+        <item>@drawable/theme01_10326745</item>
+        <item>@drawable/theme01_10326745</item>
+        <item>@drawable/theme01_10326745</item>
+        <item>@drawable/theme01_10326745</item>
+    </string-array>
+
+    <string-array
+        name="con8_10327654"
+        translatable = "false">
+        <item>@drawable/theme01_10327654</item>
+        <item>@drawable/theme01_10327654</item>
+        <item>@drawable/theme01_10327654</item>
+        <item>@drawable/theme01_10327654</item>
+    </string-array>
+
+    <string-array
+        name="con8_10462735"
+        translatable = "false">
+        <item>@drawable/theme01_10462735</item>
+        <item>@drawable/theme01_10462735</item>
+        <item>@drawable/theme01_10462735</item>
+        <item>@drawable/theme01_10462735</item>
+    </string-array>
+
+    <string-array
+        name="con8_10472653"
+        translatable = "false">
+        <item>@drawable/theme01_10472653</item>
+        <item>@drawable/theme01_10472653</item>
+        <item>@drawable/theme01_10472653</item>
+        <item>@drawable/theme01_10472653</item>
+    </string-array>
+
+    <string-array
+        name="con8_10567234"
+        translatable = "false">
+        <item>@drawable/theme01_10567234</item>
+        <item>@drawable/theme01_10567234</item>
+        <item>@drawable/theme01_10567234</item>
+        <item>@drawable/theme01_10567234</item>
+    </string-array>
+
+    <string-array
+        name="con8_10576243"
+        translatable = "false">
+        <item>@drawable/theme01_10576243</item>
+        <item>@drawable/theme01_10576243</item>
+        <item>@drawable/theme01_10576243</item>
+        <item>@drawable/theme01_10576243</item>
+    </string-array>
+
+    <string-array
+        name="con8_10643725"
+        translatable = "false">
+        <item>@drawable/theme01_10643725</item>
+        <item>@drawable/theme01_10643725</item>
+        <item>@drawable/theme01_10643725</item>
+        <item>@drawable/theme01_10643725</item>
+    </string-array>
+
+    <string-array
+        name="con8_10657324"
+        translatable = "false">
+        <item>@drawable/theme01_10657324</item>
+        <item>@drawable/theme01_10657324</item>
+        <item>@drawable/theme01_10657324</item>
+        <item>@drawable/theme01_10657324</item>
+    </string-array>
+
+    <string-array
+        name="con8_10675423"
+        translatable = "false">
+        <item>@drawable/theme01_10675423</item>
+        <item>@drawable/theme01_10675423</item>
+        <item>@drawable/theme01_10675423</item>
+        <item>@drawable/theme01_10675423</item>
+    </string-array>
+
+    <string-array
+        name="con8_10743652"
+        translatable = "false">
+        <item>@drawable/theme01_10743652</item>
+        <item>@drawable/theme01_10743652</item>
+        <item>@drawable/theme01_10743652</item>
+        <item>@drawable/theme01_10743652</item>
+    </string-array>
+
+    <string-array
+        name="con8_10756342"
+        translatable = "false">
+        <item>@drawable/theme01_10756342</item>
+        <item>@drawable/theme01_10756342</item>
+        <item>@drawable/theme01_10756342</item>
+        <item>@drawable/theme01_10756342</item>
+    </string-array>
+
+    <string-array
+        name="con8_10765432"
+        translatable = "false">
+        <item>@drawable/theme01_10765432</item>
+        <item>@drawable/theme01_10765432</item>
+        <item>@drawable/theme01_10765432</item>
+        <item>@drawable/theme01_10765432</item>
+    </string-array>
+
+    <string-array
+        name="con8_23016745"
+        translatable = "false">
+        <item>@drawable/theme01_23016745</item>
+        <item>@drawable/theme01_23016745</item>
+        <item>@drawable/theme01_23016745</item>
+        <item>@drawable/theme01_23016745</item>
+    </string-array>
+
+    <string-array
+        name="con8_23017654"
+        translatable = "false">
+        <item>@drawable/theme01_23017654</item>
+        <item>@drawable/theme01_23017654</item>
+        <item>@drawable/theme01_23017654</item>
+        <item>@drawable/theme01_23017654</item>
+    </string-array>
+
+    <string-array
+        name="con8_24061735"
+        translatable = "false">
+        <item>@drawable/theme01_24061735</item>
+        <item>@drawable/theme01_24061735</item>
+        <item>@drawable/theme01_24061735</item>
+        <item>@drawable/theme01_24061735</item>
+    </string-array>
+
+    <string-array
+        name="con8_24071653"
+        translatable = "false">
+        <item>@drawable/theme01_24071653</item>
+        <item>@drawable/theme01_24071653</item>
+        <item>@drawable/theme01_24071653</item>
+        <item>@drawable/theme01_24071653</item>
+    </string-array>
+
+    <string-array
+        name="con8_25067134"
+        translatable = "false">
+        <item>@drawable/theme01_25067134</item>
+        <item>@drawable/theme01_25067134</item>
+        <item>@drawable/theme01_25067134</item>
+        <item>@drawable/theme01_25067134</item>
+    </string-array>
+
+    <string-array
+        name="con8_25076143"
+        translatable = "false">
+        <item>@drawable/theme01_25076143</item>
+        <item>@drawable/theme01_25076143</item>
+        <item>@drawable/theme01_25076143</item>
+        <item>@drawable/theme01_25076143</item>
+    </string-array>
+
+    <string-array
+        name="con8_26043715"
+        translatable = "false">
+        <item>@drawable/theme01_26043715</item>
+        <item>@drawable/theme01_26043715</item>
+        <item>@drawable/theme01_26043715</item>
+        <item>@drawable/theme01_26043715</item>
+    </string-array>
+
+    <string-array
+        name="con8_26057314"
+        translatable = "false">
+        <item>@drawable/theme01_26057314</item>
+        <item>@drawable/theme01_26057314</item>
+        <item>@drawable/theme01_26057314</item>
+        <item>@drawable/theme01_26057314</item>
+    </string-array>
+
+    <string-array
+        name="con8_27043651"
+        translatable = "false">
+        <item>@drawable/theme01_27043651</item>
+        <item>@drawable/theme01_27043651</item>
+        <item>@drawable/theme01_27043651</item>
+        <item>@drawable/theme01_27043651</item>
+    </string-array>
+
+    <string-array
+        name="con8_27056341"
+        translatable = "false">
+        <item>@drawable/theme01_27056341</item>
+        <item>@drawable/theme01_27056341</item>
+        <item>@drawable/theme01_27056341</item>
+        <item>@drawable/theme01_27056341</item>
+    </string-array>
+
+    <string-array
+        name="con8_32107654"
+        translatable = "false">
+        <item>@drawable/theme01_32107654</item>
+        <item>@drawable/theme01_32107654</item>
+        <item>@drawable/theme01_32107654</item>
+        <item>@drawable/theme01_32107654</item>
+    </string-array>
+
+    <string-array
+        name="con8_34601725"
+        translatable = "false">
+        <item>@drawable/theme01_34601725</item>
+        <item>@drawable/theme01_34601725</item>
+        <item>@drawable/theme01_34601725</item>
+        <item>@drawable/theme01_34601725</item>
+    </string-array>
+
+    <string-array
+        name="con8_34701652"
+        translatable = "false">
+        <item>@drawable/theme01_34701652</item>
+        <item>@drawable/theme01_34701652</item>
+        <item>@drawable/theme01_34701652</item>
+        <item>@drawable/theme01_34701652</item>
+    </string-array>
+
+    <string-array
+        name="con8_35607124"
+        translatable = "false">
+        <item>@drawable/theme01_35607124</item>
+        <item>@drawable/theme01_35607124</item>
+        <item>@drawable/theme01_35607124</item>
+        <item>@drawable/theme01_35607124</item>
+    </string-array>
+
+    <string-array
+        name="con8_36507214"
+        translatable = "false">
+        <item>@drawable/theme01_36507214</item>
+        <item>@drawable/theme01_36507214</item>
+        <item>@drawable/theme01_36507214</item>
+        <item>@drawable/theme01_36507214</item>
+    </string-array>
+
+    <string-array
+        name="con8_42160735"
+        translatable = "false">
+        <item>@drawable/theme01_42160735</item>
+        <item>@drawable/theme01_42160735</item>
+        <item>@drawable/theme01_42160735</item>
+        <item>@drawable/theme01_42160735</item>
+    </string-array>
+
+    <string-array
+        name="con8_42170653"
+        translatable = "false">
+        <item>@drawable/theme01_42170653</item>
+        <item>@drawable/theme01_42170653</item>
+        <item>@drawable/theme01_42170653</item>
+        <item>@drawable/theme01_42170653</item>
+    </string-array>
+
+    <string-array
+        name="con8_43610725"
+        translatable = "false">
+        <item>@drawable/theme01_43610725</item>
+        <item>@drawable/theme01_43610725</item>
+        <item>@drawable/theme01_43610725</item>
+        <item>@drawable/theme01_43610725</item>
+    </string-array>
+
+    <string-array
+        name="con8_45670123"
+        translatable = "false">
+        <item>@drawable/theme01_45670123</item>
+        <item>@drawable/theme01_45670123</item>
+        <item>@drawable/theme01_45670123</item>
+        <item>@drawable/theme01_45670123</item>
+    </string-array>
+
+    <string-array
+        name="con8_45760132"
+        translatable = "false">
+        <item>@drawable/theme01_45760132</item>
+        <item>@drawable/theme01_45760132</item>
+        <item>@drawable/theme01_45760132</item>
+        <item>@drawable/theme01_45760132</item>
+    </string-array>
+
+    <string-array
+        name="con8_54761032"
+        translatable = "false">
+        <item>@drawable/theme01_54761032</item>
+        <item>@drawable/theme01_54761032</item>
+        <item>@drawable/theme01_54761032</item>
+        <item>@drawable/theme01_54761032</item>
+    </string-array>
+
+    <string-array
+        name="con8_72143650"
+        translatable = "false">
+        <item>@drawable/theme01_72143650</item>
+        <item>@drawable/theme01_72143650</item>
+        <item>@drawable/theme01_72143650</item>
+        <item>@drawable/theme01_72143650</item>
+    </string-array>
+
+
+    <!-- tiles with 4 connections -->
+    <!-- toü tiles -->
+    <string-array
+        name="con8_10325476_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10326745_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10327654_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10462735_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10472653_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10567234_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10576243_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10643725_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10657324_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10675423_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10743652_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10756342_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_10765432_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_23016745_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_23017654_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_24061735_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_24071653_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_25067134_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_25076143_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_26043715_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_26057314_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_27043651_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_27056341_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_32107654_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_34601725_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_34701652_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_35607124_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_36507214_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_42160735_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_42170653_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_43610725_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_45670123_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_45760132_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_54761032_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+    <string-array
+        name="con8_72143650_top"
+        translatable = "false">
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+        <item>@drawable/tile_placeholder</item>
+    </string-array>
+
+
+</resources>

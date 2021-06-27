@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/iv_n_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/notification_background"/>
+
+        <ImageView
+            android:id="@+id/iv_n_player_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_n_textbig"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_centerVertical="true"
+            android:src="@drawable/theme01_cart01_color"/>
+
+        <ImageView
+            android:id="@+id/iv_n_player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_n_textbig"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_centerVertical="true"
+            android:src="@drawable/theme01_cart01"/>
+
+        <TextView
+            android:id="@+id/tv_n_texttop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="-10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/notification_next"/>
+
+        <TextView
+            android:id="@+id/tv_n_textbig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="50sp"
+            android:layout_below="@+id/tv_n_texttop"
+            android:text="@string/notification_player"/>
+
+        <TextView
+            android:id="@+id/tv_n_textbottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_below="@+id/tv_n_textbig"
+            android:layout_marginTop="-10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/notification_lost"/>
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_back"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/selection_arrow02"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>

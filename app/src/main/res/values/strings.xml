@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Derailer</string>
+    <string name="notification_player">Player</string>
+    <string name="notification_next">Next</string>
+    <string name="notification_lost">Lost</string>
+    <string name="settings_header">Choose your own game</string>
+    <string name="settingCards">Options</string>
+    <string name="connections">Connections</string>
+    <string name="option_obstacle">Obstacles</string>
+
+</resources>

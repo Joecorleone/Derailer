@@ -1,0 +1,97 @@
+[
+    {
+        "name" : "menu_cart01.*",  // unqualified part of the SVG file name (JAVA regexp)
+        "stretch" : { // the stretchable area configuration
+            "x" : [ // segments of the top edge of the NinePatch
+                [36, 85]
+            ],
+            "y" : [ // segments of the left edge of the NinePatch
+                [69, 71]
+            ]
+        },
+        "content" : { // the padding box configuration
+            "x" : [ // segments of the bottom edge of the NinePatch
+                [36, 108]
+            ],
+            "y" : [ // segments of the right edge of the NinePatch
+                [36, 104]
+            ]
+        }
+    },
+    {
+        "name" : "menu_cart02.*",  // unqualified part of the SVG file name (JAVA regexp)
+        "stretch" : { // the stretchable area configuration
+            "x" : [ // segments of the top edge of the NinePatch
+                [160, 200]
+            ],
+            "y" : [ // segments of the left edge of the NinePatch
+                [68, 82]
+            ]
+        },
+        "content" : { // the padding box configuration
+            "x" : [ // segments of the bottom edge of the NinePatch
+                [40, 200]
+            ],
+            "y" : [ // segments of the right edge of the NinePatch
+                [42, 108]
+            ]
+        }
+    },
+    {
+        "name" : "button01.*",  // unqualified part of the SVG file name (JAVA regexp)
+        "stretch" : { // the stretchable area configuration
+            "x" : [ // segments of the top edge of the NinePatch
+                [30, 35]
+            ],
+            "y" : [ // segments of the left edge of the NinePatch
+                [30, 35]
+            ]
+        },
+        "content" : { // the padding box configuration
+            "x" : [ // segments of the bottom edge of the NinePatch
+                [15, 50]
+            ],
+            "y" : [ // segments of the right edge of the NinePatch
+                [17,46]
+            ]
+        }
+    },
+    {
+        "name" : "button02.*",  // unqualified part of the SVG file name (JAVA regexp)
+        "stretch" : { // the stretchable area configuration
+            "x" : [ // segments of the top edge of the NinePatch
+                [30, 35]
+            ],
+            "y" : [ // segments of the left edge of the NinePatch
+                [25, 35]
+            ]
+        },
+        "content" : { // the padding box configuration
+            "x" : [ // segments of the bottom edge of the NinePatch
+                [15, 50]
+            ],
+            "y" : [ // segments of the right edge of the NinePatch
+                [8,37]
+            ]
+        }
+    },
+    {
+        "name" : "header_sign.*",  // unqualified part of the SVG file name (JAVA regexp)
+        "stretch" : { // the stretchable area configuration
+            "x" : [ // segments of the top edge of the NinePatch
+                [12, 20]
+            ],
+            "y" : [ // segments of the left edge of the NinePatch
+                [12, 20]
+            ]
+        },
+        "content" : { // the padding box configuration
+            "x" : [ // segments of the bottom edge of the NinePatch
+                [15, 17]
+            ],
+            "y" : [ // segments of the right edge of the NinePatch
+                [12,20]
+            ]
+        }
+    }
+]

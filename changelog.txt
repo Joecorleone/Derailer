@@ -1,0 +1,25 @@
+Possible features:
+ - nightmode: reveal only tiles close to carts, day/night cycle
+ - rocks: before select start positions add unpassable tiles
+ - multiplayer mode: tablet shows playing field, while player's phones show playable tiles
+ - placing a tile: after click animate move and reveal left/right rotation buttons
+ - post game summary: show travelled distance
+ - different carts for each theme
+ - building on start point, remains the whole game (engine shed in player color including open and close gates animation)
+
+
+
+Alpha Milestone Check-List:
+ - tiles with 4 connections (done)
+ - tiles with 8 connections (done)
+ - four different themes (done)
+ - animation system and different animation for each theme (1/4) - in progress
+ - main menu layout (done)
+ - theme menu layout (revise)
+ - game settingCard layout (preliminarily done)
+ - game layout (revise)
+ - game win screen (revise)
+ - notification system (player loose, next player's turn) (done)
+ - ai player (done)
+ - introduce waiting times, if ai chooses starting position
+ - crashed cart assets
