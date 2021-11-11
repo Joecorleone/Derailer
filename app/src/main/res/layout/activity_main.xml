@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_main"
-    tools:context="com.example.cetty.derailer.MainActivity"
+    tools:context="de.badgersburrow.derailer.MainActivity"
     android:background="@color/sand">
     <ImageView
         android:id="@+id/iv_title"
