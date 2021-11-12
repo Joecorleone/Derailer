@@ -1,10 +1,18 @@
 package de.badgersburrow.derailer.objects;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
+import android.os.Build;
+
+import androidx.core.content.ContextCompat;
 
 import de.badgersburrow.derailer.GameView;
 
@@ -65,71 +73,68 @@ public class MoveAnimSecondary {
         this.randInterval = randInterval;
     }
 
+    public MoveAnimSecondary getCopy(){
+        MoveAnimSecondary move = new MoveAnimSecondary(drawableId, numAnims, duration,
+                posStartX, posStartY, scaleStart, scaleEnd,
+                posFixed, randRot, randInterval);
+        move.mode = mode;
+        return move;
+    }
+
     public void onDraw(final Canvas canvas, int step, int centerX, int centerY, float rotation){
         // centerX, centerY is the center of the cart on the playfield
-        // rotation is the current rotation of the cart
+        // rotation is the current rotation of the cart in deg
         if (mode!=ModeKeyNone) {
             float scaleFactor = gameView.getScaleFactor();
-            int deltaX_x = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartWidth / 2 * (1.f - posStartX));
-            int deltaX_y = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartWidth / 2 * (1.f - posStartX));
-            int deltaY_x = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY);
-            int deltaY_y = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY);
-            int pos_x = centerX + deltaX_x + deltaY_x;
-            int pos_y = centerY + deltaX_y + deltaY_y;
+
+            // center of cart is 0,0
+            // start of cart is 1,0
+
+            int deltaX_x = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartWidth * posStartX/2);
+            int deltaX_y = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartWidth * posStartX/2);
+            int deltaY_x = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
+            int deltaY_y = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
 
             int startEach = Math.round(moveSteps / numAnims);
             if (step < moveSteps) {
                 if (step % startEach == 1) {
-
-                    this.items.add(new Item(pos_x, pos_y, (float) Math.random() * 360f));
+                    this.items.add(new Item(centerX, centerY, rotation + ((randRot) ? (float) Math.random() * 360f : 0)));
                 }
-                for (int i = 0; i < this.items.size(); i++) {
-                    Item item = this.items.get(i);
-                    if (item.step < duration) {
-                        Paint paint = new Paint();
-                        paint.setAlpha(200 - item.step * 16);
-                        //int size = smoke.getBmp().getWToidth()/ (maxStep-smoke.step);
+            }
 
-                        Matrix mat = new Matrix();
+            for (int i = 0; i < this.items.size(); i++) {
+                Item item = this.items.get(i);
+                if (item.step < duration) {
+                    Paint paint = new Paint();
+                    paint.setAlpha(200 - item.step * 16);
+                    //int size = smoke.getBmp().getWToidth()/ (maxStep-smoke.step);
 
-                        int calc_width = item.getBmp().getWidth() / (duration - item.step);
-                        mat.postScale(1.f / (duration - item.step), 1.f / (duration - item.step));
+                    float fullScaleFactor = scaleFactor *( scaleEnd / duration * item.step + scaleStart / duration * (duration - item.step));
 
-                        mat.postRotate(item.rot, calc_width / 2, calc_width / 2);
-                        if (posFixed) {
-                            mat.postTranslate(item.x, item.y);
-                        } else {
-                            mat.postTranslate(pos_x, pos_y);
-                        }
 
-                        canvas.drawBitmap(item.getBmp(), mat, paint);
-                        item.nextStep();
+                    int scaledWidth = Math.round(fullScaleFactor* item.getBmp().getWidth());
+                    int scaledHeight = Math.round(fullScaleFactor* item.getBmp().getHeight());
+
+
+                    Matrix mat = new Matrix();
+
+                    mat.postScale(fullScaleFactor,fullScaleFactor);
+                    //mat.postScale(1.f / (duration - item.step), 1.f / (duration - item.step));
+
+
+                    if (posFixed) {
+                        mat.postRotate(item.rot, scaledWidth / 2, scaledHeight / 2);
+                        mat.postTranslate(item.x + deltaX_x + deltaY_x-scaledWidth/2, item.y+ deltaX_y + deltaY_y-scaledHeight/2);
                     } else {
-                        this.items.remove(item);
-                        i--;
+                        mat.postRotate(rotation, scaledWidth / 2, scaledHeight / 2);
+                        mat.postTranslate(centerX + deltaX_x + deltaY_x-scaledWidth/2, centerY+ deltaX_y + deltaY_y-scaledHeight/2);
                     }
-                }
-            } else {
-                for (int i = 0; i < this.items.size(); i++) {
-                    int maxStep = 10;
-                    Item item = this.items.get(i);
-                    if (item.step < maxStep) {
-                        Paint paint = new Paint();
-                        paint.setAlpha(200 - item.step * 16);
-                        //int size = smoke.getBmp().getWidth()/ (maxStep-smoke.step);
 
-                        Matrix mat = new Matrix();
-                        int calc_width = item.getBmp().getWidth() / (maxStep - item.step);
-                        mat.postScale(1.f / (maxStep - item.step), 1.f / (maxStep - item.step));
-
-                        mat.postRotate(item.rot, calc_width / 2, calc_width / 2);
-                        mat.postTranslate(item.x - calc_width / 2, item.y - calc_width / 2);
-                        canvas.drawBitmap(item.getBmp(), mat, paint);
-                        item.nextStep();
-                    } else {
-                        this.items.remove(item);
-                        i--;
-                    }
+                    canvas.drawBitmap(item.getBmp(), mat, paint);
+                    item.nextStep();
+                } else {
+                    this.items.remove(item);
+                    i--;
                 }
             }
         }
@@ -143,7 +148,7 @@ public class MoveAnimSecondary {
         float rot = 0;
 
         public Item(int x, int y, float rot) {
-            this.bmp = BitmapFactory.decodeResource(gameView.getResources(), drawableId);
+            this.bmp = getBitmap(gameView.getContext(), drawableId);//BitmapFactory.decodeResource(gameView.getResources(),
             this.x = x;
             this.y = y;
             this.rot = rot;
@@ -159,6 +164,26 @@ public class MoveAnimSecondary {
         this.moveSteps = gameView.getMoveSteps();
         this.cartWidth = width;
         this.cartHeight = height;
+    }
+
+    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return bitmap;
+    }
+
+    private static Bitmap getBitmap(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof VectorDrawable) {
+            return getBitmap((VectorDrawable) drawable);
+        } else {
+            throw new IllegalArgumentException("unsupported drawable type");
+        }
     }
 
 }

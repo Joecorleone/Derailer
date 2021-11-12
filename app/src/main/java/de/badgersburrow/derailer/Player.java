@@ -110,8 +110,8 @@ public class Player implements Serializable {
             //Log.d("animation",String.valueOf(currentStep));
             //Log.d("Rotation",String.valueOf(rotation));
 
-            x = edge + (this.xIndex) * width - scaledWidth / 2;
-            y = edge + (this.yIndex) * width - scaledHeight / 2;
+            x = edge + (this.xIndex) * width;
+            y = edge + (this.yIndex) * width;
 
             Pair p = GameActivity.animPath.getPosTan(pos, destPosOnTile, currentStep*1f/moveSteps);
             float[] posPath = (float[]) p.first;
@@ -138,16 +138,16 @@ public class Player implements Serializable {
             int cur_centerX = x + dx;
             int cur_centerY = y + dy;
 
-            //Log.d("CurrX",String.valueOf(cur_centerX));
-            //Log.d("CurrY",String.valueOf(cur_centerY));
-            //Log.d("scaleFactor",String.valueOf(scaleFactor));
-            //Log.d("CurrRotation",String.valueOf(angle));
+            Log.d("CurrX",String.valueOf(cur_centerX));
+            Log.d("CurrY",String.valueOf(cur_centerY));
+            Log.d("scaleFactor",String.valueOf(scaleFactor));
+            Log.d("CurrRotation",String.valueOf(angle));
 
             Matrix matrix = new Matrix();
             matrix.postScale(scaleFactor,scaleFactor);
 
             matrix.postRotate(angle, scaledWidth/2, scaledHeight/2);
-            matrix.postTranslate(cur_centerX,cur_centerY);
+            matrix.postTranslate(cur_centerX - scaledWidth / 2,cur_centerY - scaledHeight / 2);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp_main, matrix, null);
 
@@ -380,7 +380,7 @@ public class Player implements Serializable {
                     gameView.rotateCard(i, rot);
                     while (true){
                         gameView.movePlayers();
-                        if (gameView.gamePhase != gameView.gpMoving) break;
+                        if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
                     }
 
                     if (aliveVirtual){

@@ -246,8 +246,10 @@ public class GameTheme {
 
             case 0 :
                 // steam engine
+                //animSecondary = new MoveAnimSecondary(R.drawable.ic_pointer,
+                //5, 14, 0.8f, 0.0f, 6.0f, 6.0f, true, false, false);
                 animSecondary = new MoveAnimSecondary(R.drawable.smoke2,
-                5, 14, 0.15f, 0.0f, 0.1f, 1.0f, false, true, false);
+                5, 14, 0.8f, 0.0f, 1.0f, 6.0f, true, true, false);
                 break;
 
             case 1 :
@@ -282,9 +284,9 @@ public class GameTheme {
     }
 
     public MoveAnimSecondary getMoveAnimSecondary(GameView gameView){
-
-        animSecondary.attachGameView(gameView, cart.getWidth(), cart.getHeight());
-        return animSecondary;
+        MoveAnimSecondary copy = animSecondary.getCopy();
+        copy.attachGameView(gameView, cart.getWidth(), cart.getHeight());
+        return copy;
     }
 
 }

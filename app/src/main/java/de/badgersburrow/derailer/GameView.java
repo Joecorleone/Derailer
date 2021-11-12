@@ -141,7 +141,7 @@ public class GameView extends SurfaceView {
     public int getKilledPlayers(){
         int killed = 0;
         for (int i=0; i<players.size();i++){
-           if (players.get(i).aliveVirtual == false && players.get(i).alive == true){
+           if (!players.get(i).aliveVirtual && players.get(i).alive){
                killed +=1;
            }
 
@@ -653,7 +653,7 @@ public class GameView extends SurfaceView {
             int index = -1;
             while (true) {
                 index = randomGenerator.nextInt(cards.size());
-                if (indexes.contains(index) == false){
+                if (!indexes.contains(index)){
                     indexes.add(index);
                     break;
                 }
@@ -681,7 +681,7 @@ public class GameView extends SurfaceView {
     }
 
     public void drawChoiceCards(Canvas canvas){
-        if (gamePhase == gpStart) return;
+        if (gamePhase.equals(gpStart)) return;
         for (int i=0; i<3;  i++){
             choiceCards.get(i).onDraw(canvas);
             Log.d("Draw", Integer.toString(i)+": "+  choiceCards.get(i).ways.toString());

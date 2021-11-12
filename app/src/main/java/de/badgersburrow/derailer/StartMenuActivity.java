@@ -151,9 +151,9 @@ public class StartMenuActivity extends Activity{
         settingCards.add(setting_obstacle);
 
         //day night
-        SettingCard setting_daynight = new SettingCard(mContext);
+        /*SettingCard setting_daynight = new SettingCard(mContext);
         setting_daynight.init(option_titles[1], new ArrayList<>(Arrays.asList(R.drawable.option_obstacle_01,R.drawable.option_obstacle_02,R.drawable.option_draw_01)), 0);
-        settingCards.add(setting_daynight);
+        settingCards.add(setting_daynight);*/
 
         //draw
         SettingCard setting_draw = new SettingCard(mContext);
@@ -166,9 +166,9 @@ public class StartMenuActivity extends Activity{
         settingCards.add(setting_order);
 
         //sudden death
-        SettingCard setting_suddendeath = new SettingCard(mContext);
+        /*SettingCard setting_suddendeath = new SettingCard(mContext);
         setting_suddendeath.init(option_titles[4], new ArrayList<>(Arrays.asList(R.drawable.option_suddendeath_01,R.drawable.option_suddendeath_02)), 0);
-        settingCards.add(setting_suddendeath);
+        settingCards.add(setting_suddendeath);*/
 
 
         AdapterOptions adapterOptions = new AdapterOptions(mContext, settingCards);

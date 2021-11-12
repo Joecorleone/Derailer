@@ -138,8 +138,8 @@
         translatable = "false">
         <item>@drawable/theme01_10325476</item>
         <item>@drawable/theme01_10325476</item>
-        <item>@drawable/theme01_10325476</item>
-        <item>@drawable/theme01_10325476</item>
+        <item>@drawable/theme03_10325476</item>
+        <item>@drawable/theme03_10325476</item>
     </string-array>
 
     <string-array
@@ -147,8 +147,8 @@
         translatable = "false">
         <item>@drawable/theme01_10326745</item>
         <item>@drawable/theme01_10326745</item>
-        <item>@drawable/theme01_10326745</item>
-        <item>@drawable/theme01_10326745</item>
+        <item>@drawable/theme03_10326745</item>
+        <item>@drawable/theme03_10326745</item>
     </string-array>
 
     <string-array
@@ -156,8 +156,8 @@
         translatable = "false">
         <item>@drawable/theme01_10327654</item>
         <item>@drawable/theme01_10327654</item>
-        <item>@drawable/theme01_10327654</item>
-        <item>@drawable/theme01_10327654</item>
+        <item>@drawable/theme03_10327654</item>
+        <item>@drawable/theme03_10327654</item>
     </string-array>
 
     <string-array
@@ -165,8 +165,8 @@
         translatable = "false">
         <item>@drawable/theme01_10462735</item>
         <item>@drawable/theme01_10462735</item>
-        <item>@drawable/theme01_10462735</item>
-        <item>@drawable/theme01_10462735</item>
+        <item>@drawable/theme03_10462735</item>
+        <item>@drawable/theme03_10462735</item>
     </string-array>
 
     <string-array
@@ -174,8 +174,8 @@
         translatable = "false">
         <item>@drawable/theme01_10472653</item>
         <item>@drawable/theme01_10472653</item>
-        <item>@drawable/theme01_10472653</item>
-        <item>@drawable/theme01_10472653</item>
+        <item>@drawable/theme03_10472653</item>
+        <item>@drawable/theme03_10472653</item>
     </string-array>
 
     <string-array
@@ -183,8 +183,8 @@
         translatable = "false">
         <item>@drawable/theme01_10567234</item>
         <item>@drawable/theme01_10567234</item>
-        <item>@drawable/theme01_10567234</item>
-        <item>@drawable/theme01_10567234</item>
+        <item>@drawable/theme03_10567234</item>
+        <item>@drawable/theme03_10567234</item>
     </string-array>
 
     <string-array
@@ -192,8 +192,8 @@
         translatable = "false">
         <item>@drawable/theme01_10576243</item>
         <item>@drawable/theme01_10576243</item>
-        <item>@drawable/theme01_10576243</item>
-        <item>@drawable/theme01_10576243</item>
+        <item>@drawable/theme03_10576243</item>
+        <item>@drawable/theme03_10576243</item>
     </string-array>
 
     <string-array
@@ -201,8 +201,8 @@
         translatable = "false">
         <item>@drawable/theme01_10643725</item>
         <item>@drawable/theme01_10643725</item>
-        <item>@drawable/theme01_10643725</item>
-        <item>@drawable/theme01_10643725</item>
+        <item>@drawable/theme03_10643725</item>
+        <item>@drawable/theme03_10643725</item>
     </string-array>
 
     <string-array
@@ -210,8 +210,8 @@
         translatable = "false">
         <item>@drawable/theme01_10657324</item>
         <item>@drawable/theme01_10657324</item>
-        <item>@drawable/theme01_10657324</item>
-        <item>@drawable/theme01_10657324</item>
+        <item>@drawable/theme03_10657324</item>
+        <item>@drawable/theme03_10657324</item>
     </string-array>
 
     <string-array
@@ -219,8 +219,8 @@
         translatable = "false">
         <item>@drawable/theme01_10675423</item>
         <item>@drawable/theme01_10675423</item>
-        <item>@drawable/theme01_10675423</item>
-        <item>@drawable/theme01_10675423</item>
+        <item>@drawable/theme03_10675423</item>
+        <item>@drawable/theme03_10675423</item>
     </string-array>
 
     <string-array
@@ -228,8 +228,8 @@
         translatable = "false">
         <item>@drawable/theme01_10743652</item>
         <item>@drawable/theme01_10743652</item>
-        <item>@drawable/theme01_10743652</item>
-        <item>@drawable/theme01_10743652</item>
+        <item>@drawable/theme03_10743652</item>
+        <item>@drawable/theme03_10743652</item>
     </string-array>
 
     <string-array
@@ -237,8 +237,8 @@
         translatable = "false">
         <item>@drawable/theme01_10756342</item>
         <item>@drawable/theme01_10756342</item>
-        <item>@drawable/theme01_10756342</item>
-        <item>@drawable/theme01_10756342</item>
+        <item>@drawable/theme03_10756342</item>
+        <item>@drawable/theme03_10756342</item>
     </string-array>
 
     <string-array
@@ -246,8 +246,8 @@
         translatable = "false">
         <item>@drawable/theme01_10765432</item>
         <item>@drawable/theme01_10765432</item>
-        <item>@drawable/theme01_10765432</item>
-        <item>@drawable/theme01_10765432</item>
+        <item>@drawable/theme03_10765432</item>
+        <item>@drawable/theme03_10765432</item>
     </string-array>
 
     <string-array
@@ -255,8 +255,8 @@
         translatable = "false">
         <item>@drawable/theme01_23016745</item>
         <item>@drawable/theme01_23016745</item>
-        <item>@drawable/theme01_23016745</item>
-        <item>@drawable/theme01_23016745</item>
+        <item>@drawable/theme03_23016745</item>
+        <item>@drawable/theme03_23016745</item>
     </string-array>
 
     <string-array
@@ -264,8 +264,8 @@
         translatable = "false">
         <item>@drawable/theme01_23017654</item>
         <item>@drawable/theme01_23017654</item>
-        <item>@drawable/theme01_23017654</item>
-        <item>@drawable/theme01_23017654</item>
+        <item>@drawable/theme03_23017654</item>
+        <item>@drawable/theme03_23017654</item>
     </string-array>
 
     <string-array
@@ -273,8 +273,8 @@
         translatable = "false">
         <item>@drawable/theme01_24061735</item>
         <item>@drawable/theme01_24061735</item>
-        <item>@drawable/theme01_24061735</item>
-        <item>@drawable/theme01_24061735</item>
+        <item>@drawable/theme03_24061735</item>
+        <item>@drawable/theme03_24061735</item>
     </string-array>
 
     <string-array
@@ -282,8 +282,8 @@
         translatable = "false">
         <item>@drawable/theme01_24071653</item>
         <item>@drawable/theme01_24071653</item>
-        <item>@drawable/theme01_24071653</item>
-        <item>@drawable/theme01_24071653</item>
+        <item>@drawable/theme03_24071653</item>
+        <item>@drawable/theme03_24071653</item>
     </string-array>
 
     <string-array
@@ -291,8 +291,8 @@
         translatable = "false">
         <item>@drawable/theme01_25067134</item>
         <item>@drawable/theme01_25067134</item>
-        <item>@drawable/theme01_25067134</item>
-        <item>@drawable/theme01_25067134</item>
+        <item>@drawable/theme03_25067134</item>
+        <item>@drawable/theme03_25067134</item>
     </string-array>
 
     <string-array
@@ -300,8 +300,8 @@
         translatable = "false">
         <item>@drawable/theme01_25076143</item>
         <item>@drawable/theme01_25076143</item>
-        <item>@drawable/theme01_25076143</item>
-        <item>@drawable/theme01_25076143</item>
+        <item>@drawable/theme03_25076143</item>
+        <item>@drawable/theme03_25076143</item>
     </string-array>
 
     <string-array
@@ -309,8 +309,8 @@
         translatable = "false">
         <item>@drawable/theme01_26043715</item>
         <item>@drawable/theme01_26043715</item>
-        <item>@drawable/theme01_26043715</item>
-        <item>@drawable/theme01_26043715</item>
+        <item>@drawable/theme03_26043715</item>
+        <item>@drawable/theme03_26043715</item>
     </string-array>
 
     <string-array
@@ -318,8 +318,8 @@
         translatable = "false">
         <item>@drawable/theme01_26057314</item>
         <item>@drawable/theme01_26057314</item>
-        <item>@drawable/theme01_26057314</item>
-        <item>@drawable/theme01_26057314</item>
+        <item>@drawable/theme03_26057314</item>
+        <item>@drawable/theme03_26057314</item>
     </string-array>
 
     <string-array
@@ -327,8 +327,8 @@
         translatable = "false">
         <item>@drawable/theme01_27043651</item>
         <item>@drawable/theme01_27043651</item>
-        <item>@drawable/theme01_27043651</item>
-        <item>@drawable/theme01_27043651</item>
+        <item>@drawable/theme03_27043651</item>
+        <item>@drawable/theme03_27043651</item>
     </string-array>
 
     <string-array
@@ -336,8 +336,8 @@
         translatable = "false">
         <item>@drawable/theme01_27056341</item>
         <item>@drawable/theme01_27056341</item>
-        <item>@drawable/theme01_27056341</item>
-        <item>@drawable/theme01_27056341</item>
+        <item>@drawable/theme03_27056341</item>
+        <item>@drawable/theme03_27056341</item>
     </string-array>
 
     <string-array
@@ -345,8 +345,8 @@
         translatable = "false">
         <item>@drawable/theme01_32107654</item>
         <item>@drawable/theme01_32107654</item>
-        <item>@drawable/theme01_32107654</item>
-        <item>@drawable/theme01_32107654</item>
+        <item>@drawable/theme03_32107654</item>
+        <item>@drawable/theme03_32107654</item>
     </string-array>
 
     <string-array
@@ -354,8 +354,8 @@
         translatable = "false">
         <item>@drawable/theme01_34601725</item>
         <item>@drawable/theme01_34601725</item>
-        <item>@drawable/theme01_34601725</item>
-        <item>@drawable/theme01_34601725</item>
+        <item>@drawable/theme03_34601725</item>
+        <item>@drawable/theme03_34601725</item>
     </string-array>
 
     <string-array
@@ -363,8 +363,8 @@
         translatable = "false">
         <item>@drawable/theme01_34701652</item>
         <item>@drawable/theme01_34701652</item>
-        <item>@drawable/theme01_34701652</item>
-        <item>@drawable/theme01_34701652</item>
+        <item>@drawable/theme03_34701652</item>
+        <item>@drawable/theme03_34701652</item>
     </string-array>
 
     <string-array
@@ -372,8 +372,8 @@
         translatable = "false">
         <item>@drawable/theme01_35607124</item>
         <item>@drawable/theme01_35607124</item>
-        <item>@drawable/theme01_35607124</item>
-        <item>@drawable/theme01_35607124</item>
+        <item>@drawable/theme03_35607124</item>
+        <item>@drawable/theme03_35607124</item>
     </string-array>
 
     <string-array
@@ -381,8 +381,8 @@
         translatable = "false">
         <item>@drawable/theme01_36507214</item>
         <item>@drawable/theme01_36507214</item>
-        <item>@drawable/theme01_36507214</item>
-        <item>@drawable/theme01_36507214</item>
+        <item>@drawable/theme03_36507214</item>
+        <item>@drawable/theme03_36507214</item>
     </string-array>
 
     <string-array
@@ -390,8 +390,8 @@
         translatable = "false">
         <item>@drawable/theme01_42160735</item>
         <item>@drawable/theme01_42160735</item>
-        <item>@drawable/theme01_42160735</item>
-        <item>@drawable/theme01_42160735</item>
+        <item>@drawable/theme03_42160735</item>
+        <item>@drawable/theme03_42160735</item>
     </string-array>
 
     <string-array
@@ -399,8 +399,8 @@
         translatable = "false">
         <item>@drawable/theme01_42170653</item>
         <item>@drawable/theme01_42170653</item>
-        <item>@drawable/theme01_42170653</item>
-        <item>@drawable/theme01_42170653</item>
+        <item>@drawable/theme03_42170653</item>
+        <item>@drawable/theme03_42170653</item>
     </string-array>
 
     <string-array
@@ -408,8 +408,8 @@
         translatable = "false">
         <item>@drawable/theme01_43610725</item>
         <item>@drawable/theme01_43610725</item>
-        <item>@drawable/theme01_43610725</item>
-        <item>@drawable/theme01_43610725</item>
+        <item>@drawable/theme03_43610725</item>
+        <item>@drawable/theme03_43610725</item>
     </string-array>
 
     <string-array
@@ -417,8 +417,8 @@
         translatable = "false">
         <item>@drawable/theme01_45670123</item>
         <item>@drawable/theme01_45670123</item>
-        <item>@drawable/theme01_45670123</item>
-        <item>@drawable/theme01_45670123</item>
+        <item>@drawable/theme03_45670123</item>
+        <item>@drawable/theme03_45670123</item>
     </string-array>
 
     <string-array
@@ -426,8 +426,8 @@
         translatable = "false">
         <item>@drawable/theme01_45760132</item>
         <item>@drawable/theme01_45760132</item>
-        <item>@drawable/theme01_45760132</item>
-        <item>@drawable/theme01_45760132</item>
+        <item>@drawable/theme03_45760132</item>
+        <item>@drawable/theme03_45760132</item>
     </string-array>
 
     <string-array
@@ -435,8 +435,8 @@
         translatable = "false">
         <item>@drawable/theme01_54761032</item>
         <item>@drawable/theme01_54761032</item>
-        <item>@drawable/theme01_54761032</item>
-        <item>@drawable/theme01_54761032</item>
+        <item>@drawable/theme03_54761032</item>
+        <item>@drawable/theme03_54761032</item>
     </string-array>
 
     <string-array
@@ -444,8 +444,8 @@
         translatable = "false">
         <item>@drawable/theme01_72143650</item>
         <item>@drawable/theme01_72143650</item>
-        <item>@drawable/theme01_72143650</item>
-        <item>@drawable/theme01_72143650</item>
+        <item>@drawable/theme03_72143650</item>
+        <item>@drawable/theme03_72143650</item>
     </string-array>
 
 
