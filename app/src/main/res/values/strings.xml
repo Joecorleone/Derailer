@@ -8,4 +8,7 @@
     <string name="connections">Connections</string>
     <string name="option_obstacle">Obstacles</string>
 
+    <string name="label_player">Player %d</string>
+    <string name="label_ai">AI %d</string>
+
 </resources>

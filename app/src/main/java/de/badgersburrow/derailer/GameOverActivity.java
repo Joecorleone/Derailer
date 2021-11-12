@@ -28,7 +28,8 @@ public class GameOverActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_over);
         Bundle extras = getIntent().getExtras();
-        String playerName = extras.getString("player");
+        String playerName = extras.getString("playerLabel");
+        int playercolor = extras.getInt("playerColor");
         players = extras.getStringArrayList("Players");
         player = (TextView) findViewById(R.id.textPlayer);
         player.setText(playerName);

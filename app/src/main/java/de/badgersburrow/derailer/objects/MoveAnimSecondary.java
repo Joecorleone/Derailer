@@ -111,16 +111,11 @@ public class MoveAnimSecondary {
 
                     float fullScaleFactor = scaleFactor *( scaleEnd / duration * item.step + scaleStart / duration * (duration - item.step));
 
-
                     int scaledWidth = Math.round(fullScaleFactor* item.getBmp().getWidth());
                     int scaledHeight = Math.round(fullScaleFactor* item.getBmp().getHeight());
 
-
                     Matrix mat = new Matrix();
-
                     mat.postScale(fullScaleFactor,fullScaleFactor);
-                    //mat.postScale(1.f / (duration - item.step), 1.f / (duration - item.step));
-
 
                     if (posFixed) {
                         mat.postRotate(item.rot, scaledWidth / 2, scaledHeight / 2);

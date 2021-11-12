@@ -60,7 +60,7 @@ public class StartMenuActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         // Test
-        availablePlayers = new ArrayList<PlayerSelection>();
+        availablePlayers = new ArrayList<>();
         mContext = this.getApplicationContext();
 
         super.onCreate(savedInstanceState);
@@ -190,7 +190,7 @@ public class StartMenuActivity extends Activity{
             public void onClick(View v) {
                 if (getNumPlayers()>=2){
                     Intent newGameScreen= new Intent(mContext, GameActivity.class);
-                    newGameScreen.putExtra("Players", availablePlayers);
+                    newGameScreen.putExtra("Players", adapterCarts.getSelected());
                     newGameScreen.putExtra("connections", connections);
                     startActivity(newGameScreen);
                     finish();

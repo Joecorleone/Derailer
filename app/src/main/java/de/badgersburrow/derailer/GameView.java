@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import androidx.core.content.res.ResourcesCompat;
+
 import java.util.Random;
 
 import de.badgersburrow.derailer.R;
@@ -117,9 +120,20 @@ public class GameView extends SurfaceView {
             }
         });
 
+        int numHuman = 0;
+        int numAI = 0;
+
         for (PlayerSelection player : players){
+
             if (!player.isUnselected()){
-                this.players.add(new Player(this, this.selectedTheme,  player.getColor(), tiles, player.getSelection()));
+                if (player.isPlayer()){
+                    numHuman++;
+                    this.players.add(new Player(this, this.selectedTheme,  numHuman, player.getColor(), tiles, player.getSelection()));
+                } else {
+                    numAI++;
+                    this.players.add(new Player(this, this.selectedTheme,  numAI, player.getColor(), tiles, player.getSelection()));
+                }
+
             }
 
 
@@ -276,28 +290,53 @@ public class GameView extends SurfaceView {
 
     public void drawPlayerList(Canvas canvas){
         final float fontSize = getResources().getDimension(R.dimen.player_text_size);
+        final float fontSizeCurrent = getResources().getDimension(R.dimen.player_current_text_size);
         int yTextPos = (int) (canvas.getWidth()+bottomMargin +fontSize/2f);
         int dy = (int) (25*density);
-        Typeface font = Typeface.create("Arial", Typeface.NORMAL);
+        Typeface fontNormal = Typeface.createFromAsset(getContext().getAssets(),"fonts/Acme-Regular.ttf");
+        Typeface fontBold = Typeface.create(Typeface.createFromAsset(getContext().getAssets(),"fonts/Acme-Regular.ttf"), Typeface.NORMAL);
         int x = (canvas.getWidth() * 1 / 8);
 
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTypeface(font);
-        paint.setTextSize(fontSize);
+        paint.setTypeface(fontBold);
+        paint.setTextSize(fontSizeCurrent);
         paint.setAntiAlias(true);
 
-        canvas.drawText("Current Player", (float) (x*2/3), (float) (yTextPos), paint);
+        //canvas.drawText("Current Player", (float) (x*2/3), (float) (yTextPos), paint);
 
-        for (int i=0; i<players.size(); i++){
-            int index = (currentPlayer +i)%players.size();
+        int count = 0;
+        int countAlive = 0;
+        // get current player
+        for ( ; countAlive == 0 && count<players.size(); count++){
+            int index = (currentPlayer +count)%players.size();
             Player player = players.get(index);
             if (player.alive) {
-                paint.setColor(Color.BLACK);
-                paint.setTypeface(font);
-                paint.setTextSize(fontSize);
-                paint.setAntiAlias(true);
-                canvas.drawText(String.valueOf(player.getColor()),x, yTextPos + dy * (i + 1), paint);
+                Paint pPlayer = new Paint();
+                pPlayer.setColor(player.getColor());
+                pPlayer.setTypeface(fontBold);
+                pPlayer.setFakeBoldText(true);
+                pPlayer.setTextSize(fontSizeCurrent);
+                pPlayer.setAntiAlias(true);
+                canvas.drawText(player.getLabel(getContext()),(float) (x*2/3), yTextPos , pPlayer);
+                countAlive++;
+            }
+        }
+
+        canvas.drawText("Next", (float) (x*2/3), (float) (yTextPos + dy * 2), paint);
+
+        for (; count<players.size(); count++){
+            int index = (currentPlayer +count)%players.size();
+            Player player = players.get(index);
+            if (player.alive) {
+                Paint pPlayer = new Paint();
+                pPlayer.setColor(player.getColor());
+                pPlayer.setTypeface(fontNormal);
+                pPlayer.setFakeBoldText(true);
+                pPlayer.setTextSize(fontSize);
+                pPlayer.setAntiAlias(true);
+                canvas.drawText(player.getLabel(getContext()),x, yTextPos + dy * (countAlive + 2), pPlayer);
+                countAlive++;
             }
         }
     }
@@ -398,24 +437,30 @@ public class GameView extends SurfaceView {
     }
 
     public void drawBackground(Canvas canvas){
-        rectF.set(0, 0, getMeasuredWidth(), getMeasuredHeight());
-        canvas.drawBitmap(background, null, rectF, null);
+        //rectF.set(0, 0, getMeasuredWidth(), getMeasuredHeight());
+        //canvas.drawBitmap(background, null, rectF, null);
 
-        //canvas.drawColor(0xff0000ff);
+        canvas.drawColor(getContext().getResources().getColor(R.color.backgroundGame));
     }
 
     public void drawLines(Canvas canvas){
+        Paint bgColor = new Paint();
+        bgColor.setStyle(Paint.Style.FILL);
+        bgColor.setColor(getContext().getResources().getColor(R.color.gras));
+
         Paint lineColor = new Paint();
         lineColor.setARGB(255, 255, 255, 255);
         int screenHeight = getHeight();
         int screenWidth = getWidth();
-        int lineWidth = 10;
+        int lineWidth = 4;
         int num_plates = 6;
-        int plateWidth = (screenWidth - (2 * edge)) / 6;
+        int plateWidth = (screenWidth - (2 * edge)) / num_plates;
+
+        canvas.drawRect(edge, edge, screenWidth-edge - lineWidth/2, screenWidth-edge - lineWidth/2, bgColor);
 
         for (int i = 0; i <= num_plates; i ++ ) {
-            canvas.drawRect(edge, edge+i*plateWidth-lineWidth/2, getWidth()-edge, edge+i*plateWidth+lineWidth/2, lineColor);
-            canvas.drawRect(edge+i*plateWidth-lineWidth/2, edge, edge+i*plateWidth+lineWidth/2, getWidth()-edge, lineColor);
+            canvas.drawRect(edge, edge+i*plateWidth-lineWidth/2, getWidth()-edge - lineWidth/2, edge+i*plateWidth+lineWidth/2, lineColor);
+            canvas.drawRect(edge+i*plateWidth-lineWidth/2, edge, edge+i*plateWidth+lineWidth/2, getWidth()-edge -lineWidth/2, lineColor);
         }
     }
 
@@ -633,18 +678,20 @@ public class GameView extends SurfaceView {
 
     public void nextPlayer(){
         int number_live_players = 0;
-        String playerAlive = "NoBody";
+        String playerAliveLabel = "NoBody";
+        int playerAliveColor = 0xFF000000;
         for (int i=0; i<players.size(); i++){
             if (players.get(i).alive){
                 number_live_players += 1;
-                playerAlive = String.valueOf(players.get(i).getColor());
+                playerAliveLabel = players.get(i).getLabel(getContext());
+                playerAliveColor = players.get(i).getColor();
             }
         }
 
         if (number_live_players <= 1){
             this.gamePhase = "GameOver";
             gameLoopThread.setRunning(false);
-            gameActivity.onGameOver(playerAlive);
+            gameActivity.onGameOver(playerAliveLabel, playerAliveColor);
         }
 
         choiceCards =  new ArrayList<ChoiceCardSprite>();

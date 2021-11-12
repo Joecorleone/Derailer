@@ -6,6 +6,7 @@
     <dimen name="menu_vertical_margin">64dp</dimen>
     <dimen name="menu_text_size">30sp</dimen>
     <dimen name="player_text_size">24sp</dimen>
+    <dimen name="player_current_text_size">32sp</dimen>
     <dimen name="play_field_edge">60dp</dimen>
     <dimen name="play_field_bottomMargin">0dp</dimen>
 

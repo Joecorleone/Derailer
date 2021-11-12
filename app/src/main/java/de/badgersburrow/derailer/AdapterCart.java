@@ -27,6 +27,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
     private ArrayList<PlayerSelection> mPlayers;
     private Theme mTheme;
     private static Context mContext;
+    private ArrayList<PlayerSelection> selected;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         RelativeLayout rl_cart;
@@ -47,6 +48,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         this.mContext = mContext;
         this.mTheme = theme;
         this.mPlayers = players;
+        this.selected = new ArrayList<>();
     }
 
     @Override
@@ -61,13 +63,24 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
 
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
+        PlayerSelection player = mPlayers.get(position);
+
         holder.rl_cart.setTag(position);
         holder.rl_cart.setOnDragListener(new MyDragListener());
+        holder.rl_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.setSelection(MainActivity.keyUnselected);
+                selected.remove(player);
+                update();
+            }
+        });
+
         Matrix m = new Matrix();
         m.postRotate(90);
         float scale = mContext.getResources().getFraction(R.fraction.cart_scale, 1, 1);
         m.postScale(scale, scale);
-        PlayerSelection player = mPlayers.get(position);
+
 
         Bitmap cart = Utilities.drawableToBitmap(mTheme.getCartResId(mContext));
         int width = cart.getWidth();
@@ -94,8 +107,6 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
             holder.iv_indicator.setImageResource(R.drawable.ai_hard_indicator);
             holder.iv_indicator.setVisibility(View.VISIBLE);
         }
-
-
     }
 
     public void update(){
@@ -103,6 +114,9 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         StartMenuActivity.displayPlayerNumber();
     }
 
+    public ArrayList<PlayerSelection> getSelected() {
+        return selected;
+    }
 
     @Override
     public int getItemCount() {
@@ -135,7 +149,10 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
                     //LinearLayout container = (LinearLayout) v;
                     //container.addView(view);
                     //view.setVisibility(View.VISIBLE);
-                    mPlayers.get((int) v.getTag()).setSelection((String) dragView.getTag());
+                    PlayerSelection player = mPlayers.get((int) v.getTag());
+                    player.setSelection((String) dragView.getTag());
+                    selected.remove(player);
+                    selected.add(player);
                     update();
                     dragView.setVisibility(View.VISIBLE);
                     Log.d("DragListener",String.valueOf(v.getTag()));

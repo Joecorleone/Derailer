@@ -114,6 +114,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
                     tv_n_texttop.setText("Kaboom");
                     tv_n_textbottom.setText("is out!");
                 }
+                tv_n_textbig.setText(player.getLabel(getBaseContext()));
 
             }
         });
@@ -144,10 +145,11 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     }
 
 
-    public void onGameOver(String player) {
+    public void onGameOver(String playerLabel, int playerColor) {
         Intent theNextIntent = new Intent(getApplicationContext(),
                 GameOverActivity.class);
-        theNextIntent.putExtra("player", player);
+        theNextIntent.putExtra("playerLabel", playerLabel);
+        theNextIntent.putExtra("playerColor", playerColor);
         theNextIntent.putExtra("Players", playerSelection);
         startActivity(theNextIntent);
         this.finish();

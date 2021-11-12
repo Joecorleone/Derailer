@@ -1,5 +1,6 @@
 package de.badgersburrow.derailer;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -50,6 +51,7 @@ public class Player implements Serializable {
     private int destPosNextTile = -1;
     boolean alive = true;
     private boolean moving = false;
+    private int num;
     private int color;
     private Paint color_paint = new Paint();
     private ArrayList<Smoke> smoke = new ArrayList<Smoke>();
@@ -68,7 +70,7 @@ public class Player implements Serializable {
     int fieldPoints = 1;
     int killPoints = 50;
 
-    public Player(GameView gameView, GameTheme theme, int color, int tiles, String selection){
+    public Player(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection){
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
         this.bmp_main = theme.getCart();
@@ -84,6 +86,7 @@ public class Player implements Serializable {
         }
         Log.d("Player",String.valueOf(color) + " is " + selection);
         this.edge = gameView.edge;
+        this.num = num;
         this.color = color;
         this.color_paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
         this.tiles = tiles;
@@ -284,6 +287,14 @@ public class Player implements Serializable {
             this.destPosNextTile = newPosNextTile;
             this.currentStep = 1;
             this.moving = true;
+        }
+    }
+
+    public String getLabel(Context context){
+        if (this.KI){
+            return context.getString(R.string.label_ai, num);
+        } else {
+            return context.getString(R.string.label_player, num);
         }
     }
     public int getColor(){
