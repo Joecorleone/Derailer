@@ -59,7 +59,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER_HORIZONTAL);
         settingCard.setPadding(0,settingCard.getTopPadding(),0,0); // necessary
-        holder.ll_option.addView(settingCard, 0, llparams);
+        holder.ll_option.addView(settingCard, llparams);
         holder.tv_option.setText(settingCard.getTitle());
         holder.tv_option.setTypeface(MainActivity.customtf);
     }
@@ -72,5 +72,13 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
     @Override
     public int getItemCount() {
         return settingCards.size();
+    }
+
+    public ArrayList<String> getKeys(){
+        ArrayList<String> keys = new ArrayList<>();
+        for (SettingCard card : settingCards){
+            keys.add(card.getKey());
+        }
+        return keys;
     }
 }

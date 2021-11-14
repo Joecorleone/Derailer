@@ -62,6 +62,8 @@ public class Player implements Serializable {
     String KIStrength = MainActivity.keyKIHard;
     Random randomGenerator = new Random();
 
+    int tileCount = 0;
+
     private MoveAnimSecondary animSecondary;
     private float scaleFactor;
 
@@ -287,6 +289,7 @@ public class Player implements Serializable {
             this.destPosNextTile = newPosNextTile;
             this.currentStep = 1;
             this.moving = true;
+            this.tileCount++;
         }
     }
 
@@ -296,6 +299,10 @@ public class Player implements Serializable {
         } else {
             return context.getString(R.string.label_player, num);
         }
+    }
+
+    public int getCount(){
+        return tileCount;
     }
     public int getColor(){
         return color;

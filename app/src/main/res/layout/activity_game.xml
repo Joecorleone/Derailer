@@ -70,12 +70,29 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <Button
+        android:id="@+id/bt_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/iv_back"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/selection_arrow02"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_small"
+        android:background="@drawable/button_exit_state" />
+
+    <de.badgersburrow.derailer.objects.GameTextButton
+        android:id="@+id/bt_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play card"
+        android:textSize="30sp"
+        android:textColor="@color/textColorLight"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@null"
+        android:background="@drawable/button_play_state"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
 </RelativeLayout>

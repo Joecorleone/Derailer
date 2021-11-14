@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.content.DialogInterface.OnDismissListener;
 import android.view.View.OnClickListener;
 import android.content.DialogInterface;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import de.badgersburrow.derailer.R;
 
 import de.badgersburrow.derailer.objects.AnimationPath;
+import de.badgersburrow.derailer.objects.GameTextButton;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 
 import java.util.ArrayList;
@@ -34,7 +36,8 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     private Dialog gameOverDialog;
     private boolean dialogIsActive = false;
     private GameView theGameView;
-    private ImageView iv_back;
+    private GameTextButton bt_play;
+    private Button bt_back;
 
     Runnable notificationRun;
 
@@ -47,6 +50,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     ImageView iv_n_background, iv_n_player_color, iv_n_player;
     TextView tv_n_texttop, tv_n_textbig, tv_n_textbottom;
 
+    ArrayList<String> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         Utilities.FullScreencall(this);
 
         playerSelection = (ArrayList<PlayerSelection>) this.getIntent().getExtras().getSerializable("Players");
+        options = (ArrayList<String>) this.getIntent().getSerializableExtra("Options");
         connections = this.getIntent().getIntExtra("connections",4);
         animPath = new AnimationPath(connections);
 
@@ -63,7 +68,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         int selectedThemeId = SP.getInt("theme",0);
         setContentView(R.layout.activity_game);
         RelativeLayout rl_main = (RelativeLayout) findViewById(R.id.rl_main);
-        theGameView = new GameView(this, playerSelection, connections, new GameTheme(this, selectedThemeId));
+        theGameView = new GameView(this, playerSelection, options, connections, new GameTheme(this, selectedThemeId));
         rl_main.addView(theGameView,0);
         //find all notification views
         // put into separate custom view
@@ -77,13 +82,21 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
 
         showNotification(theGameView.players.get(0));
 
-        iv_back = (ImageView) findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        bt_back = (Button) findViewById(R.id.bt_back);
+        bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+        bt_play = (GameTextButton) findViewById(R.id.bt_play);
+        bt_play.setDrawableDisabled(R.drawable.button_play_state01);
+        bt_play.setDrawablePressed(R.drawable.button_play_state03);
+        bt_play.setDrawableNormal(R.drawable.button_play_state02);
+        bt_play.setTypeface(MainActivity.customtf);
+
+        theGameView.setPlayButton(bt_play);
     }
 
 

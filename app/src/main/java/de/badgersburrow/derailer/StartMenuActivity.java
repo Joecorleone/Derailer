@@ -9,33 +9,37 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.R;
-
+import de.badgersburrow.derailer.objects.GameTextButton;
 import de.badgersburrow.derailer.objects.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by cetty on 26.07.16.
  */
 public class StartMenuActivity extends Activity{
-    ImageView iv_toggle, iv_back;
 
-    static TextView tv_play;
+    private static String TAG = "StartMenuActivity";
+    ImageView iv_back;
+
     int connections = 4;
 
     SharedPreferences SP;
@@ -51,8 +55,10 @@ public class StartMenuActivity extends Activity{
 
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
+    static GameTextButton bt_play;
     static TextView tv_player_num, tv_ai_easy_num, tv_ai_normal_num, tv_ai_hard_num;
     static ImageView iv_player_icon, iv_ai_easy_icon, iv_ai_normal_icon, iv_ai_hard_icon;
+    static ToggleButton tb_toggle;
 
     Context mContext;
     static Resources res;
@@ -76,24 +82,29 @@ public class StartMenuActivity extends Activity{
         iv_ai_hard = (ImageView) findViewById(R.id.iv_ai_hard);
 
         TextView tv_header = (TextView) findViewById(R.id.tv_header);
+        TextView tv_players = (TextView) findViewById(R.id.tv_players);
+        TextView tv_human = (TextView) findViewById(R.id.tv_human);
+        TextView tv_ai = (TextView) findViewById(R.id.tv_ai);
         TextView tv_options = (TextView) findViewById(R.id.tv_options);
         TextView tv_conn_title = (TextView) findViewById(R.id.tv_connections);
         TextView tv_conn_four = (TextView) findViewById(R.id.tv_conn_four);
         TextView tv_conn_eight = (TextView) findViewById(R.id.tv_conn_eight);
 
         tv_header.setTypeface(MainActivity.customtf);
+        tv_players.setTypeface(MainActivity.customtf);
+        tv_human.setTypeface(MainActivity.customtf);
+        tv_ai.setTypeface(MainActivity.customtf);
         tv_options.setTypeface(MainActivity.customtf);
         tv_conn_title.setTypeface(MainActivity.customtf);
         tv_conn_four.setTypeface(MainActivity.customtf);
         tv_conn_eight.setTypeface(MainActivity.customtf);
 
-
-        tv_play = (TextView) findViewById(R.id.tv_play);
+        bt_play = (GameTextButton) findViewById(R.id.bt_play);
         tv_player_num = (TextView) findViewById(R.id.tv_player_num);
         tv_ai_easy_num = (TextView) findViewById(R.id.tv_ai_easy_num);
         tv_ai_normal_num = (TextView) findViewById(R.id.tv_ai_normal_num);
         tv_ai_hard_num = (TextView) findViewById(R.id.tv_ai_hard_num);
-        tv_play.setTypeface(MainActivity.customtf);
+        bt_play.setTypeface(MainActivity.customtf);
         tv_player_num.setTypeface(MainActivity.customtf);
         tv_ai_easy_num.setTypeface(MainActivity.customtf);
         tv_ai_normal_num.setTypeface(MainActivity.customtf);
@@ -107,13 +118,16 @@ public class StartMenuActivity extends Activity{
         rv_options = (RecyclerView) findViewById(R.id.rv_options);
 
 
-        iv_toggle = (ImageView) findViewById(R.id.iv_toggle);
-        iv_toggle.setOnClickListener(new OnClickListener() {
+        tb_toggle = (ToggleButton) findViewById(R.id.tb_toggle);
+        tb_toggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            toggle();
+                toggle(v);
             }
         });
+
+        //animationDrawable.selectDrawable(animationDrawable.getNumberOfFrames() - 1);
+
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
         SPE = SP.edit();
@@ -122,11 +136,10 @@ public class StartMenuActivity extends Activity{
         Theme gameTheme = new Theme(selectedThemeId, true);
 
         connections = SP.getInt("connections",4);
-        if (connections == 4){
-            iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state0));
-        } else if (connections == 8){
-            iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state1));
-        }
+        tb_toggle.setChecked(connections == 8);
+        StateListDrawable stateListDrawable = (StateListDrawable) tb_toggle.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
+        animationDrawable.start();
 
         TypedArray cart_color_selection = res.obtainTypedArray(R.array.cart_color_selection);
         int color_default = res.getColor(R.color.cartdefault);
@@ -142,33 +155,48 @@ public class StartMenuActivity extends Activity{
         // populate Options
         settingCards = new ArrayList<>();
         // has to correspond to the order of the strings in the array
-        String[] option_titles = res.getStringArray(R.array.option_titles);
-        ArrayList<Integer> resid_images;
 
         //obstacle
         SettingCard setting_obstacle = new SettingCard(mContext);
-        setting_obstacle.init(option_titles[0], new ArrayList<>(Arrays.asList(R.drawable.option_obstacle_01,R.drawable.option_obstacle_02)), 0);
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_01, getString(R.string.option_obstacle_01), R.drawable.option_obstacle_01));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_02, getString(R.string.option_obstacle_02), R.drawable.option_obstacle_02));
+        setting_obstacle.init(getString(R.string.option_obstacle), SP.getString(Keys.option_obstacle, Keys.option_obstacle_01));
         settingCards.add(setting_obstacle);
 
         //day night
         /*SettingCard setting_daynight = new SettingCard(mContext);
-        setting_daynight.init(option_titles[1], new ArrayList<>(Arrays.asList(R.drawable.option_obstacle_01,R.drawable.option_obstacle_02,R.drawable.option_draw_01)), 0);
+        setting_daynight.addChoice(new SettingCard.Choice("key_daynight_01", getString(R.string.option_daynight_01), R.drawable.option_daynight_01));
+        setting_daynight.addChoice(new SettingCard.Choice("key_daynight_02", getString(R.string.option_daynight_02), R.drawable.option_daynight_02));
+        setting_daynight.init(getString(R.string.option_daynight), SP.getString(Keys.option_daynight, Keys.option_daynight_01));
         settingCards.add(setting_daynight);*/
 
         //draw
         SettingCard setting_draw = new SettingCard(mContext);
-        setting_draw.init(option_titles[2], new ArrayList<>(Arrays.asList(R.drawable.option_draw_01,R.drawable.option_draw_02)), 0);
+        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_01, getString(R.string.option_draw_01), R.drawable.option_draw_01));
+        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_02, getString(R.string.option_draw_02), R.drawable.option_draw_02));
+        setting_draw.init(getString(R.string.option_draw), SP.getString(Keys.option_draw, Keys.option_draw_01));
         settingCards.add(setting_draw);
 
         //order
         SettingCard setting_order = new SettingCard(mContext);
-        setting_order.init(option_titles[3], new ArrayList<>(Arrays.asList(R.drawable.option_order_01,R.drawable.option_order_02)), 0);
+        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_01, getString(R.string.option_order_01), R.drawable.option_order_01));
+        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_02, getString(R.string.option_order_02), R.drawable.option_order_02));
+        setting_order.init(getString(R.string.option_order), SP.getString(Keys.option_order, Keys.option_order_01));
         settingCards.add(setting_order);
 
         //sudden death
         /*SettingCard setting_suddendeath = new SettingCard(mContext);
-        setting_suddendeath.init(option_titles[4], new ArrayList<>(Arrays.asList(R.drawable.option_suddendeath_01,R.drawable.option_suddendeath_02)), 0);
+        setting_suddendeath.addChoice(new SettingCard.Choice(Keys.option_suddendeath_01, getString(R.string.option_suddendeath_01), R.drawable.option_suddendeath_01));
+        setting_suddendeath.addChoice(new SettingCard.Choice(Keys.option_suddendeath_02, getString(R.string.option_suddendeath_02), R.drawable.option_suddendeath_02));
+        setting_suddendeath.init(getString(R.string.option_suddendeath), SP.getString(Keys.option_suddendeath, Keys.option_suddendeath_01));
         settingCards.add(setting_suddendeath);*/
+
+        //order
+        SettingCard setting_victory = new SettingCard(mContext);
+        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_01, getString(R.string.option_victory_01), R.drawable.option_victory_01));
+        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_02, getString(R.string.option_victory_02), R.drawable.option_victory_02));
+        setting_victory.init(getString(R.string.option_victory),SP.getString(Keys.option_victory, Keys.option_victory_01));
+        settingCards.add(setting_victory);
 
 
         AdapterOptions adapterOptions = new AdapterOptions(mContext, settingCards);
@@ -184,13 +212,17 @@ public class StartMenuActivity extends Activity{
         iv_ai_normal.setOnTouchListener(new MyTouchListener());
         iv_ai_hard.setOnTouchListener(new MyTouchListener());
 
-
-        tv_play.setOnClickListener(new OnClickListener() {
+        //Utilities.selector(bt_play, R.drawable.button_play_state02, R.drawable.button_play_state01, R.drawable.button_play_state03);
+        bt_play.setDrawableDisabled(R.drawable.button_play_state01);
+        bt_play.setDrawablePressed(R.drawable.button_play_state03);
+        bt_play.setDrawableNormal(R.drawable.button_play_state02);
+        bt_play.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getNumPlayers()>=2){
                     Intent newGameScreen= new Intent(mContext, GameActivity.class);
                     newGameScreen.putExtra("Players", adapterCarts.getSelected());
+                    newGameScreen.putExtra("Options", adapterOptions.getKeys());
                     newGameScreen.putExtra("connections", connections);
                     startActivity(newGameScreen);
                     finish();
@@ -238,9 +270,11 @@ public class StartMenuActivity extends Activity{
 
     static public void displayPlayerNumber(){
         if (getNumPlayers()<2){
-            tv_play.setBackground(res.getDrawable(R.drawable.button01));
+            bt_play.setEnabled(false);
+            //tv_play.setBackground(res.getDrawable(R.drawable.button_play01));
         } else {
-            tv_play.setBackground(res.getDrawable(R.drawable.button02));
+            bt_play.setEnabled(true);
+            //tv_play.setBackground(res.getDrawable(R.drawable.button_play02));
         }
         int numPlayers = 0;
         int numAiEasy = 0;
@@ -292,14 +326,18 @@ public class StartMenuActivity extends Activity{
         tv_ai_hard_num.setText(String.valueOf(numAiHard));
     }
 
-    void toggle(){
+    void toggle(View v){
         if (connections == 4){
-            iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state1));
+            //iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state1));
             connections=8;
         } else if (connections == 8){
-            iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state0));
+            //iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state0));
             connections=4;
         }
+        StateListDrawable stateListDrawable = (StateListDrawable) v.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
+        animationDrawable.start();
+        Log.d(TAG, "connections: " + connections);
         SPE.putInt("connections",connections);
         SPE.commit();
     }

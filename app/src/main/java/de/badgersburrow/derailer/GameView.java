@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -46,6 +48,7 @@ public class GameView extends SurfaceView {
     Random randomGenerator = new Random();
     boolean virtual = false;
 
+    ArrayList<String> options;
 
     final String gpStart = "Start";
     final String gpPlaying = "Playing";
@@ -75,13 +78,16 @@ public class GameView extends SurfaceView {
     private int cardSelected = -1;
     private  ArrayList<MyButton> buttons = new ArrayList<MyButton>();
 
-    public GameView(Context context, ArrayList<PlayerSelection> players, int connections, GameTheme selectedTheme) {
+    private Button bt_play;
+
+    public GameView(Context context, ArrayList<PlayerSelection> players, ArrayList<String> options, int connections, GameTheme selectedTheme) {
         super(context);
         background = BitmapFactory.decodeResource(getResources(), R.drawable.start_screen);
         gameActivity = (GameActivity) context;
         edge = Math.round(getResources().getDimension(R.dimen.play_field_edge));
         bottomMargin = Math.round(getResources().getDimension(R.dimen.play_field_bottomMargin));
         gameLoopThread = new GameLoopThread(this);
+        this.options = options;
         tiles = connections;
         virtual = false;
 
@@ -135,8 +141,6 @@ public class GameView extends SurfaceView {
                 }
 
             }
-
-
         }
         getDensity();
         init();
@@ -150,6 +154,16 @@ public class GameView extends SurfaceView {
         gameLoopThread = new GameLoopThread(this);
         gameLoopThread.setRunning(true);
         gameLoopThread.start();
+    }
+
+    public void setPlayButton(Button bt_play){
+        this.bt_play = bt_play;
+        this.bt_play.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                movePlayers();
+            }
+        });
     }
 
     public int getKilledPlayers(){
@@ -273,12 +287,30 @@ public class GameView extends SurfaceView {
         if (gamePhase.equals(gpPlaying) & cardSelected != -1){
             for (int i=0; i<buttons.size(); i++){
                 MyButton button = buttons.get(i);
-                button.onDraw(canvas, true);
+                //button.onDraw(canvas, true);
+
+            }
+            if (bt_play != null){
+                gameActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        bt_play.setEnabled(true);
+                    }
+                });
             }
         } else {
             for (int i=0; i<buttons.size(); i++){
                 MyButton button = buttons.get(i);
-                button.onDraw(canvas, false);
+                //button.onDraw(canvas, false);
+
+            }
+            if (bt_play != null){
+                gameActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        bt_play.setEnabled(false);
+                    }
+                });
             }
         }
     }
@@ -303,8 +335,6 @@ public class GameView extends SurfaceView {
         paint.setTextSize(fontSizeCurrent);
         paint.setAntiAlias(true);
 
-        //canvas.drawText("Current Player", (float) (x*2/3), (float) (yTextPos), paint);
-
         int count = 0;
         int countAlive = 0;
         // get current player
@@ -318,7 +348,11 @@ public class GameView extends SurfaceView {
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSizeCurrent);
                 pPlayer.setAntiAlias(true);
+
                 canvas.drawText(player.getLabel(getContext()),(float) (x*2/3), yTextPos , pPlayer);
+                if (options.contains(Keys.option_victory_02)){
+                    canvas.drawText(String.valueOf(player.getCount()),(float) x + 200, yTextPos , pPlayer);
+                }
                 countAlive++;
             }
         }
@@ -335,7 +369,11 @@ public class GameView extends SurfaceView {
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSize);
                 pPlayer.setAntiAlias(true);
+
                 canvas.drawText(player.getLabel(getContext()),x, yTextPos + dy * (countAlive + 2), pPlayer);
+                if (options.contains(Keys.option_victory_02)){
+                    canvas.drawText(String.valueOf(player.getCount()),(float) x + 200, yTextPos + dy * (countAlive + 2) , pPlayer);
+                }
                 countAlive++;
             }
         }
@@ -390,11 +428,16 @@ public class GameView extends SurfaceView {
             cards.add(new ChoiceCardSprite(this, this.selectedTheme.getCard_bottom(72143650), this.selectedTheme.getCard_top(72143650), Arrays.asList(7,2,1,4,3,6,5,0), 0));
 
             choiceCards =  new ArrayList<ChoiceCardSprite>();
-            for (int i=0; i<3;  i++){
+            ArrayList<Integer> selected = new ArrayList<>();
+
+            while (choiceCards.size()<3){
                 int index = randomGenerator.nextInt(cards.size());
-                ChoiceCardSprite card = cards.get(index);
-                card.setPos(i);
-                choiceCards.add(card);
+                if (!selected.contains(index)){
+                    selected.add(index);
+                    ChoiceCardSprite card = cards.get(index);
+                    card.setPos(selected.size());
+                    choiceCards.add(card);
+                }
             }
         }
         Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);

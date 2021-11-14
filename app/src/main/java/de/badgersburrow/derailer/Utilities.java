@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by reim on 27.11.16.
@@ -48,6 +50,19 @@ public class Utilities {
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
             decorView.setSystemUiVisibility(uiOptions);
         }
+    }
+
+
+    public static void selector(Button b, int image_normal, int image_disabled, int image_pressed )
+    {
+        StateListDrawable states = new StateListDrawable();
+        states.addState(new int[] {android.R.attr.state_pressed},
+                b.getContext().getResources().getDrawable(image_pressed));
+        states.addState(new int[] {android.R.attr.state_enabled},
+                b.getContext().getResources().getDrawable(image_normal));
+        states.addState(new int[] { },
+                b.getContext().getResources().getDrawable(image_disabled));
+        b.setBackground(states);
     }
 
 

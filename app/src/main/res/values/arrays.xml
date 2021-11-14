@@ -63,16 +63,6 @@
         <item>@color/cart10</item>
     </string-array>
 
-    <string-array
-        name="option_titles">
-        <item>Obstacles</item>
-        <item>Day/Night</item>
-        <item>Draw</item>
-        <item>Order</item>
-        <item>Sudden death</item>
-    </string-array>
-
-
     <!-- tiles with 4 connections -->
     <!-- base tiles -->
     <string-array
