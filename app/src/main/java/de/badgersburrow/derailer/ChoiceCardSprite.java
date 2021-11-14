@@ -13,9 +13,9 @@ public class ChoiceCardSprite extends CardSprite {
 
     private int pos = 0;
 
-    public ChoiceCardSprite(GameView gameView, Bitmap bottomBmp, Bitmap topBmp, List<Integer> ways, int pos){
-        super(gameView, bottomBmp, topBmp, ways, pos);
-        this.pos = pos;
+    public ChoiceCardSprite(GameView gameView, Bitmap bottomBmp, Bitmap topBmp, List<Integer> ways, int rotation){
+        super(gameView, bottomBmp, topBmp, ways, rotation);
+        this.pos = 0;
     }
 
     public void onDraw(Canvas canvas){
@@ -26,11 +26,16 @@ public class ChoiceCardSprite extends CardSprite {
             this.y = canvas.getWidth()+gameView.bottomMargin;
             this.dest = new Rect(x, y, x+ width, y+width);
         }
-
         super.drawTopBottom(canvas);
     }
 
-    public void setPos(int pos){
-        this.pos = pos;
+    public int getPos() {
+        return pos;
+    }
+
+    public ChoiceCardSprite getCopy(int pos){
+        ChoiceCardSprite card = new ChoiceCardSprite(gameView, bottomBmp, topBmp, ways, rotation);
+        card.pos = pos;
+        return card;
     }
 }

@@ -37,14 +37,14 @@ public class GameView extends SurfaceView {
 
     private GameActivity gameActivity = new GameActivity();
     private Bitmap background;
-    private ArrayList<ChoiceCardSprite> cards = new ArrayList<ChoiceCardSprite>();
-    private ArrayList<StartSprite> startPositions = new ArrayList<StartSprite>();
+    private ArrayList<ChoiceCardSprite> cards = new ArrayList<>();
+    private ArrayList<StartSprite> startPositions = new ArrayList<>();
     private final RectF rectF = new RectF();
     private SurfaceHolder surfaceHolder;
     GameLoopThread gameLoopThread;
     private long lastClick;
     String gamePhase;
-    private ArrayList<ChoiceCardSprite> choiceCards = new ArrayList<ChoiceCardSprite>();
+    private ArrayList<ChoiceCardSprite> choiceCards = new ArrayList<>();
     Random randomGenerator = new Random();
     boolean virtual = false;
 
@@ -139,7 +139,6 @@ public class GameView extends SurfaceView {
                     numAI++;
                     this.players.add(new Player(this, this.selectedTheme,  numAI, player.getColor(), tiles, player.getSelection()));
                 }
-
             }
         }
         getDensity();
@@ -172,7 +171,6 @@ public class GameView extends SurfaceView {
            if (!players.get(i).aliveVirtual && players.get(i).alive){
                killed +=1;
            }
-
         }
         return killed;
     }
@@ -209,8 +207,6 @@ public class GameView extends SurfaceView {
             drawStartPositions(canvas);
         }
 
-
-
         if (this.gamePhase.equals("GameOver")){
             //"GAME OVER"
             final int fontSize = (int) (25 * density);
@@ -237,9 +233,7 @@ public class GameView extends SurfaceView {
         drawPlayerList(canvas);
 
         if (gamePhase.equals(gpPlaying)) {
-            for (int i = 0; i < 3; i++) {
-                drawChoiceCards(canvas);//cards.get(i).onDraw(canvas);
-            }
+            drawChoiceCards(canvas);//cards.get(i).onDraw(canvas);
         }
 
         if (gamePhase.equals(gpMoving)) {
@@ -384,10 +378,9 @@ public class GameView extends SurfaceView {
             cards.add(new ChoiceCardSprite(this, this.selectedTheme.getCard_bottom(1032), this.selectedTheme.getCard_top(1032), Arrays.asList(1,0,3,2), 0));
             cards.add(new ChoiceCardSprite(this, this.selectedTheme.getCard_bottom(2301), this.selectedTheme.getCard_top(2301), Arrays.asList(2,3,0,1), 1));
             cards.add(new ChoiceCardSprite(this, this.selectedTheme.getCard_bottom(3210), this.selectedTheme.getCard_top(3210), Arrays.asList(3,2,1,0), 2));
-            choiceCards =  new ArrayList<ChoiceCardSprite>();
+            choiceCards =  new ArrayList<>();
             for (int i=0; i<3;  i++){
-                ChoiceCardSprite card = cards.get(i);
-                card.setPos(i);
+                ChoiceCardSprite card = cards.get(i).getCopy(i);
                 choiceCards.add(card);
             }
         } else {
@@ -427,18 +420,7 @@ public class GameView extends SurfaceView {
             cards.add(new ChoiceCardSprite(this, this.selectedTheme.getCard_bottom(54761032), this.selectedTheme.getCard_top(54761032), Arrays.asList(5,4,7,6,1,0,3,2), 0));
             cards.add(new ChoiceCardSprite(this, this.selectedTheme.getCard_bottom(72143650), this.selectedTheme.getCard_top(72143650), Arrays.asList(7,2,1,4,3,6,5,0), 0));
 
-            choiceCards =  new ArrayList<ChoiceCardSprite>();
-            ArrayList<Integer> selected = new ArrayList<>();
-
-            while (choiceCards.size()<3){
-                int index = randomGenerator.nextInt(cards.size());
-                if (!selected.contains(index)){
-                    selected.add(index);
-                    ChoiceCardSprite card = cards.get(index);
-                    card.setPos(selected.size());
-                    choiceCards.add(card);
-                }
-            }
+            updateChoiceCards();
         }
         Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);
         if (tiles == 4) {
@@ -668,7 +650,7 @@ public class GameView extends SurfaceView {
         if (System.currentTimeMillis() - lastClick > 200 & event.getAction() == MotionEvent.ACTION_UP) {
             lastClick = System.currentTimeMillis();
             synchronized (getHolder()) {
-                for (int i=0; i<3; i++){
+                for (int i=0; i<choiceCards.size(); i++){
                     CardSprite card = choiceCards.get(i);
                     if (card.isTouched(event.getX(), event.getY()) && gamePhase.equals(gpPlaying)){
                         Player player = players.get(currentPlayer);
@@ -737,22 +719,7 @@ public class GameView extends SurfaceView {
             gameActivity.onGameOver(playerAliveLabel, playerAliveColor);
         }
 
-        choiceCards =  new ArrayList<ChoiceCardSprite>();
-        ArrayList <Integer> indexes = new ArrayList<Integer>();
-        for (int i=0; i<3;  i++){
-            int index = -1;
-            while (true) {
-                index = randomGenerator.nextInt(cards.size());
-                if (!indexes.contains(index)){
-                    indexes.add(index);
-                    break;
-                }
-            }
-            ChoiceCardSprite card = cards.get(index);
-            card.setPos(i);
-            Log.d("Card", card.ways.toString());
-            choiceCards.add(card);
-        }
+        updateChoiceCards();
 
         gamePhase = gpPlaying;
         int i = 0;
@@ -770,11 +737,24 @@ public class GameView extends SurfaceView {
         }
     }
 
+    public void updateChoiceCards(){
+        choiceCards = new ArrayList<>();
+        ArrayList<Integer> selected = new ArrayList<>();
+        while (choiceCards.size()<3){
+            int index = randomGenerator.nextInt(cards.size());
+            if (!selected.contains(index)){
+                selected.add(index);
+                ChoiceCardSprite card = cards.get(index).getCopy(choiceCards.size());
+                choiceCards.add(card);
+            }
+        }
+    }
+
     public void drawChoiceCards(Canvas canvas){
         if (gamePhase.equals(gpStart)) return;
-        for (int i=0; i<3;  i++){
-            choiceCards.get(i).onDraw(canvas);
-            Log.d("Draw", Integer.toString(i)+": "+  choiceCards.get(i).ways.toString());
+        for (ChoiceCardSprite card : choiceCards){
+            card.onDraw(canvas);
+            Log.d("Draw", Integer.toString(card.getPos())+": "+  card.ways.toString());
         }
     }
 
