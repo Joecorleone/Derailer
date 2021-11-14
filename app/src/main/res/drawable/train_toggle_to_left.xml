@@ -3,19 +3,25 @@
     android:oneshot="true" >
 
     <item
+        android:drawable="@drawable/train_toggle_6"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/train_toggle_5"
+        android:duration="50"/>
+    <item
         android:drawable="@drawable/train_toggle_4"
-        android:duration="100"/>
+        android:duration="50"/>
     <item
         android:drawable="@drawable/train_toggle_3"
-        android:duration="100"/>
+        android:duration="50"/>
     <item
         android:drawable="@drawable/train_toggle_2"
-        android:duration="100"/>
+        android:duration="50"/>
     <item
         android:drawable="@drawable/train_toggle_1"
-        android:duration="100"/>
+        android:duration="50"/>
     <item
         android:drawable="@drawable/train_toggle_0"
-        android:duration="100"/>
+        android:duration="50"/>
 
 </animation-list>
