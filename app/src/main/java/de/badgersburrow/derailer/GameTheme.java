@@ -241,6 +241,42 @@ public class GameTheme {
         cards_54761032_bottom.recycle();
         cards_72143650_bottom.recycle();
 
+        cards_10325476_top.recycle();
+        cards_10326745_top.recycle();
+        cards_10327654_top.recycle();
+        cards_10462735_top.recycle();
+        cards_10472653_top.recycle();
+        cards_10567234_top.recycle();
+        cards_10576243_top.recycle();
+        cards_10643725_top.recycle();
+        cards_10657324_top.recycle();
+        cards_10675423_top.recycle();
+        cards_10743652_top.recycle();
+        cards_10756342_top.recycle();
+        cards_10765432_top.recycle();
+        cards_23016745_top.recycle();
+        cards_23017654_top.recycle();
+        cards_24061735_top.recycle();
+        cards_24071653_top.recycle();
+        cards_25067134_top.recycle();
+        cards_25076143_top.recycle();
+        cards_26043715_top.recycle();
+        cards_26057314_top.recycle();
+        cards_27043651_top.recycle();
+        cards_27056341_top.recycle();
+        cards_32107654_top.recycle();
+        cards_34601725_top.recycle();
+        cards_34701652_top.recycle();
+        cards_35607124_top.recycle();
+        cards_36507214_top.recycle();
+        cards_42160735_top.recycle();
+        cards_42170653_top.recycle();
+        cards_43610725_top.recycle();
+        cards_45670123_top.recycle();
+        cards_45760132_top.recycle();
+        cards_54761032_top.recycle();
+        cards_72143650_top.recycle();
+
 
         switch(themeId) {
 

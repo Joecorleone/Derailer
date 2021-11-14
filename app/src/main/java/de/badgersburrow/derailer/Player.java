@@ -133,11 +133,11 @@ public class Player implements Serializable {
             if (tx >= 0 && ty>=0){
                 angle = (float) (Math.acos(tx)*180./Math.PI);
             } else if (tx <= 0 && ty>=0){
-                angle = (float) (Math.acos(ty)*180./Math.PI + 90);
+                angle = (float) (Math.acos(ty)*180./Math.PI + 90); //+290
             } else if (tx <= 0 && ty<=0){
-                angle = (float) (Math.asin(tx)*180./Math.PI + 270);
+                angle = (float) (Math.asin(tx)*180./Math.PI + 270); //+270
             } else {
-                angle = (float) (Math.asin(tx)*180./Math.PI + 270);
+                angle = (float) (Math.asin(tx)*180./Math.PI + 270); //+270
             }
 
             int cur_centerX = x + dx;
