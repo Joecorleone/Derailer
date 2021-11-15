@@ -161,6 +161,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         for (Player p: theGameView.players){
             playerResult.add(p.getResult());
         }
+        theNextIntent.putExtra("PlayersSelection", playerSelection);
         theNextIntent.putExtra("Players", playerResult);
         theNextIntent.putExtra("Options", options);
         startActivity(theNextIntent);

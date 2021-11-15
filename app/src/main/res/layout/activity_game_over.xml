@@ -5,18 +5,21 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tv_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Game Over"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+        android:layout_marginTop="@dimen/activity_vertical_margin_small"
+        android:background="@drawable/header_sign"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="30sp"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
 
         <View
             android:layout_width="0dp"
@@ -75,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_above="@+id/ll_place2_podium"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
@@ -85,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_above="@+id/ll_place2_podium"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
@@ -144,6 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_above="@+id/ll_place1_podium"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
@@ -154,6 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_above="@+id/ll_place1_podium"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
@@ -212,16 +219,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_above="@+id/ll_place3_podium"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
+                android:layout_marginBottom="@dimen/activity_vertical_margin_small"
+                android:foregroundGravity=""/>
 
             <ImageView
                 android:id="@+id/iv_place3_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_above="@+id/ll_place3_podium"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
@@ -241,21 +251,31 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/activity_vertical_margin_large">
+        android:layout_height="0dp"
+        android:gravity="center_horizontal|bottom"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_small">
 
         <Button
             android:id="@+id/bNewTry"
-            android:layout_width="124dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="restart" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_restart_state" />
 
         <Button
             android:id="@+id/bMainMenu"
-            android:layout_width="124dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="main menu" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_menu_state" />
+
 
     </LinearLayout>
 

@@ -12,7 +12,6 @@ import android.util.Log;
 
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 import de.badgersburrow.derailer.objects.PlayerResult;
-import de.badgersburrow.derailer.objects.Smoke;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ import static java.lang.Math.min;
  * Created by cetty on 29.07.16.
  */
 public class Player implements Serializable {
+
+    private static String TAG = "Player";
 
     private Bitmap bmp_main;
     private Bitmap bmp_color;
@@ -62,7 +63,7 @@ public class Player implements Serializable {
     String KIStrength = MainActivity.keyKIHard;
     Random randomGenerator = new Random();
 
-    private int outCount = 0;
+    private int outCount = 100;
     private int tileCount = 0;
 
     private MoveAnimSecondary animSecondary;
@@ -144,10 +145,10 @@ public class Player implements Serializable {
             int cur_centerX = x + dx;
             int cur_centerY = y + dy;
 
-            Log.d("CurrX",String.valueOf(cur_centerX));
-            Log.d("CurrY",String.valueOf(cur_centerY));
-            Log.d("scaleFactor",String.valueOf(scaleFactor));
-            Log.d("CurrRotation",String.valueOf(angle));
+            //Log.d("CurrX",String.valueOf(cur_centerX));
+            //Log.d("CurrY",String.valueOf(cur_centerY));
+            //Log.d("scaleFactor",String.valueOf(scaleFactor));
+            //Log.d("CurrRotation",String.valueOf(angle));
 
             Matrix matrix = new Matrix();
             matrix.postScale(scaleFactor,scaleFactor);
@@ -270,11 +271,13 @@ public class Player implements Serializable {
     }
 
     public void kill(){
-        outCount = gameView.getKilledPlayers();
+
         if (virtual){
             aliveVirtual = false;
         } else {
             alive = false;
+            outCount = gameView.getKilledCount();
+            Log.d(TAG, "kill - outCount: " + outCount);
         }
     }
 

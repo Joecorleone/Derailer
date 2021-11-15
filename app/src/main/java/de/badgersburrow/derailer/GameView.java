@@ -161,10 +161,20 @@ public class GameView extends SurfaceView {
         });
     }
 
+    public int getKilledCount(){
+        int killed = 0;
+        for (Player p : players){
+            if (!p.alive){
+                killed++;
+            }
+        }
+        return killed;
+    }
+
     public int getKilledPlayers(){
         int killed = 0;
-        for (int i=0; i<players.size();i++){
-           if (!players.get(i).aliveVirtual && players.get(i).alive){
+        for (Player p : players){
+           if (!p.aliveVirtual && p.alive){
                killed +=1;
            }
         }

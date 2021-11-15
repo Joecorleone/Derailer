@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.badgersburrow.derailer.objects.PlayerResult;
+import de.badgersburrow.derailer.objects.PlayerSelection;
 
 public class GameOverActivity extends Activity implements OnClickListener{
 
@@ -32,6 +33,7 @@ public class GameOverActivity extends Activity implements OnClickListener{
     private TextView tv_place1_dist, tv_place2_dist, tv_place3_dist, tv_place1_label, tv_place2_label, tv_place3_label;
     private ImageView iv_place1_main, iv_place2_main, iv_place3_main, iv_place1_color, iv_place2_color, iv_place3_color;
     ArrayList<PlayerResult> players;
+    ArrayList<PlayerSelection> playersSelection;
     ArrayList<String> options;
 
     SharedPreferences SP;
@@ -43,11 +45,15 @@ public class GameOverActivity extends Activity implements OnClickListener{
         Bundle extras = getIntent().getExtras();
         //String playerName = extras.getString("playerLabel");
         //int playercolor = extras.getInt("playerColor");
+        playersSelection = (ArrayList<PlayerSelection>)extras.getSerializable("PlayersSelection");
         players = (ArrayList<PlayerResult>)extras.getSerializable("Players");
         options = extras.getStringArrayList("Options");
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
         int selectedThemeId = SP.getInt("theme",0);
+
+        TextView tv_header = findViewById(R.id.tv_header);
+        tv_header.setTypeface(MainActivity.customtf_normal);
 
         // podium
         tv_place1_dist = (TextView) findViewById(R.id.tv_place1_dist);
@@ -112,7 +118,8 @@ public class GameOverActivity extends Activity implements OnClickListener{
         switch (v.getId()) {
             case R.id.bNewTry:
                 Intent newGameScreen= new Intent(getApplicationContext(), GameActivity.class);
-                newGameScreen.putExtra("Players", players);
+                newGameScreen.putExtra("Players", playersSelection);
+                newGameScreen.putExtra("Options", options);
                 startActivity(newGameScreen);
                 this.finish();
                 break;
