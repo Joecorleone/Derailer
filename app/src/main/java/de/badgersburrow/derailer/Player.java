@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
@@ -340,7 +343,7 @@ public class Player implements Serializable {
 
     public void makeMove(Map playedCards, ArrayList choiceCards, GameView gameView){
         if (KIStrength.equals(MainActivity.keyKIEasy)) {
-              for (int i=0; i< choiceCards.size(); i++){
+            for (int i=0; i< choiceCards.size(); i++){
                 for (int rot=0; rot<4; rot++){
                     aliveVirtual = true;
                     xIndexVirtual = xIndex;
@@ -353,7 +356,7 @@ public class Player implements Serializable {
                     while (true){
                         if (depth < searchDepth) {
                             gameView.movePlayers();
-                            if (gameView.gamePhase != gameView.gpMoving) break;
+                            if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
                         }
                         depth += 1;
                     }
@@ -379,7 +382,7 @@ public class Player implements Serializable {
                     gameView.rotateCard(i, rot);
                     while (true){
                         gameView.movePlayers();
-                        if (gameView.gamePhase != gameView.gpMoving) break;
+                        if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
                     }
                     if (aliveVirtual) {
                         gameView.setVirtual(false);

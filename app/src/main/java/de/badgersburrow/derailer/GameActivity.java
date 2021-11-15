@@ -39,6 +39,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     private Button bt_back;
 
     Runnable notificationRun;
+    Thread notificationThread;
 
 
     public static AnimationPath animPath;
@@ -97,38 +98,54 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
 
 
     public void showNotification(final Player player){
+        if (notificationThread!=null &&notificationThread.isAlive()){
+            notificationThread.interrupt();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    hideNotification();
+                }
+            });
+        }
+        /*while (isNotification()){
+
+        }*/
         runOnUiThread(notificationRun = new Runnable() {
             @Override
             public void run() {
 
-                iv_n_background.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
-                iv_n_player.setImageBitmap(player.getBmpMain());
-                iv_n_player_color.setImageBitmap(player.getBmpColor());
-                iv_n_player_color.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
-                tv_n_texttop.setTypeface(MainActivity.customtf_normal);
-                tv_n_textbig.setTypeface(MainActivity.customtf_normal);
-                tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
-                rl_notification.setVisibility(View.VISIBLE);
+                if (!player.virtual){
+                    iv_n_background.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
+                    iv_n_player.setImageBitmap(player.getBmpMain());
+                    iv_n_player_color.setImageBitmap(player.getBmpColor());
+                    iv_n_player_color.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
+                    tv_n_texttop.setTypeface(MainActivity.customtf_normal);
+                    tv_n_textbig.setTypeface(MainActivity.customtf_normal);
+                    tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
+                    tv_n_textbig.setText(player.getLabel(getBaseContext()));
+                    rl_notification.setVisibility(View.VISIBLE);
 
-                if ((!player.virtual && player.alive ) || (player.virtual && player.aliveVirtual )){
-                    String gp = theGameView.gamePhase;
-                    if (gp.equals(theGameView.gpStart)) {
-                        tv_n_texttop.setVisibility(View.GONE);
-                        tv_n_textbottom.setText("choose your start spot");
-                    } else if (gp.equals(theGameView.gpPlaying)) {
-                        tv_n_texttop.setText("On to ");
-                        tv_n_textbottom.setText("place a tile");
+                    if (player.alive){
+                        String gp = theGameView.gamePhase;
+                        if (gp.equals(theGameView.gpStart)) {
+                            tv_n_texttop.setVisibility(View.GONE);
+                            tv_n_textbottom.setText("choose your start spot");
+                        } else if (gp.equals(theGameView.gpPlaying)) {
+                            tv_n_texttop.setText("On to ");
+                            tv_n_textbottom.setText("place a tile");
+                        }
+                    } else {
+                        tv_n_texttop.setText("Kaboom");
+                        tv_n_textbottom.setText("is out!");
                     }
-                } else if ((!player.virtual && !player.alive ) || (player.virtual && !player.aliveVirtual )){
-                    tv_n_texttop.setText("Kaboom");
-                    tv_n_textbottom.setText("is out!");
+
                 }
-                tv_n_textbig.setText(player.getLabel(getBaseContext()));
 
             }
         });
 
-        Thread thread = new Thread() {
+
+        notificationThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -144,9 +161,14 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
                 } catch (InterruptedException e) {
 
                 }
+
             }
         };
-        thread.start();
+        notificationThread.start();
+    }
+
+    public boolean isNotification(){
+        return rl_notification != null && rl_notification.getVisibility() == View.VISIBLE;
     }
 
     public void hideNotification(){
@@ -154,7 +176,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     }
 
 
-    public void onGameOver(String playerLabel, int playerColor) {
+    public void onGameOver() {
         Intent theNextIntent = new Intent(getApplicationContext(),
                 GameOverActivity.class);
         ArrayList<PlayerResult> playerResult = new ArrayList<>();

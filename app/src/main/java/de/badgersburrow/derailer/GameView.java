@@ -49,11 +49,13 @@ public class GameView extends SurfaceView {
     final String gpStart = "Start";
     final String gpPlaying = "Playing";
     final String gpMoving = "Moving";
+    final String gpThinking = "Thinking";
     private float density;
     int currentPlayer = 0;
     int boardSize = 6;
     int gameTurn = 0;
     int tiles = 8;
+    int thinkCounter = 0;
 
     private boolean dialogIsActive=false;
 
@@ -254,6 +256,17 @@ public class GameView extends SurfaceView {
             } else {
                 movePlayers();
             }
+        }
+
+        if (gamePhase.equals(gpThinking)){
+            if (thinkCounter>0){
+                thinkCounter--;
+            } else {
+                gamePhase = gpPlaying;
+                Player p = players.get(currentPlayer);
+                p.makeMove(playedCards, choiceCards, this);
+            }
+
         }
     }
 
@@ -720,7 +733,7 @@ public class GameView extends SurfaceView {
         if (number_live_players <= 1){
             this.gamePhase = "GameOver";
             gameLoopThread.setRunning(false);
-            gameActivity.onGameOver(playerAliveLabel, playerAliveColor);
+            gameActivity.onGameOver();
         }
 
         updateChoiceCards();
@@ -731,14 +744,23 @@ public class GameView extends SurfaceView {
         while (i < players.size()) {
             currentPlayer += 1;
             currentPlayer = currentPlayer % players.size();
-            gameActivity.showNotification(players.get(currentPlayer));
 
+            Player p = players.get(currentPlayer);
             cardSelected = -1;
-            if (players.get(currentPlayer).alive) {
-                if (players.get(currentPlayer).KI) players.get(currentPlayer).makeMove(playedCards, choiceCards, this);
+            if (p.alive) {
+                gameActivity.showNotification(p);
+                if (p.KI){
+
+                    startThinking();
+                }
                 return;
             }
         }
+    }
+
+    public void startThinking(){
+        gamePhase = gpThinking;
+        thinkCounter = 15;
     }
 
     public void updateChoiceCards(){
