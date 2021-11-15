@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import androidx.appcompat.widget.AppCompatImageView;
 
 import de.badgersburrow.derailer.MainActivity;
 import de.badgersburrow.derailer.R;
@@ -67,7 +66,7 @@ public class SettingCard extends LinearLayout implements
         v = inflate(mContext, R.layout.view_setting_card, this);
         tv_option = v.findViewById(R.id.tv_option);
         iv_option = v.findViewById(R.id.iv_option);
-        tv_option.setTypeface(MainActivity.customtf);
+        tv_option.setTypeface(MainActivity.customtf_normal);
         setContent();
     }
 

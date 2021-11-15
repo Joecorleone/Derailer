@@ -13,8 +13,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.R;
-
 import de.badgersburrow.derailer.objects.Theme;
 
 import java.util.ArrayList;
@@ -48,7 +46,7 @@ public class ThemeActivity extends Activity {
         selectedThemeId = SP.getInt("theme",0);
 
         tv_header = (TextView) findViewById(R.id.tv_header);
-        tv_header.setTypeface(MainActivity.customtf);
+        tv_header.setTypeface(MainActivity.customtf_normal);
 
         SPE = SP.edit();
 

@@ -11,6 +11,7 @@ import androidx.core.util.Pair;
 import android.util.Log;
 
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
+import de.badgersburrow.derailer.objects.PlayerResult;
 import de.badgersburrow.derailer.objects.Smoke;
 
 import java.io.Serializable;
@@ -54,7 +55,6 @@ public class Player implements Serializable {
     private int num;
     private int color;
     private Paint color_paint = new Paint();
-    private ArrayList<Smoke> smoke = new ArrayList<Smoke>();
     private int tiles = 4;
     boolean KI = false;
     boolean virtual = false;
@@ -62,7 +62,8 @@ public class Player implements Serializable {
     String KIStrength = MainActivity.keyKIHard;
     Random randomGenerator = new Random();
 
-    int tileCount = 0;
+    private int outCount = 0;
+    private int tileCount = 0;
 
     private MoveAnimSecondary animSecondary;
     private float scaleFactor;
@@ -269,6 +270,7 @@ public class Player implements Serializable {
     }
 
     public void kill(){
+        outCount = gameView.getKilledPlayers();
         if (virtual){
             aliveVirtual = false;
         } else {
@@ -301,8 +303,11 @@ public class Player implements Serializable {
         }
     }
 
-    public int getCount(){
+    public int getTileCount(){
         return tileCount;
+    }
+    public int getOutCount(){
+        return outCount;
     }
     public int getColor(){
         return color;
@@ -446,6 +451,10 @@ public class Player implements Serializable {
             }
         }
         return score;
+    }
+
+    PlayerResult getResult(){
+        return new PlayerResult(KI, num, color, outCount, tileCount);
     }
 
 }

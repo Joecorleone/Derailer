@@ -15,14 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import de.badgersburrow.derailer.R;
-
 public class MainActivity extends Activity implements OnClickListener{
 
     Button bLocal;
     Button bTheme;
 
-    public static Typeface customtf;
+    public static Typeface customtf_normal;
+    public static Typeface customtf_bold;
 
     // Animation using transition
     TransitionSet mStaggeredTransition;
@@ -40,16 +39,17 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.activity_main);
         Utilities.FullScreencall(this);
 
-        customtf = Typeface.createFromAsset(getAssets(), "fonts/Acme-Regular.ttf");
+        customtf_normal = Typeface.createFromAsset(getAssets(), "fonts/Acme-Regular.ttf" );
+        customtf_bold = Typeface.create(Typeface.createFromAsset(getAssets(),"fonts/Acme-Regular.ttf"), Typeface.BOLD);
 
         mSceneRoot = (ViewGroup) findViewById(R.id.activity_main);
 
         bLocal = (Button) findViewById(R.id.bLocal);
         bLocal.setOnClickListener(this);
-        bLocal.setTypeface(customtf);
+        bLocal.setTypeface(customtf_normal);
         bTheme = (Button) findViewById(R.id.bTheme);
         bTheme.setOnClickListener(this);
-        bTheme.setTypeface(customtf);
+        bTheme.setTypeface(customtf_normal);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point(); display.getSize(size);

@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -90,25 +89,25 @@ public class StartMenuActivity extends Activity{
         TextView tv_conn_four = (TextView) findViewById(R.id.tv_conn_four);
         TextView tv_conn_eight = (TextView) findViewById(R.id.tv_conn_eight);
 
-        tv_header.setTypeface(MainActivity.customtf);
-        tv_players.setTypeface(MainActivity.customtf);
-        tv_human.setTypeface(MainActivity.customtf);
-        tv_ai.setTypeface(MainActivity.customtf);
-        tv_options.setTypeface(MainActivity.customtf);
-        tv_conn_title.setTypeface(MainActivity.customtf);
-        tv_conn_four.setTypeface(MainActivity.customtf);
-        tv_conn_eight.setTypeface(MainActivity.customtf);
+        tv_header.setTypeface(MainActivity.customtf_normal);
+        tv_players.setTypeface(MainActivity.customtf_normal);
+        tv_human.setTypeface(MainActivity.customtf_normal);
+        tv_ai.setTypeface(MainActivity.customtf_normal);
+        tv_options.setTypeface(MainActivity.customtf_normal);
+        tv_conn_title.setTypeface(MainActivity.customtf_normal);
+        tv_conn_four.setTypeface(MainActivity.customtf_normal);
+        tv_conn_eight.setTypeface(MainActivity.customtf_normal);
 
         bt_play = (GameTextButton) findViewById(R.id.bt_play);
         tv_player_num = (TextView) findViewById(R.id.tv_player_num);
         tv_ai_easy_num = (TextView) findViewById(R.id.tv_ai_easy_num);
         tv_ai_normal_num = (TextView) findViewById(R.id.tv_ai_normal_num);
         tv_ai_hard_num = (TextView) findViewById(R.id.tv_ai_hard_num);
-        bt_play.setTypeface(MainActivity.customtf);
-        tv_player_num.setTypeface(MainActivity.customtf);
-        tv_ai_easy_num.setTypeface(MainActivity.customtf);
-        tv_ai_normal_num.setTypeface(MainActivity.customtf);
-        tv_ai_hard_num.setTypeface(MainActivity.customtf);
+        bt_play.setTypeface(MainActivity.customtf_normal);
+        tv_player_num.setTypeface(MainActivity.customtf_normal);
+        tv_ai_easy_num.setTypeface(MainActivity.customtf_normal);
+        tv_ai_normal_num.setTypeface(MainActivity.customtf_normal);
+        tv_ai_hard_num.setTypeface(MainActivity.customtf_normal);
 
         iv_player_icon = (ImageView) findViewById(R.id.iv_player_icon);
         iv_ai_easy_icon = (ImageView) findViewById(R.id.iv_ai_easy_icon);

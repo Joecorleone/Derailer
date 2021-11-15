@@ -15,11 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.core.content.res.ResourcesCompat;
-
 import java.util.Random;
-
-import de.badgersburrow.derailer.R;
 
 import de.badgersburrow.derailer.objects.MyButton;
 import de.badgersburrow.derailer.objects.PlayerSelection;
@@ -319,13 +315,11 @@ public class GameView extends SurfaceView {
         final float fontSizeCurrent = getResources().getDimension(R.dimen.player_current_text_size);
         int yTextPos = (int) (canvas.getWidth()+bottomMargin +fontSize/2f);
         int dy = (int) (25*density);
-        Typeface fontNormal = Typeface.createFromAsset(getContext().getAssets(),"fonts/Acme-Regular.ttf");
-        Typeface fontBold = Typeface.create(Typeface.createFromAsset(getContext().getAssets(),"fonts/Acme-Regular.ttf"), Typeface.NORMAL);
         int x = (canvas.getWidth() * 1 / 8);
 
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTypeface(fontBold);
+        paint.setTypeface(MainActivity.customtf_bold);
         paint.setTextSize(fontSizeCurrent);
         paint.setAntiAlias(true);
 
@@ -338,14 +332,14 @@ public class GameView extends SurfaceView {
             if (player.alive) {
                 Paint pPlayer = new Paint();
                 pPlayer.setColor(player.getColor());
-                pPlayer.setTypeface(fontBold);
+                pPlayer.setTypeface(MainActivity.customtf_bold);
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSizeCurrent);
                 pPlayer.setAntiAlias(true);
 
                 canvas.drawText(player.getLabel(getContext()),(float) (x*2/3), yTextPos , pPlayer);
                 if (options.contains(Keys.option_victory_02)){
-                    canvas.drawText(String.valueOf(player.getCount()),(float) x + 200, yTextPos , pPlayer);
+                    canvas.drawText(String.valueOf(player.getTileCount()),(float) x + 200, yTextPos , pPlayer);
                 }
                 countAlive++;
             }
@@ -359,14 +353,14 @@ public class GameView extends SurfaceView {
             if (player.alive) {
                 Paint pPlayer = new Paint();
                 pPlayer.setColor(player.getColor());
-                pPlayer.setTypeface(fontNormal);
+                pPlayer.setTypeface(MainActivity.customtf_normal);
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSize);
                 pPlayer.setAntiAlias(true);
 
                 canvas.drawText(player.getLabel(getContext()),x, yTextPos + dy * (countAlive + 2), pPlayer);
                 if (options.contains(Keys.option_victory_02)){
-                    canvas.drawText(String.valueOf(player.getCount()),(float) x + 200, yTextPos + dy * (countAlive + 2) , pPlayer);
+                    canvas.drawText(String.valueOf(player.getTileCount()),(float) x + 200, yTextPos + dy * (countAlive + 2) , pPlayer);
                 }
                 countAlive++;
             }

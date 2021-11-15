@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.R;
-
 import de.badgersburrow.derailer.objects.SettingCard;
 
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         settingCard.setPadding(0,settingCard.getTopPadding(),0,0); // necessary
         holder.ll_option.addView(settingCard, llparams);
         holder.tv_option.setText(settingCard.getTitle());
-        holder.tv_option.setTypeface(MainActivity.customtf);
+        holder.tv_option.setTypeface(MainActivity.customtf_normal);
     }
 
     public void update(){

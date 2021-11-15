@@ -17,10 +17,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import de.badgersburrow.derailer.R;
-
 import de.badgersburrow.derailer.objects.AnimationPath;
 import de.badgersburrow.derailer.objects.GameTextButton;
+import de.badgersburrow.derailer.objects.PlayerResult;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 
 import java.util.ArrayList;
@@ -44,8 +43,6 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
 
     public static AnimationPath animPath;
 
-    Typeface customtf;
-
     RelativeLayout rl_notification;
     ImageView iv_n_background, iv_n_player_color, iv_n_player;
     TextView tv_n_texttop, tv_n_textbig, tv_n_textbottom;
@@ -63,7 +60,6 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         connections = this.getIntent().getIntExtra("connections",4);
         animPath = new AnimationPath(connections);
 
-        customtf = Typeface.createFromAsset(getAssets(), "fonts/Acme-Regular.ttf");
         SP = PreferenceManager.getDefaultSharedPreferences(this);
         int selectedThemeId = SP.getInt("theme",0);
         setContentView(R.layout.activity_game);
@@ -94,7 +90,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);
         bt_play.setDrawablePressed(R.drawable.button_play_state03);
         bt_play.setDrawableNormal(R.drawable.button_play_state02);
-        bt_play.setTypeface(MainActivity.customtf);
+        bt_play.setTypeface(MainActivity.customtf_normal);
 
         theGameView.setPlayButton(bt_play);
     }
@@ -109,9 +105,9 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
                 iv_n_player.setImageBitmap(player.getBmpMain());
                 iv_n_player_color.setImageBitmap(player.getBmpColor());
                 iv_n_player_color.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
-                tv_n_texttop.setTypeface(customtf);
-                tv_n_textbig.setTypeface(customtf);
-                tv_n_textbottom.setTypeface(customtf);
+                tv_n_texttop.setTypeface(MainActivity.customtf_normal);
+                tv_n_textbig.setTypeface(MainActivity.customtf_normal);
+                tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
                 rl_notification.setVisibility(View.VISIBLE);
 
                 if ((!player.virtual && player.alive ) || (player.virtual && player.aliveVirtual )){
@@ -161,9 +157,12 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     public void onGameOver(String playerLabel, int playerColor) {
         Intent theNextIntent = new Intent(getApplicationContext(),
                 GameOverActivity.class);
-        theNextIntent.putExtra("playerLabel", playerLabel);
-        theNextIntent.putExtra("playerColor", playerColor);
-        theNextIntent.putExtra("Players", playerSelection);
+        ArrayList<PlayerResult> playerResult = new ArrayList<>();
+        for (Player p: theGameView.players){
+            playerResult.add(p.getResult());
+        }
+        theNextIntent.putExtra("Players", playerResult);
+        theNextIntent.putExtra("Options", options);
         startActivity(theNextIntent);
         this.finish();
     }
