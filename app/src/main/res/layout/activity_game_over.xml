@@ -23,25 +23,43 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="1dp"
             android:layout_weight="0.5"/>
 
-        <RelativeLayout
-            android:id="@+id/rl_place2"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/tv_place2_dist"
+            <View
+                android:layout_width="0dp"
+                android:layout_height="30dp"/>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25"
-                android:textSize="20sp"
-                android:maxLines="1"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="@dimen/activity_vertical_margin_small"/>
+                android:maxWidth="100dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
+                android:layout_marginBottom="@dimen/activity_vertical_margin_small">
+
+                <ImageView
+                    android:id="@+id/iv_place2_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true" />
+
+                <ImageView
+                    android:id="@+id/iv_place2_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"/>
+
+            </RelativeLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_place2_podium"
@@ -73,52 +91,56 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <ImageView
-                android:id="@+id/iv_place2_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_above="@+id/ll_place2_podium"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
-
-            <ImageView
-                android:id="@+id/iv_place2_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_above="@+id/ll_place2_podium"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_place1"
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tv_place1_dist"
+                android:id="@+id/tv_place2_dist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25"
                 android:textSize="20sp"
                 android:maxLines="1"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/activity_vertical_margin_small"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="100dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
+                android:layout_marginBottom="@dimen/activity_vertical_margin_small">
+
+                <ImageView
+                    android:id="@+id/iv_place1_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true" />
+
+                <ImageView
+                    android:id="@+id/iv_place1_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"/>
+
+            </RelativeLayout>
+
+
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_place1_podium"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:layout_above="@id/tv_place1_dist"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/podium_bg"
                 android:gravity="center_horizontal"
@@ -144,46 +166,54 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <ImageView
-                android:id="@+id/iv_place1_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_above="@+id/ll_place1_podium"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
-
-            <ImageView
-                android:id="@+id/iv_place1_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_above="@+id/ll_place1_podium"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_place3"
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            android:layout_weight="1">
-
             <TextView
-                android:id="@+id/tv_place3_dist"
+                android:id="@+id/tv_place1_dist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25"
                 android:textSize="20sp"
                 android:maxLines="1"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/activity_vertical_margin_small"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="50dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="100dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
+                android:layout_marginBottom="@dimen/activity_vertical_margin_small">
+
+                <ImageView
+                    android:id="@+id/iv_place3_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true" />
+
+                <ImageView
+                    android:id="@+id/iv_place3_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"/>
+
+            </RelativeLayout>
+
+
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_place3_podium"
@@ -192,7 +222,6 @@
                 android:orientation="vertical"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/podium_bg"
-                android:layout_above="@id/tv_place3_dist"
                 android:gravity="center_horizontal">
 
                 <TextView
@@ -214,34 +243,20 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <ImageView
-                android:id="@+id/iv_place3_color"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_place3_dist"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_above="@+id/ll_place3_podium"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"
-                android:foregroundGravity=""/>
+                android:text="25"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:layout_marginTop="@dimen/activity_vertical_margin_small"/>
 
-            <ImageView
-                android:id="@+id/iv_place3_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_above="@+id/ll_place3_podium"
-                android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
-                android:layout_marginBottom="@dimen/activity_vertical_margin_small"/>
-
-        </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <View
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="1dp"
             android:layout_weight="0.5"/>
 
 

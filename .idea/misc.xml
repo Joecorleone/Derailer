@@ -17,7 +17,7 @@
         <entry key="app/src/main/res/drawable/train_toggle_bg.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/drawable/train_toogle_to_left.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_game_over.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_game_over.xml" value="0.4514285714285714" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_theme.xml" value="0.125" />
         <entry key="app/src/main/res/layout/game_over.xml" value="0.125" />
