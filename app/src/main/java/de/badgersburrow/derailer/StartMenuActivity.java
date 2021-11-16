@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -37,7 +38,6 @@ import java.util.ArrayList;
 public class StartMenuActivity extends Activity{
 
     private static String TAG = "StartMenuActivity";
-    ImageView iv_back;
 
     int connections = 4;
 
@@ -54,6 +54,7 @@ public class StartMenuActivity extends Activity{
 
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
+    Button bt_back;
     static GameTextButton bt_play;
     static TextView tv_player_num, tv_ai_easy_num, tv_ai_normal_num, tv_ai_hard_num;
     static ImageView iv_player_icon, iv_ai_easy_icon, iv_ai_normal_icon, iv_ai_hard_icon;
@@ -69,7 +70,7 @@ public class StartMenuActivity extends Activity{
         mContext = this.getApplicationContext();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_menu_v2);
+        setContentView(R.layout.activity_game_settings);
 
         Utilities.FullScreencall(this);
 
@@ -229,8 +230,8 @@ public class StartMenuActivity extends Activity{
             }
         });
 
-        iv_back = (ImageView) findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        bt_back = (Button) findViewById(R.id.bt_back);
+        bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

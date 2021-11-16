@@ -8,6 +8,7 @@
         <entry key="app/build/generated/res/main/drawable/ic_pointer.xml" value="0.1" />
         <entry key="app/build/generated/res/main/mipmap-anydpi-v26/launcher.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/drawable/background_splash.xml" value="0.2630208333333333" />
+        <entry key="app/src/main/res/drawable/button_back_state.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/drawable/button_exit_anim.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/drawable/button_exit_state.xml" value="0.14114583333333333" />
         <entry key="app/src/main/res/drawable/button_menu_state.xml" value="0.1" />
@@ -16,10 +17,10 @@
         <entry key="app/src/main/res/drawable/button_restart_state.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/train_toggle_bg.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/drawable/train_toogle_to_left.xml" value="0.18020833333333333" />
-        <entry key="app/src/main/res/layout/activity_game.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_game_over.xml" value="0.4514285714285714" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_game_over.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/activity_theme.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_theme.xml" value="0.25" />
         <entry key="app/src/main/res/layout/game_over.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_cart.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_option.xml" value="0.125" />
