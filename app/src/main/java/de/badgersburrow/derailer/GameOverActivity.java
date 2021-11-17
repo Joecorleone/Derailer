@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -107,6 +109,10 @@ public class GameOverActivity extends Activity implements OnClickListener{
             list_iv_main.get(i).setImageBitmap(Bitmap.createBitmap(p.getBmpMain(this, selectedThemeId) , 0, 0, width, height, m, true));
         }
 
+        if (players.size() < 3){
+            LinearLayoutCompat ll_place3_podium = findViewById(R.id.ll_place3_podium);
+            ll_place3_podium.setVisibility(View.INVISIBLE);
+        }
 
         bReplay = (Button) findViewById(R.id.bNewTry);
         bExit = (Button) findViewById(R.id.bMainMenu);

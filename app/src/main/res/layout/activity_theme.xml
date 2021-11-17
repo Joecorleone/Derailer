@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/activity_vertical_margin_small"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:background="@drawable/header_sign"
+        android:background="@drawable/train_header_sign_bg"
         android:textSize="30sp"/>
 
     <View

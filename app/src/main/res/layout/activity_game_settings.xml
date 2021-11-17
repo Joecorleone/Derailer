@@ -18,7 +18,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/activity_vertical_margin_small"
-            android:background="@drawable/header_sign"
+            android:background="@drawable/train_header_sign_bg"
             android:text="@string/settings_header"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textSize="30sp" />
@@ -213,7 +213,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/bt_back"
-            android:background="@drawable/button_exit_state"/>
+            android:background="@drawable/button_back_state"/>
 
         <View
             android:layout_width="0dp"

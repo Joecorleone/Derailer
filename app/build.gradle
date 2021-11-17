@@ -15,6 +15,7 @@ android {
 
     sourceSets{
         main.res.srcDirs = [main.res.srcDirs, "build/generated/res/main"]
+        main.res.srcDirs = [main.res.srcDirs, "src/main/tiles"]
         // assets specfic transcoding
         main.assets.srcDirs = [main.assets.srcDirs, "build/generated/assets/main"]
     }

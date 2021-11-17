@@ -15,16 +15,18 @@
         <entry key="app/src/main/res/drawable/button_play_anim.xml" value="0.1796875" />
         <entry key="app/src/main/res/drawable/button_play_state.xml" value="0.14114583333333333" />
         <entry key="app/src/main/res/drawable/button_restart_state.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/menu_background01.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/drawable/train_toggle_bg.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/drawable/train_toogle_to_left.xml" value="0.18020833333333333" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_game_over.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_game_settings.xml" value="0.23052536231884058" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_theme.xml" value="0.25" />
         <entry key="app/src/main/res/layout/game_over.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_cart.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_option.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/item_theme.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/item_theme.xml" value="0.49119170984455957" />
         <entry key="app/src/main/res/layout/list_item_players.xml" value="0.125" />
         <entry key="app/src/main/res/layout/start_menu_v2.xml" value="0.22" />
         <entry key="app/src/main/res/layout/view_setting_card.xml" value="0.67" />

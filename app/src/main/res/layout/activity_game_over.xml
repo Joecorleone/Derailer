@@ -11,7 +11,7 @@
         android:text="Game Over"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin_small"
-        android:background="@drawable/header_sign"
+        android:background="@drawable/train_header_sign_bg"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textSize="30sp"/>
 

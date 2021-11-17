@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.badgersburrow.derailer.objects.Theme;
@@ -24,16 +25,17 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
     private static Context mContext;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
-        RelativeLayout rl_theme, rl_theme_bg;
-        ImageView iv_select;
+        LinearLayoutCompat ll_theme, ll_theme_bg;
+        ImageView iv_start, iv_select;
         TextView tv_title;
         ImageView iv_theme;
         ImageView iv_theme_color;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            rl_theme = (RelativeLayout) itemView.findViewById(R.id.rl_theme);
-            rl_theme_bg = (RelativeLayout) itemView.findViewById(R.id.rl_theme_bg);
+            ll_theme = (LinearLayoutCompat) itemView.findViewById(R.id.ll_theme);
+            ll_theme_bg = (LinearLayoutCompat) itemView.findViewById(R.id.ll_theme_bg);
+            iv_start = (ImageView) itemView.findViewById(R.id.iv_start);
             iv_select = (ImageView) itemView.findViewById(R.id.iv_select);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             iv_theme = (ImageView) itemView.findViewById(R.id.iv_theme);
@@ -58,19 +60,20 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
 
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
-        holder.rl_theme.setTag(position);
+        holder.ll_theme.setTag(position);
         holder.tv_title.setText(mThemes.get(position).getTitle(mContext));
         holder.tv_title.setTypeface(MainActivity.customtf_normal);
-        holder.rl_theme_bg.setBackground(mThemes.get(position).getBackgroundResId(mContext));
+        holder.iv_start.setImageDrawable(mThemes.get(position).getBackgroundResId(mContext));
+        holder.ll_theme_bg.setBackground(mThemes.get(position).getBackgroundResId(mContext));
         holder.iv_theme.setImageDrawable(mThemes.get(position).getCartResId(mContext));
         int color = mThemes.get(position).getThemeColorResId(mContext);
         Drawable drawable_color = mThemes.get(position).getCartColorResId(mContext);
         drawable_color.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         holder.iv_theme_color.setImageDrawable(drawable_color);
         if (mThemes.get(position).isSelected()){
-            holder.iv_select.setImageResource(R.drawable.select_train);
+            holder.iv_select.setVisibility(View.VISIBLE);
         } else {
-            holder.iv_select.setImageResource(R.drawable.select_not);
+            holder.iv_select.setVisibility(View.INVISIBLE);
         }
     }
 
