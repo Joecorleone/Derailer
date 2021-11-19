@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../.gradle/caches/transforms-3/97e7ec19bd11dff7ae3d399ac9d0fa5b/transformed/core-1.5.0/res/layout/custom_dialog.xml" value="0.2223731884057971" />
         <entry key="app/build/generated/res/main/drawable/ic_path_10576243.xml" value="0.16666666666666666" />
         <entry key="app/build/generated/res/main/drawable/ic_path_26043715.xml" value="0.16666666666666666" />
         <entry key="app/build/generated/res/main/drawable/ic_pointer.xml" value="0.1" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/activity_game_settings.xml" value="0.23052536231884058" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_theme.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_few_player.xml" value="0.3790546802594995" />
         <entry key="app/src/main/res/layout/game_over.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_cart.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_option.xml" value="0.125" />

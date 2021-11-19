@@ -1,6 +1,7 @@
 package de.badgersburrow.derailer;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,11 +19,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,6 +77,18 @@ public class StartMenuActivity extends Activity{
         setContentView(R.layout.activity_game_settings);
 
         Utilities.FullScreencall(this);
+
+        /*decorView.setOnSystemUiVisibilityChangeListener(
+                new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+                    }
+                }
+        );*/
 
         res = getResources();
 
@@ -219,7 +235,16 @@ public class StartMenuActivity extends Activity{
         bt_play.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getNumPlayers()>=2){
+                if (getNumPlayers() < 2) {
+                    /*AlertDialog.Builder builder =
+                            new AlertDialog.Builder(StartMenuActivity.this, R.style.AlertDialogCustom);
+                    builder.setTitle("Too few");
+                    builder.setMessage("Add at least two player!");
+                    builder.setPositiveButton("OK", null);//second parameter used for onclicklistener
+                    //builder.setNegativeButton("Cancel", null);
+                    builder.show();*/
+                    showDialog();
+                } else {
                     Intent newGameScreen= new Intent(mContext, GameActivity.class);
                     newGameScreen.putExtra("Players", adapterCarts.getSelected());
                     newGameScreen.putExtra("Options", adapterOptions.getKeys());
@@ -269,13 +294,13 @@ public class StartMenuActivity extends Activity{
     }
 
     static public void displayPlayerNumber(){
-        if (getNumPlayers()<2){
+        /*if (getNumPlayers()<2){
             bt_play.setEnabled(false);
             //tv_play.setBackground(res.getDrawable(R.drawable.button_play01));
         } else {
             bt_play.setEnabled(true);
             //tv_play.setBackground(res.getDrawable(R.drawable.button_play02));
-        }
+        }*/
         int numPlayers = 0;
         int numAiEasy = 0;
         int numAiNormal = 0;
@@ -367,6 +392,42 @@ public class StartMenuActivity extends Activity{
         }
         return count;
     }
+
+
+    public void showDialog() {
+
+        final Dialog dialog = new Dialog(this, R.style.AlertDialogCustom);
+        dialog.setContentView(R.layout.dialog_few_player);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //new ColorDrawable(Color.TRANSPARENT)
+
+        TextView tv_title = dialog.findViewById(R.id.tv_title);
+        tv_title.setTypeface(MainActivity.customtf_normal);
+        TextView tv_description = dialog.findViewById(R.id.tv_description);
+        tv_description.setTypeface(MainActivity.customtf_normal);
+        ImageView iv_ok = dialog.findViewById(R.id.iv_ok);
+
+        iv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        }
+    }
+
 
 
 }
