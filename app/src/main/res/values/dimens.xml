@@ -12,10 +12,12 @@
     <dimen name="player_current_text_size">22sp</dimen>
     <dimen name="play_field_edge">12dp</dimen>
     <dimen name="play_field_bottomMargin">24dp</dimen>
+    <dimen name="elevation">8dp</dimen>
 
     <!-- Game settingCards screen. -->
     <dimen name="divider_height">50dp</dimen>
     <item name="cart_scale" type="fraction">60%</item>
     <item name="card_flip_time_half" type="integer">150</item>
+
 
 </resources>

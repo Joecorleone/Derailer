@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -167,6 +168,49 @@ public class StartMenuActivity extends Activity{
         rv_carts.setLayoutManager(llm);
         adapterCarts = new AdapterCart(this, gameTheme, availablePlayers);
         rv_carts.setAdapter(adapterCarts);
+
+        ImageView iv_carts_left = findViewById(R.id.iv_carts_left);
+        ImageView iv_carts_right = findViewById(R.id.iv_carts_right);
+
+        rv_carts.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (llm.findFirstCompletelyVisibleItemPosition() == 0){
+                    iv_carts_left.setVisibility(View.GONE);
+                } else {
+                    iv_carts_left.setVisibility(View.VISIBLE);
+                }
+                if (llm.findLastCompletelyVisibleItemPosition() == recyclerView.getAdapter().getItemCount()-1){
+                    iv_carts_right.setVisibility(View.GONE);
+                } else {
+                    iv_carts_right.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        iv_carts_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (llm.findFirstVisibleItemPosition() > 0) {
+                    rv_carts.smoothScrollBy(-50,0);//smoothScrollToPosition(llm.findFirstVisibleItemPosition() - 1);
+                } else {
+                    rv_carts.smoothScrollToPosition(0);
+                }
+            }
+        });
+
+        iv_carts_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rv_carts.smoothScrollBy(50,0);//smoothScrollToPosition(llm.findLastVisibleItemPosition() + 1);
+            }
+        });
 
         // populate Options
         settingCards = new ArrayList<>();
