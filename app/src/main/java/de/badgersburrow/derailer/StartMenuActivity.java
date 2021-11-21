@@ -182,8 +182,9 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
         //obstacle
         SettingCard setting_obstacle = new SettingCard(mContext);
-        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_01, getString(R.string.option_obstacle_01), R.drawable.option_obstacle_01));
-        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_02, getString(R.string.option_obstacle_02), R.drawable.option_obstacle_02));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_01, getString(R.string.option_obstacle_01), R.drawable.option_obstacle_02));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_02, getString(R.string.option_obstacle_02), R.drawable.option_obstacle_03));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_03, getString(R.string.option_obstacle_03), R.drawable.option_obstacle_01));
         setting_obstacle.init(getString(R.string.option_obstacle), SP.getString(Keys.option_obstacle, Keys.option_obstacle_01));
         settingCards.add(setting_obstacle);
 
@@ -227,9 +228,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         LinearLayoutManager llm_options = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_options.setLayoutManager(llm_options);
         rv_options.setAdapter(adapterOptions);
-
-        scaleIndicatorIcons();
-        displayPlayerNumber();
 
         iv_player.setOnTouchListener(new MyTouchListener());
         iv_ai_easy.setOnTouchListener(new MyTouchListener());
@@ -276,96 +274,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         rv_players.setLayoutManager(glm_players);
         rv_players.setAdapter(adapterPlayers);
 
-    }
-
-    void scaleIndicatorIcons(){
-        // scale images
-        Matrix m = new Matrix();
-        m.postScale(0.3f,0.3f);
-
-        /*Bitmap player_icon = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.player_icon));
-        int p_width = player_icon.getWidth();
-        int p_height = player_icon.getHeight();
-        iv_player_icon.setImageBitmap(Bitmap.createBitmap(player_icon , 0, 0, p_width, p_height, m, true));
-
-        m = new Matrix();
-        m.postScale(0.6f,0.6f);
-
-        Bitmap ai_easy_icon = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.ai_easy_icon));
-        int ae_width = ai_easy_icon.getWidth();
-        int ae_height = ai_easy_icon.getHeight();
-        iv_ai_easy_icon.setImageBitmap(Bitmap.createBitmap(ai_easy_icon , 0, 0, ae_width, ae_height, m, true));
-
-        Bitmap ai_normal_icon = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.ai_normal_icon));
-        int an_width = ai_normal_icon.getWidth();
-        int an_height = ai_normal_icon.getHeight();
-        iv_ai_normal_icon.setImageBitmap(Bitmap.createBitmap(ai_normal_icon , 0, 0, an_width, an_height, m, true));
-
-        Bitmap ai_hard_icon = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.ai_hard_icon));
-        int ah_width = ai_hard_icon.getWidth();
-        int ah_height = ai_hard_icon.getHeight();
-        iv_ai_hard_icon.setImageBitmap(Bitmap.createBitmap(ai_hard_icon , 0, 0, ah_width, ah_height, m, true));
-         */
-    }
-
-    static public void displayPlayerNumber(){
-        /*if (getNumPlayers()<2){
-            bt_play.setEnabled(false);
-            //tv_play.setBackground(res.getDrawable(R.drawable.button_play01));
-        } else {
-            bt_play.setEnabled(true);
-            //tv_play.setBackground(res.getDrawable(R.drawable.button_play02));
-        }*/
-        /*int numPlayers = 0;
-        int numAiEasy = 0;
-        int numAiNormal = 0;
-        int numAiHard = 0;
-        for (PlayerSelection player : availablePlayers){
-            if (player.isPlayer()){
-                numPlayers += 1;
-            } else if (player.isEasyAI()){
-                numAiEasy += 1;
-            } else if (player.isNormalAI()){
-                numAiNormal += 1;
-            } else if (player.isHardAI()){
-                numAiHard += 1;
-            }
-        }
-        if (numPlayers == 0){
-            iv_player_icon.setVisibility(View.GONE);
-            tv_player_num.setVisibility(View.GONE);
-        } else {
-            iv_player_icon.setVisibility(View.VISIBLE);
-            tv_player_num.setVisibility(View.VISIBLE);
-        }
-        if (numAiEasy == 0){
-            iv_ai_easy_icon.setVisibility(View.GONE);
-            tv_ai_easy_num.setVisibility(View.GONE);
-        } else {
-            iv_ai_easy_icon.setVisibility(View.VISIBLE);
-            tv_ai_easy_num.setVisibility(View.VISIBLE);
-        }
-        if (numAiNormal == 0){
-            iv_ai_normal_icon.setVisibility(View.GONE);
-            tv_ai_normal_num.setVisibility(View.GONE);
-        } else {
-            iv_ai_normal_icon.setVisibility(View.VISIBLE);
-            tv_ai_normal_num.setVisibility(View.VISIBLE);
-        }
-        if (numAiHard == 0){
-            iv_ai_hard_icon.setVisibility(View.GONE);
-            tv_ai_hard_num.setVisibility(View.GONE);
-        } else {
-            iv_ai_hard_icon.setVisibility(View.VISIBLE);
-            tv_ai_hard_num.setVisibility(View.VISIBLE);
-        }
-
-        tv_player_num.setText(String.valueOf(numPlayers));
-        tv_ai_easy_num.setText(String.valueOf(numAiEasy));
-        tv_ai_normal_num.setText(String.valueOf(numAiNormal));
-        tv_ai_hard_num.setText(String.valueOf(numAiHard));
-
-         */
     }
 
     void toggle(View v){

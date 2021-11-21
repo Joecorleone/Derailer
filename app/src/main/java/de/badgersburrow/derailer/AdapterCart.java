@@ -114,7 +114,6 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
 
     public void update(){
         notifyDataSetChanged();
-        StartMenuActivity.displayPlayerNumber();
     }
 
     public ArrayList<PlayerSelection> getSelected() {

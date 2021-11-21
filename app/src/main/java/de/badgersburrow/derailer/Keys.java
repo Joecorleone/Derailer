@@ -13,6 +13,7 @@ public class Keys {
     public static String option_obstacle    = "key_obstacle";
     public static String option_obstacle_01 = "key_obstacle_01";
     public static String option_obstacle_02 = "key_obstacle_02";
+    public static String option_obstacle_03 = "key_obstacle_03";
 
     public static String option_daynight    = "key_daynight";
     public static String option_daynight_01 = "key_daynight_01";
