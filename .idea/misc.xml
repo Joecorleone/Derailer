@@ -24,7 +24,7 @@
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_game_over.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_game_settings.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_theme.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_few_player.xml" value="0.3790546802594995" />
         <entry key="app/src/main/res/layout/game_over.xml" value="0.125" />
@@ -35,6 +35,8 @@
         <entry key="app/src/main/res/layout/list_item_players.xml" value="0.125" />
         <entry key="app/src/main/res/layout/start_menu_v2.xml" value="0.22" />
         <entry key="app/src/main/res/layout/view_setting_card.xml" value="0.67" />
+        <entry key="app/src/main/tiles/drawable/sign_exit.xml" value="0.16611842105263158" />
+        <entry key="app/src/main/tiles/drawable/sign_sound.xml" value="0.16611842105263158" />
       </map>
     </option>
   </component>
@@ -84,7 +86,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="masterDetails">

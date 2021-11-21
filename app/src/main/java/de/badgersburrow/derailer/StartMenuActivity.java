@@ -298,12 +298,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         tv_description.setTypeface(MainActivity.customtf_normal);
         ImageView iv_ok = dialog.findViewById(R.id.iv_ok);
 
-        iv_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        iv_ok.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

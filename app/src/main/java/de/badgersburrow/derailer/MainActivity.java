@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity implements OnClickListener{
@@ -77,7 +78,8 @@ public class MainActivity extends Activity implements OnClickListener{
         bTheme_animX.setStartDelay(500);
         bTheme_animX.start();
 
-
+        ImageView iv_exit = findViewById(R.id.iv_exit);
+        iv_exit.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -91,6 +93,8 @@ public class MainActivity extends Activity implements OnClickListener{
                 Intent theme = new Intent(this, ThemeActivity.class);
                 startActivity(theme);
                 break;
+            case R.id.iv_exit:
+                this.finish();
         }
     }
 
