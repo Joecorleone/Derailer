@@ -56,6 +56,7 @@ public class GameView extends SurfaceView {
     int gameTurn = 0;
     int tiles = 8;
     int thinkCounter = 0;
+    int obstacleNumber = 0;
 
     private boolean dialogIsActive=false;
 
@@ -75,6 +76,7 @@ public class GameView extends SurfaceView {
     ////
     private int cardSelected = -1;
     private  ArrayList<MyButton> buttons = new ArrayList<MyButton>();
+    private  ArrayList<ObstacleCardSprite> obstacles = new ArrayList<ObstacleCardSprite>();
 
     private Button bt_play;
 
@@ -88,6 +90,19 @@ public class GameView extends SurfaceView {
         this.options = options;
         tiles = connections;
         virtual = false;
+
+        if (options.contains(Keys.option_obstacle_01)){
+            obstacleNumber = randomGenerator.nextInt(3) + 1;
+        }
+
+        if (options.contains(Keys.option_obstacle_02)){
+            obstacleNumber = randomGenerator.nextInt(3) + 4;
+        }
+
+        for (int j = 0; j < obstacleNumber; j ++ ) {
+            ObstacleCardSprite obstacle = new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), R.drawable.option_obstacle_01), 2, 3);
+            obstacles.add(obstacle);
+        }
 
         this.selectedTheme = selectedTheme;
         gamePhase = gpStart;
@@ -286,6 +301,7 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayedCardsTop(Canvas canvas){
+
         for (int i = 0; i < boardSize; i ++ ) {
             for (int j = 0; j < boardSize; j ++ ) {
                 PlayedCardSprite sprite = playedCards.get(String.valueOf(i)+"-"+String.valueOf(j));
@@ -293,6 +309,12 @@ public class GameView extends SurfaceView {
                     sprite.onDrawTop(canvas);
                 }
             }
+        }
+    }
+
+    public void drawObstacles(Canvas canvas){
+        for (ObstacleCardSprite p : obstacles){
+            p.onDraw(canvas);
         }
     }
 
