@@ -254,6 +254,7 @@ public class GameView extends SurfaceView {
         drawPlayedCardsTop(canvas);
         drawButtons(canvas);
         drawPlayerList(canvas);
+        drawObstacles(canvas);
 
         if (gamePhase.equals(gpPlaying)) {
             drawChoiceCards(canvas);//cards.get(i).onDraw(canvas);
