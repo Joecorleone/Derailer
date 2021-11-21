@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -62,8 +60,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
     Button bt_back;
     static GameTextButton bt_play;
-    //static TextView tv_player_num, tv_ai_easy_num, tv_ai_normal_num, tv_ai_hard_num;
-    //static ImageView iv_player_icon, iv_ai_easy_icon, iv_ai_normal_icon, iv_ai_hard_icon;
     static ToggleButton tb_toggle;
 
     Context mContext;
@@ -80,18 +76,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
         Utilities.FullScreencall(this);
 
-        /*decorView.setOnSystemUiVisibilityChangeListener(
-                new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int visibility) {
-                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
-                    }
-                }
-        );*/
-
         res = getResources();
 
         iv_player = (ImageView) findViewById(R.id.iv_player);
@@ -105,8 +89,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         TextView tv_ai = (TextView) findViewById(R.id.tv_ai);
         TextView tv_options = (TextView) findViewById(R.id.tv_options);
         TextView tv_conn_title = (TextView) findViewById(R.id.tv_connections);
-        //TextView tv_conn_four = (TextView) findViewById(R.id.tv_conn_four);
-        //TextView tv_conn_eight = (TextView) findViewById(R.id.tv_conn_eight);
 
         tv_header.setTypeface(MainActivity.customtf_normal);
         tv_players.setTypeface(MainActivity.customtf_normal);
@@ -114,24 +96,9 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         tv_ai.setTypeface(MainActivity.customtf_normal);
         tv_options.setTypeface(MainActivity.customtf_normal);
         tv_conn_title.setTypeface(MainActivity.customtf_normal);
-        //tv_conn_four.setTypeface(MainActivity.customtf_normal);
-        //tv_conn_eight.setTypeface(MainActivity.customtf_normal);
 
         bt_play = (GameTextButton) findViewById(R.id.bt_play);
-        /*tv_player_num = (TextView) findViewById(R.id.tv_player_num);
-        tv_ai_easy_num = (TextView) findViewById(R.id.tv_ai_easy_num);
-        tv_ai_normal_num = (TextView) findViewById(R.id.tv_ai_normal_num);
-        tv_ai_hard_num = (TextView) findViewById(R.id.tv_ai_hard_num);*/
         bt_play.setTypeface(MainActivity.customtf_normal);
-        /*tv_player_num.setTypeface(MainActivity.customtf_normal);
-        tv_ai_easy_num.setTypeface(MainActivity.customtf_normal);
-        tv_ai_normal_num.setTypeface(MainActivity.customtf_normal);
-        tv_ai_hard_num.setTypeface(MainActivity.customtf_normal);
-
-        iv_player_icon = (ImageView) findViewById(R.id.iv_player_icon);
-        iv_ai_easy_icon = (ImageView) findViewById(R.id.iv_ai_easy_icon);
-        iv_ai_normal_icon = (ImageView) findViewById(R.id.iv_ai_normal_icon);
-        iv_ai_hard_icon = (ImageView) findViewById(R.id.iv_ai_hard_icon);*/
 
         rv_options = (RecyclerView) findViewById(R.id.rv_options);
         rv_players = (RecyclerView) findViewById(R.id.rv_players);
@@ -144,9 +111,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
                 toggle(v);
             }
         });
-
-        //animationDrawable.selectDrawable(animationDrawable.getNumberOfFrames() - 1);
-
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
         SPE = SP.edit();
@@ -182,10 +146,10 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
         //obstacle
         SettingCard setting_obstacle = new SettingCard(mContext);
-        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_01, getString(R.string.option_obstacle_01), R.drawable.option_obstacle_02));
-        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_02, getString(R.string.option_obstacle_02), R.drawable.option_obstacle_03));
-        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_03, getString(R.string.option_obstacle_03), R.drawable.option_obstacle_01));
-        setting_obstacle.init(getString(R.string.option_obstacle), SP.getString(Keys.option_obstacle, Keys.option_obstacle_01));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_none, getString(R.string.option_obstacle_none), R.drawable.option_obstacle_none));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_few, getString(R.string.option_obstacle_few), R.drawable.option_obstacle_few));
+        setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_many, getString(R.string.option_obstacle_many), R.drawable.option_obstacle_many));
+        setting_obstacle.init(getString(R.string.option_obstacle), SP.getString(Keys.option_obstacle, Keys.option_obstacle_none));
         settingCards.add(setting_obstacle);
 
         //day night
@@ -242,13 +206,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
             @Override
             public void onClick(View v) {
                 if (getNumPlayers() < 2) {
-                    /*AlertDialog.Builder builder =
-                            new AlertDialog.Builder(StartMenuActivity.this, R.style.AlertDialogCustom);
-                    builder.setTitle("Too few");
-                    builder.setMessage("Add at least two player!");
-                    builder.setPositiveButton("OK", null);//second parameter used for onclicklistener
-                    //builder.setNegativeButton("Cancel", null);
-                    builder.show();*/
                     showDialog();
                 } else {
                     Intent newGameScreen= new Intent(mContext, GameActivity.class);
@@ -334,7 +291,6 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         final Dialog dialog = new Dialog(this, R.style.AlertDialogCustom);
         dialog.setContentView(R.layout.dialog_few_player);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        //new ColorDrawable(Color.TRANSPARENT)
 
         TextView tv_title = dialog.findViewById(R.id.tv_title);
         tv_title.setTypeface(MainActivity.customtf_normal);

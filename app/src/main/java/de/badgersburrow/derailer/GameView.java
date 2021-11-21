@@ -91,16 +91,16 @@ public class GameView extends SurfaceView {
         tiles = connections;
         virtual = false;
 
-        if (options.contains(Keys.option_obstacle_01)){
+        if (options.contains(Keys.option_obstacle_few)){
             obstacleNumber = randomGenerator.nextInt(3) + 1;
         }
 
-        if (options.contains(Keys.option_obstacle_02)){
+        if (options.contains(Keys.option_obstacle_many)){
             obstacleNumber = randomGenerator.nextInt(3) + 4;
         }
 
         for (int j = 0; j < obstacleNumber; j ++ ) {
-            ObstacleCardSprite obstacle = new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), R.drawable.option_obstacle_01), 2, 3);
+            ObstacleCardSprite obstacle = new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), R.drawable.option_obstacle_many), 2, 3);
             obstacles.add(obstacle);
         }
 

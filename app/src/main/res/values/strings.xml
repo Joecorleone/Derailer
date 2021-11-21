@@ -23,9 +23,9 @@
 
     <string name="option_victory_01">Last one</string>
     <string name="option_victory_02">Distance</string>
-    <string name="option_obstacle_01">None</string>
-    <string name="option_obstacle_02">Few</string>
-    <string name="option_obstacle_03">Many</string>
+    <string name="option_obstacle_none">None</string>
+    <string name="option_obstacle_few">Few</string>
+    <string name="option_obstacle_many">Many</string>
     <string name="option_daynight_01">Day</string>
     <string name="option_daynight_02">Night</string>
     <string name="option_draw_01">Fill hand</string>

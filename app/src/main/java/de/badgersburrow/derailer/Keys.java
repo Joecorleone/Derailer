@@ -11,9 +11,9 @@ public class Keys {
     public static String aiHard = "Hard";
 
     public static String option_obstacle    = "key_obstacle";
-    public static String option_obstacle_01 = "key_obstacle_01";
-    public static String option_obstacle_02 = "key_obstacle_02";
-    public static String option_obstacle_03 = "key_obstacle_03";
+    public static String option_obstacle_none = "key_obstacle_none";
+    public static String option_obstacle_few = "key_obstacle_few";
+    public static String option_obstacle_many = "key_obstacle_many";
 
     public static String option_daynight    = "key_daynight";
     public static String option_daynight_01 = "key_daynight_01";

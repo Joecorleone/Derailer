@@ -9,7 +9,7 @@
         android:id="@+id/iv_option"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/option_obstacle_01"/>
+        android:src="@drawable/option_obstacle_many"/>
 
     <TextView
         android:id="@+id/tv_option"
@@ -18,7 +18,7 @@
         android:layout_gravity="center_horizontal"
         android:maxLines="1"
         android:ellipsize="end"
-        android:text="@string/option_obstacle_01"
+        android:text="@string/option_obstacle_none"
         android:textSize="12sp"
         android:textColor="@color/textColor"/>
 
