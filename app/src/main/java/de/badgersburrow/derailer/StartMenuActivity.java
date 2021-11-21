@@ -103,8 +103,8 @@ public class StartMenuActivity extends Activity{
         TextView tv_ai = (TextView) findViewById(R.id.tv_ai);
         TextView tv_options = (TextView) findViewById(R.id.tv_options);
         TextView tv_conn_title = (TextView) findViewById(R.id.tv_connections);
-        TextView tv_conn_four = (TextView) findViewById(R.id.tv_conn_four);
-        TextView tv_conn_eight = (TextView) findViewById(R.id.tv_conn_eight);
+        //TextView tv_conn_four = (TextView) findViewById(R.id.tv_conn_four);
+        //TextView tv_conn_eight = (TextView) findViewById(R.id.tv_conn_eight);
 
         tv_header.setTypeface(MainActivity.customtf_normal);
         tv_players.setTypeface(MainActivity.customtf_normal);
@@ -112,8 +112,8 @@ public class StartMenuActivity extends Activity{
         tv_ai.setTypeface(MainActivity.customtf_normal);
         tv_options.setTypeface(MainActivity.customtf_normal);
         tv_conn_title.setTypeface(MainActivity.customtf_normal);
-        tv_conn_four.setTypeface(MainActivity.customtf_normal);
-        tv_conn_eight.setTypeface(MainActivity.customtf_normal);
+        //tv_conn_four.setTypeface(MainActivity.customtf_normal);
+        //tv_conn_eight.setTypeface(MainActivity.customtf_normal);
 
         bt_play = (GameTextButton) findViewById(R.id.bt_play);
         tv_player_num = (TextView) findViewById(R.id.tv_player_num);

@@ -190,7 +190,32 @@
             android:layout_below="@+id/tv_connections"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/activity_vertical_margin_small"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin_small"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin_small">
+
+
+            <ImageView
+                android:id="@+id/tv_conn_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="100dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="-20dp"
+                android:layout_toStartOf="@+id/tb_toggle"
+                android:adjustViewBounds="true"
+                android:src="@drawable/connections_04"/>
+
+            <ImageView
+                android:id="@+id/tv_conn_eight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="100dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="-20dp"
+                android:layout_toEndOf="@+id/tb_toggle"
+                android:adjustViewBounds="true"
+                android:src="@drawable/connections_08"/>
 
             <ToggleButton
                 android:id="@+id/tb_toggle"
@@ -200,28 +225,6 @@
                 android:background="@drawable/train_toggle_anim"
                 android:textOff=""
                 android:textOn="" />
-
-            <TextView
-                android:id="@+id/tv_conn_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_toLeftOf="@+id/tb_toggle"
-                android:text="4"
-                android:textColor="@color/textColor"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_conn_eight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toRightOf="@+id/tb_toggle"
-                android:text="8"
-                android:textColor="@color/textColor"
-                android:textSize="20sp" />
 
         </RelativeLayout>
 
