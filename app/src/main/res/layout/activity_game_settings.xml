@@ -120,31 +120,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin_small" >
-            <androidx.recyclerview.widget.RecyclerView
+            <de.badgersburrow.derailer.views.ButtonRecyclerView
                 android:id="@+id/rv_carts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_carts_left"
+
+            <Button
+                android:id="@+id/bt_carts_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/button_left"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
-                android:elevation="@dimen/elevation"/>
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:elevation="@dimen/elevation"
+                android:background="@drawable/button_left_state" />
 
-            <ImageView
-                android:id="@+id/iv_carts_right"
+            <Button
+                android:id="@+id/bt_carts_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/button_right"
+                android:background="@drawable/button_right_state"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin_small"
                 android:elevation="@dimen/elevation"/>
         </RelativeLayout>

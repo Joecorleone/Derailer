@@ -25,8 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +32,7 @@ import de.badgersburrow.derailer.objects.GameTextButton;
 import de.badgersburrow.derailer.objects.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
+import de.badgersburrow.derailer.views.ButtonRecyclerView;
 
 import java.util.ArrayList;
 
@@ -53,7 +52,7 @@ public class StartMenuActivity extends Activity{
     ArrayList<SettingCard> settingCards;
     AdapterCart adapterCarts;
     static ArrayList<PlayerSelection> availablePlayers;
-    RecyclerView rv_carts;
+    ButtonRecyclerView rv_carts;
 
 
 
@@ -163,54 +162,16 @@ public class StartMenuActivity extends Activity{
         for (int i = 0; i<cart_color_selection.length(); i++){
             availablePlayers.add(new PlayerSelection(cart_color_selection.getColor(i, color_default)));
         }
-        rv_carts = (RecyclerView) findViewById(R.id.rv_carts);
+        rv_carts = findViewById(R.id.rv_carts);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_carts.setLayoutManager(llm);
         adapterCarts = new AdapterCart(this, gameTheme, availablePlayers);
         rv_carts.setAdapter(adapterCarts);
 
-        ImageView iv_carts_left = findViewById(R.id.iv_carts_left);
-        ImageView iv_carts_right = findViewById(R.id.iv_carts_right);
+        rv_carts.setBt_left(findViewById(R.id.bt_carts_left));
+        rv_carts.setBt_right(findViewById(R.id.bt_carts_right));
 
-        rv_carts.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (llm.findFirstCompletelyVisibleItemPosition() == 0){
-                    iv_carts_left.setVisibility(View.GONE);
-                } else {
-                    iv_carts_left.setVisibility(View.VISIBLE);
-                }
-                if (llm.findLastCompletelyVisibleItemPosition() == recyclerView.getAdapter().getItemCount()-1){
-                    iv_carts_right.setVisibility(View.GONE);
-                } else {
-                    iv_carts_right.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        iv_carts_left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (llm.findFirstVisibleItemPosition() > 0) {
-                    rv_carts.smoothScrollBy(-50,0);//smoothScrollToPosition(llm.findFirstVisibleItemPosition() - 1);
-                } else {
-                    rv_carts.smoothScrollToPosition(0);
-                }
-            }
-        });
-
-        iv_carts_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rv_carts.smoothScrollBy(50,0);//smoothScrollToPosition(llm.findLastVisibleItemPosition() + 1);
-            }
-        });
 
         // populate Options
         settingCards = new ArrayList<>();
