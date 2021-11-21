@@ -27,11 +27,7 @@ public class MainActivity extends Activity implements OnClickListener{
     TransitionSet mStaggeredTransition;
     static ViewGroup mSceneRoot;
 
-    public static String keyUnselected = "None";
-    public static String keyPlayer = "Player";
-    public static String keyKIEasy = "Easy";
-    public static String keyKINormal = "Normal";
-    public static String keyKIHard = "Hard";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

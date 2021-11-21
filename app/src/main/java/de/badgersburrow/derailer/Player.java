@@ -63,7 +63,7 @@ public class Player implements Serializable {
     boolean KI = false;
     boolean virtual = false;
     boolean aliveVirtual = true;
-    String KIStrength = MainActivity.keyKIHard;
+    String KIStrength = Keys.aiHard;
     Random randomGenerator = new Random();
 
     private int outCount = 100;
@@ -84,7 +84,7 @@ public class Player implements Serializable {
         this.bmp_color = theme.getCart_color();
         this.virtual = false;
 
-        if (selection.equals(MainActivity.keyPlayer)){
+        if (selection.equals(Keys.player)){
             this.KI = false;
 
         } else {
@@ -342,7 +342,7 @@ public class Player implements Serializable {
     }
 
     public void makeMove(Map playedCards, ArrayList choiceCards, GameView gameView){
-        if (KIStrength.equals(MainActivity.keyKIEasy)) {
+        if (KIStrength.equals(Keys.aiEasy)) {
             for (int i=0; i< choiceCards.size(); i++){
                 for (int rot=0; rot<4; rot++){
                     aliveVirtual = true;
@@ -369,7 +369,7 @@ public class Player implements Serializable {
             }
             gameView.setVirtual(false);
             gameView.movePlayers();
-        } else if (KIStrength.equals(MainActivity.keyKINormal)){
+        } else if (KIStrength.equals(Keys.aiNormal)){
             gameView.setVirtual(true);
             for (int i=0; i< choiceCards.size(); i++){
                 for (int rot=0; rot<4; rot++){
@@ -393,7 +393,7 @@ public class Player implements Serializable {
             }
             gameView.setVirtual(false);
             gameView.movePlayers();
-        } else if (KIStrength.equals(MainActivity.keyKIHard)){
+        } else if (KIStrength.equals(Keys.aiHard)){
             gameView.setVirtual(true);
 
             int bestScore = -1;

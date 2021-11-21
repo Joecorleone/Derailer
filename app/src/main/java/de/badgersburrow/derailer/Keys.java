@@ -4,6 +4,11 @@ import de.badgersburrow.derailer.objects.SettingCard;
 
 public class Keys {
 
+    public static String unselected = "None";
+    public static String player = "Player";
+    public static String aiEasy = "Easy";
+    public static String aiNormal = "Normal";
+    public static String aiHard = "Hard";
 
     public static String option_obstacle    = "key_obstacle";
     public static String option_obstacle_01 = "key_obstacle_01";

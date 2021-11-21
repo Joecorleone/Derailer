@@ -28,6 +28,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
     private Theme mTheme;
     private static Context mContext;
     private ArrayList<PlayerSelection> selected;
+    private ChangeListener listener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         RelativeLayout rl_cart;
@@ -44,11 +45,12 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         }
     }
 
-    public AdapterCart(Context mContext, Theme theme, ArrayList<PlayerSelection> players) {
+    public AdapterCart(Context mContext, Theme theme, ArrayList<PlayerSelection> players, ChangeListener listener) {
         this.mContext = mContext;
         this.mTheme = theme;
         this.mPlayers = players;
         this.selected = new ArrayList<>();
+        this.listener = listener;
     }
 
     @Override
@@ -70,7 +72,8 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         holder.rl_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.setSelection(MainActivity.keyUnselected);
+                listener.playerDeselected( player.getSelection());
+                player.setSelection(Keys.unselected);
                 selected.remove(player);
                 update();
             }
@@ -151,6 +154,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
                     //view.setVisibility(View.VISIBLE);
                     PlayerSelection player = mPlayers.get((int) v.getTag());
                     player.setSelection((String) dragView.getTag());
+                    listener.playerSelected(player.getSelection());
                     selected.remove(player);
                     selected.add(player);
                     update();
@@ -172,6 +176,11 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         private boolean dropEventNotHandled(DragEvent dragEvent) {
             return !dragEvent.getResult();
         }
+    }
+
+    interface ChangeListener{
+        void playerSelected(String key);
+        void playerDeselected(String key);
     }
 
 }

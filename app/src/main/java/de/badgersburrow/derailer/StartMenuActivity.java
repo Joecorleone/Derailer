@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 26.07.16.
  */
-public class StartMenuActivity extends Activity{
+public class StartMenuActivity extends Activity implements AdapterCart.ChangeListener {
 
     private static String TAG = "StartMenuActivity";
 
@@ -54,14 +55,15 @@ public class StartMenuActivity extends Activity{
     static ArrayList<PlayerSelection> availablePlayers;
     ButtonRecyclerView rv_carts;
 
-
+    RecyclerView rv_players;
+    AdapterPlayers adapterPlayers;
 
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
     Button bt_back;
     static GameTextButton bt_play;
-    static TextView tv_player_num, tv_ai_easy_num, tv_ai_normal_num, tv_ai_hard_num;
-    static ImageView iv_player_icon, iv_ai_easy_icon, iv_ai_normal_icon, iv_ai_hard_icon;
+    //static TextView tv_player_num, tv_ai_easy_num, tv_ai_normal_num, tv_ai_hard_num;
+    //static ImageView iv_player_icon, iv_ai_easy_icon, iv_ai_normal_icon, iv_ai_hard_icon;
     static ToggleButton tb_toggle;
 
     Context mContext;
@@ -116,12 +118,12 @@ public class StartMenuActivity extends Activity{
         //tv_conn_eight.setTypeface(MainActivity.customtf_normal);
 
         bt_play = (GameTextButton) findViewById(R.id.bt_play);
-        tv_player_num = (TextView) findViewById(R.id.tv_player_num);
+        /*tv_player_num = (TextView) findViewById(R.id.tv_player_num);
         tv_ai_easy_num = (TextView) findViewById(R.id.tv_ai_easy_num);
         tv_ai_normal_num = (TextView) findViewById(R.id.tv_ai_normal_num);
-        tv_ai_hard_num = (TextView) findViewById(R.id.tv_ai_hard_num);
+        tv_ai_hard_num = (TextView) findViewById(R.id.tv_ai_hard_num);*/
         bt_play.setTypeface(MainActivity.customtf_normal);
-        tv_player_num.setTypeface(MainActivity.customtf_normal);
+        /*tv_player_num.setTypeface(MainActivity.customtf_normal);
         tv_ai_easy_num.setTypeface(MainActivity.customtf_normal);
         tv_ai_normal_num.setTypeface(MainActivity.customtf_normal);
         tv_ai_hard_num.setTypeface(MainActivity.customtf_normal);
@@ -129,9 +131,10 @@ public class StartMenuActivity extends Activity{
         iv_player_icon = (ImageView) findViewById(R.id.iv_player_icon);
         iv_ai_easy_icon = (ImageView) findViewById(R.id.iv_ai_easy_icon);
         iv_ai_normal_icon = (ImageView) findViewById(R.id.iv_ai_normal_icon);
-        iv_ai_hard_icon = (ImageView) findViewById(R.id.iv_ai_hard_icon);
+        iv_ai_hard_icon = (ImageView) findViewById(R.id.iv_ai_hard_icon);*/
 
         rv_options = (RecyclerView) findViewById(R.id.rv_options);
+        rv_players = (RecyclerView) findViewById(R.id.rv_players);
 
 
         tb_toggle = (ToggleButton) findViewById(R.id.tb_toggle);
@@ -165,7 +168,7 @@ public class StartMenuActivity extends Activity{
         rv_carts = findViewById(R.id.rv_carts);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_carts.setLayoutManager(llm);
-        adapterCarts = new AdapterCart(this, gameTheme, availablePlayers);
+        adapterCarts = new AdapterCart(this, gameTheme, availablePlayers, this);
         rv_carts.setAdapter(adapterCarts);
 
         rv_carts.setBt_left(findViewById(R.id.bt_carts_left));
@@ -267,6 +270,12 @@ public class StartMenuActivity extends Activity{
                 finish();
             }
         });
+
+        adapterPlayers = new AdapterPlayers(mContext);
+        GridLayoutManager glm_players = new GridLayoutManager(this, 2);
+        rv_players.setLayoutManager(glm_players);
+        rv_players.setAdapter(adapterPlayers);
+
     }
 
     void scaleIndicatorIcons(){
@@ -274,7 +283,7 @@ public class StartMenuActivity extends Activity{
         Matrix m = new Matrix();
         m.postScale(0.3f,0.3f);
 
-        Bitmap player_icon = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.player_icon));
+        /*Bitmap player_icon = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.player_icon));
         int p_width = player_icon.getWidth();
         int p_height = player_icon.getHeight();
         iv_player_icon.setImageBitmap(Bitmap.createBitmap(player_icon , 0, 0, p_width, p_height, m, true));
@@ -296,6 +305,7 @@ public class StartMenuActivity extends Activity{
         int ah_width = ai_hard_icon.getWidth();
         int ah_height = ai_hard_icon.getHeight();
         iv_ai_hard_icon.setImageBitmap(Bitmap.createBitmap(ai_hard_icon , 0, 0, ah_width, ah_height, m, true));
+         */
     }
 
     static public void displayPlayerNumber(){
@@ -306,7 +316,7 @@ public class StartMenuActivity extends Activity{
             bt_play.setEnabled(true);
             //tv_play.setBackground(res.getDrawable(R.drawable.button_play02));
         }*/
-        int numPlayers = 0;
+        /*int numPlayers = 0;
         int numAiEasy = 0;
         int numAiNormal = 0;
         int numAiHard = 0;
@@ -354,6 +364,8 @@ public class StartMenuActivity extends Activity{
         tv_ai_easy_num.setText(String.valueOf(numAiEasy));
         tv_ai_normal_num.setText(String.valueOf(numAiNormal));
         tv_ai_hard_num.setText(String.valueOf(numAiHard));
+
+         */
     }
 
     void toggle(View v){
@@ -370,6 +382,16 @@ public class StartMenuActivity extends Activity{
         Log.d(TAG, "connections: " + connections);
         SPE.putInt("connections",connections);
         SPE.commit();
+    }
+
+    @Override
+    public void playerSelected(String key) {
+        adapterPlayers.addPlayer(key);
+    }
+
+    @Override
+    public void playerDeselected(String key) {
+        adapterPlayers.removePlayer(key);
     }
 
 
