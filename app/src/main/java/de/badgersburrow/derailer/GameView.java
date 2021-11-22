@@ -484,58 +484,51 @@ public class GameView extends SurfaceView {
         Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);
         if (tiles == 4) {
             for (int i = 0; i < 6; i++) {
-                boolean ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == 0 && obstacle.yIndex == i) {
-                        ok = false;
-                    }
-                }
-                if (ok) {
+                if (checkObstacleColision(0, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 0, i, 3, 4));
                 }
-                ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == i && obstacle.yIndex == 0) {
-                        ok = false;
-                    }
-                }
-                if (ok){
+                if (checkObstacleColision(i, 0)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 4));
                 }
-                ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == 5 && obstacle.yIndex == i) {
-                        ok = false;
-                    }
-                }
-                if (ok){
+                if (checkObstacleColision(5, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 5, i, 1, 4));
                 }
-                ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == i && obstacle.yIndex == 5) {
-                        ok = false;
-                    }
-                }
-                if (ok){
+                if (checkObstacleColision(i, 5)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 5, 2, 4));
                 }
             }
         } else {
             for (int i = 0; i < 6; i++) {
-                startPositions.add(new StartSprite(this, blue_dot, 0, i, 6, 8));
-                startPositions.add(new StartSprite(this, blue_dot, 0, i, 7, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 0, 1, 8));
-                startPositions.add(new StartSprite(this, blue_dot, 5, i, 2, 8));
-                startPositions.add(new StartSprite(this, blue_dot, 5, i, 3, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 5, 4, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 5, 5, 8));
+                if (checkObstacleColision(0, i)) {
+                    startPositions.add(new StartSprite(this, blue_dot, 0, i, 6, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, 0, i, 7, 8));
+                }
+                if (checkObstacleColision(i, 0)) {
+                    startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, i, 0, 1, 8));
+                }
+                if (checkObstacleColision(5, i)) {
+                    startPositions.add(new StartSprite(this, blue_dot, 5, i, 2, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, 5, i, 3, 8));
+                }
+                if (checkObstacleColision(i, 5)) {
+                    startPositions.add(new StartSprite(this, blue_dot, i, 5, 4, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, i, 5, 5, 8));
+                }
             }
         }
 
         buttons.add(new MyButton(this, BitmapFactory.decodeResource(getResources(), R.drawable.play_button2), BitmapFactory.decodeResource(getResources(), R.drawable.play_button3), 900, 1780));
 
+    }
+
+    private boolean checkObstacleColision(int x, int y){
+        for (ObstacleCardSprite obstacle : obstacles) {
+            if (obstacle.xIndex == x && obstacle.yIndex == y) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void drawPlayers(Canvas canvas){
