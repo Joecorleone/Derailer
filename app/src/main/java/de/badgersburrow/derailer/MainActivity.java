@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import de.badgersburrow.derailer.views.GameSignButton;
+
 public class MainActivity extends Activity implements OnClickListener{
 
     Button bLocal;
@@ -78,8 +80,11 @@ public class MainActivity extends Activity implements OnClickListener{
         bTheme_animX.setStartDelay(500);
         bTheme_animX.start();
 
-        ImageView iv_exit = findViewById(R.id.iv_exit);
-        iv_exit.setOnClickListener(this);
+        GameSignButton gsb_exit = findViewById(R.id.gsb_exit);
+        gsb_exit.setOnClickListener(this);
+
+        GameSignButton gsb_sound = findViewById(R.id.gsb_sound);
+        gsb_sound.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -93,8 +98,12 @@ public class MainActivity extends Activity implements OnClickListener{
                 Intent theme = new Intent(this, ThemeActivity.class);
                 startActivity(theme);
                 break;
-            case R.id.iv_exit:
+            case R.id.gsb_exit:
                 this.finish();
+                break;
+            case R.id.gsb_sound:
+                break;
+
         }
     }
 

@@ -17,6 +17,8 @@
 
     <!-- Game settingCards screen. -->
     <dimen name="divider_height">50dp</dimen>
+    <dimen name="sign_deviation_top">5dp</dimen>
+    <dimen name="sign_deviation_bottom">-5dp</dimen>
     <item name="cart_scale" type="fraction">60%</item>
     <item name="card_flip_time_half" type="integer">150</item>
 

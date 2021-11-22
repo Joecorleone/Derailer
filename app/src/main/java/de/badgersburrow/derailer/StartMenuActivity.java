@@ -32,6 +32,7 @@ import de.badgersburrow.derailer.objects.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
 import de.badgersburrow.derailer.views.ButtonRecyclerView;
+import de.badgersburrow.derailer.views.GameSignButton;
 
 import java.util.ArrayList;
 
@@ -218,8 +219,8 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
             }
         });
 
-        ImageView iv_back = (ImageView) findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        GameSignButton gsb_back = findViewById(R.id.gsb_back);
+        gsb_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -227,8 +228,8 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         });
 
 
-        ImageView iv_play = (ImageView) findViewById(R.id.iv_play);
-        iv_play.setOnClickListener(new View.OnClickListener() {
+        GameSignButton gsb_play = (GameSignButton) findViewById(R.id.gsb_play);
+        gsb_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getNumPlayers() < 2) {
