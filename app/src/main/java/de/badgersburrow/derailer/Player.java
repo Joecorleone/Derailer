@@ -33,6 +33,8 @@ public class Player implements Serializable {
     private static String TAG = "Player";
     private static int counter = 0;
 
+    public ArrayList<ChoiceCardSprite> choiceCards;
+
     private Bitmap bmp_main;
     private Bitmap bmp_color;
     private GameView gameView;
@@ -82,6 +84,7 @@ public class Player implements Serializable {
     public Player(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection){
         _id = counter;
         counter++;
+        choiceCards = new ArrayList<>();
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
         this.bmp_main = theme.getCart();
@@ -290,6 +293,19 @@ public class Player implements Serializable {
             outCount = gameView.getKilledCount();
             Log.d(TAG, "kill - outCount: " + outCount);
         }
+    }
+
+    public int getEmptyCardSlot(){
+        ArrayList<Integer> positions = new ArrayList<>();
+        for (ChoiceCardSprite card: choiceCards){
+            positions.add(card.getPos());
+        }
+        for (int i=0; i<3; i++){
+            if (!positions.contains(i)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void startMoving(int newPosOnTile, int newPosNextTile, int dx, int dy) {

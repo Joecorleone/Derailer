@@ -814,8 +814,6 @@ public class GameView extends SurfaceView {
             gameActivity.onGameOver();
         }
 
-        updateChoiceCards();
-
         gamePhase = gpPlaying;
         int i = 0;
         gameTurn += 1;
@@ -831,6 +829,11 @@ public class GameView extends SurfaceView {
 
         if(!someNotMoved){
             playersMoved = new ArrayList<Integer>();
+        }
+
+        Player player = players.get(currentPlayer);
+        if (cardSelected != -1 && options.contains(Keys.option_draw_01)) {
+            player.choiceCards.remove(cardSelected);
         }
 
         while (i < players.size()) {
@@ -861,9 +864,11 @@ public class GameView extends SurfaceView {
 
                     startThinking();
                 }
+                updateChoiceCards();
                 return;
             }
         }
+
     }
 
     public void startThinking(){
@@ -874,13 +879,28 @@ public class GameView extends SurfaceView {
     public void updateChoiceCards(){
         choiceCards = new ArrayList<>();
         ArrayList<Integer> selected = new ArrayList<>();
-        while (choiceCards.size()<3){
-            int index = randomGenerator.nextInt(cards.size());
-            if (!selected.contains(index)){
-                selected.add(index);
-                ChoiceCardSprite card = cards.get(index).getCopy(choiceCards.size());
-                choiceCards.add(card);
+        if (options.contains(Keys.option_draw_02)) {
+            while (choiceCards.size() < 3) {
+                int index = randomGenerator.nextInt(cards.size());
+                if (!selected.contains(index)) {
+                    selected.add(index);
+                    ChoiceCardSprite card = cards.get(index).getCopy(choiceCards.size());
+                    choiceCards.add(card);
+                }
             }
+        } else {
+            Player p = players.get(currentPlayer);
+            while (p.choiceCards.size() < 3) {
+                int index = randomGenerator.nextInt(cards.size());
+                if (!selected.contains(index)) {
+                    selected.add(index);
+                    int pos = p.getEmptyCardSlot();
+
+                    ChoiceCardSprite card = cards.get(index).getCopy(pos);
+                    p.choiceCards.add(card);
+                }
+            }
+            choiceCards = p.choiceCards;
         }
     }
 
