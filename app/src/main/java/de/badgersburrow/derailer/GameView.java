@@ -760,9 +760,9 @@ public class GameView extends SurfaceView {
                     }
                 }
 
-                if (gamePhase.equals(gpPlaying) & cardSelected != -1 & buttons.get(0).isTouched(event.getX(), event.getY())){
+                /*if (gamePhase.equals(gpPlaying) & cardSelected != -1 & buttons.get(0).isTouched(event.getX(), event.getY())){
                     movePlayers();
-                }
+                }*/
 
                 if (gamePhase.equals(gpStart)){
 
