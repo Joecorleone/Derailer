@@ -64,6 +64,8 @@ public class GameView extends SurfaceView {
     int moveSteps = 20; // frames per animated move, used to synchronize all animations
     float scaleFactor = 1f; // scale all images with the same factor
 
+    ArrayList<Integer> playersMoved = new ArrayList<Integer>();
+
     int edge;
     int bottomMargin;
     ArrayList<Player> players = new ArrayList<Player>();
@@ -803,13 +805,15 @@ public class GameView extends SurfaceView {
         int number_live_players = 0;
         String playerAliveLabel = "NoBody";
         int playerAliveColor = 0xFF000000;
-        for (int i=0; i<players.size(); i++){
-            if (players.get(i).alive){
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).alive) {
                 number_live_players += 1;
                 playerAliveLabel = players.get(i).getLabel(getContext());
                 playerAliveColor = players.get(i).getColor();
             }
         }
+
+
 
         if (number_live_players <= 1){
             this.gamePhase = "GameOver";
@@ -822,11 +826,41 @@ public class GameView extends SurfaceView {
         gamePhase = gpPlaying;
         int i = 0;
         gameTurn += 1;
+
+        boolean someNotMoved = false;
+        for (Player player: players){
+            int id = player.id();
+            if (!playersMoved.contains(id) && player.alive){
+                someNotMoved = true;
+                //break;
+            }
+        }
+
+        if(!someNotMoved){
+            playersMoved = new ArrayList<Integer>();
+        }
+
         while (i < players.size()) {
-            currentPlayer += 1;
-            currentPlayer = currentPlayer % players.size();
+
+            if (options.contains(Keys.option_order_01)) {
+                currentPlayer += 1;
+                currentPlayer = currentPlayer % players.size();
+            } else {
+                while (true){
+                    currentPlayer = randomGenerator.nextInt(players.size());
+                    currentPlayer = currentPlayer % players.size();
+                    if (!playersMoved.contains(players.get(currentPlayer).id())){
+                        break;
+                    }
+                }
+
+            }
+
+
+
 
             Player p = players.get(currentPlayer);
+            playersMoved.add(p.id());
             cardSelected = -1;
             if (p.alive) {
                 gameActivity.showNotification(p);
