@@ -49,13 +49,16 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
     SharedPreferences.Editor SPE;
 
     RecyclerView rv_options;
+    AdapterOptions adapterOptions;
     ArrayList<SettingCard> settingCards;
+
     AdapterCart adapterCarts;
     static ArrayList<PlayerSelection> availablePlayers;
     ButtonRecyclerView rv_carts;
 
     RecyclerView rv_players;
     AdapterPlayers adapterPlayers;
+
 
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
@@ -146,7 +149,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         // has to correspond to the order of the strings in the array
 
         //obstacle
-        SettingCard setting_obstacle = new SettingCard(mContext);
+        SettingCard setting_obstacle = new SettingCard(mContext, Keys.option_obstacle);
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_none, getString(R.string.option_obstacle_none), R.drawable.option_obstacle_none));
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_few, getString(R.string.option_obstacle_few), R.drawable.option_obstacle_few));
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_many, getString(R.string.option_obstacle_many), R.drawable.option_obstacle_many));
@@ -161,14 +164,14 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         settingCards.add(setting_daynight);*/
 
         //draw
-        SettingCard setting_draw = new SettingCard(mContext);
+        SettingCard setting_draw = new SettingCard(mContext, Keys.option_draw);
         setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_01, getString(R.string.option_draw_01), R.drawable.option_draw_01));
         setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_02, getString(R.string.option_draw_02), R.drawable.option_draw_02));
         setting_draw.init(getString(R.string.option_draw), SP.getString(Keys.option_draw, Keys.option_draw_01));
         settingCards.add(setting_draw);
 
         //order
-        SettingCard setting_order = new SettingCard(mContext);
+        SettingCard setting_order = new SettingCard(mContext, Keys.option_order);
         setting_order.addChoice(new SettingCard.Choice(Keys.option_order_01, getString(R.string.option_order_01), R.drawable.option_order_01));
         setting_order.addChoice(new SettingCard.Choice(Keys.option_order_02, getString(R.string.option_order_02), R.drawable.option_order_02));
         setting_order.init(getString(R.string.option_order), SP.getString(Keys.option_order, Keys.option_order_01));
@@ -182,14 +185,14 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         settingCards.add(setting_suddendeath);*/
 
         //order
-        SettingCard setting_victory = new SettingCard(mContext);
+        SettingCard setting_victory = new SettingCard(mContext, Keys.option_victory);
         setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_01, getString(R.string.option_victory_01), R.drawable.option_victory_01));
         setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_02, getString(R.string.option_victory_02), R.drawable.option_victory_02));
         setting_victory.init(getString(R.string.option_victory),SP.getString(Keys.option_victory, Keys.option_victory_01));
         settingCards.add(setting_victory);
 
 
-        AdapterOptions adapterOptions = new AdapterOptions(mContext, settingCards);
+        adapterOptions = new AdapterOptions(mContext, settingCards);
         LinearLayoutManager llm_options = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_options.setLayoutManager(llm_options);
         rv_options.setAdapter(adapterOptions);
@@ -265,9 +268,11 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         if (connections == 4){
             //iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state1));
             connections=8;
+            adapterOptions.enable(Keys.option_draw);
         } else if (connections == 8){
             //iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state0));
             connections=4;
+            adapterOptions.disable(Keys.option_draw);
         }
         StateListDrawable stateListDrawable = (StateListDrawable) v.getBackground();
         AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();

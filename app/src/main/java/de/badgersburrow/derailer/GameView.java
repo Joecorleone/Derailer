@@ -787,7 +787,6 @@ public class GameView extends SurfaceView {
                 }
             }
         }
-
         return true;
     }
 
@@ -803,8 +802,6 @@ public class GameView extends SurfaceView {
             }
         }
 
-
-
         if (number_live_players <= 1){
             this.gamePhase = "GameOver";
             gameLoopThread.setRunning(false);
@@ -812,49 +809,43 @@ public class GameView extends SurfaceView {
         } else {
             updateChoiceCards();
 
-        gamePhase = gpPlaying;
-        int i = 0;
-        gameTurn += 1;
+            gamePhase = gpPlaying;
+            int i = 0;
+            gameTurn += 1;
 
-        boolean someNotMoved = false;
-        for (Player player: players){
-            int id = player.id();
-            if (!playersMoved.contains(id) && player.alive){
-                someNotMoved = true;
-                //break;
+            boolean someNotMoved = false;
+            for (Player player: players){
+                int id = player.id();
+                if (!playersMoved.contains(id) && player.alive){
+                    someNotMoved = true;
+                }
             }
-        }
 
-        if(!someNotMoved){
-            playersMoved = new ArrayList<Integer>();
-        }
+            if(!someNotMoved){
+                playersMoved = new ArrayList<Integer>();
+            }
 
-        while (i < players.size()) {
+            while (i < players.size()) {
 
-            if (options.contains(Keys.option_order_01)) {
-                currentPlayer += 1;
-                currentPlayer = currentPlayer % players.size();
-            } else {
-                while (true){
-                    currentPlayer = randomGenerator.nextInt(players.size());
+                if (options.contains(Keys.option_order_01)) {
+                    currentPlayer += 1;
                     currentPlayer = currentPlayer % players.size();
-                    if (!playersMoved.contains(players.get(currentPlayer).id())){
-                        break;
+                } else {
+                    while (true){
+                        currentPlayer = randomGenerator.nextInt(players.size());
+                        currentPlayer = currentPlayer % players.size();
+                        if (!playersMoved.contains(players.get(currentPlayer).id())){
+                            break;
+                        }
                     }
                 }
 
-            }
-
-
-
-
-            Player p = players.get(currentPlayer);
-            playersMoved.add(p.id());
-            cardSelected = -1;
-            if (p.alive) {
-                gameActivity.showNotification(p);
-                if (p.KI){
-
+                Player p = players.get(currentPlayer);
+                playersMoved.add(p.id());
+                cardSelected = -1;
+                if (p.alive) {
+                    gameActivity.showNotification(p);
+                    if (p.KI){
                         startThinking();
                     }
                     return;

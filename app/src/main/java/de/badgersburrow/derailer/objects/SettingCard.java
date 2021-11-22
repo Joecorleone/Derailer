@@ -3,6 +3,7 @@ package de.badgersburrow.derailer.objects;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -26,6 +27,7 @@ public class SettingCard extends LinearLayout implements
     private ArrayList<Choice> choices = new ArrayList<>();
     private String title = "";
     private String key;
+    private String keyChosen;
 
     private View v;
 
@@ -39,13 +41,17 @@ public class SettingCard extends LinearLayout implements
     private TextView tv_option;
     private ImageView iv_option;
 
-    public SettingCard(Context context) {
+    private boolean enabled;
+
+    public SettingCard(Context context, String key) {
         super(context);
         this.mContext = context;
         this.choices = new ArrayList<>();
+        this.key = key;
         setOnClickListener(this);
         anim_duration = getResources().getInteger(R.integer.card_flip_time_half);
         topPadding = Math.round(getResources().getDimension(R.dimen.activity_vertical_margin_small));
+        enabled = true;
     }
 
     public SettingCard(Context context, AttributeSet attrs) {
@@ -58,7 +64,7 @@ public class SettingCard extends LinearLayout implements
 
     public void init(String title, String key){
         this.title = title;
-        this.key = key;
+        this.keyChosen = key;
         initView();
     }
 
@@ -67,12 +73,20 @@ public class SettingCard extends LinearLayout implements
         tv_option = v.findViewById(R.id.tv_option);
         iv_option = v.findViewById(R.id.iv_option);
         tv_option.setTypeface(MainActivity.customtf_normal);
+
         setContent();
     }
 
     private void setContent(){
         tv_option.setText(this.getOptionLabel());
         iv_option.setImageResource(this.getResidImage());
+        if (enabled){
+            tv_option.setTextColor(mContext.getResources().getColor(R.color.option_enabled));
+            iv_option.clearColorFilter();
+        } else {
+            tv_option.setTextColor(mContext.getResources().getColor(R.color.option_disabled));
+            iv_option.setColorFilter(mContext.getResources().getColor(R.color.option_image_disabled), PorterDuff.Mode.LIGHTEN);
+        }
     }
 
     public void addChoice(Choice choice){
@@ -82,12 +96,12 @@ public class SettingCard extends LinearLayout implements
     public void setChoiceNext(){
         int state = 0;
         for (int i = 0; i<choices.size(); i++){
-            if (choices.get(i).key.equals(key)){
+            if (choices.get(i).key.equals(keyChosen)){
                 state = i;
             }
         }
         int nextState = (state+1)%choices.size();
-        key = choices.get(nextState).key;
+        keyChosen = choices.get(nextState).key;
         setContent();
     }
 
@@ -97,7 +111,7 @@ public class SettingCard extends LinearLayout implements
 
     public int getResidImage(){
         for (Choice c : choices){
-            if (c.key.equals(key)){
+            if (c.key.equals(keyChosen)){
                 return c.image;
             }
         }
@@ -106,7 +120,7 @@ public class SettingCard extends LinearLayout implements
 
     public String getOptionLabel(){
         for (Choice c : choices){
-            if (c.key.equals(key)){
+            if (c.key.equals(keyChosen)){
                 return c.label;
             }
         }
@@ -115,6 +129,20 @@ public class SettingCard extends LinearLayout implements
 
     public String getKey(){
         return key;
+    }
+    public String getKeyChosen(){
+        return keyChosen;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        setContent();
     }
 
     public int getTopPadding() { return topPadding;}
@@ -180,13 +208,16 @@ public class SettingCard extends LinearLayout implements
         // start the Animation...
         // handle click event yourself and pass the event to supplied
         // listener also...
-        if (!animating){
-            this.toggleState();
+        if (enabled){
+            if (!animating){
+                this.toggleState();
+            }
+
+            if (clickListener != null) {
+                clickListener.onClick(this);
+            }
         }
 
-        if (clickListener != null) {
-            clickListener.onClick(this);
-        }
     }
 
     public static class Choice{

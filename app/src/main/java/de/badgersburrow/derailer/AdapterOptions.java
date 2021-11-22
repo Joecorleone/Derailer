@@ -58,7 +58,13 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
                 Gravity.CENTER_HORIZONTAL);
         settingCard.setPadding(0,settingCard.getTopPadding(),0,0); // necessary
         holder.ll_option.addView(settingCard, llparams);
+
         holder.tv_option.setText(settingCard.getTitle());
+        if (settingCard.isEnabled()){
+            holder.tv_option.setTextColor(mContext.getResources().getColor(R.color.option_enabled));
+        } else {
+            holder.tv_option.setTextColor(mContext.getResources().getColor(R.color.option_disabled));
+        }
         holder.tv_option.setTypeface(MainActivity.customtf_normal);
     }
 
@@ -66,6 +72,25 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         notifyDataSetChanged();
     }
 
+    public void enable(String key){
+        for (int i=0; i<settingCards.size(); i++){
+            SettingCard card = settingCards.get(i);
+            if (card.getKey().equals(key)){
+                card.setEnabled(true);
+                //notifyItemChanged(i);
+            }
+        }
+    }
+
+    public void disable(String key){
+        for (int i=0; i<settingCards.size(); i++){
+            SettingCard card = settingCards.get(i);
+            if (card.getKey().equals(key)){
+                card.setEnabled(false);
+                //notifyItemChanged(i);
+            }
+        }
+    }
 
     @Override
     public int getItemCount() {
@@ -75,7 +100,9 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
     public ArrayList<String> getKeys(){
         ArrayList<String> keys = new ArrayList<>();
         for (SettingCard card : settingCards){
-            keys.add(card.getKey());
+            if (card.isEnabled()){
+                keys.add(card.getKeyChosen());
+            }
         }
         return keys;
     }
