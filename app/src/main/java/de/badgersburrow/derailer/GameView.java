@@ -531,9 +531,6 @@ public class GameView extends SurfaceView {
                 startPositions.add(new StartSprite(this, blue_dot, i, 5, 5, 8));
             }
         }
-
-        buttons.add(new MyButton(this, BitmapFactory.decodeResource(getResources(), R.drawable.play_button2), BitmapFactory.decodeResource(getResources(), R.drawable.play_button3), 900, 1780));
-
     }
 
     public void drawPlayers(Canvas canvas){
