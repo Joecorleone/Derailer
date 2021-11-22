@@ -152,6 +152,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
                     //container.addView(view);
                     //view.setVisibility(View.VISIBLE);
                     PlayerSelection player = mPlayers.get((int) v.getTag());
+                    listener.playerDeselected(player.getSelection());
                     player.setSelection((String) dragView.getTag());
                     listener.playerSelected(player.getSelection());
                     selected.remove(player);

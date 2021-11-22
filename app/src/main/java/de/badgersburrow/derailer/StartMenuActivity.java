@@ -218,6 +218,33 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
             }
         });
 
+        ImageView iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+        ImageView iv_play = (ImageView) findViewById(R.id.iv_play);
+        iv_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getNumPlayers() < 2) {
+                    showDialog();
+                } else {
+                    Intent newGameScreen= new Intent(mContext, GameActivity.class);
+                    newGameScreen.putExtra("Players", adapterCarts.getSelected());
+                    newGameScreen.putExtra("Options", adapterOptions.getKeys());
+                    newGameScreen.putExtra("connections", connections);
+                    startActivity(newGameScreen);
+                    finish();
+                }
+            }
+        });
+
+
         bt_back = (Button) findViewById(R.id.bt_back);
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
