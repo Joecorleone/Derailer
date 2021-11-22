@@ -66,6 +66,8 @@ public class GameView extends SurfaceView {
     int edge;
     int bottomMargin;
     ArrayList<Player> players = new ArrayList<Player>();
+    ArrayList<Integer> obstacleX = new ArrayList<Integer>();
+    ArrayList<Integer> obstacleY = new ArrayList<Integer>();
     private GameTheme selectedTheme;
     // Test different Boards Fields
     //private ArrayList<ArrayList<PlayedCardSprite>>   playedCards = new ArrayList<ArrayList<PlayedCardSprite>>();
@@ -100,7 +102,20 @@ public class GameView extends SurfaceView {
         }
 
         for (int j = 0; j < obstacleNumber; j ++ ) {
-            ObstacleCardSprite obstacle = new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), R.drawable.option_obstacle_many), 2, 3);
+            int x;
+            int y;
+            while (true){
+                x = randomGenerator.nextInt(6);
+                y = randomGenerator.nextInt(6);
+                if (obstacleX.contains(x) && obstacleY.contains(y)){
+                    continue;
+                }
+                obstacleX.add(x);
+                obstacleY.add(y);
+                break;
+            }
+
+            ObstacleCardSprite obstacle = new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), R.drawable.option_obstacle_many), x, y);
             obstacles.add(obstacle);
         }
 
@@ -203,7 +218,7 @@ public class GameView extends SurfaceView {
         super.draw(canvas);
         drawBackground(canvas);
         drawLines(canvas);
-
+        drawObstacles(canvas);
         if (gamePhase.equals(gpStart)){
             if (players.get(currentPlayer).KI){
                 int i = randomGenerator.nextInt(startPositions.size());
@@ -254,7 +269,7 @@ public class GameView extends SurfaceView {
         drawPlayedCardsTop(canvas);
         drawButtons(canvas);
         drawPlayerList(canvas);
-        drawObstacles(canvas);
+
 
         if (gamePhase.equals(gpPlaying)) {
             drawChoiceCards(canvas);//cards.get(i).onDraw(canvas);
@@ -465,10 +480,42 @@ public class GameView extends SurfaceView {
         Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);
         if (tiles == 4) {
             for (int i = 0; i < 6; i++) {
-                startPositions.add(new StartSprite(this, blue_dot, 0, i, 3, 4));
-                startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 4));
-                startPositions.add(new StartSprite(this, blue_dot, 5, i, 1, 4));
-                startPositions.add(new StartSprite(this, blue_dot, i, 5, 2, 4));
+                boolean ok = true;
+                for (ObstacleCardSprite obstacle : obstacles) {
+                    if (obstacle.xIndex == 0 && obstacle.yIndex == i) {
+                        ok = false;
+                    }
+                }
+                if (ok) {
+                    startPositions.add(new StartSprite(this, blue_dot, 0, i, 3, 4));
+                }
+                ok = true;
+                for (ObstacleCardSprite obstacle : obstacles) {
+                    if (obstacle.xIndex == i && obstacle.yIndex == 0) {
+                        ok = false;
+                    }
+                }
+                if (ok){
+                    startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 4));
+                }
+                ok = true;
+                for (ObstacleCardSprite obstacle : obstacles) {
+                    if (obstacle.xIndex == 5 && obstacle.yIndex == i) {
+                        ok = false;
+                    }
+                }
+                if (ok){
+                    startPositions.add(new StartSprite(this, blue_dot, 5, i, 1, 4));
+                }
+                ok = true;
+                for (ObstacleCardSprite obstacle : obstacles) {
+                    if (obstacle.xIndex == i && obstacle.yIndex == 5) {
+                        ok = false;
+                    }
+                }
+                if (ok){
+                    startPositions.add(new StartSprite(this, blue_dot, i, 5, 2, 4));
+                }
             }
         } else {
             for (int i = 0; i < 6; i++) {
@@ -617,6 +664,12 @@ public class GameView extends SurfaceView {
                         }
                     }
 
+                    for (ObstacleCardSprite obstacle: obstacles){
+                        if (player.getXIndex() + dx == obstacle.xIndex && player.getYIndex() + dy == obstacle.yIndex){
+                            player.kill();
+                            gameActivity.showNotification(player);
+                        }
+                    }
 
 
                     /* / TODO Movement of Player */
