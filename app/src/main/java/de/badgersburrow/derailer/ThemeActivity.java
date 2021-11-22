@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.badgersburrow.derailer.objects.Theme;
+import de.badgersburrow.derailer.views.GameSignButton;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,6 @@ import java.util.ArrayList;
  */
 
 public class ThemeActivity extends Activity {
-    ImageView iv_back;
     TextView tv_header;
     RecyclerView rvTheme;
     SharedPreferences SP;
@@ -50,8 +50,8 @@ public class ThemeActivity extends Activity {
 
         SPE = SP.edit();
 
-        iv_back = (ImageView) findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        GameSignButton gsb_back = findViewById(R.id.gsb_back);
+        gsb_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

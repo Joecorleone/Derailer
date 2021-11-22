@@ -123,6 +123,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         Theme gameTheme = new Theme(selectedThemeId, true);
 
         connections = SP.getInt("connections",4);
+
         tb_toggle.setChecked(connections == 8);
         StateListDrawable stateListDrawable = (StateListDrawable) tb_toggle.getBackground();
         AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
@@ -196,6 +197,12 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         LinearLayoutManager llm_options = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_options.setLayoutManager(llm_options);
         rv_options.setAdapter(adapterOptions);
+        if (connections == 8){
+            adapterOptions.enable(Keys.option_draw);
+        } else {
+            adapterOptions.disable(Keys.option_draw);
+        }
+
 
         iv_player.setOnTouchListener(new MyTouchListener());
         iv_ai_easy.setOnTouchListener(new MyTouchListener());

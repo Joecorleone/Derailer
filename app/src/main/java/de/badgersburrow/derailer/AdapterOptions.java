@@ -60,11 +60,11 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         holder.ll_option.addView(settingCard, llparams);
 
         holder.tv_option.setText(settingCard.getTitle());
-        if (settingCard.isEnabled()){
+        /*if (settingCard.isEnabled()){
             holder.tv_option.setTextColor(mContext.getResources().getColor(R.color.option_enabled));
         } else {
             holder.tv_option.setTextColor(mContext.getResources().getColor(R.color.option_disabled));
-        }
+        }*/
         holder.tv_option.setTypeface(MainActivity.customtf_normal);
     }
 
