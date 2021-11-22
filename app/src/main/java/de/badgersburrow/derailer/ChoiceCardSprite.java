@@ -12,6 +12,7 @@ import java.util.List;
 public class ChoiceCardSprite extends CardSprite {
 
     private int pos = 0;
+    private boolean show = false;
 
     public ChoiceCardSprite(GameView gameView, Bitmap bottomBmp, Bitmap topBmp, List<Integer> ways, int rotation){
         super(gameView, bottomBmp, topBmp, ways, rotation);
@@ -27,6 +28,16 @@ public class ChoiceCardSprite extends CardSprite {
             this.dest = new Rect(x, y, x+ width, y+width);
         }
         super.drawTopBottom(canvas);
+
+        if (show) {
+            canvas.save();
+            canvas.drawBitmap(gameView.rotateIndicator, null, dest, null);
+            canvas.restore();
+        }
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 
     public int getPos() {

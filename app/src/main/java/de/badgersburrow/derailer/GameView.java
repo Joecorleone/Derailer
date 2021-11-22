@@ -33,6 +33,7 @@ public class GameView extends SurfaceView {
 
     private GameActivity gameActivity = new GameActivity();
     private Bitmap background;
+    Bitmap rotateIndicator;
     private ArrayList<ChoiceCardSprite> cards = new ArrayList<>();
     private ArrayList<StartSprite> startPositions = new ArrayList<>();
     private final RectF rectF = new RectF();
@@ -83,6 +84,7 @@ public class GameView extends SurfaceView {
     public GameView(Context context, ArrayList<PlayerSelection> players, ArrayList<String> options, int connections, GameTheme selectedTheme) {
         super(context);
         background = BitmapFactory.decodeResource(getResources(), R.drawable.start_screen);
+        rotateIndicator = BitmapFactory.decodeResource(getResources(), R.drawable.tile_rotate);
         gameActivity = (GameActivity) context;
         edge = Math.round(getResources().getDimension(R.dimen.play_field_edge));
         bottomMargin = Math.round(getResources().getDimension(R.dimen.play_field_bottomMargin));
@@ -664,7 +666,7 @@ public class GameView extends SurfaceView {
 
     public void playCard(Integer i){
         Player player = players.get(currentPlayer);
-        CardSprite card = choiceCards.get(i);
+        ChoiceCardSprite card = choiceCards.get(i);
         cardSelected = i;
         int pos = player.getPos();
         PlayedCardSprite playedCard = new PlayedCardSprite(this, card.getBottomBMP(), card.getTopBMP(), card.getWays(), player.getXIndex(), player.getYIndex(), card.getRotation());
@@ -691,14 +693,17 @@ public class GameView extends SurfaceView {
             lastClick = System.currentTimeMillis();
             synchronized (getHolder()) {
                 for (int i=0; i<choiceCards.size(); i++){
-                    CardSprite card = choiceCards.get(i);
+                    ChoiceCardSprite card = choiceCards.get(i);
                     if (card.isTouched(event.getX(), event.getY()) && gamePhase.equals(gpPlaying)){
+                        for (ChoiceCardSprite c : choiceCards){
+                            c.setShow(card == c);
+                        }
+                        card.setShow(true);
                         Player player = players.get(currentPlayer);
                         Log.d("CardSelected", String.valueOf(i));
                         if (i == cardSelected) {
                             rotateCard(i, -1);
-                        }
-                        else {
+                        } else {
                             playCard(i);
                         }
                         Log.d("CardSelected", String.valueOf(cardSelected));
