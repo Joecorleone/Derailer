@@ -31,6 +31,7 @@ import static java.lang.Math.min;
 public class Player implements Serializable {
 
     private static String TAG = "Player";
+    private static int counter = 0;
 
     private Bitmap bmp_main;
     private Bitmap bmp_color;
@@ -76,8 +77,11 @@ public class Player implements Serializable {
     int distancePoints = 10;
     int fieldPoints = 1;
     int killPoints = 50;
+    private int _id;
 
     public Player(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection){
+        _id = counter;
+        counter++;
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
         this.bmp_main = theme.getCart();
@@ -101,6 +105,10 @@ public class Player implements Serializable {
         this.moveSteps = gameView.getMoveSteps();
         this.currentStep = gameView.getMoveSteps();
         this.scaleFactor = gameView.getScaleFactor();
+    }
+
+    public int id(){
+        return _id;
     }
 
     public void onDraw(final Canvas canvas){

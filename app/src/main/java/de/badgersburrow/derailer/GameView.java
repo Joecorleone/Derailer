@@ -64,6 +64,8 @@ public class GameView extends SurfaceView {
     int moveSteps = 20; // frames per animated move, used to synchronize all animations
     float scaleFactor = 1f; // scale all images with the same factor
 
+    ArrayList<Integer> playersMoved = new ArrayList<Integer>();
+
     int edge;
     int bottomMargin;
     ArrayList<Player> players = new ArrayList<Player>();
@@ -482,55 +484,48 @@ public class GameView extends SurfaceView {
         Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);
         if (tiles == 4) {
             for (int i = 0; i < 6; i++) {
-                boolean ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == 0 && obstacle.yIndex == i) {
-                        ok = false;
-                    }
-                }
-                if (ok) {
+                if (checkObstacleColision(0, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 0, i, 3, 4));
                 }
-                ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == i && obstacle.yIndex == 0) {
-                        ok = false;
-                    }
-                }
-                if (ok){
+                if (checkObstacleColision(i, 0)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 4));
                 }
-                ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == 5 && obstacle.yIndex == i) {
-                        ok = false;
-                    }
-                }
-                if (ok){
+                if (checkObstacleColision(5, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 5, i, 1, 4));
                 }
-                ok = true;
-                for (ObstacleCardSprite obstacle : obstacles) {
-                    if (obstacle.xIndex == i && obstacle.yIndex == 5) {
-                        ok = false;
-                    }
-                }
-                if (ok){
+                if (checkObstacleColision(i, 5)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 5, 2, 4));
                 }
             }
         } else {
             for (int i = 0; i < 6; i++) {
-                startPositions.add(new StartSprite(this, blue_dot, 0, i, 6, 8));
-                startPositions.add(new StartSprite(this, blue_dot, 0, i, 7, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 0, 1, 8));
-                startPositions.add(new StartSprite(this, blue_dot, 5, i, 2, 8));
-                startPositions.add(new StartSprite(this, blue_dot, 5, i, 3, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 5, 4, 8));
-                startPositions.add(new StartSprite(this, blue_dot, i, 5, 5, 8));
+                if (checkObstacleColision(0, i)) {
+                    startPositions.add(new StartSprite(this, blue_dot, 0, i, 6, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, 0, i, 7, 8));
+                }
+                if (checkObstacleColision(i, 0)) {
+                    startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, i, 0, 1, 8));
+                }
+                if (checkObstacleColision(5, i)) {
+                    startPositions.add(new StartSprite(this, blue_dot, 5, i, 2, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, 5, i, 3, 8));
+                }
+                if (checkObstacleColision(i, 5)) {
+                    startPositions.add(new StartSprite(this, blue_dot, i, 5, 4, 8));
+                    startPositions.add(new StartSprite(this, blue_dot, i, 5, 5, 8));
+                }
             }
         }
+    }
+
+    private boolean checkObstacleColision(int x, int y){
+        for (ObstacleCardSprite obstacle : obstacles) {
+            if (obstacle.xIndex == x && obstacle.yIndex == y) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void drawPlayers(Canvas canvas){
@@ -800,13 +795,15 @@ public class GameView extends SurfaceView {
         int number_live_players = 0;
         String playerAliveLabel = "NoBody";
         int playerAliveColor = 0xFF000000;
-        for (int i=0; i<players.size(); i++){
-            if (players.get(i).alive){
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).alive) {
                 number_live_players += 1;
                 playerAliveLabel = players.get(i).getLabel(getContext());
                 playerAliveColor = players.get(i).getColor();
             }
         }
+
+
 
         if (number_live_players <= 1){
             this.gamePhase = "GameOver";
@@ -815,18 +812,48 @@ public class GameView extends SurfaceView {
         } else {
             updateChoiceCards();
 
-            gamePhase = gpPlaying;
-            int i = 0;
-            gameTurn += 1;
-            while (i < players.size()) {
+        gamePhase = gpPlaying;
+        int i = 0;
+        gameTurn += 1;
+
+        boolean someNotMoved = false;
+        for (Player player: players){
+            int id = player.id();
+            if (!playersMoved.contains(id) && player.alive){
+                someNotMoved = true;
+                //break;
+            }
+        }
+
+        if(!someNotMoved){
+            playersMoved = new ArrayList<Integer>();
+        }
+
+        while (i < players.size()) {
+
+            if (options.contains(Keys.option_order_01)) {
                 currentPlayer += 1;
                 currentPlayer = currentPlayer % players.size();
+            } else {
+                while (true){
+                    currentPlayer = randomGenerator.nextInt(players.size());
+                    currentPlayer = currentPlayer % players.size();
+                    if (!playersMoved.contains(players.get(currentPlayer).id())){
+                        break;
+                    }
+                }
 
-                Player p = players.get(currentPlayer);
-                cardSelected = -1;
-                if (p.alive) {
-                    gameActivity.showNotification(p);
-                    if (p.KI){
+            }
+
+
+
+
+            Player p = players.get(currentPlayer);
+            playersMoved.add(p.id());
+            cardSelected = -1;
+            if (p.alive) {
+                gameActivity.showNotification(p);
+                if (p.KI){
 
                         startThinking();
                     }
