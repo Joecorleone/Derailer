@@ -812,26 +812,26 @@ public class GameView extends SurfaceView {
             this.gamePhase = "GameOver";
             gameLoopThread.setRunning(false);
             gameActivity.onGameOver();
-        }
+        } else {
+            updateChoiceCards();
 
-        updateChoiceCards();
+            gamePhase = gpPlaying;
+            int i = 0;
+            gameTurn += 1;
+            while (i < players.size()) {
+                currentPlayer += 1;
+                currentPlayer = currentPlayer % players.size();
 
-        gamePhase = gpPlaying;
-        int i = 0;
-        gameTurn += 1;
-        while (i < players.size()) {
-            currentPlayer += 1;
-            currentPlayer = currentPlayer % players.size();
+                Player p = players.get(currentPlayer);
+                cardSelected = -1;
+                if (p.alive) {
+                    gameActivity.showNotification(p);
+                    if (p.KI){
 
-            Player p = players.get(currentPlayer);
-            cardSelected = -1;
-            if (p.alive) {
-                gameActivity.showNotification(p);
-                if (p.KI){
-
-                    startThinking();
+                        startThinking();
+                    }
+                    return;
                 }
-                return;
             }
         }
     }
