@@ -108,7 +108,6 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
             });
         }
         /*while (isNotification()){
-
         }*/
         runOnUiThread(notificationRun = new Runnable() {
             @Override
@@ -161,7 +160,6 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
                 } catch (InterruptedException e) {
 
                 }
-
             }
         };
         notificationThread.start();

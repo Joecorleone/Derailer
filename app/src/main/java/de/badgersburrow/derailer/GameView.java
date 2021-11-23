@@ -48,10 +48,10 @@ public class GameView extends SurfaceView {
 
     ArrayList<String> options;
 
-    final String gpStart = "Start";
-    final String gpPlaying = "Playing";
-    final String gpMoving = "Moving";
-    final String gpThinking = "Thinking";
+    final static String gpStart = "Start";
+    final static String gpPlaying = "Playing";
+    final static String gpMoving = "Moving";
+    final static String gpThinking = "Thinking";
     private float density;
     int currentPlayer = 0;
     int boardSize = 6;
@@ -227,11 +227,11 @@ public class GameView extends SurfaceView {
         drawObstacles(canvas);
         if (gameMainPhase.equals(gpStart)){
             Player p = players.get(currentPlayer);
-            if (p.KI && p.phase==p.ppIdle){
+            if (p.KI && p.phase.equals(p.ppIdle)){
                 gameMainPhase = gpStart;
                 startThinking();
             }
-            if (p.KI && p.phase==p.ppFinishedThinking){
+            if (p.KI && p.phase.equals(p.ppFinishedThinking)){
                 int i = randomGenerator.nextInt(startPositions.size());
                 StartSprite sprite = startPositions.get(i);
                 Player player = players.get(currentPlayer);
@@ -254,7 +254,6 @@ public class GameView extends SurfaceView {
                     nextPlayer();
                 }
             }
-
             drawStartPositions(canvas);
         }
 
@@ -308,7 +307,7 @@ public class GameView extends SurfaceView {
             } else {
                 Player p = players.get(currentPlayer);
                 p.phase = p.ppFinishedThinking;
-                if (gameMainPhase != gpStart) {
+                if (!gameMainPhase.equals(gpStart)) {
                     gamePhase = gpPlaying;
 
                     p.makeMove(playedCards, choiceCards, this);
@@ -358,7 +357,6 @@ public class GameView extends SurfaceView {
             for (int i=0; i<buttons.size(); i++){
                 MyButton button = buttons.get(i);
                 //button.onDraw(canvas, true);
-
             }
             if (bt_play != null){
                 gameActivity.runOnUiThread(new Runnable() {
@@ -372,7 +370,6 @@ public class GameView extends SurfaceView {
             for (int i=0; i<buttons.size(); i++){
                 MyButton button = buttons.get(i);
                 //button.onDraw(canvas, false);
-
             }
             if (bt_play != null){
                 gameActivity.runOnUiThread(new Runnable() {
@@ -795,6 +792,7 @@ public class GameView extends SurfaceView {
                             if (currentPlayer == 0) {
                                 currentPlayer = players.size()-1;
                                 gamePhase = gpPlaying;
+                                gameMainPhase = gpPlaying;
                                 nextPlayer();
                             }
                         }
