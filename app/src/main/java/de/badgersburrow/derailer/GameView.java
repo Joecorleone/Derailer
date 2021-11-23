@@ -708,8 +708,9 @@ public class GameView extends SurfaceView {
 
                     for (ObstacleCardSprite obstacle: obstacles){
                         if (player.getXIndex() + dx == obstacle.xIndex && player.getYIndex() + dy == obstacle.yIndex){
-                            player.kill();
-                            gameActivity.showNotification(player);
+                            player.killAfterMovement();
+                            //player.kill();
+                            //gameActivity.showNotification(player);
                         }
                     }
 
