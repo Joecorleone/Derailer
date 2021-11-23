@@ -55,6 +55,7 @@ public class GameView extends SurfaceView {
     private float density;
     int currentPlayer = 0;
     int boardSize = 6;
+    int collisionDistance = 10;
     int gameTurn = 0;
     int tiles = 8;
     int thinkCounter = 0;
@@ -544,9 +545,37 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayers(Canvas canvas){
+        ArrayList<ArrayList<Integer>> positions = new ArrayList<ArrayList<Integer>>(players.size());
         for (int i = 0; i < players.size(); i ++ ) {
             Player sprite = players.get(i);
-            sprite.onDraw(canvas);
+            if (sprite.alive) {
+                ArrayList<Integer> pos = sprite.onDraw(canvas);
+                positions.add(i, pos);
+            } else {
+                ArrayList<Integer> pos = new ArrayList();
+                pos.add(-1);
+                pos.add(-1);
+                positions.add(i, pos);
+            }
+        }
+
+
+        for (int i = 0; i < players.size(); i ++ ) {
+            if (positions.get(i).get(0) == -1) continue;
+            for (int j = i + 1; j < players.size(); j ++ ) {
+                if (Math.abs(positions.get(i).get(1).intValue() - positions.get(j).get(1).intValue()) < collisionDistance){
+                    if (Math.abs(positions.get(i).get(0).intValue() - positions.get(j).get(0).intValue()) < collisionDistance){
+                        players.get(i).kill();
+                        // Explosion
+                        gameActivity.showNotification(players.get(i));
+                        players.get(j).kill();
+                        // Explosion
+                        gameActivity.showNotification(players.get(j));
+                        checkForGameOver();
+                    }
+                }
+
+            }
         }
     }
 
@@ -805,6 +834,25 @@ public class GameView extends SurfaceView {
         return true;
     }
 
+    public int getNumberOfLivePlayer(){
+        int number_live_players = 0;
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).alive) {
+                number_live_players += 1;
+            }
+        }
+        return number_live_players;
+    }
+
+    public void checkForGameOver(){
+        int number_live_players = getNumberOfLivePlayer();
+        if (number_live_players <= 1) {
+            this.gamePhase = "GameOver";
+            gameLoopThread.setRunning(false);
+            gameActivity.onGameOver();
+        }
+    }
+
     public void nextPlayer(){
         int number_live_players = 0;
         String playerAliveLabel = "NoBody";
@@ -818,9 +866,7 @@ public class GameView extends SurfaceView {
         }
 
         if (number_live_players <= 1){
-            this.gamePhase = "GameOver";
-            gameLoopThread.setRunning(false);
-            gameActivity.onGameOver();
+            checkForGameOver();
         } else {
 
             gamePhase = gpPlaying;

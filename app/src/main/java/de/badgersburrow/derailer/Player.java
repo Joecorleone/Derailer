@@ -120,8 +120,13 @@ public class Player implements Serializable {
         return _id;
     }
 
-    public void onDraw(final Canvas canvas){
-        if (xIndex == -1 || yIndex == -1 || pos == -1) return;
+    public ArrayList<Integer> onDraw(final Canvas canvas){
+        if (xIndex == -1 || yIndex == -1 || pos == -1) {
+            ArrayList<Integer> pos = new ArrayList();
+            pos.add(-1);
+            pos.add(-1);
+            return pos;
+        }
 
         screenWidth = gameView.getWidth();
         scaleFactor = gameView.getScaleFactor();
@@ -132,6 +137,8 @@ public class Player implements Serializable {
 
         float rotation = 0;
 
+        int cur_centerX;
+        int cur_centerY;
         if (currentStep<moveSteps){
             //Log.d("______________", "--------------");
             //Log.d("animation",String.valueOf(currentStep));
@@ -162,8 +169,8 @@ public class Player implements Serializable {
                 angle = (float) (Math.asin(tx)*180./Math.PI + 270); //+270
             }
 
-            int cur_centerX = x + dx;
-            int cur_centerY = y + dy;
+            cur_centerX = x + dx;
+            cur_centerY = y + dy;
 
             //Log.d("CurrX",String.valueOf(cur_centerX));
             //Log.d("CurrY",String.valueOf(cur_centerY));
@@ -247,17 +254,21 @@ public class Player implements Serializable {
                 }
             }
 
-            int centerX = x + scaledWidth/2;
-            int centerY = y + scaledHeight/2;
+            cur_centerX = x + scaledWidth/2;
+            cur_centerY = y + scaledHeight/2;
 
             Matrix matrix = new Matrix();
             matrix.postScale(scaleFactor,scaleFactor);
             matrix.postRotate(rotation, scaledWidth/2, scaledHeight/2);
-            matrix.postTranslate(centerX-scaledWidth/2,centerY-scaledHeight/2);
+            matrix.postTranslate(cur_centerX-scaledWidth/2,cur_centerY-scaledHeight/2);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp_main, matrix, null);
-            this.animSecondary.onDraw(canvas, currentStep, centerX, centerY, rotation);
+            this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
         }
+        ArrayList<Integer> pos = new ArrayList();
+        pos.add(cur_centerX);
+        pos.add(cur_centerY);
+        return pos;
     }
 
     public void setXIndex(int x){
@@ -296,6 +307,8 @@ public class Player implements Serializable {
             aliveVirtual = false;
         } else {
             alive = false;
+            moving = false;
+            changed = false;
             outCount = gameView.getKilledCount();
             Log.d(TAG, "kill - outCount: " + outCount);
         }
