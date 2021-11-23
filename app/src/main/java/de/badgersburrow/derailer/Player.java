@@ -35,6 +35,10 @@ public class Player implements Serializable {
 
     public ArrayList<ChoiceCardSprite> choiceCards;
 
+    final String ppIdle = "Idle";
+    final String ppThinking = "Thinking";
+    final String ppFinishedThinking = "Finished Thinking";
+
     private Bitmap bmp_main;
     private Bitmap bmp_color;
     private GameView gameView;
@@ -58,6 +62,7 @@ public class Player implements Serializable {
     private int destPosOnTile = -1;
     private int destPosNextTile = -1;
     boolean alive = true;
+    String phase;
     private boolean moving = false;
     private int num;
     private int color;
@@ -84,6 +89,7 @@ public class Player implements Serializable {
     public Player(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection){
         _id = counter;
         counter++;
+        phase = ppIdle;
         choiceCards = new ArrayList<>();
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
@@ -381,6 +387,8 @@ public class Player implements Serializable {
                         if (depth < searchDepth) {
                             gameView.movePlayers();
                             if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
+                        } else {
+                            break;
                         }
                         depth += 1;
                     }

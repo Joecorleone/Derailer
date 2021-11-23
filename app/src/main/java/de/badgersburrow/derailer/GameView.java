@@ -41,6 +41,7 @@ public class GameView extends SurfaceView {
     GameLoopThread gameLoopThread;
     private long lastClick;
     String gamePhase;
+    String gameMainPhase;
     private ArrayList<ChoiceCardSprite> choiceCards = new ArrayList<>();
     Random randomGenerator = new Random();
     boolean virtual = false;
@@ -125,6 +126,7 @@ public class GameView extends SurfaceView {
 
         this.selectedTheme = selectedTheme;
         gamePhase = gpStart;
+        gameMainPhase = gpStart;
 
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(new SurfaceHolder.Callback() {
@@ -223,8 +225,13 @@ public class GameView extends SurfaceView {
         drawBackground(canvas);
         drawLines(canvas);
         drawObstacles(canvas);
-        if (gamePhase.equals(gpStart)){
-            if (players.get(currentPlayer).KI){
+        if (gameMainPhase.equals(gpStart)){
+            Player p = players.get(currentPlayer);
+            if (p.KI && p.phase==p.ppIdle){
+                gameMainPhase = gpStart;
+                startThinking();
+            }
+            if (p.KI && p.phase==p.ppFinishedThinking){
                 int i = randomGenerator.nextInt(startPositions.size());
                 StartSprite sprite = startPositions.get(i);
                 Player player = players.get(currentPlayer);
@@ -243,9 +250,11 @@ public class GameView extends SurfaceView {
                 if (currentPlayer == 0) {
                     currentPlayer = players.size()-1;
                     gamePhase = gpPlaying;
+                    gameMainPhase = gpPlaying;
                     nextPlayer();
                 }
             }
+
             drawStartPositions(canvas);
         }
 
@@ -297,9 +306,15 @@ public class GameView extends SurfaceView {
             if (thinkCounter>0){
                 thinkCounter--;
             } else {
-                gamePhase = gpPlaying;
                 Player p = players.get(currentPlayer);
-                p.makeMove(playedCards, choiceCards, this);
+                p.phase = p.ppFinishedThinking;
+                if (gameMainPhase != gpStart) {
+                    gamePhase = gpPlaying;
+
+                    p.makeMove(playedCards, choiceCards, this);
+                } else {
+                    gamePhase = gameMainPhase;
+                }
             }
 
         }
@@ -861,8 +876,10 @@ public class GameView extends SurfaceView {
     }
 
     public void startThinking(){
+        Player p = players.get(currentPlayer);
+        p.phase = p.ppThinking;
         gamePhase = gpThinking;
-        thinkCounter = 15;
+        thinkCounter = 25;
     }
 
     public void updateChoiceCards(){
