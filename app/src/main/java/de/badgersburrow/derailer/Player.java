@@ -387,6 +387,8 @@ public class Player implements Serializable {
                         if (depth < searchDepth) {
                             gameView.movePlayers();
                             if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
+                        } else {
+                            break;
                         }
                         depth += 1;
                     }
