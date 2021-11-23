@@ -222,4 +222,10 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     public void onDismiss(DialogInterface dialog) {
         dialogState();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        theGameView.resumeThread();
+    }
 }
