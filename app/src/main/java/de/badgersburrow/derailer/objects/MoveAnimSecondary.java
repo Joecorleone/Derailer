@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
@@ -105,8 +107,15 @@ public class MoveAnimSecondary {
             for (int i = 0; i < this.items.size(); i++) {
                 Item item = this.items.get(i);
                 if (item.step < duration) {
-                    Paint paint = new Paint();
-                    paint.setAlpha(200 - item.step * 16);
+
+                    int alpha = Math.max(200 - item.step * 16,0);
+                    if (alpha == 0){
+                        continue;
+                    }
+
+                    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                    paint.setAlpha(alpha);
+                    //paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
                     //int size = smoke.getBmp().getWToidth()/ (maxStep-smoke.step);
 
                     float fullScaleFactor = scaleFactor *( scaleEnd / duration * item.step + scaleStart / duration * (duration - item.step));
