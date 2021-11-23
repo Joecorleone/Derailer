@@ -574,6 +574,13 @@ public class GameView extends SurfaceView {
 
             }
         }
+        for (int i = 0; i < players.size(); i ++ ) {
+            if (players.get(i).killAfterMovement && !players.get(i).isMoving()){
+                players.get(i).kill();
+                gameActivity.showNotification(players.get(i));
+            }
+        }
+
     }
 
     public void drawStartPositions(Canvas canvas){
@@ -709,13 +716,12 @@ public class GameView extends SurfaceView {
 
                     /* / TODO Movement of Player */
                     if (player.getXIndex() + dx < 0 || player.getXIndex() + dx >= boardSize){
-                        player.kill();
-                        gameActivity.showNotification(player);
-
+                        player.killAfterMovement();
+                        //gameActivity.showNotification(player);
                     }
                     if (player.getYIndex() + dy < 0 || player.getYIndex() + dy >= boardSize){
-                        player.kill();
-                        gameActivity.showNotification(player);
+                        player.killAfterMovement();
+                        //gameActivity.showNotification(player);
                     }
                     player.startMoving(newPosOnTile, newPosNextTile, dx, dy);
                     //player.setPos(newPos);

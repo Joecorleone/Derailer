@@ -66,6 +66,7 @@ public class Player implements Serializable {
     private boolean moving = false;
     private int num;
     private int color;
+    public boolean killAfterMovement = false;
     private Paint color_paint = new Paint();
     private int tiles = 4;
     boolean KI = false;
@@ -301,14 +302,25 @@ public class Player implements Serializable {
         else return pos;
     }
 
+    public void killAfterMovement(){
+
+        if (virtual) {
+            aliveVirtual = false;
+        } else {
+            killAfterMovement = true;
+        }
+    }
+
     public void kill(){
 
         if (virtual){
             aliveVirtual = false;
+            killAfterMovement = false;
         } else {
             alive = false;
             moving = false;
             changed = false;
+            killAfterMovement = false;
             outCount = gameView.getKilledCount();
             Log.d(TAG, "kill - outCount: " + outCount);
         }
