@@ -98,7 +98,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         if (player.isUnselected()){
             holder.iv_indicator.setVisibility(View.INVISIBLE);
         } else if (player.isPlayer()){
-            holder.iv_indicator.setImageResource(R.drawable.player_indicator);
+            holder.iv_indicator.setImageResource(R.drawable.human_indicator);
             holder.iv_indicator.setVisibility(View.VISIBLE);
         } else if (player.isEasyAI()){
             holder.iv_indicator.setImageResource(R.drawable.ai_easy_indicator);

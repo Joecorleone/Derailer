@@ -36,13 +36,13 @@
     <de.badgersburrow.derailer.views.GameSignButton
         android:id="@+id/gsb_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/sign_height"
         app:position="start"
         app:sign="@drawable/sign_back"
         app:shadow="@drawable/sign_back_shadow"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="-10dp"
-        android:layout_marginBottom="-10dp"/>
+        android:layout_marginStart="@dimen/sign_offset"
+        android:layout_marginBottom="@dimen/sign_offset"/>
 
 </RelativeLayout>

@@ -3,10 +3,13 @@ package de.badgersburrow.derailer.objects;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.MainActivity;
 import de.badgersburrow.derailer.R;
 
@@ -27,6 +30,7 @@ public class SettingCard extends LinearLayout implements
     private ArrayList<Choice> choices = new ArrayList<>();
     private String title = "";
     private String key;
+    private String keyDefault;
     private String keyChosen;
 
     private View v;
@@ -62,9 +66,11 @@ public class SettingCard extends LinearLayout implements
         super(context, attrs, defStyle);
     }
 
-    public void init(String title, String key){
+    public void init(String title, String keyDefault){
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(mContext);
         this.title = title;
-        this.keyChosen = key;
+        this.keyDefault = keyDefault;
+        this.keyChosen = SP.getString(this.key, keyDefault);
         initView();
     }
 
@@ -102,6 +108,8 @@ public class SettingCard extends LinearLayout implements
         }
         int nextState = (state+1)%choices.size();
         keyChosen = choices.get(nextState).key;
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SP.edit().putString(key, keyChosen).apply();
         setContent();
     }
 
@@ -129,6 +137,9 @@ public class SettingCard extends LinearLayout implements
 
     public String getKey(){
         return key;
+    }
+    public String getKeyDefault(){
+        return keyDefault;
     }
     public String getKeyChosen(){
         return keyChosen;

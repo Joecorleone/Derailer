@@ -20,18 +20,18 @@ public class Keys {
     public static String option_daynight_02 = "key_daynight_02";
 
     public static String option_draw    = "key_draw";
-    public static String option_draw_01 = "key_draw_01";
-    public static String option_draw_02 = "key_draw_02";
+    public static String option_draw_fill = "key_draw_01";
+    public static String option_draw_new = "key_draw_02";
 
     public static String option_order    = "key_order";
-    public static String option_order_01 = "key_order_01";
-    public static String option_order_02 = "key_order_02";
+    public static String option_order_same = "key_order_01";
+    public static String option_order_random = "key_order_02";
 
     public static String option_suddendeath    = "key_suddendeath";
     public static String option_suddendeath_01 = "key_suddendeath_01";
     public static String option_suddendeath_02 = "key_suddendeath_02";
 
     public static String option_victory    = "key_victory";
-    public static String option_victory_01 = "key_victory_01";
-    public static String option_victory_02 = "key_victory_02";
+    public static String option_victory_last = "key_victory_01";
+    public static String option_victory_distance = "key_victory_02";
 }

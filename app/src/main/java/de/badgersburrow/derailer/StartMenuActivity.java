@@ -154,7 +154,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_none, getString(R.string.option_obstacle_none), R.drawable.option_obstacle_none));
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_few, getString(R.string.option_obstacle_few), R.drawable.option_obstacle_few));
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_many, getString(R.string.option_obstacle_many), R.drawable.option_obstacle_many));
-        setting_obstacle.init(getString(R.string.option_obstacle), SP.getString(Keys.option_obstacle, Keys.option_obstacle_none));
+        setting_obstacle.init(getString(R.string.option_obstacle), Keys.option_obstacle_none);
         settingCards.add(setting_obstacle);
 
         //day night
@@ -166,16 +166,16 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
         //draw
         SettingCard setting_draw = new SettingCard(mContext, Keys.option_draw);
-        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_01, getString(R.string.option_draw_01), R.drawable.option_draw_01));
-        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_02, getString(R.string.option_draw_02), R.drawable.option_draw_02));
-        setting_draw.init(getString(R.string.option_draw), SP.getString(Keys.option_draw, Keys.option_draw_01));
+        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_fill, getString(R.string.option_draw_01), R.drawable.option_draw_01));
+        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_new, getString(R.string.option_draw_02), R.drawable.option_draw_02));
+        setting_draw.init(getString(R.string.option_draw), Keys.option_draw_new);
         settingCards.add(setting_draw);
 
         //order
         SettingCard setting_order = new SettingCard(mContext, Keys.option_order);
-        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_01, getString(R.string.option_order_01), R.drawable.option_order_01));
-        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_02, getString(R.string.option_order_02), R.drawable.option_order_02));
-        setting_order.init(getString(R.string.option_order), SP.getString(Keys.option_order, Keys.option_order_01));
+        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_same, getString(R.string.option_order_01), R.drawable.option_order_01));
+        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_random, getString(R.string.option_order_02), R.drawable.option_order_02));
+        setting_order.init(getString(R.string.option_order), Keys.option_order_same);
         settingCards.add(setting_order);
 
         //sudden death
@@ -187,9 +187,9 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
         //order
         SettingCard setting_victory = new SettingCard(mContext, Keys.option_victory);
-        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_01, getString(R.string.option_victory_01), R.drawable.option_victory_01));
-        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_02, getString(R.string.option_victory_02), R.drawable.option_victory_02));
-        setting_victory.init(getString(R.string.option_victory),SP.getString(Keys.option_victory, Keys.option_victory_01));
+        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_last, getString(R.string.option_victory_01), R.drawable.option_victory_01));
+        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_distance, getString(R.string.option_victory_02), R.drawable.option_victory_02));
+        setting_victory.init(getString(R.string.option_victory), Keys.option_victory_last);
         settingCards.add(setting_victory);
 
 

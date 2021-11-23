@@ -7,14 +7,15 @@
     android:id="@+id/activity_main"
     tools:context="de.badgersburrow.derailer.MainActivity"
     android:background="@color/sand">
+
     <ImageView
         android:id="@+id/iv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_menu"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:layout_above="@+id/rl_menu"
-        android:src="@drawable/title_screen"/>
+        android:src="@drawable/title_screen" />
 
 
     <LinearLayout
@@ -76,8 +77,8 @@
         app:shadow="@drawable/sign_exit_shadow"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="-10dp"
-        android:layout_marginBottom="-10dp"/>
+        android:layout_marginStart="@dimen/sign_offset"
+        android:layout_marginBottom="@dimen/sign_offset"/>
 
     <de.badgersburrow.derailer.views.GameSignButton
         android:id="@+id/gsb_sound"
@@ -88,7 +89,7 @@
         app:shadow="@drawable/sign_sound_shadow"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="-10dp"
-        android:layout_marginBottom="-10dp"/>
+        android:layout_marginEnd="@dimen/sign_offset"
+        android:layout_marginBottom="@dimen/sign_offset"/>
 
 </RelativeLayout>

@@ -420,7 +420,7 @@ public class GameView extends SurfaceView {
                 pPlayer.setAntiAlias(true);
 
                 canvas.drawText(player.getLabel(getContext()),(float) (x*2/3), yTextPos , pPlayer);
-                if (options.contains(Keys.option_victory_02)){
+                if (options.contains(Keys.option_victory_distance)){
                     canvas.drawText(String.valueOf(player.getTileCount()),(float) x + 200, yTextPos , pPlayer);
                 }
                 countAlive++;
@@ -441,7 +441,7 @@ public class GameView extends SurfaceView {
                 pPlayer.setAntiAlias(true);
 
                 canvas.drawText(player.getLabel(getContext()),x, yTextPos + dy * (countAlive + 2), pPlayer);
-                if (options.contains(Keys.option_victory_02)){
+                if (options.contains(Keys.option_victory_distance)){
                     canvas.drawText(String.valueOf(player.getTileCount()),(float) x + 200, yTextPos + dy * (countAlive + 2) , pPlayer);
                 }
                 countAlive++;
@@ -895,23 +895,20 @@ public class GameView extends SurfaceView {
             }
 
             Player player = players.get(currentPlayer);
-            if (cardSelected != -1 && options.contains(Keys.option_draw_01)) {
-                player.choiceCards.remove(cardSelected);
+            if (cardSelected != -1){// && options.contains(Keys.option_draw_01)) {
+                choiceCards.remove(cardSelected);
             }
 
             while (i < players.size()) {
 
-                if (options.contains(Keys.option_order_01)) {
+                if (options.contains(Keys.option_order_same)) {
                     currentPlayer += 1;
                     currentPlayer = currentPlayer % players.size();
                 } else {
-                    while (true){
+                    do {
                         currentPlayer = randomGenerator.nextInt(players.size());
                         currentPlayer = currentPlayer % players.size();
-                        if (!playersMoved.contains(players.get(currentPlayer).id())){
-                            break;
-                        }
-                    }
+                    } while (playersMoved.contains(players.get(currentPlayer).id()));
                 }
 
 
@@ -940,7 +937,7 @@ public class GameView extends SurfaceView {
     public void updateChoiceCards(){
         choiceCards = new ArrayList<>();
         ArrayList<Integer> selected = new ArrayList<>();
-        if (options.contains(Keys.option_draw_02)) {
+        if (options.contains(Keys.option_draw_new)) {
             while (choiceCards.size() < 3) {
                 int index = randomGenerator.nextInt(cards.size());
                 if (!selected.contains(index)) {

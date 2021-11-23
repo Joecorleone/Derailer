@@ -30,7 +30,7 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
     }
     private static HashMap<String, Integer> resIds = new HashMap<>();
     static {
-        resIds.put(Keys.player, R.drawable.player_icon);
+        resIds.put(Keys.player, R.drawable.human_icon);
         resIds.put(Keys.aiEasy, R.drawable.ai_easy_icon);
         resIds.put(Keys.aiNormal, R.drawable.ai_normal_icon);
         resIds.put(Keys.aiHard, R.drawable.ai_hard_icon);
@@ -70,11 +70,7 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
         if (key != null){
 
             Matrix m = new Matrix();
-            if (key.equals(Keys.player)){
-                m.postScale(0.3f,0.3f);
-            } else {
-                m.postScale(0.6f,0.6f);
-            }
+            m.postScale(0.6f,0.6f);
 
             Bitmap icon = Utilities.drawableToBitmap(mContext.getResources().getDrawable(resIds.get(key)));
             int p_width = icon.getWidth();

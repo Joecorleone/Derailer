@@ -19,8 +19,18 @@
     <dimen name="divider_height">50dp</dimen>
     <dimen name="sign_deviation_top">5dp</dimen>
     <dimen name="sign_deviation_bottom">-5dp</dimen>
+    <dimen name="sign_offset">-10dp</dimen>
     <item name="cart_scale" type="fraction">60%</item>
     <item name="card_flip_time_half" type="integer">150</item>
+
+
+    <dimen name="player_icon_size">60dp</dimen>
+    <dimen name="player_indicator_size">30dp</dimen>
+
+    <dimen name="sign_height">113dp</dimen>
+    <dimen name="sign_width_exit">96dp</dimen>
+    <dimen name="sign_width_play">94.8dp</dimen>
+    <dimen name="sign_width_round">85.5dp</dimen>
 
 
 </resources>

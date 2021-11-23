@@ -28,19 +28,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/playerSelection"
             android:textAppearance="@android:style/TextAppearance.Large" />
-
 
         <RelativeLayout
             android:id="@+id/rl_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
@@ -49,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/v_divider"
-                android:src="@drawable/player_icon"
+                android:layout_toStartOf="@+id/v_divider"
+                android:src="@drawable/human_icon"
                 android:tag="Player" />
 
             <View
@@ -62,12 +59,12 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@color/grey" />
 
-            <LinearLayout
-                android:id="@+id/ll_ai"
+            <RelativeLayout
+                android:id="@+id/rl_ai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/v_divider"
+                android:layout_toEndOf="@+id/v_divider"
                 android:orientation="vertical">
 
                 <ImageView
@@ -75,7 +72,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ai_easy_icon"
-                    android:tag="Easy" />
+                    android:tag="Easy"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"/>
 
                 <ImageView
                     android:id="@+id/iv_ai_normal"
@@ -84,16 +83,21 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin_small"
                     android:layout_marginBottom="@dimen/activity_vertical_margin_small"
                     android:src="@drawable/ai_normal_icon"
-                    android:tag="Normal" />
+                    android:tag="Normal"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/iv_ai_easy"/>
 
                 <ImageView
                     android:id="@+id/iv_ai_hard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_ai_easy"
+                    android:layout_centerHorizontal="true"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ai_hard_icon"
                     android:tag="Hard" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_human"
@@ -101,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_toLeftOf="@+id/iv_player"
+                android:layout_toStartOf="@+id/iv_player"
                 android:text="@string/human"
                 android:textAppearance="@android:style/TextAppearance.Medium" />
 
@@ -111,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_toRightOf="@+id/ll_ai"
+                android:layout_toEndOf="@+id/rl_ai"
                 android:text="@string/ai"
                 android:textAppearance="@android:style/TextAppearance.Medium" />
         </RelativeLayout>
@@ -155,9 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/settingCards"
             android:textAppearance="@android:style/TextAppearance.Large" />
@@ -273,23 +275,21 @@
         android:id="@+id/gsb_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:position="start"
-        app:sign="@drawable/sign_back"
-        app:shadow="@drawable/sign_back_shadow"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="-10dp"
-        android:layout_marginBottom="-10dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/sign_offset"
+        android:layout_marginBottom="@dimen/sign_offset"
+        app:position="start"
+        app:shadow="@drawable/sign_back_shadow"
+        app:sign="@drawable/sign_back" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_players"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/gsb_play"
-        android:layout_alignBottom="@+id/gsb_play"
-        android:layout_marginTop="@dimen/activity_vertical_margin_small"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/activity_vertical_margin_small"
-        android:layout_toStartOf="@+id/gsb_play"/>
+        android:layout_toStartOf="@+id/gsb_play" />
 
     <de.badgersburrow.derailer.views.GameSignButton
         android:id="@+id/gsb_play"
@@ -297,8 +297,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-10dp"
-        android:layout_marginBottom="-10dp"
+        android:layout_marginEnd="@dimen/sign_offset"
+        android:layout_marginBottom="@dimen/sign_offset"
         app:position="end"
         app:shadow="@drawable/sign_play_shadow"
         app:sign="@drawable/sign_play" />

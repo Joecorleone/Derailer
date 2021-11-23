@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -76,7 +75,7 @@ public class GameOverActivity extends Activity implements OnClickListener{
         List<ImageView> list_iv_main = Arrays.asList(iv_place1_main, iv_place2_main, iv_place3_main);
         List<ImageView> list_iv_color = Arrays.asList(iv_place1_color, iv_place2_color, iv_place3_color);
 
-        if (options.contains(Keys.option_victory_01)){
+        if (options.contains(Keys.option_victory_last)){
             tv_place1_dist.setVisibility(View.INVISIBLE);
             tv_place2_dist.setVisibility(View.INVISIBLE);
             tv_place3_dist.setVisibility(View.INVISIBLE);

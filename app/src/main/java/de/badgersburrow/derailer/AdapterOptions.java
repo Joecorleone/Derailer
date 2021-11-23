@@ -77,7 +77,6 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
             SettingCard card = settingCards.get(i);
             if (card.getKey().equals(key)){
                 card.setEnabled(true);
-                //notifyItemChanged(i);
             }
         }
     }
@@ -87,7 +86,6 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
             SettingCard card = settingCards.get(i);
             if (card.getKey().equals(key)){
                 card.setEnabled(false);
-                //notifyItemChanged(i);
             }
         }
     }
@@ -102,6 +100,8 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         for (SettingCard card : settingCards){
             if (card.isEnabled()){
                 keys.add(card.getKeyChosen());
+            } else {
+                keys.add(card.getKeyDefault());
             }
         }
         return keys;
