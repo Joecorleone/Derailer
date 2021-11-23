@@ -353,6 +353,10 @@ public class GameView extends SurfaceView {
         }
     }
 
+    public void drawExplosion(Canvas canvas){
+        return;
+    }
+
     public void drawButtons(Canvas canvas){
         if (gamePhase.equals(gpPlaying) & cardSelected != -1){
             for (int i=0; i<buttons.size(); i++){
@@ -563,11 +567,10 @@ public class GameView extends SurfaceView {
                 if (Math.abs(positions.get(i).get(1).intValue() - positions.get(j).get(1).intValue()) < collisionDistance){
                     if (Math.abs(positions.get(i).get(0).intValue() - positions.get(j).get(0).intValue()) < collisionDistance){
                         players.get(i).kill();
-                        // Explosion
                         gameActivity.showNotification(players.get(i));
                         players.get(j).kill();
-                        // Explosion
                         gameActivity.showNotification(players.get(j));
+                        drawExplosion(canvas);
                         checkForGameOver();
                     }
                 }
@@ -577,6 +580,7 @@ public class GameView extends SurfaceView {
         for (int i = 0; i < players.size(); i ++ ) {
             if (players.get(i).killAfterMovement && !players.get(i).isMoving()){
                 players.get(i).kill();
+                drawExplosion(canvas);
                 gameActivity.showNotification(players.get(i));
             }
         }
