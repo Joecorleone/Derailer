@@ -32,5 +32,8 @@
     <dimen name="sign_width_play">94.8dp</dimen>
     <dimen name="sign_width_round">85.5dp</dimen>
 
+    <dimen name="cart_theme_height">75dp</dimen>
+    <dimen name="cart_settings_width">50dp</dimen>
+
 
 </resources>

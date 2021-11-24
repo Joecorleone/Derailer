@@ -7,15 +7,17 @@
 
     <ImageView
         android:id="@+id/iv_cart_color"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/cart_settings_width"
         android:layout_height="wrap_content"
-        android:src="@drawable/theme01_cart01_color"/>
+        android:src="@drawable/theme01_cart01_color"
+        android:adjustViewBounds="true"/>
 
     <ImageView
         android:id="@+id/iv_cart"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/cart_settings_width"
         android:layout_height="wrap_content"
-        android:src="@drawable/theme01_cart01"/>
+        android:src="@drawable/theme01_cart01"
+        android:adjustViewBounds="true"/>
 
     <ImageView
         android:id="@+id/iv_indicator"

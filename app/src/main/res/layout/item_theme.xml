@@ -61,7 +61,7 @@
         <ImageView
             android:id="@+id/iv_theme_color"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/cart_theme_height"
             android:layout_centerInParent="true"
             android:rotation="180"
             android:src="@drawable/theme01_cart01_color" />
@@ -69,8 +69,9 @@
         <ImageView
             android:id="@+id/iv_theme"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/cart_theme_height"
             android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
             android:rotation="180"
             android:src="@drawable/theme01_cart01" />
     </RelativeLayout>

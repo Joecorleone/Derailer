@@ -13,7 +13,7 @@
     <dimen name="menu_text_size">30sp</dimen>
     <dimen name="player_text_size">24sp</dimen>
     <dimen name="player_current_text_size">32sp</dimen>
-    <dimen name="play_field_edge">60dp</dimen>
+    <dimen name="play_field_edge">30dp</dimen>
     <dimen name="play_field_bottomMargin">0dp</dimen>
 
     <!-- Game settingCards screen. -->
@@ -30,4 +30,7 @@
     <dimen name="sign_width_exit">144dp</dimen>
     <dimen name="sign_width_play">142.2dp</dimen>
     <dimen name="sign_width_round">128.3dp</dimen>
+
+    <dimen name="cart_theme_height">100dp</dimen>
+    <dimen name="cart_settings_width">70dp</dimen>
 </resources>

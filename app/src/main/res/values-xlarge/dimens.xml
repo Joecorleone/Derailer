@@ -17,6 +17,7 @@
     <dimen name="sign_deviation_bottom">-15dp</dimen>
     <dimen name="sign_offset">-20dp</dimen>
     <item name="cart_scale" type="fraction">100%</item>
+    <dimen name="play_field_edge">40dp</dimen>
 
     <dimen name="player_icon_size">100dp</dimen>
     <dimen name="player_indicator_size">60dp</dimen>
@@ -25,4 +26,7 @@
     <dimen name="sign_width_exit">192dp</dimen>
     <dimen name="sign_width_play">189.6dp</dimen>
     <dimen name="sign_width_round">171dp</dimen>
+
+    <dimen name="cart_theme_height">150dp</dimen>
+    <dimen name="cart_settings_width">100dp</dimen>
 </resources>

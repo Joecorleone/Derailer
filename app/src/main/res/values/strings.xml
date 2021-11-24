@@ -34,19 +34,19 @@
     <string name="option_order_02">Random</string>
     <string name="option_suddendeath_01">Off</string>
     <string name="option_suddendeath_02">On</string>
+
     <string name="play_card">Play card</string>
     <string name="game_over">Game Over</string>
-    <string name="place2">2</string>
-    <string name="example_distance">25</string>
-    <string name="place3">3</string>
     <string name="place1">1</string>
+    <string name="place2">2</string>
+    <string name="place3">3</string>
+    <string name="example_distance">25</string>
     <string name="play_with_spaces">"   Play   "</string>
     <string name="start_with_spaces">"       Start       "</string>
     <string name="theme_with_spaces">"   Theme   "</string>
     <string name="select_a_theme">Select a theme</string>
     <string name="too_few">Too few</string>
     <string name="add_at_least_two_players">Add at least two players!</string>
-    <string name="game_over">Game Over</string>
     <string name="winner_is">Winner is:</string>
     <string name="nobody">Nobody</string>
     <string name="restart">restart</string>
@@ -54,10 +54,10 @@
     <string name="example_players_num">2</string>
     <string name="example_theme_title">Title</string>
     <string name="player">Player</string>
-    <string name="spaces">\"           \"</string>
+    <string name="spaces">"           "</string>
     <string name="delete">Delete</string>
     <string name="choose_your_start_spot">Choose your start spot</string>
-    <string name="on_to">\"On to \"</string>
+    <string name="on_to">"On to "</string>
     <string name="place_a_tile">Place a tile</string>
     <string name="kaboom">Kaboom</string>
     <string name="is_out">is out!</string>
