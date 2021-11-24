@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer.objects;
+package de.badgersburrow.derailer.views;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

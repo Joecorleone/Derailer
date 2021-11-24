@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import de.badgersburrow.derailer.Keys;
+import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.Utilities;
 
 /**
  * Created by cetty on 27.07.16.

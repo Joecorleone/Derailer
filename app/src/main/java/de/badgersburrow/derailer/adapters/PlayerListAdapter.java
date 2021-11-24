@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

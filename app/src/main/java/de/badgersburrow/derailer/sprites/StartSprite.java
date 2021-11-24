@@ -1,36 +1,35 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import de.badgersburrow.derailer.GameView;
+
 /**
  * Created by cetty on 29.07.16.
+ * This is an indicator for a possible start position selectable by the player
  */
-public class StartSprite {
-    private Bitmap bmp;
-    private GameView gameView;
+public class StartSprite extends BaseSprite{
+
     private int currentFrame = 0;
     private int width;
     private int screenWidth;
-    private int edge = 0;
     private int x_index = 0;
     private int y_index = 0;
     private int pos = 0;
-    private int x = -1;
-    private int y = -1;
     private int tiles = 4;
 
     public StartSprite(GameView gameView, Bitmap bmp, int x, int y, int pos, int tiles){
-        this.gameView = gameView;
+        super(gameView, bmp);
         this.x_index = x;
         this.y_index = y;
         this.pos = pos;
         this.bmp = bmp;
-        this.edge = gameView.edge;
         this.tiles = tiles;
     }
 
+    @Override
     public void onDraw(Canvas canvas){
         screenWidth = gameView.getWidth();
         width = (screenWidth - (2 * edge)) / 6;

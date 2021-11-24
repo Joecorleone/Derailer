@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.R;
 
+import de.badgersburrow.derailer.Utilities;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
 
@@ -178,7 +180,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         }
     }
 
-    interface ChangeListener{
+    public interface ChangeListener{
         void playerSelected(String key);
         void playerDeselected(String key);
     }

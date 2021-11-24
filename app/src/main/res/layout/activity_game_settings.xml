@@ -256,7 +256,7 @@
 
 
 
-        <de.badgersburrow.derailer.objects.GameTextButton
+        <de.badgersburrow.derailer.views.GameTextButton
             android:id="@+id/bt_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

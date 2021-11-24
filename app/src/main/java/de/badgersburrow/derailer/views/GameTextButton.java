@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer.objects;
+package de.badgersburrow.derailer.views;
 
 import android.content.Context;
 import android.util.AttributeSet;

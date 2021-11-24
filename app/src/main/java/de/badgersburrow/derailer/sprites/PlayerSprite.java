@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.sprites;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,17 +10,20 @@ import android.graphics.PorterDuffColorFilter;
 import androidx.core.util.Pair;
 import android.util.Log;
 
+import de.badgersburrow.derailer.GameActivity;
+import de.badgersburrow.derailer.GameView;
+import de.badgersburrow.derailer.Keys;
+import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 import de.badgersburrow.derailer.objects.PlayerResult;
+import de.badgersburrow.derailer.sprites.ChoiceCardSprite;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
@@ -28,28 +31,23 @@ import static java.lang.Math.min;
 /**
  * Created by cetty on 29.07.16.
  */
-public class Player implements Serializable {
+public abstract class PlayerSprite implements Serializable {
 
     private static String TAG = "Player";
     private static int counter = 0;
 
     public ArrayList<ChoiceCardSprite> choiceCards;
 
-    final String ppIdle = "Idle";
-    final String ppThinking = "Thinking";
-    final String ppFinishedThinking = "Finished Thinking";
-
     private Bitmap bmp_main;
     private Bitmap bmp_color;
-    private GameView gameView;
+    GameView gameView;
     private int screenWidth;
     private int width;
     private int edge = 0;
-    private int xIndex = -1;
-    private  int yIndex = -1;
-    private int xIndexVirtual = -1;
-    private int yIndexVirtual = -1;
-    private int searchDepth = 3;
+    int xIndex = -1;
+    int yIndex = -1;
+    int xIndexVirtual = -1;
+    int yIndexVirtual = -1;
     int x = -1;
     int y = -1;
     private int destXIndex = 0;
@@ -64,16 +62,13 @@ public class Player implements Serializable {
     boolean alive = true;
     String phase;
     private boolean moving = false;
-    private int num;
+    int num;
     private int color;
     public boolean killAfterMovement = false;
     private Paint color_paint = new Paint();
     private int tiles = 4;
-    boolean KI = false;
     boolean virtual = false;
     boolean aliveVirtual = true;
-    String KIStrength = Keys.aiHard;
-    Random randomGenerator = new Random();
 
     private int outCount = 100;
     private int tileCount = 0;
@@ -87,10 +82,10 @@ public class Player implements Serializable {
     int killPoints = 50;
     private int _id;
 
-    public Player(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection){
+    public PlayerSprite(GameView gameView, GameTheme theme, int num, int color, int tiles){
         _id = counter;
         counter++;
-        phase = ppIdle;
+        phase = Keys.ppIdle;
         choiceCards = new ArrayList<>();
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
@@ -98,15 +93,7 @@ public class Player implements Serializable {
         this.bmp_color = theme.getCart_color();
         this.virtual = false;
 
-        if (selection.equals(Keys.player)){
-            this.KI = false;
-
-        } else {
-            this.KI = true;
-            this.KIStrength = selection;
-        }
-        Log.d("Player",String.valueOf(color) + " is " + selection);
-        this.edge = gameView.edge;
+        this.edge = gameView.getEdge();
         this.num = num;
         this.color = color;
         this.color_paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
@@ -115,6 +102,7 @@ public class Player implements Serializable {
         this.moveSteps = gameView.getMoveSteps();
         this.currentStep = gameView.getMoveSteps();
         this.scaleFactor = gameView.getScaleFactor();
+
     }
 
     public int id(){
@@ -356,13 +344,15 @@ public class Player implements Serializable {
         }
     }
 
-    public String getLabel(Context context){
-        if (this.KI){
-            return context.getString(R.string.label_ai, num);
-        } else {
-            return context.getString(R.string.label_player, num);
-        }
+    abstract public String getLabel(Context context);
+
+
+    public PlayerResult getResult(){
+        return new PlayerResult(isKI(), num, color, outCount, tileCount);
     }
+
+
+    // getter and setter
 
     public int getTileCount(){
         return tileCount;
@@ -374,7 +364,18 @@ public class Player implements Serializable {
         return color;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+    public boolean isAliveVirtual() {
+        return aliveVirtual;
+    }
+
+    public boolean isVirtual() {
+        return virtual;
+    }
     public void setVirtual(boolean virtual){ this.virtual = virtual;}
+
 
     public Bitmap getBmpMain(){
         return bmp_main;
@@ -391,133 +392,24 @@ public class Player implements Serializable {
     public boolean isMoving(){
         return moving;
     }
-
     public void setMoving(boolean moving){
         this.moving = moving;
     }
 
-    public void makeMove(Map playedCards, ArrayList choiceCards, GameView gameView){
-        if (KIStrength.equals(Keys.aiEasy)) {
-            for (int i=0; i< choiceCards.size(); i++){
-                for (int rot=0; rot<4; rot++){
-                    aliveVirtual = true;
-                    xIndexVirtual = xIndex;
-                    yIndexVirtual = yIndex;
-                    posVirtual = pos;
-                    gameView.setVirtual(true);
-                    gameView.playCard(i);
-                    gameView.rotateCard(i, rot);
-                    int depth = 0;
-                    while (true){
-                        if (depth < searchDepth) {
-                            gameView.movePlayers();
-                            if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
-                        } else {
-                            break;
-                        }
-                        depth += 1;
-                    }
-                    if (aliveVirtual) {
-                        gameView.setVirtual(false);
-                        gameView.movePlayers();
-                        return;
-                    }
-                }
-            }
-            gameView.setVirtual(false);
-            gameView.movePlayers();
-        } else if (KIStrength.equals(Keys.aiNormal)){
-            gameView.setVirtual(true);
-            for (int i=0; i< choiceCards.size(); i++){
-                for (int rot=0; rot<4; rot++){
-                    aliveVirtual = true;
-                    xIndexVirtual = xIndex;
-                    yIndexVirtual = yIndex;
-                    posVirtual = pos;
-                    gameView.setVirtual(true);
-                    gameView.playCard(i);
-                    gameView.rotateCard(i, rot);
-                    while (true){
-                        gameView.movePlayers();
-                        if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
-                    }
-                    if (aliveVirtual) {
-                        gameView.setVirtual(false);
-                        gameView.movePlayers();
-                        return;
-                    }
-                }
-            }
-            gameView.setVirtual(false);
-            gameView.movePlayers();
-        } else if (KIStrength.equals(Keys.aiHard)){
-            gameView.setVirtual(true);
+    public abstract boolean isKI();
 
-            int bestScore = -1;
-            int bestCard = 0;
-            int bestRotation = 0;
-            for (int i=0; i< choiceCards.size(); i++){
-                for (int rot=0; rot<4; rot++){
-                    aliveVirtual = true;
-                    xIndexVirtual = xIndex;
-                    yIndexVirtual = yIndex;
-                    posVirtual = pos;
-                    gameView.playCard(i);
-                    gameView.rotateCard(i, rot);
-                    while (true){
-                        gameView.movePlayers();
-                        if (!gameView.gamePhase.equals(gameView.gpMoving)) break;
-                    }
-
-                    if (aliveVirtual){
-                        int fieldScore = 1;
-                        List<String> calcCards = new ArrayList<String>();
-                        calcCards.add(Integer.toString(xIndexVirtual)+"-"+Integer.toString(yIndexVirtual));
-                        fieldScore += calcFieldScore(playedCards, xIndexVirtual+1, yIndexVirtual,calcCards);
-                        fieldScore += calcFieldScore(playedCards, xIndexVirtual, yIndexVirtual+1,calcCards);
-                        fieldScore += calcFieldScore(playedCards, xIndexVirtual-1, yIndexVirtual,calcCards);
-                        fieldScore += calcFieldScore(playedCards, xIndexVirtual, yIndexVirtual-1,calcCards);
-
-                        fieldScore += distancePoints*min(gameView.boardSize-abs(xIndexVirtual-gameView.boardSize/2), gameView.boardSize-abs(yIndexVirtual-gameView.boardSize/2));
-                        int score = gameView.getKilledPlayers()*killPoints+fieldScore;
-                        if (score > bestScore){
-                            bestCard = i;
-                            bestRotation = rot;
-                            bestScore = score;
-                        }
-                    }
-                }
-            }
-
-            aliveVirtual = true;
-            xIndexVirtual = xIndex;
-            yIndexVirtual = yIndex;
-            posVirtual = pos;
-            gameView.playCard(bestCard);
-            gameView.rotateCard(bestCard, bestRotation);
-            gameView.setVirtual(false);
-            gameView.movePlayers();
-        }
+    public String getPhase() {
+        return phase;
+    }
+    public void setPhase(String phase) {
+        this.phase = phase;
     }
 
-    private int calcFieldScore(Map playedCards, int x, int y, List calcCards){
-        int score = 0;
-        if (x < 0 || x>= gameView.boardSize || y <0 || y >= gameView.boardSize) return 0;
-        if (playedCards.containsKey(Integer.toString(x)+"-"+Integer.toString(y)) == false){
-            if (calcCards.contains(Integer.toString(x)+"-"+Integer.toString(y)) == false){
-                score += fieldPoints;
-                calcCards.add(Integer.toString(x)+"-"+Integer.toString(y));
-                score += calcFieldScore(playedCards, x+1, y,calcCards);
-                score += calcFieldScore(playedCards, x, y+1,calcCards);
-                score += calcFieldScore(playedCards, x-1, y,calcCards);
-                score += calcFieldScore(playedCards, x, y-1,calcCards);
-            }
-        }
-        return score;
+    public boolean isChanged() {
+        return changed;
     }
-
-    PlayerResult getResult(){
-        return new PlayerResult(KI, num, color, outCount, tileCount);
+    public void setChanged(boolean changed) {
+        this.changed = changed;
     }
 
 }

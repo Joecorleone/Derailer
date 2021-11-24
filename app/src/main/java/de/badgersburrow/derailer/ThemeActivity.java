@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import de.badgersburrow.derailer.adapters.AdapterTheme;
 import de.badgersburrow.derailer.objects.Theme;
 import de.badgersburrow.derailer.views.GameSignButton;
 

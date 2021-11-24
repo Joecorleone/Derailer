@@ -17,8 +17,17 @@ import android.widget.Button;
 
 import java.util.Random;
 
+import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MyButton;
+import de.badgersburrow.derailer.sprites.PlayerAiSprite;
+import de.badgersburrow.derailer.sprites.PlayerHumanSprite;
+import de.badgersburrow.derailer.sprites.PlayerSprite;
 import de.badgersburrow.derailer.objects.PlayerSelection;
+import de.badgersburrow.derailer.sprites.CardSprite;
+import de.badgersburrow.derailer.sprites.ChoiceCardSprite;
+import de.badgersburrow.derailer.sprites.ObstacleCardSprite;
+import de.badgersburrow.derailer.sprites.PlayedCardSprite;
+import de.badgersburrow.derailer.sprites.StartSprite;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,10 +57,6 @@ public class GameView extends SurfaceView {
 
     ArrayList<String> options;
 
-    final static String gpStart = "Start";
-    final static String gpPlaying = "Playing";
-    final static String gpMoving = "Moving";
-    final static String gpThinking = "Thinking";
     private float density;
     int currentPlayer = 0;
     int boardSize = 6;
@@ -70,7 +75,7 @@ public class GameView extends SurfaceView {
 
     int edge;
     int bottomMargin;
-    ArrayList<Player> players = new ArrayList<Player>();
+    ArrayList<PlayerSprite> playerSprites = new ArrayList<PlayerSprite>();
     ArrayList<Integer> obstacleX = new ArrayList<Integer>();
     ArrayList<Integer> obstacleY = new ArrayList<Integer>();
     private GameTheme selectedTheme;
@@ -126,8 +131,8 @@ public class GameView extends SurfaceView {
         }
 
         this.selectedTheme = selectedTheme;
-        gamePhase = gpStart;
-        gameMainPhase = gpStart;
+        gamePhase = Keys.gpStart;
+        gameMainPhase = Keys.gpStart;
 
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(new SurfaceHolder.Callback() {
@@ -169,10 +174,10 @@ public class GameView extends SurfaceView {
             if (!player.isUnselected()){
                 if (player.isPlayer()){
                     numHuman++;
-                    this.players.add(new Player(this, this.selectedTheme,  numHuman, player.getColor(), tiles, player.getSelection()));
+                    this.playerSprites.add(new PlayerHumanSprite(this, this.selectedTheme,  numHuman, player.getColor(), tiles));
                 } else {
                     numAI++;
-                    this.players.add(new Player(this, this.selectedTheme,  numAI, player.getColor(), tiles, player.getSelection()));
+                    this.playerSprites.add(new PlayerAiSprite(this, this.selectedTheme,  numAI, player.getColor(), tiles, player.getSelection()));
                 }
             }
         }
@@ -202,8 +207,8 @@ public class GameView extends SurfaceView {
 
     public int getKilledCount(){
         int killed = 0;
-        for (Player p : players){
-            if (!p.alive){
+        for (PlayerSprite p : playerSprites){
+            if (!p.isAlive()){
                 killed++;
             }
         }
@@ -212,8 +217,8 @@ public class GameView extends SurfaceView {
 
     public int getKilledPlayers(){
         int killed = 0;
-        for (Player p : players){
-           if (!p.aliveVirtual && p.alive){
+        for (PlayerSprite p : playerSprites){
+           if (!p.isAliveVirtual() && p.isAlive()){
                killed +=1;
            }
         }
@@ -226,32 +231,32 @@ public class GameView extends SurfaceView {
         drawBackground(canvas);
         drawLines(canvas);
         drawObstacles(canvas);
-        if (gameMainPhase.equals(gpStart)){
-            Player p = players.get(currentPlayer);
-            if (p.KI && p.phase.equals(p.ppIdle)){
-                gameMainPhase = gpStart;
+        if (gameMainPhase.equals(Keys.gpStart)){
+            PlayerSprite p = playerSprites.get(currentPlayer);
+            if (p.isKI() && p.getPhase().equals(Keys.ppIdle)){
+                gameMainPhase = Keys.gpStart;
                 startThinking();
             }
-            if (p.KI && p.phase.equals(p.ppFinishedThinking)){
+            if (p.isKI() && p.getPhase().equals(Keys.ppFinishedThinking)){
                 int i = randomGenerator.nextInt(startPositions.size());
                 StartSprite sprite = startPositions.get(i);
-                Player player = players.get(currentPlayer);
-                player.setXIndex(sprite.getXIndex());
-                player.setYIndex(sprite.getYIndex());
-                player.setPos(sprite.getPos());
+                PlayerSprite playerSprite = playerSprites.get(currentPlayer);
+                playerSprite.setXIndex(sprite.getXIndex());
+                playerSprite.setYIndex(sprite.getYIndex());
+                playerSprite.setPos(sprite.getPos());
 
                 Log.d("X", String.valueOf(sprite.getXIndex()));
                 Log.d("Y", String.valueOf(sprite.getYIndex()));
                 Log.d("Pos", String.valueOf(sprite.getPos()));
                 currentPlayer += 1;
-                currentPlayer = currentPlayer%players.size();
+                currentPlayer = currentPlayer% playerSprites.size();
                 startPositions.remove(sprite);
-                gameActivity.showNotification(players.get(currentPlayer));
+                gameActivity.showNotification(playerSprites.get(currentPlayer));
 
                 if (currentPlayer == 0) {
-                    currentPlayer = players.size()-1;
-                    gamePhase = gpPlaying;
-                    gameMainPhase = gpPlaying;
+                    currentPlayer = playerSprites.size()-1;
+                    gamePhase = Keys.gpPlaying;
+                    gameMainPhase = Keys.gpPlaying;
                     nextPlayer();
                 }
             }
@@ -284,14 +289,14 @@ public class GameView extends SurfaceView {
         drawPlayerList(canvas);
 
 
-        if (gamePhase.equals(gpPlaying)) {
+        if (gamePhase.equals(Keys.gpPlaying)) {
             drawChoiceCards(canvas);//cards.get(i).onDraw(canvas);
         }
 
-        if (gamePhase.equals(gpMoving)) {
+        if (gamePhase.equals(Keys.gpMoving)) {
             boolean allPlayerStopped = true;
-            for (Player player : this.players) {
-                if (player.isMoving()) {
+            for (PlayerSprite playerSprite : this.playerSprites) {
+                if (playerSprite.isMoving()) {
                     allPlayerStopped = false;
                 }
             }
@@ -302,16 +307,16 @@ public class GameView extends SurfaceView {
             }
         }
 
-        if (gamePhase.equals(gpThinking)){
+        if (gamePhase.equals(Keys.gpThinking)){
             if (thinkCounter>0){
                 thinkCounter--;
             } else {
-                Player p = players.get(currentPlayer);
-                p.phase = p.ppFinishedThinking;
-                if (!gameMainPhase.equals(gpStart)) {
-                    gamePhase = gpPlaying;
+                PlayerSprite p = playerSprites.get(currentPlayer);
+                p.setPhase(Keys.ppFinishedThinking);
+                if (!gameMainPhase.equals(Keys.gpStart)) {
+                    gamePhase = Keys.gpPlaying;
 
-                    p.makeMove(playedCards, choiceCards, this);
+                    ((PlayerAiSprite) p).makeMove(playedCards, choiceCards, this);
                 } else {
                     gamePhase = gameMainPhase;
                 }
@@ -358,7 +363,7 @@ public class GameView extends SurfaceView {
     }
 
     public void drawButtons(Canvas canvas){
-        if (gamePhase.equals(gpPlaying) & cardSelected != -1){
+        if (gamePhase.equals(Keys.gpPlaying) & cardSelected != -1){
             for (int i=0; i<buttons.size(); i++){
                 MyButton button = buttons.get(i);
                 //button.onDraw(canvas, true);
@@ -408,20 +413,20 @@ public class GameView extends SurfaceView {
         int count = 0;
         int countAlive = 0;
         // get current player
-        for ( ; countAlive == 0 && count<players.size(); count++){
-            int index = (currentPlayer +count)%players.size();
-            Player player = players.get(index);
-            if (player.alive) {
+        for (; countAlive == 0 && count< playerSprites.size(); count++){
+            int index = (currentPlayer +count)% playerSprites.size();
+            PlayerSprite playerSprite = playerSprites.get(index);
+            if (playerSprite.isAlive()) {
                 Paint pPlayer = new Paint();
-                pPlayer.setColor(player.getColor());
+                pPlayer.setColor(playerSprite.getColor());
                 pPlayer.setTypeface(MainActivity.customtf_bold);
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSizeCurrent);
                 pPlayer.setAntiAlias(true);
 
-                canvas.drawText(player.getLabel(getContext()),(float) (x*2/3), yTextPos , pPlayer);
+                canvas.drawText(playerSprite.getLabel(getContext()),(float) (x*2/3), yTextPos , pPlayer);
                 if (options.contains(Keys.option_victory_distance)){
-                    canvas.drawText(String.valueOf(player.getTileCount()),(float) x + 200, yTextPos , pPlayer);
+                    canvas.drawText(String.valueOf(playerSprite.getTileCount()),(float) x + 200, yTextPos , pPlayer);
                 }
                 countAlive++;
             }
@@ -429,20 +434,20 @@ public class GameView extends SurfaceView {
 
         canvas.drawText("Next", (float) (x*2/3), (float) (yTextPos + dy * 2), paint);
 
-        for (; count<players.size(); count++){
-            int index = (currentPlayer +count)%players.size();
-            Player player = players.get(index);
-            if (player.alive) {
+        for (; count< playerSprites.size(); count++){
+            int index = (currentPlayer +count)% playerSprites.size();
+            PlayerSprite playerSprite = playerSprites.get(index);
+            if (playerSprite.isAlive()) {
                 Paint pPlayer = new Paint();
-                pPlayer.setColor(player.getColor());
+                pPlayer.setColor(playerSprite.getColor());
                 pPlayer.setTypeface(MainActivity.customtf_normal);
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSize);
                 pPlayer.setAntiAlias(true);
 
-                canvas.drawText(player.getLabel(getContext()),x, yTextPos + dy * (countAlive + 2), pPlayer);
+                canvas.drawText(playerSprite.getLabel(getContext()),x, yTextPos + dy * (countAlive + 2), pPlayer);
                 if (options.contains(Keys.option_victory_distance)){
-                    canvas.drawText(String.valueOf(player.getTileCount()),(float) x + 200, yTextPos + dy * (countAlive + 2) , pPlayer);
+                    canvas.drawText(String.valueOf(playerSprite.getTileCount()),(float) x + 200, yTextPos + dy * (countAlive + 2) , pPlayer);
                 }
                 countAlive++;
             }
@@ -538,7 +543,7 @@ public class GameView extends SurfaceView {
 
     private boolean checkObstacleColision(int x, int y){
         for (ObstacleCardSprite obstacle : obstacles) {
-            if (obstacle.xIndex == x && obstacle.yIndex == y) {
+            if (obstacle.getXIndex() == x && obstacle.getYIndex() == y) {
                 return false;
             }
         }
@@ -546,10 +551,10 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayers(Canvas canvas){
-        ArrayList<ArrayList<Integer>> positions = new ArrayList<ArrayList<Integer>>(players.size());
-        for (int i = 0; i < players.size(); i ++ ) {
-            Player sprite = players.get(i);
-            if (sprite.alive) {
+        ArrayList<ArrayList<Integer>> positions = new ArrayList<ArrayList<Integer>>(playerSprites.size());
+        for (int i = 0; i < playerSprites.size(); i ++ ) {
+            PlayerSprite sprite = playerSprites.get(i);
+            if (sprite.isAlive()) {
                 ArrayList<Integer> pos = sprite.onDraw(canvas);
                 positions.add(i, pos);
             } else {
@@ -561,15 +566,15 @@ public class GameView extends SurfaceView {
         }
 
 
-        for (int i = 0; i < players.size(); i ++ ) {
+        for (int i = 0; i < playerSprites.size(); i ++ ) {
             if (positions.get(i).get(0) == -1) continue;
-            for (int j = i + 1; j < players.size(); j ++ ) {
+            for (int j = i + 1; j < playerSprites.size(); j ++ ) {
                 if (Math.abs(positions.get(i).get(1).intValue() - positions.get(j).get(1).intValue()) < collisionDistance){
                     if (Math.abs(positions.get(i).get(0).intValue() - positions.get(j).get(0).intValue()) < collisionDistance){
-                        players.get(i).kill();
-                        gameActivity.showNotification(players.get(i));
-                        players.get(j).kill();
-                        gameActivity.showNotification(players.get(j));
+                        playerSprites.get(i).kill();
+                        gameActivity.showNotification(playerSprites.get(i));
+                        playerSprites.get(j).kill();
+                        gameActivity.showNotification(playerSprites.get(j));
                         drawExplosion(canvas);
                         checkForGameOver();
                     }
@@ -577,11 +582,11 @@ public class GameView extends SurfaceView {
 
             }
         }
-        for (int i = 0; i < players.size(); i ++ ) {
-            if (players.get(i).killAfterMovement && !players.get(i).isMoving()){
-                players.get(i).kill();
+        for (int i = 0; i < playerSprites.size(); i ++ ) {
+            if (playerSprites.get(i).killAfterMovement && !playerSprites.get(i).isMoving()){
+                playerSprites.get(i).kill();
                 drawExplosion(canvas);
-                gameActivity.showNotification(players.get(i));
+                gameActivity.showNotification(playerSprites.get(i));
             }
         }
 
@@ -626,17 +631,17 @@ public class GameView extends SurfaceView {
         this.virtual = virtuel;
     }
     public void movePlayers(){
-        gamePhase = gpMoving;
-        for (Player player : players) {
-            player.setVirtual(virtual);
-            if (player.reachedDest()){
-                int pos = player.getPos();
+        gamePhase = Keys.gpMoving;
+        for (PlayerSprite playerSprite : playerSprites) {
+            playerSprite.setVirtual(virtual);
+            if (playerSprite.reachedDest()){
+                int pos = playerSprite.getPos();
                 //Log.d("______________", "--------------");
                 //Log.d("CardSelected", String.valueOf(cardSelected));
                 //Log.d("GameTurn", String.valueOf(gameTurn));
                 //Log.d("Position", "Pos: " + String.valueOf(pos) + ", X: " + String.valueOf(player.getXIndex()) + ", Y: " + String.valueOf(player.getYIndex()));
 
-                PlayedCardSprite card =  playedCards.get(String.valueOf(player.getXIndex())+"-"+String.valueOf(player.getYIndex()));
+                PlayedCardSprite card =  playedCards.get(String.valueOf(playerSprite.getXIndex())+"-"+String.valueOf(playerSprite.getYIndex()));
                 if (card != null) {
                     List<Integer> ways = card.getWays();
                     //Log.d("X", String.valueOf(player.getXIndex()));
@@ -711,8 +716,8 @@ public class GameView extends SurfaceView {
                     }
 
                     for (ObstacleCardSprite obstacle: obstacles){
-                        if (player.getXIndex() + dx == obstacle.xIndex && player.getYIndex() + dy == obstacle.yIndex){
-                            player.killAfterMovement();
+                        if (playerSprite.getXIndex() + dx == obstacle.getXIndex() && playerSprite.getYIndex() + dy == obstacle.getYIndex()){
+                            playerSprite.killAfterMovement();
                             //player.kill();
                             //gameActivity.showNotification(player);
                         }
@@ -720,15 +725,15 @@ public class GameView extends SurfaceView {
 
 
                     /* / TODO Movement of Player */
-                    if (player.getXIndex() + dx < 0 || player.getXIndex() + dx >= boardSize){
-                        player.killAfterMovement();
+                    if (playerSprite.getXIndex() + dx < 0 || playerSprite.getXIndex() + dx >= boardSize){
+                        playerSprite.killAfterMovement();
                         //gameActivity.showNotification(player);
                     }
-                    if (player.getYIndex() + dy < 0 || player.getYIndex() + dy >= boardSize){
-                        player.killAfterMovement();
+                    if (playerSprite.getYIndex() + dy < 0 || playerSprite.getYIndex() + dy >= boardSize){
+                        playerSprite.killAfterMovement();
                         //gameActivity.showNotification(player);
                     }
-                    player.startMoving(newPosOnTile, newPosNextTile, dx, dy);
+                    playerSprite.startMoving(newPosOnTile, newPosNextTile, dx, dy);
                     //player.setPos(newPos);
 
                     //player.setXIndex(player.getXIndex() + dx);
@@ -736,45 +741,45 @@ public class GameView extends SurfaceView {
 
 
 
-                    Log.d("NewPos", String.valueOf(player.getPos()));
-                    Log.d("NewX", String.valueOf(player.getXIndex()));
-                    Log.d("NewY", String.valueOf(player.getYIndex()));
+                    Log.d("NewPos", String.valueOf(playerSprite.getPos()));
+                    Log.d("NewX", String.valueOf(playerSprite.getXIndex()));
+                    Log.d("NewY", String.valueOf(playerSprite.getYIndex()));
 
                     Log.d("-------------", "--------------");
-                    for (int j = 0; j < players.size(); j++) {
-                        Log.d("Pos", String.valueOf(players.get(j).getPos()));
+                    for (int j = 0; j < playerSprites.size(); j++) {
+                        Log.d("Pos", String.valueOf(playerSprites.get(j).getPos()));
                     }
 
                 } else {
-                    player.changed = false;
-                    player.setMoving(false);
+                    playerSprite.setChanged(false);
+                    playerSprite.setMoving(false);
                 }
             }
         }
 
         if (virtual) {
             boolean changed = false;
-            for (int i=0; i<players.size(); i++){
-                if (players.get(i).changed) changed = true;
+            for (int i = 0; i< playerSprites.size(); i++){
+                if (playerSprites.get(i).isChanged()) changed = true;
             }
-            if (!changed) gamePhase = gpPlaying;
+            if (!changed) gamePhase = Keys.gpPlaying;
         }
     }
 
     public void playCard(Integer i){
-        Player player = players.get(currentPlayer);
+        PlayerSprite playerSprite = playerSprites.get(currentPlayer);
         ChoiceCardSprite card = choiceCards.get(i);
         cardSelected = i;
-        int pos = player.getPos();
-        PlayedCardSprite playedCard = new PlayedCardSprite(this, card.getBottomBMP(), card.getTopBMP(), card.getWays(), player.getXIndex(), player.getYIndex(), card.getRotation());
-        playedCards.put(String.valueOf(player.getXIndex())+"-"+String.valueOf(player.getYIndex()), playedCard);
+        int pos = playerSprite.getPos();
+        PlayedCardSprite playedCard = new PlayedCardSprite(this, card.getBottomBMP(), card.getTopBMP(), card.getWays(), playerSprite.getXIndex(), playerSprite.getYIndex(), card.getRotation());
+        playedCards.put(String.valueOf(playerSprite.getXIndex())+"-"+String.valueOf(playerSprite.getYIndex()), playedCard);
 
     }
 
     public void rotateCard(Integer i, int rotation){
-        Player player = players.get(currentPlayer);
+        PlayerSprite playerSprite = playerSprites.get(currentPlayer);
         CardSprite card = choiceCards.get(i);
-        CardSprite playedCard = playedCards.get(String.valueOf(player.getXIndex())+"-"+String.valueOf(player.getYIndex()));
+        CardSprite playedCard = playedCards.get(String.valueOf(playerSprite.getXIndex())+"-"+String.valueOf(playerSprite.getYIndex()));
         if (rotation == -1) {
             playedCard.rotate();
             card.rotate();
@@ -791,12 +796,12 @@ public class GameView extends SurfaceView {
             synchronized (getHolder()) {
                 for (int i=0; i<choiceCards.size(); i++){
                     ChoiceCardSprite card = choiceCards.get(i);
-                    if (card.isTouched(event.getX(), event.getY()) && gamePhase.equals(gpPlaying)){
+                    if (card.isTouched(event.getX(), event.getY()) && gamePhase.equals(Keys.gpPlaying)){
                         for (ChoiceCardSprite c : choiceCards){
                             c.setShow(card == c);
                         }
                         card.setShow(true);
-                        Player player = players.get(currentPlayer);
+                        PlayerSprite playerSprite = playerSprites.get(currentPlayer);
                         Log.d("CardSelected", String.valueOf(i));
                         if (i == cardSelected) {
                             rotateCard(i, -1);
@@ -811,28 +816,28 @@ public class GameView extends SurfaceView {
                     movePlayers();
                 }*/
 
-                if (gamePhase.equals(gpStart)){
+                if (gamePhase.equals(Keys.gpStart)){
 
                     for (int i=0; i<startPositions.size(); i++){
                         StartSprite sprite = startPositions.get(i);
                         if (sprite.isTouched(event.getX(), event.getY())){
-                            Player player = players.get(currentPlayer);
-                            player.setXIndex(sprite.getXIndex());
-                            player.setYIndex(sprite.getYIndex());
-                            player.setPos(sprite.getPos());
+                            PlayerSprite playerSprite = playerSprites.get(currentPlayer);
+                            playerSprite.setXIndex(sprite.getXIndex());
+                            playerSprite.setYIndex(sprite.getYIndex());
+                            playerSprite.setPos(sprite.getPos());
 
                             Log.d("X", String.valueOf(sprite.getXIndex()));
                             Log.d("Y", String.valueOf(sprite.getYIndex()));
                             Log.d("Pos", String.valueOf(sprite.getPos()));
                             currentPlayer += 1;
-                            currentPlayer = currentPlayer%players.size();
+                            currentPlayer = currentPlayer% playerSprites.size();
                             startPositions.remove(sprite);
-                            gameActivity.showNotification(players.get(currentPlayer));
+                            gameActivity.showNotification(playerSprites.get(currentPlayer));
 
                             if (currentPlayer == 0) {
-                                currentPlayer = players.size()-1;
-                                gamePhase = gpPlaying;
-                                gameMainPhase = gpPlaying;
+                                currentPlayer = playerSprites.size()-1;
+                                gamePhase = Keys.gpPlaying;
+                                gameMainPhase = Keys.gpPlaying;
                                 nextPlayer();
                             }
                         }
@@ -845,8 +850,8 @@ public class GameView extends SurfaceView {
 
     public int getNumberOfLivePlayer(){
         int number_live_players = 0;
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).alive) {
+        for (int i = 0; i < playerSprites.size(); i++) {
+            if (playerSprites.get(i).isAlive()) {
                 number_live_players += 1;
             }
         }
@@ -866,11 +871,11 @@ public class GameView extends SurfaceView {
         int number_live_players = 0;
         String playerAliveLabel = "NoBody";
         int playerAliveColor = 0xFF000000;
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).alive) {
+        for (int i = 0; i < playerSprites.size(); i++) {
+            if (playerSprites.get(i).isAlive()) {
                 number_live_players += 1;
-                playerAliveLabel = players.get(i).getLabel(getContext());
-                playerAliveColor = players.get(i).getColor();
+                playerAliveLabel = playerSprites.get(i).getLabel(getContext());
+                playerAliveColor = playerSprites.get(i).getColor();
             }
         }
 
@@ -878,14 +883,14 @@ public class GameView extends SurfaceView {
             checkForGameOver();
         } else {
 
-            gamePhase = gpPlaying;
+            gamePhase = Keys.gpPlaying;
             int i = 0;
             gameTurn += 1;
 
             boolean someNotMoved = false;
-            for (Player player: players){
-                int id = player.id();
-                if (!playersMoved.contains(id) && player.alive){
+            for (PlayerSprite playerSprite : playerSprites){
+                int id = playerSprite.id();
+                if (!playersMoved.contains(id) && playerSprite.isAlive()){
                     someNotMoved = true;
                 }
             }
@@ -894,30 +899,30 @@ public class GameView extends SurfaceView {
                 playersMoved = new ArrayList<Integer>();
             }
 
-            Player player = players.get(currentPlayer);
+            PlayerSprite playerSprite = playerSprites.get(currentPlayer);
             if (cardSelected != -1){// && options.contains(Keys.option_draw_01)) {
                 choiceCards.remove(cardSelected);
             }
 
-            while (i < players.size()) {
+            while (i < playerSprites.size()) {
 
                 if (options.contains(Keys.option_order_same)) {
                     currentPlayer += 1;
-                    currentPlayer = currentPlayer % players.size();
+                    currentPlayer = currentPlayer % playerSprites.size();
                 } else {
                     do {
-                        currentPlayer = randomGenerator.nextInt(players.size());
-                        currentPlayer = currentPlayer % players.size();
-                    } while (playersMoved.contains(players.get(currentPlayer).id()));
+                        currentPlayer = randomGenerator.nextInt(playerSprites.size());
+                        currentPlayer = currentPlayer % playerSprites.size();
+                    } while (playersMoved.contains(playerSprites.get(currentPlayer).id()));
                 }
 
 
-            Player p = players.get(currentPlayer);
+            PlayerSprite p = playerSprites.get(currentPlayer);
             playersMoved.add(p.id());
             cardSelected = -1;
-            if (p.alive) {
+            if (p.isAlive()) {
                 gameActivity.showNotification(p);
-                if (p.KI){
+                if (p.isKI()){
                     startThinking();
                 }
                 updateChoiceCards();
@@ -928,9 +933,9 @@ public class GameView extends SurfaceView {
     }
 
     public void startThinking(){
-        Player p = players.get(currentPlayer);
-        p.phase = p.ppThinking;
-        gamePhase = gpThinking;
+        PlayerSprite p = playerSprites.get(currentPlayer);
+        p.setPhase(Keys.ppThinking);
+        gamePhase = Keys.gpThinking;
         thinkCounter = 25;
     }
 
@@ -947,7 +952,7 @@ public class GameView extends SurfaceView {
                 }
             }
         } else {
-            Player p = players.get(currentPlayer);
+            PlayerSprite p = playerSprites.get(currentPlayer);
             while (p.choiceCards.size() < 3) {
                 int index = randomGenerator.nextInt(cards.size());
                 if (!selected.contains(index)) {
@@ -963,10 +968,10 @@ public class GameView extends SurfaceView {
     }
 
     public void drawChoiceCards(Canvas canvas){
-        if (gamePhase.equals(gpStart)) return;
+        if (gamePhase.equals(Keys.gpStart)) return;
         for (ChoiceCardSprite card : choiceCards){
             card.onDraw(canvas);
-            Log.d("Draw", Integer.toString(card.getPos())+": "+  card.ways.toString());
+            Log.d("Draw", Integer.toString(card.getPos())+": "+  card.getWays().toString());
         }
     }
 
@@ -976,4 +981,24 @@ public class GameView extends SurfaceView {
         return moveSteps;
     }
     public float getScaleFactor(){ return scaleFactor; }
+
+    public int getEdge() {
+        return edge;
+    }
+
+    public String getGamePhase() {
+        return gamePhase;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public int getBottomMargin() {
+        return bottomMargin;
+    }
+
+    public Bitmap getRotateIndicator() {
+        return rotateIndicator;
+    }
 }

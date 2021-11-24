@@ -1,36 +1,40 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class ObstacleCardSprite{
+import de.badgersburrow.derailer.GameView;
 
-    protected Bitmap bmp;
-    protected GameView gameView;
-    protected int xIndex = -1;
-    protected int yIndex = -1;
+public class ObstacleCardSprite extends BaseSprite{
+
+    protected int xIndex;
+    protected int yIndex;
     protected int width;
     Rect dest;
-    protected int edge = 0;
 
     public ObstacleCardSprite(GameView gameView, Bitmap bmp, int x, int y){
-        this.gameView = gameView;
-        this.bmp = bmp;
+        super(gameView, bmp);
         this.xIndex = x;
         this.yIndex = y;
-        this.edge = gameView.edge;
     }
 
+    @Override
     public void onDraw(Canvas canvas){
         int screenWidth = gameView.getWidth();
         this.width = (screenWidth - (2 * edge)) / 6;
-        int x = edge + (this.xIndex) * width ;
-        int y = edge + (this.yIndex) * width;
+        this.x = edge + (this.xIndex) * width ;
+        this.y = edge + (this.yIndex) * width;
         this.dest = new Rect(x, y, x+ width, y+ width);
 
         canvas.drawBitmap(bmp, null, dest, null);
-
     }
 
+    public int getXIndex() {
+        return xIndex;
+    }
+
+    public int getYIndex() {
+        return yIndex;
+    }
 }

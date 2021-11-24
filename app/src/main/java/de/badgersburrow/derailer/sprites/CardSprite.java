@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.sprites;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,38 +6,33 @@ import android.graphics.Rect;
 
 import java.util.List;
 
+import de.badgersburrow.derailer.GameView;
+
 /**
  * Created by cetty on 29.07.16.
  */
-public class CardSprite {
-    protected Bitmap bottomBmp;
+public abstract class CardSprite extends BaseSprite{
     protected Bitmap topBmp;
-    protected GameView gameView;
     private int currentFrame = 0;
     protected int width;
     private int screenWidth;
-    protected int edge = 0;
-    protected int x = -1;
-    protected int y = -1;
     protected int rotation = 0;
     protected List<Integer> ways;
     Rect dest;
 
 
     public CardSprite(GameView gameView, Bitmap bottomBmp, Bitmap topBmp, List<Integer> ways, int rotation){
-        this.gameView = gameView;
-        this.bottomBmp = bottomBmp;
+        super(gameView, bottomBmp);
         this.topBmp = topBmp;
         this.ways = ways;
         this.rotation = rotation;
-        this.edge = gameView.edge;
     }
 
     public void drawTopBottom(Canvas canvas){
         int rotate = 90*rotation;
         canvas.save();
         canvas.rotate(rotate, x + (width / 2), y + (width / 2));
-        canvas.drawBitmap(bottomBmp, null, dest, null);
+        canvas.drawBitmap(bmp, null, dest, null);
         canvas.drawBitmap(topBmp, null, dest, null);
         canvas.restore();
     }
@@ -46,7 +41,7 @@ public class CardSprite {
         int rotate = 90*rotation;
         canvas.save();
         canvas.rotate(rotate, x + (width / 2), y + (width / 2));
-        canvas.drawBitmap(bottomBmp, null, dest, null);
+        canvas.drawBitmap(bmp, null, dest, null);
         canvas.restore();
     }
 
@@ -71,7 +66,7 @@ public class CardSprite {
     }
 
     public Bitmap getBottomBMP(){
-        return bottomBmp;
+        return bmp;
     }
 
     public Bitmap getTopBMP() { return topBmp;}

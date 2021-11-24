@@ -1,8 +1,17 @@
 package de.badgersburrow.derailer;
 
-import de.badgersburrow.derailer.objects.SettingCard;
-
 public class Keys {
+
+    public final static String gpStart = "Start";
+    public final static String gpPlaying = "Playing";
+    public final static String gpMoving = "Moving";
+    public final static String gpThinking = "Thinking";
+
+
+    public final static String ppIdle = "Idle";
+    public final static String ppThinking = "Thinking";
+    public final static String ppFinishedThinking = "Finished Thinking";
+
 
     public static String unselected = "None";
     public static String player = "Player";

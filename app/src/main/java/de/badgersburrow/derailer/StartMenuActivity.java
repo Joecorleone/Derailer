@@ -27,8 +27,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.objects.GameTextButton;
-import de.badgersburrow.derailer.objects.SettingCard;
+import de.badgersburrow.derailer.adapters.AdapterCart;
+import de.badgersburrow.derailer.adapters.AdapterOptions;
+import de.badgersburrow.derailer.adapters.AdapterPlayers;
+import de.badgersburrow.derailer.views.GameTextButton;
+import de.badgersburrow.derailer.views.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
 import de.badgersburrow.derailer.views.ButtonRecyclerView;

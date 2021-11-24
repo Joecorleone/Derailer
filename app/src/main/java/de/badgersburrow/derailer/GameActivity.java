@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
@@ -18,7 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import de.badgersburrow.derailer.objects.AnimationPath;
-import de.badgersburrow.derailer.objects.GameTextButton;
+import de.badgersburrow.derailer.objects.GameTheme;
+import de.badgersburrow.derailer.sprites.PlayerSprite;
+import de.badgersburrow.derailer.views.GameTextButton;
 import de.badgersburrow.derailer.objects.PlayerResult;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 
@@ -77,7 +78,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         tv_n_textbig = (TextView) findViewById(R.id.tv_n_textbig);
         tv_n_textbottom = (TextView) findViewById(R.id.tv_n_textbottom);
 
-        showNotification(theGameView.players.get(0));
+        showNotification(theGameView.playerSprites.get(0));
 
         bt_back = (Button) findViewById(R.id.bt_back);
         bt_back.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +98,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     }
 
 
-    public void showNotification(final Player player){
+    public void showNotification(final PlayerSprite playerSprite){
         if (notificationThread!=null &&notificationThread.isAlive()){
             notificationThread.interrupt();
             runOnUiThread(new Runnable() {
@@ -113,23 +114,23 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
             @Override
             public void run() {
 
-                if (!player.virtual){
-                    iv_n_background.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
-                    iv_n_player.setImageBitmap(player.getBmpMain());
-                    iv_n_player_color.setImageBitmap(player.getBmpColor());
-                    iv_n_player_color.setColorFilter(player.getColor(), PorterDuff.Mode.SRC_IN);
+                if (!playerSprite.isVirtual()){
+                    iv_n_background.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
+                    iv_n_player.setImageBitmap(playerSprite.getBmpMain());
+                    iv_n_player_color.setImageBitmap(playerSprite.getBmpColor());
+                    iv_n_player_color.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
                     tv_n_texttop.setTypeface(MainActivity.customtf_normal);
                     tv_n_textbig.setTypeface(MainActivity.customtf_normal);
                     tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
-                    tv_n_textbig.setText(player.getLabel(getBaseContext()));
+                    tv_n_textbig.setText(playerSprite.getLabel(getBaseContext()));
                     rl_notification.setVisibility(View.VISIBLE);
 
-                    if (player.alive){
+                    if (playerSprite.isAlive()){
                         String gp = theGameView.gamePhase;
-                        if (gp.equals(theGameView.gpStart)) {
+                        if (gp.equals(Keys.gpStart)) {
                             tv_n_texttop.setVisibility(View.GONE);
                             tv_n_textbottom.setText("choose your start spot");
-                        } else if (gp.equals(theGameView.gpPlaying)) {
+                        } else if (gp.equals(Keys.gpPlaying)) {
                             tv_n_texttop.setText("On to ");
                             tv_n_textbottom.setText("place a tile");
                         }
@@ -178,7 +179,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
         Intent theNextIntent = new Intent(getApplicationContext(),
                 GameOverActivity.class);
         ArrayList<PlayerResult> playerResult = new ArrayList<>();
-        for (Player p: theGameView.players){
+        for (PlayerSprite p: theGameView.playerSprites){
             playerResult.add(p.getResult());
         }
         theNextIntent.putExtra("PlayersSelection", playerSelection);

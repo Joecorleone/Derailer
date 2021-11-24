@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.adapters;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.objects.Theme;
 
 import java.util.ArrayList;

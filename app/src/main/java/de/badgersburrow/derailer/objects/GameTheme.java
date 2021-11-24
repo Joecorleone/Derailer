@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.objects;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,8 +6,10 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import de.badgersburrow.derailer.GameView;
 import de.badgersburrow.derailer.R;
 
+import de.badgersburrow.derailer.Utilities;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 
 import java.util.HashMap;

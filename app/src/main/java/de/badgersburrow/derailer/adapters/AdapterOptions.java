@@ -1,4 +1,4 @@
-package de.badgersburrow.derailer;
+package de.badgersburrow.derailer.adapters;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.objects.SettingCard;
+import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.views.SettingCard;
 
 import java.util.ArrayList;
 
