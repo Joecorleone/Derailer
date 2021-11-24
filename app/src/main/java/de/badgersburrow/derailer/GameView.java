@@ -20,6 +20,7 @@ import java.util.Random;
 
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MyButton;
+import de.badgersburrow.derailer.sprites.ExplosionSprite;
 import de.badgersburrow.derailer.sprites.PlayerAiSprite;
 import de.badgersburrow.derailer.sprites.PlayerHumanSprite;
 import de.badgersburrow.derailer.sprites.PlayerSprite;
@@ -79,6 +80,7 @@ public class GameView extends SurfaceView {
     int edge;
     int bottomMargin;
     ArrayList<PlayerSprite> playerSprites = new ArrayList<>();
+    ArrayList<ExplosionSprite> explosionSprites = new ArrayList<>();
     ArrayList<Integer> obstacleX = new ArrayList<>();
     ArrayList<Integer> obstacleY = new ArrayList<>();
     private GameTheme selectedTheme;
@@ -276,6 +278,7 @@ public class GameView extends SurfaceView {
         drawPlayedCardsBottom(canvas);
         drawPlayers(canvas);
         drawPlayedCardsTop(canvas);
+        drawExplosions(canvas);
         drawButtons(canvas);
         drawPlayerList(canvas);
 
@@ -345,8 +348,10 @@ public class GameView extends SurfaceView {
         }
     }
 
-    public void drawExplosion(Canvas canvas){
-        return;
+    public void drawExplosions(Canvas canvas){
+        for (ExplosionSprite sprite : explosionSprites){
+            sprite.onDraw(canvas);
+        }
     }
 
     public void drawButtons(Canvas canvas){
@@ -551,7 +556,10 @@ public class GameView extends SurfaceView {
                         gameActivity.showNotification(playerSprites.get(j));
                         Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
                         Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
-                        drawExplosion(canvas);
+                        //drawExplosion(canvas);
+                        explosionSprites.add(new ExplosionSprite(this,
+                                (positions.get(i).first + positions.get(j).first)/2,
+                                (positions.get(i).second + positions.get(j).second)/2));
                         checkForGameOver();
                     }
                 }
@@ -560,7 +568,11 @@ public class GameView extends SurfaceView {
         for (int i = 0; i < playerSprites.size(); i ++ ) {
             if (playerSprites.get(i).killAfterMovement && !playerSprites.get(i).isMoving()){
                 playerSprites.get(i).kill();
-                drawExplosion(canvas);
+                Pair<Integer,Integer> center = playerSprites.get(i).getCenter();
+                if (center.first != -1){
+                    explosionSprites.add(new ExplosionSprite(this,
+                            center.first, center.second));
+                }                
                 gameActivity.showNotification(playerSprites.get(i));
             }
         }

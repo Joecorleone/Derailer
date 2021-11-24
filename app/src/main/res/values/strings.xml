@@ -15,14 +15,17 @@
     <string name="label_ai">AI %d</string>
 
     <string name="option_victory">Victory</string>
+    <string name="option_collision">Collision</string>
     <string name="option_obstacle">Obstacles</string>
     <string name="option_draw">Draw</string>
     <string name="option_order">Order</string>
     <string name="option_daynight">Day/Night</string>
     <string name="option_suddendeath">Sudden death</string>
 
-    <string name="option_victory_01">Last one</string>
-    <string name="option_victory_02">Distance</string>
+    <string name="option_collision_on">On</string>
+    <string name="option_collision_off">Off</string>
+    <string name="option_victory_last">Last one</string>
+    <string name="option_victory_dist">Distance</string>
     <string name="option_obstacle_none">None</string>
     <string name="option_obstacle_few">Few</string>
     <string name="option_obstacle_many">Many</string>

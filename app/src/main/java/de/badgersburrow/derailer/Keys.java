@@ -43,4 +43,8 @@ public class Keys {
     public static String option_victory    = "key_victory";
     public static String option_victory_last = "key_victory_01";
     public static String option_victory_distance = "key_victory_02";
+
+    public static String option_collision    = "key_collision";
+    public static String option_collision_on = "key_collision_01";
+    public static String option_collision_off = "key_collision_02";
 }

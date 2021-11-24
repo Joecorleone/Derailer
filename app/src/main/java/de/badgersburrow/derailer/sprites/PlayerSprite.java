@@ -236,11 +236,11 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         }
     }
 
-    public Pair getCenter(){
+    public Pair<Integer, Integer> getCenter(){
         if (xIndex == -1 || yIndex == -1 || pos == -1) {
-            return new Pair(-1, -1);
+            return new Pair<>(-1, -1);
         }
-        return new Pair(cur_centerX, cur_centerY);
+        return new Pair<>(cur_centerX, cur_centerY);
     }
 
     public void setXIndex(int x){

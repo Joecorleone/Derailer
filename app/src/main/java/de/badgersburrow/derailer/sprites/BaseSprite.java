@@ -27,6 +27,5 @@ abstract class BaseSprite {
         this.y = y;
     }
 
-
     abstract public void onDraw(Canvas canvas);
 }
