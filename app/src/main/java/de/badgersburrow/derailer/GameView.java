@@ -532,7 +532,7 @@ public class GameView extends SurfaceView {
                 ArrayList<Integer> pos = sprite.onDraw(canvas);
                 positions.add(i, pos);
             } else {
-                ArrayList pos = new ArrayList();
+                ArrayList<Integer> pos = new ArrayList<>();
                 pos.add(-1);
                 pos.add(-1);
                 positions.add(i, pos);
