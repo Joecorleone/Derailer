@@ -1,4 +1,4 @@
-package com.example.cetty.derailer;
+package de.badgersburrow.derailer;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

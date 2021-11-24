@@ -31,22 +31,30 @@ public class Theme {
 
     public Drawable getCartResId(Context context) {
         TypedArray typeImages = context.getResources().obtainTypedArray(R.array.carts);
-        return typeImages.getDrawable(this.id);
+        Drawable d = typeImages.getDrawable(this.id);
+        typeImages.recycle();
+        return d;
     }
 
     public Drawable getCartColorResId(Context context) {
         TypedArray typeImages = context.getResources().obtainTypedArray(R.array.carts_color);
-        return typeImages.getDrawable(this.id);
+        Drawable d = typeImages.getDrawable(this.id);
+        typeImages.recycle();
+        return d;
     }
 
     public int getThemeColorResId(Context context) {
-        TypedArray typeImages = context.getResources().obtainTypedArray(R.array.theme_colors);
-        return typeImages.getColor(this.id,0);
+        TypedArray typeColors = context.getResources().obtainTypedArray(R.array.theme_colors);
+        int c = typeColors.getColor(this.id,0);
+        typeColors.recycle();
+        return c;
     }
 
     public Drawable getBackgroundResId(Context context) {
-        TypedArray typeImages = context.getResources().obtainTypedArray(R.array.theme_backgrounds);
-        return typeImages.getDrawable(this.id);
+        TypedArray typeBackgrounds = context.getResources().obtainTypedArray(R.array.theme_backgrounds);
+        Drawable d = typeBackgrounds.getDrawable(this.id);
+        typeBackgrounds.recycle();
+        return d;
     }
 
     public boolean isSelected(){

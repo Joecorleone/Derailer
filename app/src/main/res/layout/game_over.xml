@@ -21,7 +21,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Game Over"
+                android:text="@string/game_over"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
@@ -35,14 +35,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Winner is:    "
+                android:text="@string/winner_is"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/textPlayer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nobody"
+                android:text="@string/nobody"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
@@ -59,13 +59,13 @@
             android:id="@+id/bNewTry"
             android:layout_width="124dp"
             android:layout_height="wrap_content"
-            android:text="restart" />
+            android:text="@string/restart" />
 
         <Button
             android:id="@+id/bMainMenu"
             android:layout_width="124dp"
             android:layout_height="wrap_content"
-            android:text="main menu" />
+            android:text="@string/main_menu" />
 
     </LinearLayout>
 

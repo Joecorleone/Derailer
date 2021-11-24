@@ -29,10 +29,6 @@ import de.badgersburrow.derailer.objects.PlayerSelection;
 
 public class GameOverActivity extends Activity implements OnClickListener{
 
-    private Button bReplay;
-    private Button bExit;
-    private TextView tv_place1_dist, tv_place2_dist, tv_place3_dist, tv_place1_label, tv_place2_label, tv_place3_label;
-    private ImageView iv_place1_main, iv_place2_main, iv_place3_main, iv_place1_color, iv_place2_color, iv_place3_color;
     ArrayList<PlayerResult> players;
     ArrayList<PlayerSelection> playersSelection;
     ArrayList<String> options;
@@ -44,8 +40,7 @@ public class GameOverActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
         Bundle extras = getIntent().getExtras();
-        //String playerName = extras.getString("playerLabel");
-        //int playercolor = extras.getInt("playerColor");
+
         playersSelection = (ArrayList<PlayerSelection>)extras.getSerializable("PlayersSelection");
         players = (ArrayList<PlayerResult>)extras.getSerializable("Players");
         options = extras.getStringArrayList("Options");
@@ -57,18 +52,18 @@ public class GameOverActivity extends Activity implements OnClickListener{
         tv_header.setTypeface(MainActivity.customtf_normal);
 
         // podium
-        tv_place1_dist = (TextView) findViewById(R.id.tv_place1_dist);
-        tv_place2_dist = (TextView) findViewById(R.id.tv_place2_dist);
-        tv_place3_dist = (TextView) findViewById(R.id.tv_place3_dist);
-        tv_place1_label = (TextView) findViewById(R.id.tv_place1_label);
-        tv_place2_label = (TextView) findViewById(R.id.tv_place2_label);
-        tv_place3_label = (TextView) findViewById(R.id.tv_place3_label);
-        iv_place1_main = (ImageView) findViewById(R.id.iv_place1_main);
-        iv_place2_main = (ImageView) findViewById(R.id.iv_place2_main);
-        iv_place3_main = (ImageView) findViewById(R.id.iv_place3_main);
-        iv_place1_color = (ImageView) findViewById(R.id.iv_place1_color);
-        iv_place2_color = (ImageView) findViewById(R.id.iv_place2_color);
-        iv_place3_color = (ImageView) findViewById(R.id.iv_place3_color);
+        TextView tv_place1_dist = findViewById(R.id.tv_place1_dist);
+        TextView tv_place2_dist = findViewById(R.id.tv_place2_dist);
+        TextView tv_place3_dist = findViewById(R.id.tv_place3_dist);
+        TextView tv_place1_label = findViewById(R.id.tv_place1_label);
+        TextView tv_place2_label = findViewById(R.id.tv_place2_label);
+        TextView tv_place3_label = findViewById(R.id.tv_place3_label);
+        ImageView iv_place1_main = findViewById(R.id.iv_place1_main);
+        ImageView iv_place2_main = findViewById(R.id.iv_place2_main);
+        ImageView iv_place3_main = findViewById(R.id.iv_place3_main);
+        ImageView iv_place1_color = findViewById(R.id.iv_place1_color);
+        ImageView iv_place2_color = findViewById(R.id.iv_place2_color);
+        ImageView iv_place3_color = findViewById(R.id.iv_place3_color);
 
         List<TextView> list_tv_dist = Arrays.asList(tv_place1_dist, tv_place2_dist, tv_place3_dist);
         List<TextView> list_tv_label = Arrays.asList(tv_place1_label, tv_place2_label, tv_place3_label);
@@ -89,8 +84,6 @@ public class GameOverActivity extends Activity implements OnClickListener{
 
         Matrix m = new Matrix();
         m.postRotate(270);
-        //float scale = getResources().getFraction(R.fraction.cart_scale, 1, 1);
-        //m.postScale(scale, scale);
 
         for (int i=0; i<3 && i<players.size(); i++){
             PlayerResult p = players.get(i);
@@ -113,8 +106,8 @@ public class GameOverActivity extends Activity implements OnClickListener{
             ll_place3_podium.setVisibility(View.INVISIBLE);
         }
 
-        bReplay = (Button) findViewById(R.id.bNewTry);
-        bExit = (Button) findViewById(R.id.bMainMenu);
+        Button bReplay = (Button) findViewById(R.id.bNewTry);
+        Button bExit = (Button) findViewById(R.id.bMainMenu);
         bReplay.setOnClickListener(this);
         bExit.setOnClickListener(this);
     }

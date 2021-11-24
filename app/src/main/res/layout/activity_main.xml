@@ -31,7 +31,6 @@
             android:id="@+id/ll_menu01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/ll_menu02"
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/menu_background01">
@@ -39,7 +38,7 @@
                 android:id="@+id/bLocal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="       Start       "
+                android:text="@string/start_with_spaces"
                 android:lines="1"
                 android:fontFamily="sans-serif"
                 android:textSize="@dimen/menu_text_size"
@@ -52,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/menu_vertical_margin"
-            android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/menu_background02">
@@ -61,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/menu_cart02"
-                android:text="   Theme   "
+                android:text="@string/theme_with_spaces"
                 android:fontFamily="sans-serif"
                 android:textSize="@dimen/menu_text_size"/>
         </RelativeLayout>

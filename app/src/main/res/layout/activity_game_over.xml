@@ -8,7 +8,7 @@
         android:id="@+id/tv_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game Over"
+        android:text="@string/game_over"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin_small"
         android:background="@drawable/train_header_sign_bg"
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="2"
+                    android:text="@string/place2"
                     android:textColor="@color/podium_number"
                     android:textSize="45sp"
                     android:textStyle="bold" />
@@ -96,7 +96,7 @@
                 android:id="@+id/tv_place2_dist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25"
+                android:text="@string/example_distance"
                 android:textSize="20sp"
                 android:maxLines="1"
                 android:layout_marginTop="@dimen/activity_vertical_margin_small"/>
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="1"
+                    android:text="@string/place1"
                     android:textColor="@color/podium_number"
                     android:textSize="45sp"
                     android:textStyle="bold" />
@@ -170,7 +170,7 @@
                 android:id="@+id/tv_place1_dist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25"
+                android:text="@string/example_distance"
                 android:textSize="20sp"
                 android:maxLines="1"
                 android:layout_marginTop="@dimen/activity_vertical_margin_small"/>
@@ -227,7 +227,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3"
+                    android:text="@string/place3"
                     android:textSize="45sp"
                     android:textStyle="bold"
                     android:textColor="@color/podium_number"
@@ -247,7 +247,7 @@
                 android:id="@+id/tv_place3_dist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25"
+                android:text="@string/example_distance"
                 android:textSize="20sp"
                 android:maxLines="1"
                 android:layout_marginTop="@dimen/activity_vertical_margin_small"/>

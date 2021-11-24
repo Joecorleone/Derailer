@@ -27,12 +27,10 @@ public class GameTheme {
     HashMap<Integer, Bitmap> card_top = new HashMap<>();
     HashMap<Integer, Bitmap> card_bottom = new HashMap<>();
 
-    private Context mContext;
-
     public GameTheme(Context context, int themeId){
         Log.d("Theme selected: ",String.valueOf(themeId));
-        mContext = context;
-        Resources res = mContext.getResources();
+
+        Resources res = context.getResources();
         TypedArray carts = res.obtainTypedArray(R.array.carts);
         TypedArray carts_color = res.obtainTypedArray(R.array.carts_color);
 
@@ -284,8 +282,6 @@ public class GameTheme {
 
             case 0 :
                 // steam engine
-                //animSecondary = new MoveAnimSecondary(R.drawable.ic_pointer,
-                //5, 14, 0.8f, 0.0f, 6.0f, 6.0f, true, false, false);
                 animSecondary = new MoveAnimSecondary(R.drawable.smoke2,
                 5, 14, 0.8f, 0.0f, 1.0f, 6.0f, true, true, false);
                 break;

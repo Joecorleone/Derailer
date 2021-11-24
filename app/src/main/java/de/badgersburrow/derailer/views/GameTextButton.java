@@ -3,7 +3,6 @@ package de.badgersburrow.derailer.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.Button;
 
 public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
 

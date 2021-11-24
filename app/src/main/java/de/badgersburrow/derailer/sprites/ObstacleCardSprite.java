@@ -21,11 +21,13 @@ public class ObstacleCardSprite extends BaseSprite{
 
     @Override
     public void onDraw(Canvas canvas){
-        int screenWidth = gameView.getWidth();
-        this.width = (screenWidth - (2 * edge)) / 6;
-        this.x = edge + (this.xIndex) * width ;
-        this.y = edge + (this.yIndex) * width;
-        this.dest = new Rect(x, y, x+ width, y+ width);
+        if (dest == null){
+            int screenWidth = gameView.getWidth();
+            this.width = (screenWidth - (2 * edge)) / 6;
+            this.x = edge + (this.xIndex) * width ;
+            this.y = edge + (this.yIndex) * width;
+            this.dest = new Rect(x, y, x+ width, y+ width);
+        }
 
         canvas.drawBitmap(bmp, null, dest, null);
     }

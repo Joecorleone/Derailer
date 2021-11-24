@@ -1,7 +1,6 @@
 package de.badgersburrow.derailer.objects;
 
 import de.badgersburrow.derailer.Keys;
-import de.badgersburrow.derailer.MainActivity;
 
 import java.io.Serializable;
 

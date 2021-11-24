@@ -14,10 +14,10 @@ android {
     }
 
     sourceSets{
-        main.res.srcDirs = [main.res.srcDirs, "build/generated/res/main"]
+       // main.res.srcDirs = [main.res.srcDirs, "build/generated/res/main"]
         main.res.srcDirs = [main.res.srcDirs, "src/main/tiles"]
         // assets specfic transcoding
-        main.assets.srcDirs = [main.assets.srcDirs, "build/generated/assets/main"]
+        //main.assets.srcDirs = [main.assets.srcDirs, "build/generated/assets/main"]
     }
 
     buildTypes {
@@ -37,9 +37,9 @@ task wrapper(type: Wrapper) {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     testImplementation 'junit:junit:4.13.2'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.transition:transition:1.4.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }

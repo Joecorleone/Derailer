@@ -18,8 +18,8 @@ import java.util.ArrayList;
  */
 public class PlayerListAdapter extends BaseAdapter implements ListAdapter {
 
-    private ArrayList<String> playerList = new ArrayList<String>();
-    private ArrayList<Integer> colorList = new ArrayList<Integer>();
+    private ArrayList<String> playerList = new ArrayList<>();
+    private ArrayList<Integer> colorList = new ArrayList<>();
     private Context context;
 
     public PlayerListAdapter(ArrayList<String> playerList, ArrayList<Integer> colorList, Context context){
@@ -58,13 +58,10 @@ public class PlayerListAdapter extends BaseAdapter implements ListAdapter {
 
         colorButton.setBackgroundColor(colorList.get(i));
 
-        deleteButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                playerList.remove(i);
-                colorList.remove(i);
-                notifyDataSetChanged();
-            }
+        deleteButton.setOnClickListener(v -> {
+            playerList.remove(i);
+            colorList.remove(i);
+            notifyDataSetChanged();
         });
 
         return view;

@@ -3,17 +3,13 @@ package de.badgersburrow.derailer.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -32,7 +28,6 @@ public class GameSignButton extends RelativeLayout {
     private int resSign;
     private int resShadow;
 
-    private View v;
     private ImageView iv_sign, iv_shadow;
 
 
@@ -63,7 +58,7 @@ public class GameSignButton extends RelativeLayout {
     }
 
     public void initView(){
-        v = inflate(getContext(), R.layout.game_sign_button, this);
+        View v = inflate(getContext(), R.layout.game_sign_button, this);
 
         Bitmap sign = getBitmapFromVectorDrawable(getContext(), resSign);
         Bitmap shadow = getBitmapFromVectorDrawable(getContext(), resShadow);
@@ -90,9 +85,6 @@ public class GameSignButton extends RelativeLayout {
 
         iv_sign.setImageBitmap(sign_rot);
         iv_shadow.setImageBitmap(sign_shadow);
-
-        //iv_sign.setImageResource(resSign);
-        //iv_shadow.setImageResource(resShadow);
     }
 
     public void setImageRotation(float rot_x, float rot_y){

@@ -42,7 +42,7 @@ public class PathParser {
     public static PathDataNode[] createNodesFromPathData(String pathData) {
         int start = 0;
         int end = 1;
-        ArrayList<PathDataNode> list = new ArrayList<PathDataNode>();
+        ArrayList<PathDataNode> list = new ArrayList<>();
         while (end < pathData.length()) {
             end = nextStart(pathData, end);
             String s = pathData.substring(start, end);
@@ -132,9 +132,9 @@ public class PathParser {
         public static void nodesToPath(PathDataNode[] node, Path path) {
             float[] current = new float[4];
             char previousCommand = 'm';
-            for (int i = 0; i < node.length; i++) {
-                addCommand(path, current, previousCommand, node[i].mType, node[i].mParams);
-                previousCommand = node[i].mType;
+            for (PathDataNode pathDataNode : node) {
+                addCommand(path, current, previousCommand, pathDataNode.mType, pathDataNode.mParams);
+                previousCommand = pathDataNode.mType;
             }
         }
         private static void addCommand(Path path, float[] current,

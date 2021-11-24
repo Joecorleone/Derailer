@@ -1,4 +1,4 @@
-package com.example.cetty.derailer;
+package de.badgersburrow.derailer;
 
 import org.junit.Test;
 

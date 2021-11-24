@@ -19,6 +19,7 @@ public class StartSprite extends BaseSprite{
     private int y_index = 0;
     private int pos = 0;
     private int tiles = 4;
+    private Rect dest;
 
     public StartSprite(GameView gameView, Bitmap bmp, int x, int y, int pos, int tiles){
         super(gameView, bmp);
@@ -31,44 +32,47 @@ public class StartSprite extends BaseSprite{
 
     @Override
     public void onDraw(Canvas canvas){
-        screenWidth = gameView.getWidth();
-        width = (screenWidth - (2 * edge)) / 6;
-        x = edge + (this.x_index) * width + width / 2 - bmp.getHeight() / 2;
-        y = edge + (this.y_index) * width + width / 2 - bmp.getHeight() / 2;
-        if (tiles == 4){
-            if (pos == 0) y = y - width / 2;
-            else if (pos == 1) x = x + width / 2;
-            else if (pos == 2) y = y + width / 2;
-            else x = x - width / 2;
-        } else {
-            if (pos == 6) {
-                y = y + width / 4;
-                x = x - width / 2;
-            } else if (pos == 7) {
-                y = y - width / 4;
-                x = x - width / 2;
-            } else if (pos == 0) {
-                y = y - width / 2;
-                x = x - width / 4;
-            } else if (pos == 1) {
-                y = y - width / 2;
-                x = x + width / 4;
-            } else if (pos == 2) {
-                y = y - width / 4;
-                x = x + width / 2;
-            } else if (pos == 3) {
-                y = y + width / 4;
-                x = x + width / 2;
-            } else if (pos == 4) {
-                y = y + width / 2;
-                x = x + width / 4;
-            } else if (pos == 5) {
-                y = y + width / 2;
-                x = x - width / 4;
+        if (dest == null){
+            screenWidth = gameView.getWidth();
+            width = (screenWidth - (2 * edge)) / 6;
+            x = edge + (this.x_index) * width + width / 2 - bmp.getHeight() / 2;
+            y = edge + (this.y_index) * width + width / 2 - bmp.getHeight() / 2;
+            if (tiles == 4){
+                if (pos == 0) y = y - width / 2;
+                else if (pos == 1) x = x + width / 2;
+                else if (pos == 2) y = y + width / 2;
+                else x = x - width / 2;
+            } else {
+                if (pos == 6) {
+                    y = y + width / 4;
+                    x = x - width / 2;
+                } else if (pos == 7) {
+                    y = y - width / 4;
+                    x = x - width / 2;
+                } else if (pos == 0) {
+                    y = y - width / 2;
+                    x = x - width / 4;
+                } else if (pos == 1) {
+                    y = y - width / 2;
+                    x = x + width / 4;
+                } else if (pos == 2) {
+                    y = y - width / 4;
+                    x = x + width / 2;
+                } else if (pos == 3) {
+                    y = y + width / 4;
+                    x = x + width / 2;
+                } else if (pos == 4) {
+                    y = y + width / 2;
+                    x = x + width / 4;
+                } else if (pos == 5) {
+                    y = y + width / 2;
+                    x = x - width / 4;
+                }
             }
+
+            dest = new Rect(x, y, x+bmp.getHeight(), y+bmp.getHeight());
         }
 
-        Rect dest = new Rect(x, y, x+bmp.getHeight(), y+bmp.getHeight());
         canvas.drawBitmap(bmp, null, dest, null);
     }
 

@@ -61,96 +61,63 @@ public class ButtonRecyclerView extends RecyclerView {
 
     public void setBt_top(Button bt_top) {
         this.bt_top = bt_top;
-        /*this.bt_top.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startScrolling(0,speed);//smoothScrollToPosition(llm.findFirstVisibleItemPosition() - 1);
+        this.bt_top.setOnTouchListener((v, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                startScrolling(0, speed);
+                v.setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                stopScrolling();
+                v.setPressed(false);
             }
-        });*/
-        this.bt_top.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    startScrolling(0, speed);
-                    v.setPressed(true);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    stopScrolling();
-                    v.setPressed(false);
-                }
 
-                return true;
-            }
+            return true;
         });
     }
 
     public void setBt_left(Button bt_left) {
         this.bt_left = bt_left;
-        /*this.bt_left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                smoothScrollBy(-speed,0);
-            }
-        });*/
-        this.bt_left.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    startScrolling(-speed, 0);
-                    v.setPressed(true);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    stopScrolling();
-                    v.setPressed(false);
-                }
 
-                return true;
+        this.bt_left.setOnTouchListener((v, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                startScrolling(-speed, 0);
+                v.setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                stopScrolling();
+                v.setPressed(false);
             }
+
+            return true;
         });
     }
 
     public void setBt_right(Button bt_right) {
         this.bt_right = bt_right;
-        /*this.bt_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                smoothScrollBy(speed,0);
-            }
-        });*/
-        this.bt_right.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    startScrolling(speed, 0);
-                    v.setPressed(true);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    stopScrolling();
-                    v.setPressed(false);
-                }
 
-                return true;
+        this.bt_right.setOnTouchListener((v, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                startScrolling(speed, 0);
+                v.setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                stopScrolling();
+                v.setPressed(false);
             }
+
+            return true;
         });
     }
 
     public void setBt_bottom(Button bt_bottom) {
         this.bt_bottom = bt_bottom;
-        /*this.bt_bottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                smoothScrollBy(0,-speed);
+
+        this.bt_bottom.setOnTouchListener((v, event) -> {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                startScrolling(0, -speed);
+                v.setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                stopScrolling();
+                v.setPressed(false);
             }
-        });*/
-        this.bt_bottom.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    startScrolling(0, -speed);
-                    v.setPressed(true);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    stopScrolling();
-                    v.setPressed(false);
-                }
-                return true;
-            }
+            return true;
         });
     }
 

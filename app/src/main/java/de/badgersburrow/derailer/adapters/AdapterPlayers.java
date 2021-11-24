@@ -65,8 +65,7 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_player, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+        return new DataObjectHolder(view);
     }
 
     @Override

@@ -18,7 +18,12 @@ public class PlayerAiSprite extends PlayerSprite{
 
 
     private int searchDepth = 3;
-    String KIStrength = Keys.aiHard;
+    String KIStrength;
+
+    // Points for score calculation
+    int distancePoints = 10;
+    int fieldPoints = 1;
+    int killPoints = 50;
 
     public PlayerAiSprite(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection) {
         super(gameView, theme, num, color, tiles);
@@ -35,7 +40,7 @@ public class PlayerAiSprite extends PlayerSprite{
         return context.getString(R.string.label_ai, num);
     }
 
-    public void makeMove(Map playedCards, ArrayList choiceCards, GameView gameView){
+    public void makeMove(Map<String, PlayedCardSprite> playedCards, ArrayList<ChoiceCardSprite> choiceCards, GameView gameView){
         if (KIStrength.equals(Keys.aiEasy)) {
             for (int i=0; i< choiceCards.size(); i++){
                 for (int rot=0; rot<4; rot++){
@@ -76,10 +81,9 @@ public class PlayerAiSprite extends PlayerSprite{
                     gameView.setVirtual(true);
                     gameView.playCard(i);
                     gameView.rotateCard(i, rot);
-                    while (true){
+                    do {
                         gameView.movePlayers();
-                        if (!gameView.getGamePhase().equals(Keys.gpMoving)) break;
-                    }
+                    } while (gameView.getGamePhase().equals(Keys.gpMoving));
                     if (aliveVirtual) {
                         gameView.setVirtual(false);
                         gameView.movePlayers();
@@ -103,14 +107,13 @@ public class PlayerAiSprite extends PlayerSprite{
                     posVirtual = pos;
                     gameView.playCard(i);
                     gameView.rotateCard(i, rot);
-                    while (true){
+                    do {
                         gameView.movePlayers();
-                        if (!gameView.getGamePhase().equals(Keys.gpMoving)) break;
-                    }
+                    } while (gameView.getGamePhase().equals(Keys.gpMoving));
 
                     if (aliveVirtual){
                         int fieldScore = 1;
-                        List<String> calcCards = new ArrayList<String>();
+                        List<String> calcCards = new ArrayList<>();
                         calcCards.add(Integer.toString(xIndexVirtual)+"-"+Integer.toString(yIndexVirtual));
                         fieldScore += calcFieldScore(playedCards, xIndexVirtual+1, yIndexVirtual,calcCards);
                         fieldScore += calcFieldScore(playedCards, xIndexVirtual, yIndexVirtual+1,calcCards);
@@ -139,13 +142,13 @@ public class PlayerAiSprite extends PlayerSprite{
         }
     }
 
-    private int calcFieldScore(Map playedCards, int x, int y, List calcCards){
+    private int calcFieldScore(Map<String, PlayedCardSprite> playedCards, int x, int y, List<String> calcCards){
         int score = 0;
         if (x < 0 || x>= gameView.getBoardSize() || y <0 || y >= gameView.getBoardSize()) return 0;
-        if (playedCards.containsKey(Integer.toString(x)+"-"+Integer.toString(y)) == false){
-            if (calcCards.contains(Integer.toString(x)+"-"+Integer.toString(y)) == false){
+        if (!playedCards.containsKey(x + "-" + y)){
+            if (!calcCards.contains(x + "-" + y)){
                 score += fieldPoints;
-                calcCards.add(Integer.toString(x)+"-"+Integer.toString(y));
+                calcCards.add(x +"-"+ y);
                 score += calcFieldScore(playedCards, x+1, y,calcCards);
                 score += calcFieldScore(playedCards, x, y+1,calcCards);
                 score += calcFieldScore(playedCards, x-1, y,calcCards);

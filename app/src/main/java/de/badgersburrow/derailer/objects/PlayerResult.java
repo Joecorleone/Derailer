@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
-import de.badgersburrow.derailer.MainActivity;
 import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.Utilities;
 
@@ -18,8 +17,6 @@ import de.badgersburrow.derailer.Utilities;
 public class PlayerResult implements Serializable{
 
     private int color;
-    //private Bitmap bmp_main;
-    //private Bitmap bmp_color;
     private int outCount;
     private int tileCount;
     private boolean KI;
@@ -31,8 +28,6 @@ public class PlayerResult implements Serializable{
         this.KI = ki;
         this.num = num;
         this.color = color;
-        //this.bmp_main = bmp_main;
-        //this.bmp_color = bmp_color;
         this.outCount = outCount;
         this.tileCount = tileCount;
 

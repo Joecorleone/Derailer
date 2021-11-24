@@ -21,7 +21,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Too few"
+            android:text="@string/too_few"
             android:textColor="@android:color/white"
             android:textSize="30sp" />
 
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="Add at least two playerSprite!"
+            android:text="@string/add_at_least_two_players"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 

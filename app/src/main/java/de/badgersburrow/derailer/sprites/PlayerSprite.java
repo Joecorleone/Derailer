@@ -13,7 +13,6 @@ import android.util.Log;
 import de.badgersburrow.derailer.GameActivity;
 import de.badgersburrow.derailer.GameView;
 import de.badgersburrow.derailer.Keys;
-import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 import de.badgersburrow.derailer.objects.PlayerResult;
@@ -21,12 +20,6 @@ import de.badgersburrow.derailer.sprites.ChoiceCardSprite;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import static java.lang.Math.abs;
-import static java.lang.Math.min;
 
 /**
  * Created by cetty on 29.07.16.
@@ -76,10 +69,7 @@ public abstract class PlayerSprite implements Serializable {
     private MoveAnimSecondary animSecondary;
     private float scaleFactor;
 
-    // Points for score calculation
-    int distancePoints = 10;
-    int fieldPoints = 1;
-    int killPoints = 50;
+
     private int _id;
 
     public PlayerSprite(GameView gameView, GameTheme theme, int num, int color, int tiles){
@@ -111,7 +101,7 @@ public abstract class PlayerSprite implements Serializable {
 
     public ArrayList<Integer> onDraw(final Canvas canvas){
         if (xIndex == -1 || yIndex == -1 || pos == -1) {
-            ArrayList<Integer> pos = new ArrayList();
+            ArrayList<Integer> pos = new ArrayList<>();
             pos.add(-1);
             pos.add(-1);
             return pos;
@@ -136,7 +126,7 @@ public abstract class PlayerSprite implements Serializable {
             x = edge + (this.xIndex) * width;
             y = edge + (this.yIndex) * width;
 
-            Pair p = GameActivity.animPath.getPosTan(pos, destPosOnTile, currentStep*1f/moveSteps);
+            Pair<float[],float[]> p = GameActivity.animPath.getPosTan(pos, destPosOnTile, currentStep*1f/moveSteps);
             float[] posPath = (float[]) p.first;
             float[] tanPath = (float[]) p.second;
 
@@ -254,7 +244,7 @@ public abstract class PlayerSprite implements Serializable {
             canvas.drawBitmap(bmp_main, matrix, null);
             this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
         }
-        ArrayList<Integer> pos = new ArrayList();
+        ArrayList<Integer> pos = new ArrayList<>();
         pos.add(cur_centerX);
         pos.add(cur_centerY);
         return pos;

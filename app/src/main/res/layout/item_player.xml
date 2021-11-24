@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_vertical_margin_small"
-        android:text="2"
+        android:text="@string/example_players_num"
         android:textAppearance="@android:style/TextAppearance.Large"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class AnimationPath {
 
-    Context mContext;
     final int flags = PathMeasure.POSITION_MATRIX_FLAG |
             PathMeasure.TANGENT_MATRIX_FLAG;
 
@@ -114,8 +113,6 @@ public class AnimationPath {
             tan[0] *= -1;
             tan[1] *= -1;
         }
-        //Log.d("posPath", String.valueOf(pos[0]) + "," + String.valueOf(pos[1]));
-        //Log.d("tanPath", String.valueOf(tan[0]) + "," + String.valueOf(tan[1]));
         return Pair.create(pos, tan);
     }
 

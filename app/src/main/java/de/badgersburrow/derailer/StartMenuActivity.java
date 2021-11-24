@@ -66,8 +66,8 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
     Button bt_back;
-    static GameTextButton bt_play;
-    static ToggleButton tb_toggle;
+    GameTextButton bt_play;
+    ToggleButton tb_toggle;
 
     Context mContext;
     static Resources res;
@@ -112,12 +112,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
 
         tb_toggle = (ToggleButton) findViewById(R.id.tb_toggle);
-        tb_toggle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggle(v);
-            }
-        });
+        tb_toggle.setOnClickListener(v -> toggle(v));
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
         SPE = SP.edit();
@@ -137,6 +132,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         for (int i = 0; i<cart_color_selection.length(); i++){
             availablePlayers.add(new PlayerSelection(cart_color_selection.getColor(i, color_default)));
         }
+        cart_color_selection.recycle();
         rv_carts = findViewById(R.id.rv_carts);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_carts.setLayoutManager(llm);
@@ -196,7 +192,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         settingCards.add(setting_victory);
 
 
-        adapterOptions = new AdapterOptions(mContext, settingCards);
+        adapterOptions = new AdapterOptions(settingCards);
         LinearLayoutManager llm_options = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_options.setLayoutManager(llm_options);
         rv_options.setAdapter(adapterOptions);
@@ -216,56 +212,40 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);
         bt_play.setDrawablePressed(R.drawable.button_play_state03);
         bt_play.setDrawableNormal(R.drawable.button_play_state02);
-        bt_play.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getNumPlayers() < 2) {
-                    showDialog();
-                } else {
-                    Intent newGameScreen= new Intent(mContext, GameActivity.class);
-                    newGameScreen.putExtra("Players", adapterCarts.getSelected());
-                    newGameScreen.putExtra("Options", adapterOptions.getKeys());
-                    newGameScreen.putExtra("connections", connections);
-                    startActivity(newGameScreen);
-                    finish();
-                }
-            }
-        });
-
-        GameSignButton gsb_back = findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        bt_play.setOnClickListener(v -> {
+            if (getNumPlayers() < 2) {
+                showDialog();
+            } else {
+                Intent newGameScreen= new Intent(mContext, GameActivity.class);
+                newGameScreen.putExtra("Players", adapterCarts.getSelected());
+                newGameScreen.putExtra("Options", adapterOptions.getKeys());
+                newGameScreen.putExtra("connections", connections);
+                startActivity(newGameScreen);
                 finish();
             }
         });
 
+        GameSignButton gsb_back = findViewById(R.id.gsb_back);
+        gsb_back.setOnClickListener(view -> finish());
+
 
         GameSignButton gsb_play = (GameSignButton) findViewById(R.id.gsb_play);
-        gsb_play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getNumPlayers() < 2) {
-                    showDialog();
-                } else {
-                    Intent newGameScreen= new Intent(mContext, GameActivity.class);
-                    newGameScreen.putExtra("Players", adapterCarts.getSelected());
-                    newGameScreen.putExtra("Options", adapterOptions.getKeys());
-                    newGameScreen.putExtra("connections", connections);
-                    startActivity(newGameScreen);
-                    finish();
-                }
+        gsb_play.setOnClickListener(view -> {
+            if (getNumPlayers() < 2) {
+                showDialog();
+            } else {
+                Intent newGameScreen= new Intent(mContext, GameActivity.class);
+                newGameScreen.putExtra("Players", adapterCarts.getSelected());
+                newGameScreen.putExtra("Options", adapterOptions.getKeys());
+                newGameScreen.putExtra("connections", connections);
+                startActivity(newGameScreen);
+                finish();
             }
         });
 
 
         bt_back = (Button) findViewById(R.id.bt_back);
-        bt_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        bt_back.setOnClickListener(view -> finish());
 
         adapterPlayers = new AdapterPlayers(mContext);
         GridLayoutManager glm_players = new GridLayoutManager(this, 2);
@@ -303,7 +283,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
     }
 
 
-    private final class MyTouchListener implements View.OnTouchListener {
+    private static final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 ClipData data = ClipData.newPlainText("", "");

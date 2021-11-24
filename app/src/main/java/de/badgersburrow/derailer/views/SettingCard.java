@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.MainActivity;
 import de.badgersburrow.derailer.R;
 
@@ -159,10 +158,6 @@ public class SettingCard extends LinearLayout implements
     public int getTopPadding() { return topPadding;}
 
     public void toggleState(){
-
-        //AnimatorSet animSet =
-        //        (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.card_flip_left_out);
-        //animSet.setTarget(this);
 
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(this, "rotationY", 0, 90);
         anim1.setDuration(anim_duration);

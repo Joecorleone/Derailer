@@ -28,7 +28,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
 
     private ArrayList<PlayerSelection> mPlayers;
     private Theme mTheme;
-    private static Context mContext;
+    private Context mContext;
     private ArrayList<PlayerSelection> selected;
     private ChangeListener listener;
 
@@ -61,8 +61,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cart, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+        return new DataObjectHolder(view);
     }
 
     @Override
@@ -71,14 +70,11 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
 
         holder.rl_cart.setTag(position);
         holder.rl_cart.setOnDragListener(new MyDragListener());
-        holder.rl_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.playerDeselected( player.getSelection());
-                player.setSelection(Keys.unselected);
-                selected.remove(player);
-                update();
-            }
+        holder.rl_cart.setOnClickListener(v -> {
+            listener.playerDeselected( player.getSelection());
+            player.setSelection(Keys.unselected);
+            selected.remove(player);
+            update();
         });
 
         Matrix m = new Matrix();
@@ -128,8 +124,6 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
     }
 
     class MyDragListener implements View.OnDragListener {
-        //Drawable enterShape = getResources().getDrawable(R.drawable.shape_droptarget);
-        //Drawable normalShape = getResources().getDrawable(R.drawable.shape);
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
@@ -147,12 +141,6 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
-                    //View view = (View) event.getLocalState();
-                    //ViewGroup owner = (ViewGroup) view.getParent();
-                    //owner.removeView(view);
-                    //LinearLayout container = (LinearLayout) v;
-                    //container.addView(view);
-                    //view.setVisibility(View.VISIBLE);
                     PlayerSelection player = mPlayers.get((int) v.getTag());
                     listener.playerDeselected(player.getSelection());
                     player.setSelection((String) dragView.getTag());

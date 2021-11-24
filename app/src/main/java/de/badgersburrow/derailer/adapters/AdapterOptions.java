@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObjectHolder> {
 
     private ArrayList<SettingCard> settingCards = new ArrayList<>();
-    private Context mContext;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         LinearLayout ll_option;
@@ -35,8 +34,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         }
     }
 
-    public AdapterOptions(Context mContext, ArrayList<SettingCard> settingCards) {
-        this.mContext = mContext;
+    public AdapterOptions(ArrayList<SettingCard> settingCards) {
         this.settingCards = settingCards;
     }
 
@@ -46,8 +44,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_option, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+        return new DataObjectHolder(view);
     }
 
     @Override
@@ -62,16 +59,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         holder.ll_option.addView(settingCard, llparams);
 
         holder.tv_option.setText(settingCard.getTitle());
-        /*if (settingCard.isEnabled()){
-            holder.tv_option.setTextColor(mContext.getResources().getColor(R.color.option_enabled));
-        } else {
-            holder.tv_option.setTextColor(mContext.getResources().getColor(R.color.option_disabled));
-        }*/
         holder.tv_option.setTypeface(MainActivity.customtf_normal);
-    }
-
-    public void update(){
-        notifyDataSetChanged();
     }
 
     public void enable(String key){

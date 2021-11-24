@@ -23,7 +23,7 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
 
     private static String LOG_TAG = "AdapterFridge";
     private ArrayList<Theme> mThemes;
-    private static Context mContext;
+    private Context mContext;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         LinearLayoutCompat ll_theme, ll_theme_bg;
@@ -55,8 +55,7 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_theme, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+        return new DataObjectHolder(view);
     }
 
     @Override

@@ -71,24 +71,20 @@ public class GameView extends SurfaceView {
     int moveSteps = 20; // frames per animated move, used to synchronize all animations
     float scaleFactor = 1f; // scale all images with the same factor
 
-    ArrayList<Integer> playersMoved = new ArrayList<Integer>();
+    ArrayList<Integer> playersMoved = new ArrayList<>();
 
     int edge;
     int bottomMargin;
-    ArrayList<PlayerSprite> playerSprites = new ArrayList<PlayerSprite>();
-    ArrayList<Integer> obstacleX = new ArrayList<Integer>();
-    ArrayList<Integer> obstacleY = new ArrayList<Integer>();
+    ArrayList<PlayerSprite> playerSprites = new ArrayList<>();
+    ArrayList<Integer> obstacleX = new ArrayList<>();
+    ArrayList<Integer> obstacleY = new ArrayList<>();
     private GameTheme selectedTheme;
     // Test different Boards Fields
-    //private ArrayList<ArrayList<PlayedCardSprite>>   playedCards = new ArrayList<ArrayList<PlayedCardSprite>>();
-    //private PlayedCardSprite[][] playedCards = new PlayedCardSprite[boardSize][boardSize];
     private Map<String, PlayedCardSprite> playedCards = new HashMap<>();
 
-    //Table<Integer, Integer, PlayedCardSprite> playedCards = new HashBasedTable
-    ////
     private int cardSelected = -1;
-    private  ArrayList<MyButton> buttons = new ArrayList<MyButton>();
-    private  ArrayList<ObstacleCardSprite> obstacles = new ArrayList<ObstacleCardSprite>();
+    private  ArrayList<MyButton> buttons = new ArrayList<>();
+    private  ArrayList<ObstacleCardSprite> obstacles = new ArrayList<>();
 
     private Button bt_play;
 
@@ -152,9 +148,6 @@ public class GameView extends SurfaceView {
             }
 
             public void surfaceCreated(SurfaceHolder holder) {
-                //Canvas theCanvas = surfaceHolder.lockCanvas(null);
-                //onDraw(theCanvas);
-                //surfaceHolder.unlockCanvasAndPost(theCanvas);
                 gameLoopThread.setRunning(true);
                 if (gameLoopThread.getState() == gameLoopThread.getState().NEW)
                     gameLoopThread.start();
@@ -197,12 +190,7 @@ public class GameView extends SurfaceView {
 
     public void setPlayButton(Button bt_play){
         this.bt_play = bt_play;
-        this.bt_play.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                movePlayers();
-            }
-        });
+        this.bt_play.setOnClickListener(v -> movePlayers());
     }
 
     public int getKilledCount(){
@@ -326,10 +314,6 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayedCardsBottom(Canvas canvas){
-        //for (int i = 0; i < playedCards.size(); i ++ ) {
-        //    PlayedCardSprite sprite = playedCards.get(i);
-        //    sprite.onDraw(canvas);
-        //}
         for (int i = 0; i < boardSize; i ++ ) {
             for (int j = 0; j < boardSize; j ++ ) {
                 PlayedCardSprite sprite = playedCards.get(String.valueOf(i)+"-"+String.valueOf(j));
@@ -369,12 +353,7 @@ public class GameView extends SurfaceView {
                 //button.onDraw(canvas, true);
             }
             if (bt_play != null){
-                gameActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        bt_play.setEnabled(true);
-                    }
-                });
+                gameActivity.runOnUiThread(() -> bt_play.setEnabled(true));
             }
         } else {
             for (int i=0; i<buttons.size(); i++){
@@ -382,12 +361,7 @@ public class GameView extends SurfaceView {
                 //button.onDraw(canvas, false);
             }
             if (bt_play != null){
-                gameActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        bt_play.setEnabled(false);
-                    }
-                });
+                gameActivity.runOnUiThread(() -> bt_play.setEnabled(false));
             }
         }
     }
@@ -551,14 +525,14 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayers(Canvas canvas){
-        ArrayList<ArrayList<Integer>> positions = new ArrayList<ArrayList<Integer>>(playerSprites.size());
+        ArrayList<ArrayList<Integer>> positions = new ArrayList<>(playerSprites.size());
         for (int i = 0; i < playerSprites.size(); i ++ ) {
             PlayerSprite sprite = playerSprites.get(i);
             if (sprite.isAlive()) {
                 ArrayList<Integer> pos = sprite.onDraw(canvas);
                 positions.add(i, pos);
             } else {
-                ArrayList<Integer> pos = new ArrayList();
+                ArrayList pos = new ArrayList();
                 pos.add(-1);
                 pos.add(-1);
                 positions.add(i, pos);
@@ -569,8 +543,8 @@ public class GameView extends SurfaceView {
         for (int i = 0; i < playerSprites.size(); i ++ ) {
             if (positions.get(i).get(0) == -1) continue;
             for (int j = i + 1; j < playerSprites.size(); j ++ ) {
-                if (Math.abs(positions.get(i).get(1).intValue() - positions.get(j).get(1).intValue()) < collisionDistance){
-                    if (Math.abs(positions.get(i).get(0).intValue() - positions.get(j).get(0).intValue()) < collisionDistance){
+                if (Math.abs(positions.get(i).get(1) - positions.get(j).get(1)) < collisionDistance){
+                    if (Math.abs(positions.get(i).get(0) - positions.get(j).get(0)) < collisionDistance){
                         playerSprites.get(i).kill();
                         gameActivity.showNotification(playerSprites.get(i));
                         playerSprites.get(j).kill();
@@ -600,9 +574,6 @@ public class GameView extends SurfaceView {
     }
 
     public void drawBackground(Canvas canvas){
-        //rectF.set(0, 0, getMeasuredWidth(), getMeasuredHeight());
-        //canvas.drawBitmap(background, null, rectF, null);
-
         canvas.drawColor(getContext().getResources().getColor(R.color.backgroundGame));
     }
 
@@ -896,7 +867,7 @@ public class GameView extends SurfaceView {
             }
 
             if(!someNotMoved){
-                playersMoved = new ArrayList<Integer>();
+                playersMoved = new ArrayList<>();
             }
 
             PlayerSprite playerSprite = playerSprites.get(currentPlayer);

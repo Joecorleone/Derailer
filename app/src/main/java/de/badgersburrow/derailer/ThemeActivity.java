@@ -51,12 +51,7 @@ public class ThemeActivity extends Activity {
         SPE = SP.edit();
 
         GameSignButton gsb_back = findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        gsb_back.setOnClickListener(view -> finish());
 
 
         // populate theme arraylist

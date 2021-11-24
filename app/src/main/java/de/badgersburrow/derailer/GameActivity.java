@@ -36,8 +36,6 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     private Dialog gameOverDialog;
     private boolean dialogIsActive = false;
     private GameView theGameView;
-    private GameTextButton bt_play;
-    private Button bt_back;
 
     Runnable notificationRun;
     Thread notificationThread;
@@ -80,15 +78,10 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
 
         showNotification(theGameView.playerSprites.get(0));
 
-        bt_back = (Button) findViewById(R.id.bt_back);
-        bt_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        Button bt_back = (Button) findViewById(R.id.bt_back);
+        bt_back.setOnClickListener(view -> finish());
 
-        bt_play = (GameTextButton) findViewById(R.id.bt_play);
+        GameTextButton bt_play = (GameTextButton) findViewById(R.id.bt_play);
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);
         bt_play.setDrawablePressed(R.drawable.button_play_state03);
         bt_play.setDrawableNormal(R.drawable.button_play_state02);
@@ -101,46 +94,35 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     public void showNotification(final PlayerSprite playerSprite){
         if (notificationThread!=null &&notificationThread.isAlive()){
             notificationThread.interrupt();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    hideNotification();
-                }
-            });
+            runOnUiThread(() -> hideNotification());
         }
-        /*while (isNotification()){
-        }*/
-        runOnUiThread(notificationRun = new Runnable() {
-            @Override
-            public void run() {
 
-                if (!playerSprite.isVirtual()){
-                    iv_n_background.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
-                    iv_n_player.setImageBitmap(playerSprite.getBmpMain());
-                    iv_n_player_color.setImageBitmap(playerSprite.getBmpColor());
-                    iv_n_player_color.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
-                    tv_n_texttop.setTypeface(MainActivity.customtf_normal);
-                    tv_n_textbig.setTypeface(MainActivity.customtf_normal);
-                    tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
-                    tv_n_textbig.setText(playerSprite.getLabel(getBaseContext()));
-                    rl_notification.setVisibility(View.VISIBLE);
+        runOnUiThread(notificationRun = () -> {
 
-                    if (playerSprite.isAlive()){
-                        String gp = theGameView.gamePhase;
-                        if (gp.equals(Keys.gpStart)) {
-                            tv_n_texttop.setVisibility(View.GONE);
-                            tv_n_textbottom.setText("choose your start spot");
-                        } else if (gp.equals(Keys.gpPlaying)) {
-                            tv_n_texttop.setText("On to ");
-                            tv_n_textbottom.setText("place a tile");
-                        }
-                    } else {
-                        tv_n_texttop.setText("Kaboom");
-                        tv_n_textbottom.setText("is out!");
+            if (!playerSprite.isVirtual()){
+                iv_n_background.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
+                iv_n_player.setImageBitmap(playerSprite.getBmpMain());
+                iv_n_player_color.setImageBitmap(playerSprite.getBmpColor());
+                iv_n_player_color.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
+                tv_n_texttop.setTypeface(MainActivity.customtf_normal);
+                tv_n_textbig.setTypeface(MainActivity.customtf_normal);
+                tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
+                tv_n_textbig.setText(playerSprite.getLabel(getBaseContext()));
+                rl_notification.setVisibility(View.VISIBLE);
+
+                if (playerSprite.isAlive()){
+                    String gp = theGameView.gamePhase;
+                    if (gp.equals(Keys.gpStart)) {
+                        tv_n_texttop.setVisibility(View.GONE);
+                        tv_n_textbottom.setText(R.string.choose_your_start_spot);
+                    } else if (gp.equals(Keys.gpPlaying)) {
+                        tv_n_texttop.setText(R.string.on_to);
+                        tv_n_textbottom.setText(R.string.place_a_tile);
                     }
-
+                } else {
+                    tv_n_texttop.setText(R.string.kaboom);
+                    tv_n_textbottom.setText(R.string.is_out);
                 }
-
             }
         });
 
@@ -151,12 +133,7 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
                 try {
                     synchronized (this) {
                         wait(1000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                hideNotification();
-                            }
-                        });
+                        runOnUiThread(() -> hideNotification());
                     }
                 } catch (InterruptedException e) {
 

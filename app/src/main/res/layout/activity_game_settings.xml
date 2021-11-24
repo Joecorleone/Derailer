@@ -260,7 +260,7 @@
             android:id="@+id/bt_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  Play  "
+            android:text="@string/play_with_spaces"
             android:textSize="30sp"
             android:gravity="center"
             android:maxLines="1"

@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory;
 import de.badgersburrow.derailer.GameView;
 import de.badgersburrow.derailer.R;
 
-import static java.lang.Math.abs;
-
 /**
  * Created by cetty on 29.07.16.
  */

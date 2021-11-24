@@ -1,18 +1,13 @@
 package de.badgersburrow.derailer.objects;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
-import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
@@ -115,8 +110,6 @@ public class MoveAnimSecondary {
 
                     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                     paint.setAlpha(alpha);
-                    //paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
-                    //int size = smoke.getBmp().getWToidth()/ (maxStep-smoke.step);
 
                     float fullScaleFactor = scaleFactor *( scaleEnd / duration * item.step + scaleStart / duration * (duration - item.step));
 
