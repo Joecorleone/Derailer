@@ -12,8 +12,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.Button;
+
+import androidx.core.util.Pair;
 
 import java.util.Random;
 
@@ -39,6 +40,8 @@ import java.util.Map;
  * Created by cetty on 28.07.16.
  */
 public class GameView extends SurfaceView {
+
+    private final static String TAG = "GameView";
 
     private GameActivity gameActivity = new GameActivity();
     private Bitmap background;
@@ -221,11 +224,11 @@ public class GameView extends SurfaceView {
         drawObstacles(canvas);
         if (gameMainPhase.equals(Keys.gpStart)){
             PlayerSprite p = playerSprites.get(currentPlayer);
-            if (p.isKI() && p.getPhase().equals(Keys.ppIdle)){
+            if (p.isKI() && ((PlayerAiSprite) p).getAiPhase().equals(Keys.ppIdle)){
                 gameMainPhase = Keys.gpStart;
                 startThinking();
             }
-            if (p.isKI() && p.getPhase().equals(Keys.ppFinishedThinking)){
+            if (p.isKI() && ((PlayerAiSprite) p).getAiPhase().equals(Keys.ppFinishedThinking)){
                 int i = randomGenerator.nextInt(startPositions.size());
                 StartSprite sprite = startPositions.get(i);
                 PlayerSprite playerSprite = playerSprites.get(currentPlayer);
@@ -299,8 +302,8 @@ public class GameView extends SurfaceView {
             if (thinkCounter>0){
                 thinkCounter--;
             } else {
-                PlayerSprite p = playerSprites.get(currentPlayer);
-                p.setPhase(Keys.ppFinishedThinking);
+                PlayerAiSprite p = (PlayerAiSprite) playerSprites.get(currentPlayer);
+                p.setAiPhase(Keys.ppFinishedThinking);
                 if (!gameMainPhase.equals(Keys.gpStart)) {
                     gamePhase = Keys.gpPlaying;
 
@@ -525,35 +528,33 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayers(Canvas canvas){
-        ArrayList<ArrayList<Integer>> positions = new ArrayList<>(playerSprites.size());
-        for (int i = 0; i < playerSprites.size(); i ++ ) {
-            PlayerSprite sprite = playerSprites.get(i);
+        ArrayList<Pair<Integer,Integer>> positions = new ArrayList<>();
+        for (PlayerSprite sprite : playerSprites) {
             if (sprite.isAlive()) {
-                ArrayList<Integer> pos = sprite.onDraw(canvas);
-                positions.add(i, pos);
+                sprite.onDraw(canvas);
+                positions.add(sprite.getCenter());
             } else {
-                ArrayList<Integer> pos = new ArrayList<>();
-                pos.add(-1);
-                pos.add(-1);
-                positions.add(i, pos);
+                positions.add(new Pair(-1,-1));
             }
         }
 
-
         for (int i = 0; i < playerSprites.size(); i ++ ) {
-            if (positions.get(i).get(0) == -1) continue;
+            if (positions.get(i).first == -1) continue;
             for (int j = i + 1; j < playerSprites.size(); j ++ ) {
-                if (Math.abs(positions.get(i).get(1) - positions.get(j).get(1)) < collisionDistance){
-                    if (Math.abs(positions.get(i).get(0) - positions.get(j).get(0)) < collisionDistance){
+                if (positions.get(j).first == -1) continue;
+
+                if (Math.abs(positions.get(i).second - positions.get(j).second) < collisionDistance){
+                    if (Math.abs(positions.get(i).first - positions.get(j).first) < collisionDistance){
                         playerSprites.get(i).kill();
                         gameActivity.showNotification(playerSprites.get(i));
                         playerSprites.get(j).kill();
                         gameActivity.showNotification(playerSprites.get(j));
+                        Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
+                        Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
                         drawExplosion(canvas);
                         checkForGameOver();
                     }
                 }
-
             }
         }
         for (int i = 0; i < playerSprites.size(); i ++ ) {
@@ -904,8 +905,8 @@ public class GameView extends SurfaceView {
     }
 
     public void startThinking(){
-        PlayerSprite p = playerSprites.get(currentPlayer);
-        p.setPhase(Keys.ppThinking);
+        PlayerAiSprite p = (PlayerAiSprite) playerSprites.get(currentPlayer);
+        p.setAiPhase(Keys.ppThinking);
         gamePhase = Keys.gpThinking;
         thinkCounter = 25;
     }

@@ -16,7 +16,6 @@ import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 import de.badgersburrow.derailer.objects.PlayerResult;
-import de.badgersburrow.derailer.sprites.ChoiceCardSprite;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,27 +23,28 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 29.07.16.
  */
-public abstract class PlayerSprite implements Serializable {
+public abstract class PlayerSprite extends BaseSprite implements Serializable {
 
     private static String TAG = "Player";
     private static int counter = 0;
 
     public ArrayList<ChoiceCardSprite> choiceCards;
 
-    private Bitmap bmp_main;
     private Bitmap bmp_color;
     GameView gameView;
     private int screenWidth;
     private int width;
-    private int edge = 0;
+
     int xIndex = -1;
     int yIndex = -1;
     int xIndexVirtual = -1;
     int yIndexVirtual = -1;
-    int x = -1;
-    int y = -1;
+    private int cur_centerX = -1;
+    private int cur_centerY = -1;
+
     private int destXIndex = 0;
     private int destYIndex = 0;
+
     private int moveSteps;
     private int currentStep = 1000;
     int pos = -1;
@@ -53,7 +53,6 @@ public abstract class PlayerSprite implements Serializable {
     private int destPosOnTile = -1;
     private int destPosNextTile = -1;
     boolean alive = true;
-    String phase;
     private boolean moving = false;
     int num;
     private int color;
@@ -69,21 +68,18 @@ public abstract class PlayerSprite implements Serializable {
     private MoveAnimSecondary animSecondary;
     private float scaleFactor;
 
-
     private int _id;
 
     public PlayerSprite(GameView gameView, GameTheme theme, int num, int color, int tiles){
+        super(gameView, theme.getCart());
         _id = counter;
         counter++;
-        phase = Keys.ppIdle;
         choiceCards = new ArrayList<>();
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
-        this.bmp_main = theme.getCart();
         this.bmp_color = theme.getCart_color();
         this.virtual = false;
 
-        this.edge = gameView.getEdge();
         this.num = num;
         this.color = color;
         this.color_paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
@@ -92,32 +88,26 @@ public abstract class PlayerSprite implements Serializable {
         this.moveSteps = gameView.getMoveSteps();
         this.currentStep = gameView.getMoveSteps();
         this.scaleFactor = gameView.getScaleFactor();
-
     }
 
     public int id(){
         return _id;
     }
 
-    public ArrayList<Integer> onDraw(final Canvas canvas){
+    public void onDraw(final Canvas canvas){
         if (xIndex == -1 || yIndex == -1 || pos == -1) {
-            ArrayList<Integer> pos = new ArrayList<>();
-            pos.add(-1);
-            pos.add(-1);
-            return pos;
+            return;
         }
 
         screenWidth = gameView.getWidth();
         scaleFactor = gameView.getScaleFactor();
         width = (screenWidth - (2 * edge)) / 6;
 
-        int scaledWidth = Math.round(scaleFactor* bmp_main.getWidth());
-        int scaledHeight = Math.round(scaleFactor* bmp_main.getHeight());
+        int scaledWidth = Math.round(scaleFactor* bmp.getWidth());
+        int scaledHeight = Math.round(scaleFactor* bmp.getHeight());
 
         float rotation = 0;
 
-        int cur_centerX;
-        int cur_centerY;
         if (currentStep<moveSteps){
             //Log.d("______________", "--------------");
             //Log.d("animation",String.valueOf(currentStep));
@@ -162,7 +152,7 @@ public abstract class PlayerSprite implements Serializable {
             matrix.postRotate(angle, scaledWidth/2, scaledHeight/2);
             matrix.postTranslate(cur_centerX - scaledWidth / 2,cur_centerY - scaledHeight / 2);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
-            canvas.drawBitmap(bmp_main, matrix, null);
+            canvas.drawBitmap(bmp, matrix, null);
 
             this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, angle);
             currentStep +=1;
@@ -241,13 +231,16 @@ public abstract class PlayerSprite implements Serializable {
             matrix.postRotate(rotation, scaledWidth/2, scaledHeight/2);
             matrix.postTranslate(cur_centerX-scaledWidth/2,cur_centerY-scaledHeight/2);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
-            canvas.drawBitmap(bmp_main, matrix, null);
+            canvas.drawBitmap(bmp, matrix, null);
             this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
         }
-        ArrayList<Integer> pos = new ArrayList<>();
-        pos.add(cur_centerX);
-        pos.add(cur_centerY);
-        return pos;
+    }
+
+    public Pair getCenter(){
+        if (xIndex == -1 || yIndex == -1 || pos == -1) {
+            return new Pair(-1, -1);
+        }
+        return new Pair(cur_centerX, cur_centerY);
     }
 
     public void setXIndex(int x){
@@ -368,7 +361,7 @@ public abstract class PlayerSprite implements Serializable {
 
 
     public Bitmap getBmpMain(){
-        return bmp_main;
+        return bmp;
     }
 
     public Bitmap getBmpColor(){
@@ -387,13 +380,6 @@ public abstract class PlayerSprite implements Serializable {
     }
 
     public abstract boolean isKI();
-
-    public String getPhase() {
-        return phase;
-    }
-    public void setPhase(String phase) {
-        this.phase = phase;
-    }
 
     public boolean isChanged() {
         return changed;

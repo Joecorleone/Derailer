@@ -19,6 +19,7 @@ public class PlayerAiSprite extends PlayerSprite{
 
     private int searchDepth = 3;
     String KIStrength;
+    String aiPhase;
 
     // Points for score calculation
     int distancePoints = 10;
@@ -28,6 +29,7 @@ public class PlayerAiSprite extends PlayerSprite{
     public PlayerAiSprite(GameView gameView, GameTheme theme, int num, int color, int tiles, String selection) {
         super(gameView, theme, num, color, tiles);
         this.KIStrength = selection;
+        this.aiPhase = Keys.ppIdle;
     }
 
 
@@ -156,5 +158,12 @@ public class PlayerAiSprite extends PlayerSprite{
             }
         }
         return score;
+    }
+
+    public String getAiPhase() {
+        return aiPhase;
+    }
+    public void setAiPhase(String aiPhase) {
+        this.aiPhase = aiPhase;
     }
 }
