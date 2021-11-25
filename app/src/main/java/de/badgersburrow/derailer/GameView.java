@@ -533,38 +533,42 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayers(Canvas canvas){
-        ArrayList<Pair<Integer,Integer>> positions = new ArrayList<>();
-        for (PlayerSprite sprite : playerSprites) {
-            if (sprite.isAlive()) {
-                sprite.onDraw(canvas);
-                positions.add(sprite.getCenter());
-            } else {
-                positions.add(new Pair(-1,-1));
+
+        if (options.contains(Keys.option_collision_on)){
+            ArrayList<Pair<Integer,Integer>> positions = new ArrayList<>();
+            for (PlayerSprite sprite : playerSprites) {
+                if (sprite.isAlive()) {
+                    sprite.onDraw(canvas);
+                    positions.add(sprite.getCenter());
+                } else {
+                    positions.add(new Pair(-1,-1));
+                }
             }
-        }
 
-        for (int i = 0; i < playerSprites.size(); i ++ ) {
-            if (positions.get(i).first == -1) continue;
-            for (int j = i + 1; j < playerSprites.size(); j ++ ) {
-                if (positions.get(j).first == -1) continue;
+            for (int i = 0; i < playerSprites.size(); i ++ ) {
+                if (positions.get(i).first == -1) continue;
+                for (int j = i + 1; j < playerSprites.size(); j ++ ) {
+                    if (positions.get(j).first == -1) continue;
 
-                if (Math.abs(positions.get(i).second - positions.get(j).second) < collisionDistance){
-                    if (Math.abs(positions.get(i).first - positions.get(j).first) < collisionDistance){
-                        playerSprites.get(i).kill();
-                        gameActivity.showNotification(playerSprites.get(i));
-                        playerSprites.get(j).kill();
-                        gameActivity.showNotification(playerSprites.get(j));
-                        Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
-                        Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
-                        //drawExplosion(canvas);
-                        explosionSprites.add(new ExplosionSprite(this,
-                                (positions.get(i).first + positions.get(j).first)/2,
-                                (positions.get(i).second + positions.get(j).second)/2));
-                        checkForGameOver();
+                    if (Math.abs(positions.get(i).second - positions.get(j).second) < collisionDistance){
+                        if (Math.abs(positions.get(i).first - positions.get(j).first) < collisionDistance){
+                            playerSprites.get(i).kill();
+                            gameActivity.showNotification(playerSprites.get(i));
+                            playerSprites.get(j).kill();
+                            gameActivity.showNotification(playerSprites.get(j));
+                            Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
+                            Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
+                            //drawExplosion(canvas);
+                            explosionSprites.add(new ExplosionSprite(this,
+                                    (positions.get(i).first + positions.get(j).first)/2,
+                                    (positions.get(i).second + positions.get(j).second)/2));
+                            checkForGameOver();
+                        }
                     }
                 }
             }
         }
+
         for (int i = 0; i < playerSprites.size(); i ++ ) {
             if (playerSprites.get(i).killAfterMovement && !playerSprites.get(i).isMoving()){
                 playerSprites.get(i).kill();
@@ -572,11 +576,10 @@ public class GameView extends SurfaceView {
                 if (center.first != -1){
                     explosionSprites.add(new ExplosionSprite(this,
                             center.first, center.second));
-                }                
+                }
                 gameActivity.showNotification(playerSprites.get(i));
             }
         }
-
     }
 
     public void drawStartPositions(Canvas canvas){
