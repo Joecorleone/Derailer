@@ -1,19 +1,32 @@
 package de.badgersburrow.derailer;
 
+import static de.badgersburrow.derailer.Keys.setting_music_default;
+
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Typeface;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.transition.TransitionSet;
+
+import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import de.badgersburrow.derailer.views.GameSignButton;
 
@@ -21,6 +34,9 @@ public class MainActivity extends Activity implements OnClickListener{
 
     Button bLocal;
     Button bTheme;
+
+    SharedPreferences SP;
+    SharedPreferences.Editor SPE;
 
     public static Typeface customtf_normal;
     public static Typeface customtf_bold;
@@ -41,6 +57,9 @@ public class MainActivity extends Activity implements OnClickListener{
         customtf_bold = Typeface.create(Typeface.createFromAsset(getAssets(),"fonts/Acme-Regular.ttf"), Typeface.BOLD);
 
         mSceneRoot = (ViewGroup) findViewById(R.id.activity_main);
+
+        SP = PreferenceManager.getDefaultSharedPreferences(this);
+        SPE = SP.edit();
 
         bLocal = (Button) findViewById(R.id.bLocal);
         bLocal.setOnClickListener(this);
@@ -101,10 +120,53 @@ public class MainActivity extends Activity implements OnClickListener{
                 this.finish();
                 break;
             case R.id.gsb_sound:
+                showDialog();
                 break;
 
         }
     }
 
+    public void showDialog() {
+
+        final Dialog dialog = new Dialog(this, R.style.AlertDialogCustom);
+        dialog.setContentView(R.layout.dialog_sound_setting);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView tv_title = dialog.findViewById(R.id.tv_title);
+        tv_title.setTypeface(MainActivity.customtf_normal);
+
+        SwitchCompat cb_music = dialog.findViewById(R.id.sw_music);
+        cb_music.setTypeface(MainActivity.customtf_normal);
+        cb_music.setChecked(SP.getBoolean(Keys.setting_music, Keys.setting_music_default));
+        cb_music.setOnCheckedChangeListener((compoundButton, b) -> {
+            SPE.putBoolean(Keys.setting_music, b);
+            SPE.apply();
+        });
+
+        SwitchCompat cb_sfx = dialog.findViewById(R.id.sw_sfx);
+        cb_sfx.setTypeface(MainActivity.customtf_normal);
+        cb_sfx.setChecked(SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default));
+        cb_sfx.setOnCheckedChangeListener((compoundButton, b) -> {
+            SPE.putBoolean(Keys.setting_sfx, b);
+            SPE.apply();
+        });
+
+        ImageView iv_ok = dialog.findViewById(R.id.iv_ok);
+        iv_ok.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
 
 }
+
+

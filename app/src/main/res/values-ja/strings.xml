@@ -59,7 +59,7 @@
     <string name = "example_players_num"> 2 </string>
     <string name = "example_theme_title">タイトル</string>
     <string name = "player">プレーヤー</string>
-    <string name = "spaces"> "" </string>
+    <string name = "spaces"> "     " </string>
     <string name = "delete">削除</string>
     <string name = "choose_your_start_spot">スタート地点を選択してください</string>
     <string name = "on_to"> "オンから" </string>

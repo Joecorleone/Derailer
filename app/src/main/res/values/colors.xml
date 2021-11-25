@@ -36,5 +36,10 @@
     <color name="cart08">#a42272</color>
     <color name="cart09">#ee7499</color>
     <color name="cart10">#2cab61</color>
+    <color name="green">#66BB6A</color>
+    <color name="white">#E1F0E2</color>
+    <color name="salmon_pink">#FF7043</color>
+    <color name="purple">#AB47BC</color>
+    <color name="switch_track">#8E3E13</color>
 
 </resources>
