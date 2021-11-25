@@ -534,17 +534,17 @@ public class GameView extends SurfaceView {
 
     public void drawPlayers(Canvas canvas){
 
-        if (options.contains(Keys.option_collision_on)){
-            ArrayList<Pair<Integer,Integer>> positions = new ArrayList<>();
-            for (PlayerSprite sprite : playerSprites) {
-                if (sprite.isAlive()) {
-                    sprite.onDraw(canvas);
-                    positions.add(sprite.getCenter());
-                } else {
-                    positions.add(new Pair(-1,-1));
-                }
+        ArrayList<Pair<Integer,Integer>> positions = new ArrayList<>();
+        for (PlayerSprite sprite : playerSprites) {
+            if (sprite.isAlive()) {
+                sprite.onDraw(canvas);
+                positions.add(sprite.getCenter());
+            } else {
+                positions.add(new Pair(-1,-1));
             }
-
+        }
+        
+        if (options.contains(Keys.option_collision_on)){
             for (int i = 0; i < playerSprites.size(); i ++ ) {
                 if (positions.get(i).first == -1) continue;
                 for (int j = i + 1; j < playerSprites.size(); j ++ ) {

@@ -192,8 +192,8 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
         //collision
         SettingCard setting_collision = new SettingCard(mContext, Keys.option_collision);
-        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_on, getString(R.string.option_collision_on), R.drawable.option_collision_01));
-        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_off, getString(R.string.option_collision_off), R.drawable.option_collision_02));
+        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_on, getString(R.string.option_collision_on), R.drawable.option_collision_02));
+        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_off, getString(R.string.option_collision_off), R.drawable.option_collision_01));
         setting_collision.init(getString(R.string.option_collision), Keys.option_collision_on);
         settingCards.add(setting_collision);
 
