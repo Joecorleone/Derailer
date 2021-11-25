@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Derailer</string>
+    <string name="app_name" translatable="false">Derailer</string>
     <string name="notification_player">Player</string>
     <string name="notification_next">Next</string>
     <string name="notification_lost">Lost</string>
@@ -40,10 +40,10 @@
 
     <string name="play_card">Play card</string>
     <string name="game_over">Game Over</string>
-    <string name="place1">1</string>
-    <string name="place2">2</string>
-    <string name="place3">3</string>
-    <string name="example_distance">25</string>
+    <string name="place1" translatable="false">1</string>
+    <string name="place2" translatable="false">2</string>
+    <string name="place3" translatable="false">3</string>
+    <string name="example_distance" translatable="false">25</string>
     <string name="play_with_spaces">"   Play   "</string>
     <string name="start_with_spaces">"       Start       "</string>
     <string name="theme_with_spaces">"   Theme   "</string>

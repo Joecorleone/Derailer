@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_player">플레이어</string>
+    <string name="notification_next">다음</string>
+    <string name="notification_lost">분실</string>
+    <string name="settings_header">게임 설정</string>
+    <string name="settingCards">옵션</string>
+    <string name="playerSelection">플레이어 선택(끌어서 놓기)</string>
+    <string name="connections">연결</string>
+
+    <string name="human">인간</string>
+    <string name="ai">AI</string>
+
+    <string name="label_player">플레이어 %d</string>
+    <string name="label_ai">AI %d</string>
+
+    <string name="option_victory">승리</string>
+    <string name="option_collision">충돌</string>
+    <string name="option_obstacle">장애물</string>
+    <string name="option_draw">그리기</string>
+    <string name="option_order">주문</string>
+    <string name="option_daynight">낮/밤</string>
+    <string name="option_suddendeath">급사</string>
+
+    <string name="option_collision_on">켜기</string>
+    <string name="option_collision_off">끄기</string>
+    <string name="option_victory_last">마지막 것</string>
+    <string name="option_victory_dist">거리</string>
+    <string name="option_obstacle_none">없음</string>
+    <string name="option_obstacle_few">적음</string>
+    <string name="option_obstacle_many">다수</string>
+    <string name="option_daynight_01">낮</string>
+    <string name="option_daynight_02">밤</string>
+    <string name="option_draw_01">손 채우기</string>
+    <string name="option_draw_02">완전히 새로워짐</string>
+    <string name="option_order_01">동일하게 유지</string>
+    <string name="option_order_02">무작위</string>
+    <string name="option_suddendeath_01">끄기</string>
+    <string name="option_suddendeath_02">켜기</string>
+
+    <string name="play_card">플레이 카드</string>
+    <string name="game_over">게임 종료</string>
+
+    <string name="play_with_spaces">" 재생 "</string>
+    <string name="start_with_spaces">" 시작 "</string>
+    <string name="theme_with_spaces">" 테마 "</string>
+    <string name="select_a_theme">테마 선택</string>
+    <string name="too_few">너무 적음</string>
+    <string name="add_at_least_two_players">최소 2명의 플레이어를 추가하세요!</string>
+    <string name="winner_is">수상자:</string>
+    <string name="nobody">아무도 없음</string>
+    <string name="restart">다시 시작</string>
+    <string name="main_menu">메인 메뉴</string>
+    <string name="example_players_num">2</string>
+    <string name="example_theme_title">제목</string>
+    <string name="player">플레이어</string>
+    <string name="spaces">" "</string>
+    <string name="delete">삭제</string>
+    <string name="choose_your_start_spot">시작 지점 선택</string>
+    <string name="on_to">"에 "</string>
+    <string name="place_a_tile">타일 배치</string>
+    <string name="kaboom">카붐</string>
+    <string name="is_out">종료되었습니다!</string>
+</resources>

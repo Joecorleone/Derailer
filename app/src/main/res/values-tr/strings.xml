@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_player">Oyuncu</string>
+    <string name="notification_next">Sonraki</string>
+    <string name="notification_lost">Kayıp</string>
+    <string name="settings_header">Oyun ayarları</string>
+    <string name="settingCards">Seçenekler</string>
+    <string name="playerSelection">Oyuncu seçimi (sürükle ve bırak)</string>
+    <string name="connections">Bağlantılar</string>
+
+    <string name="human">İnsan</string>
+    <string name="ai">Yapay Zeka</string>
+
+    <string name="label_player">Oyuncu %d</string>
+    <string name="label_ai">AI %d</string>
+
+    <string name="option_victory">Zafer</string>
+    <string name="option_collision">Çarpışma</string>
+    <string name="option_obstacle">Engeller</string>
+    <string name="option_draw">Çizmek</string>
+    <string name="option_order">Sipariş</string>
+    <string name="option_daynight">Gündüz/Gece</string>
+    <string name="option_suddendeath">Ani ölüm</string>
+
+    <string name="option_collision_on">Açık</string>
+    <string name="option_collision_off">Kapalı</string>
+    <string name="option_victory_last">Sonuncusu</string>
+    <string name="option_victory_dist">Mesafe</string>
+    <string name="option_obstacle_none">Yok</string>
+    <string name="option_obstacle_few">Birkaç kişi</string>
+    <string name="option_obstacle_many">Birçok</string>
+    <string name="option_daynight_01">Gündüz</string>
+    <string name="option_daynight_02">Gece</string>
+    <string name="option_draw_01">Elle doldurun</string>
+    <string name="option_draw_02">Tamamen yeni</string>
+    <string name="option_order_01">Aynısını koru</string>
+    <string name="option_order_02">Rastgele</string>
+    <string name="option_suddendeath_01">Kapalı</string>
+    <string name="option_suddendeath_02">Açık</string>
+
+    <string name="play_card">Oyun kartı</string>
+    <string name="game_over">Oyun Bitti</string>
+
+    <string name="play_with_spaces">" Oynat "</string>
+    <string name="start_with_spaces">" Başlat "</string>
+    <string name="theme_with_spaces">" Tema "</string>
+    <string name="select_a_theme">Bir tema seçin</string>
+    <string name="too_few">Çok az</string>
+    <string name="add_at_least_two_players">En az iki oyuncu ekleyin!</string>
+    <string name="winner_is">Kazanan:</string>
+    <string name="nobody">Hiç kimse</string>
+    <string name="restart">yeniden başlat</string>
+    <string name="main_menu">ana menü</string>
+    <string name="example_players_num">2</string>
+    <string name="example_theme_title">Başlık</string>
+    <string name="player">Oyuncu</string>
+    <string name="spaces">" "</string>
+    <string name="delete">Sil</string>
+    <string name="choose_your_start_spot">Başlangıç noktanızı seçin</string>
+    <string name="on_to">"Şuraya"</string>
+    <string name="place_a_tile">Bir kutucuk yerleştirin</string>
+    <string name="kaboom">Kaboom</string>
+    <string name="is_out">çıktı!</string>
+</resources>

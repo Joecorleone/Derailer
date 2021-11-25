@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_player">Lecteur</string>
+    <string name="notification_next">Suivant</string>
+    <string name="notification_lost">Perdu</string>
+    <string name="settings_header">Paramètres du jeu</string>
+    <string name="settingCards">Options</string>
+    <string name="playerSelection">Sélection du joueur (glisser-déposer)</string>
+    <string name="connections">Connexions</string>
+
+    <string name="human">Humain</string>
+    <string name="ai">IA</string>
+
+    <string name="label_player">Joueur %d</string>
+    <string name="label_ai">IA %d</string>
+
+    <string name="option_victory">Victoire</string>
+    <string name="option_collision">Collision</string>
+    <string name="option_obstacle">Obstacles</string>
+    <string name="option_draw">Dessiner</string>
+    <string name="option_order">Commande</string>
+    <string name="option_daynight">Jour/Nuit</string>
+    <string name="option_suddendeath">Mort subite</string>
+
+    <string name="option_collision_on">Activé</string>
+    <string name="option_collision_off">Désactivé</string>
+    <string name="option_victory_last">Dernier</string>
+    <string name="option_victory_dist">Distance</string>
+    <string name="option_obstacle_none">Aucun</string>
+    <string name="option_obstacle_few">Peu</string>
+    <string name="option_obstacle_many">Beaucoup</string>
+    <string name="option_daynight_01">Jour</string>
+    <string name="option_daynight_02">Nuit</string>
+    <string name="option_draw_01">Remplir la main</string>
+    <string name="option_draw_02">Tout nouveau</string>
+    <string name="option_order_01">Ne pas changer</string>
+    <string name="option_order_02">Aléatoire</string>
+    <string name="option_suddendeath_01">Désactivé</string>
+    <string name="option_suddendeath_02">Activé</string>
+
+    <string name="play_card">Jouer à la carte</string>
+    <string name="game_over">Game Over</string>
+
+    <string name="play_with_spaces">" Jouer "</string>
+    <string name="start_with_spaces">" Démarrer "</string>
+    <string name="theme_with_spaces">" Thème "</string>
+    <string name="select_a_theme">Sélectionnez un thème</string>
+    <string name="too_few">Trop peu</string>
+    <string name="add_at_least_two_players">Ajoutez au moins deux joueurs!</string>
+    <string name="winner_is">Le gagnant est:</string>
+    <string name="nobody">Personne</string>
+    <string name="restart">redémarrer</string>
+    <string name="main_menu">menu principal</string>
+    <string name="example_players_num">2</string>
+    <string name="example_theme_title">Titre</string>
+    <string name="player">Joueur</string>
+    <string name="spaces">" "</string>
+    <string name="delete">Supprimer</string>
+    <string name="choose_your_start_spot">Choisissez votre point de départ</string>
+    <string name="on_to">"On to "</string>
+    <string name="place_a_tile">Placer une tuile</string>
+    <string name="kaboom">Kaboom</string>
+    <string name="is_out">est sorti!</string>
+</resources>

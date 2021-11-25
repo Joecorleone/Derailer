@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_player">Giocatore</string>
+    <string name="notification_next">Avanti</string>
+    <string name="notification_lost">Perso</string>
+    <string name="settings_header">Impostazioni di gioco</string>
+    <string name="settingCards">Opzioni</string>
+    <string name="playerSelection">Selezione giocatore (trascina e rilascia)</string>
+    <string name="connections">Connessioni</string>
+
+    <string name="human">Umano</string>
+    <string name="ai">AI</string>
+
+    <string name="label_player">Giocatore %d</string>
+    <string name="label_ai">AI %d</string>
+
+    <string name="option_victory">Vittoria</string>
+    <string name="option_collision">Collisione</string>
+    <string name="option_obstacle">Ostacoli</string>
+    <string name="option_draw">Disegna</string>
+    <string name="option_order">Ordine</string>
+    <string name="option_daynight">Giorno/Notte</string>
+    <string name="option_suddendeath">Morte improvvisa</string>
+
+    <string name="option_collision_on">On</string>
+    <string name="option_collision_off">Off</string>
+    <string name="option_victory_last">Ultimo</string>
+    <string name="option_victory_dist">Distanza</string>
+    <string name="option_obstacle_none">Nessuno</string>
+    <string name="option_obstacle_few">Pochi</string>
+    <string name="option_obstacle_many">Molti</string>
+    <string name="option_daynight_01">Giorno</string>
+    <string name="option_daynight_02">Notte</string>
+    <string name="option_draw_01">Riempi la mano</string>
+    <string name="option_draw_02">Tutto nuovo</string>
+    <string name="option_order_01">Mantieni lo stesso</string>
+    <string name="option_order_02">Casuale</string>
+    <string name="option_suddendeath_01">Off</string>
+    <string name="option_suddendeath_02">On</string>
+
+    <string name="play_card">Gioca a carte</string>
+    <string name="game_over">Game Over</string>
+
+    <string name="play_with_spaces">" Riproduci "</string>
+    <string name="start_with_spaces">" Start "</string>
+    <string name="theme_with_spaces">" Tema "</string>
+    <string name="select_a_theme">Seleziona un tema</string>
+    <string name="too_few">Troppo pochi</string>
+    <string name="add_at_least_two_players">Aggiungi almeno due giocatori!</string>
+    <string name="winner_is">Il vincitore è:</string>
+    <string name="nobody">Nessuno</string>
+    <string name="restart">riavvia</string>
+    <string name="main_menu">menu principale</string>
+    <string name="example_players_num">2</string>
+    <string name="example_theme_title">Titolo</string>
+    <string name="player">Giocatore</string>
+    <string name="spaces">" "</string>
+    <string name="delete">Elimina</string>
+    <string name="choose_your_start_spot">Scegli il tuo punto di partenza</string>
+    <string name="on_to">"Avanti a "</string>
+    <string name="place_a_tile">Posiziona una tessera</string>
+    <string name="kaboom">Kaboom</string>
+    <string name="is_out">è uscito!</string>
+</resources>
