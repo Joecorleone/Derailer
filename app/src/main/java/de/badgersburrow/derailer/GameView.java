@@ -309,7 +309,6 @@ public class GameView extends SurfaceView {
                 p.setAiPhase(Keys.ppFinishedThinking);
                 if (!gameMainPhase.equals(Keys.gpStart)) {
                     gamePhase = Keys.gpPlaying;
-
                     ((PlayerAiSprite) p).makeMove(playedCards, choiceCards, this);
                 } else {
                     gamePhase = gameMainPhase;
@@ -331,7 +330,6 @@ public class GameView extends SurfaceView {
     }
 
     public void drawPlayedCardsTop(Canvas canvas){
-
         for (int i = 0; i < boardSize; i ++ ) {
             for (int j = 0; j < boardSize; j ++ ) {
                 PlayedCardSprite sprite = playedCards.get(String.valueOf(i)+"-"+String.valueOf(j));
@@ -488,34 +486,34 @@ public class GameView extends SurfaceView {
         Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);
         if (tiles == 4) {
             for (int i = 0; i < 6; i++) {
-                if (checkObstacleColision(0, i)) {
+                if (checkObstacleCollision(0, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 0, i, 3, 4));
                 }
-                if (checkObstacleColision(i, 0)) {
+                if (checkObstacleCollision(i, 0)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 4));
                 }
-                if (checkObstacleColision(5, i)) {
+                if (checkObstacleCollision(5, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 5, i, 1, 4));
                 }
-                if (checkObstacleColision(i, 5)) {
+                if (checkObstacleCollision(i, 5)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 5, 2, 4));
                 }
             }
         } else {
             for (int i = 0; i < 6; i++) {
-                if (checkObstacleColision(0, i)) {
+                if (checkObstacleCollision(0, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 0, i, 6, 8));
                     startPositions.add(new StartSprite(this, blue_dot, 0, i, 7, 8));
                 }
-                if (checkObstacleColision(i, 0)) {
+                if (checkObstacleCollision(i, 0)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 0, 0, 8));
                     startPositions.add(new StartSprite(this, blue_dot, i, 0, 1, 8));
                 }
-                if (checkObstacleColision(5, i)) {
+                if (checkObstacleCollision(5, i)) {
                     startPositions.add(new StartSprite(this, blue_dot, 5, i, 2, 8));
                     startPositions.add(new StartSprite(this, blue_dot, 5, i, 3, 8));
                 }
-                if (checkObstacleColision(i, 5)) {
+                if (checkObstacleCollision(i, 5)) {
                     startPositions.add(new StartSprite(this, blue_dot, i, 5, 4, 8));
                     startPositions.add(new StartSprite(this, blue_dot, i, 5, 5, 8));
                 }
@@ -523,7 +521,7 @@ public class GameView extends SurfaceView {
         }
     }
 
-    private boolean checkObstacleColision(int x, int y){
+    private boolean checkObstacleCollision(int x, int y){
         for (ObstacleCardSprite obstacle : obstacles) {
             if (obstacle.getXIndex() == x && obstacle.getYIndex() == y) {
                 return false;
@@ -543,7 +541,7 @@ public class GameView extends SurfaceView {
                 positions.add(new Pair(-1,-1));
             }
         }
-        
+
         if (options.contains(Keys.option_collision_on)){
             for (int i = 0; i < playerSprites.size(); i ++ ) {
                 if (positions.get(i).first == -1) continue;
@@ -628,7 +626,7 @@ public class GameView extends SurfaceView {
                 //Log.d("GameTurn", String.valueOf(gameTurn));
                 //Log.d("Position", "Pos: " + String.valueOf(pos) + ", X: " + String.valueOf(player.getXIndex()) + ", Y: " + String.valueOf(player.getYIndex()));
 
-                PlayedCardSprite card =  playedCards.get(String.valueOf(playerSprite.getXIndex())+"-"+String.valueOf(playerSprite.getYIndex()));
+                PlayedCardSprite card =  playedCards.get(playerSprite.getXIndex() +"-"+ playerSprite.getYIndex());
                 if (card != null) {
                     List<Integer> ways = card.getWays();
                     //Log.d("X", String.valueOf(player.getXIndex()));
@@ -725,8 +723,6 @@ public class GameView extends SurfaceView {
 
                     //player.setXIndex(player.getXIndex() + dx);
                     //player.setYIndex(player.getYIndex() + dy);
-
-
 
                     Log.d("NewPos", String.valueOf(playerSprite.getPos()));
                     Log.d("NewX", String.valueOf(playerSprite.getXIndex()));

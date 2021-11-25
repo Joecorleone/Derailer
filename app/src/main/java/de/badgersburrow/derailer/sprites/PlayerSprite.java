@@ -95,7 +95,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
     }
 
     public void onDraw(final Canvas canvas){
-        if (xIndex == -1 || yIndex == -1 || pos == -1) {
+        if ((xIndex == -1 && yIndex == -1 ) || pos == -1) {
             return;
         }
 
@@ -188,38 +188,47 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
                         break;
                 }
             } else {
-                if (pos == 6) {
-                    y = y + Math.round(width * 0.2f);
-                    x = x - width / 2;
-                    rotation = 0;
-                } else if (pos == 7) {
-                    y = y - Math.round(width * 0.2f);
-                    x = x - width / 2;
-                    rotation = 0;
-                } else if (pos == 0) {
-                    y = y - width / 2;
-                    x = x - Math.round(width * 0.2f);
-                    rotation = 90;
-                } else if (pos == 1) {
-                    y = y - width / 2;
-                    x = x + Math.round(width * 0.2f);
-                    rotation = 90;
-                } else if (pos == 2) {
-                    y = y - Math.round(width * 0.2f);
-                    x = x + width / 2;
-                    rotation = 180;
-                } else if (pos == 3) {
-                    y = y + Math.round(width * 0.2f);
-                    x = x + width / 2;
-                    rotation = 180;
-                } else if (pos == 4) {
-                    y = y + width / 2;
-                    x = x + Math.round(width * 0.2f);
-                    rotation = 270;
-                } else if (pos == 5) {
-                    y = y + width / 2;
-                    x = x - Math.round(width * 0.2f);
-                    rotation = 270;
+                switch (pos) {
+                    case 6:
+                        y = y + Math.round(width * 0.2f);
+                        x = x - width / 2;
+                        rotation = 0;
+                        break;
+                    case 7:
+                        y = y - Math.round(width * 0.2f);
+                        x = x - width / 2;
+                        rotation = 0;
+                        break;
+                    case 0:
+                        y = y - width / 2;
+                        x = x - Math.round(width * 0.2f);
+                        rotation = 90;
+                        break;
+                    case 1:
+                        y = y - width / 2;
+                        x = x + Math.round(width * 0.2f);
+                        rotation = 90;
+                        break;
+                    case 2:
+                        y = y - Math.round(width * 0.2f);
+                        x = x + width / 2;
+                        rotation = 180;
+                        break;
+                    case 3:
+                        y = y + Math.round(width * 0.2f);
+                        x = x + width / 2;
+                        rotation = 180;
+                        break;
+                    case 4:
+                        y = y + width / 2;
+                        x = x + Math.round(width * 0.2f);
+                        rotation = 270;
+                        break;
+                    case 5:
+                        y = y + width / 2;
+                        x = x - Math.round(width * 0.2f);
+                        rotation = 270;
+                        break;
                 }
             }
 
@@ -237,7 +246,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
     }
 
     public Pair<Integer, Integer> getCenter(){
-        if (xIndex == -1 || yIndex == -1 || pos == -1) {
+        if ((xIndex == -1 && yIndex == -1 ) || pos == -1) {
             return new Pair<>(-1, -1);
         }
         return new Pair<>(cur_centerX, cur_centerY);

@@ -85,7 +85,6 @@ public class AnimationPath {
     public Pair<float[],float[]> getPosTan(int from, int to, float rel){
 
         Path p = new Path();
-        Matrix m = new Matrix();
         boolean fEnd = false;
         String keyStart = String.valueOf(from) + String.valueOf(to);
         String keyEnd = String.valueOf(to) + String.valueOf(from);
