@@ -14,6 +14,11 @@
     <string name="label_player">플레이어 %d</string>
     <string name="label_ai">AI %d</string>
 
+    <string name="theme_steam_engine">스팀 엔진</string>
+    <string name="theme_electric_engine">전기 엔진</string>
+    <string name="theme_vintage_car">빈티지 자동차</string>
+    <string name="theme_cadillac">캐딜락</string>
+
     <string name="option_victory">승리</string>
     <string name="option_collision">충돌</string>
     <string name="option_obstacle">장애물</string>

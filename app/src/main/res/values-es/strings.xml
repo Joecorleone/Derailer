@@ -14,6 +14,11 @@
     <string name = "label_player"> Jugador% d </string>
     <string name = "label_ai"> AI% d </string>
 
+    <string name = "theme_steam_engine"> Motor de vapor </string>
+    <string name = "theme_electric_engine"> Motor eléctrico </string>
+    <string name = "theme_vintage_car"> Coche de época </string>
+    <string name = "theme_cadillac"> Cadillac </string>
+
     <string name = "option_victory"> Victoria </string>
     <string name = "option_collision"> Colisión </string>
     <string name = "option_obstacle"> Obstáculos </string>

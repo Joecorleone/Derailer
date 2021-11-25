@@ -14,6 +14,11 @@
     <string name="label_player">Gracz %d</string>
     <string name="label_ai">AI %d</string>
 
+    <string name="theme_steam_engine">Silnik parowy</string>
+    <string name="theme_electric_engine">Silnik elektryczny</string>
+    <string name="theme_vintage_car">Samochód zabytkowy</string>
+    <string name="theme_cadillac">Cadillac</string>
+
     <string name="option_victory">Zwycięstwo</string>
     <string name="option_collision">Kolizja</string>
     <string name="option_obstacle">Przeszkody</string>

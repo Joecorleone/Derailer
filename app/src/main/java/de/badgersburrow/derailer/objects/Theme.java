@@ -20,8 +20,10 @@ public class Theme {
     }
 
     public String getTitle(Context context) {
-        String[] titles = context.getResources().getStringArray(R.array.theme_titles);
-        return titles[this.id];
+        TypedArray titles = context.getResources().obtainTypedArray(R.array.theme_titles);
+        String s = titles.getString(this.id);
+        titles.recycle();
+        return s;
     }
 
     /*public Drawable getForgroundResId(Context context) {

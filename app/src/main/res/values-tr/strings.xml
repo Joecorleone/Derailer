@@ -14,6 +14,11 @@
     <string name="label_player">Oyuncu %d</string>
     <string name="label_ai">AI %d</string>
 
+    <string name="theme_steam_engine">Buhar motoru</string>
+    <string name="theme_electric_engine">Elektrik motoru</string>
+    <string name="theme_vintage_car">Eski model araba</string>
+    <string name="theme_cadillac">Cadillac</string>
+
     <string name="option_victory">Zafer</string>
     <string name="option_collision">Çarpışma</string>
     <string name="option_obstacle">Engeller</string>

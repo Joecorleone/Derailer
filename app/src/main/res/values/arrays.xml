@@ -4,10 +4,10 @@
     <string-array
         name="theme_titles"
         translatable = "true">
-        <item>Steam engine</item>
-        <item>Electric engine</item>
-        <item>Vintage car</item>
-        <item>Cadillac</item>
+        <item>@string/theme_steam_engine</item>
+        <item>@string/theme_electric_engine</item>
+        <item>@string/theme_vintage_car</item>
+        <item>@string/theme_cadillac</item>
     </string-array>
 
 

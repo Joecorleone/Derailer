@@ -14,6 +14,11 @@
     <string name="label_player">Player %d</string>
     <string name="label_ai">AI %d</string>
 
+    <string name="theme_steam_engine">Steam engine</string>
+    <string name="theme_electric_engine">Electric engine</string>
+    <string name="theme_vintage_car">Vintage car</string>
+    <string name="theme_cadillac">Cadillac</string>
+
     <string name="option_victory">Victory</string>
     <string name="option_collision">Collision</string>
     <string name="option_obstacle">Obstacles</string>
