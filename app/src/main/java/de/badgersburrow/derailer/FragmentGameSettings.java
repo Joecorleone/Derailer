@@ -1,6 +1,5 @@
 package de.badgersburrow.derailer;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -14,14 +13,17 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +43,7 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 26.07.16.
  */
-public class StartMenuActivity extends Activity implements AdapterCart.ChangeListener {
+public class FragmentGameSettings extends Fragment implements AdapterCart.ChangeListener {
 
     private static String TAG = "StartMenuActivity";
 
@@ -68,52 +70,55 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
     GameTextButton bt_play;
     ToggleButton tb_toggle;
 
-    Context mContext;
     static Resources res;
 
+   @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        // Test
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_game_settings, container, false);
+
         availablePlayers = new ArrayList<>();
-        mContext = this.getApplicationContext();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_settings);
-
-        Utilities.FullScreencall(this);
 
         res = getResources();
 
-        iv_player = (ImageView) findViewById(R.id.iv_player);
-        iv_ai_easy = (ImageView) findViewById(R.id.iv_ai_easy);
-        iv_ai_normal = (ImageView) findViewById(R.id.iv_ai_normal);
-        iv_ai_hard = (ImageView) findViewById(R.id.iv_ai_hard);
+        iv_player = rootView.findViewById(R.id.iv_player);
+        iv_ai_easy = rootView.findViewById(R.id.iv_ai_easy);
+        iv_ai_normal = rootView.findViewById(R.id.iv_ai_normal);
+        iv_ai_hard = rootView.findViewById(R.id.iv_ai_hard);
 
-        TextView tv_header = (TextView) findViewById(R.id.tv_header);
-        TextView tv_players = (TextView) findViewById(R.id.tv_players);
-        TextView tv_human = (TextView) findViewById(R.id.tv_human);
-        TextView tv_ai = (TextView) findViewById(R.id.tv_ai);
-        TextView tv_options = (TextView) findViewById(R.id.tv_options);
-        TextView tv_conn_title = (TextView) findViewById(R.id.tv_connections);
+        TextView tv_header = rootView.findViewById(R.id.tv_header);
+        TextView tv_players = rootView.findViewById(R.id.tv_players);
+        TextView tv_human = rootView.findViewById(R.id.tv_human);
+        TextView tv_ai = rootView.findViewById(R.id.tv_ai);
+        TextView tv_options = rootView.findViewById(R.id.tv_options);
+        TextView tv_conn_title = rootView.findViewById(R.id.tv_connections);
 
-        tv_header.setTypeface(MainActivity.customtf_normal);
-        tv_players.setTypeface(MainActivity.customtf_normal);
-        tv_human.setTypeface(MainActivity.customtf_normal);
-        tv_ai.setTypeface(MainActivity.customtf_normal);
-        tv_options.setTypeface(MainActivity.customtf_normal);
-        tv_conn_title.setTypeface(MainActivity.customtf_normal);
+        tv_header.setTypeface(getAct().customtf_normal);
+        tv_players.setTypeface(getAct().customtf_normal);
+        tv_human.setTypeface(getAct().customtf_normal);
+        tv_ai.setTypeface(getAct().customtf_normal);
+        tv_options.setTypeface(getAct().customtf_normal);
+        tv_conn_title.setTypeface(getAct().customtf_normal);
 
-        bt_play = (GameTextButton) findViewById(R.id.bt_play);
-        bt_play.setTypeface(MainActivity.customtf_normal);
+        bt_play = rootView.findViewById(R.id.bt_play);
+        bt_play.setTypeface(getAct().customtf_normal);
 
-        rv_options = (RecyclerView) findViewById(R.id.rv_options);
-        rv_players = (RecyclerView) findViewById(R.id.rv_players);
+        rv_options = rootView.findViewById(R.id.rv_options);
+        rv_players = rootView.findViewById(R.id.rv_players);
 
 
-        tb_toggle = (ToggleButton) findViewById(R.id.tb_toggle);
+        tb_toggle = rootView.findViewById(R.id.tb_toggle);
         tb_toggle.setOnClickListener(v -> toggle(v));
 
-        SP = PreferenceManager.getDefaultSharedPreferences(this);
+        SP = PreferenceManager.getDefaultSharedPreferences(getContext());
         SPE = SP.edit();
 
         int selectedThemeId = SP.getInt("theme",0);
@@ -132,14 +137,14 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
             availablePlayers.add(new PlayerSelection(cart_color_selection.getColor(i, color_default)));
         }
         cart_color_selection.recycle();
-        rv_carts = findViewById(R.id.rv_carts);
-        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv_carts = rootView.findViewById(R.id.rv_carts);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rv_carts.setLayoutManager(llm);
-        adapterCarts = new AdapterCart(this, gameTheme, availablePlayers, this);
+        adapterCarts = new AdapterCart(getContext(), gameTheme, availablePlayers, this);
         rv_carts.setAdapter(adapterCarts);
 
-        rv_carts.setBt_left(findViewById(R.id.bt_carts_left));
-        rv_carts.setBt_right(findViewById(R.id.bt_carts_right));
+        rv_carts.setBt_left(rootView.findViewById(R.id.bt_carts_left));
+        rv_carts.setBt_right(rootView.findViewById(R.id.bt_carts_right));
 
 
 
@@ -148,7 +153,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         // has to correspond to the order of the strings in the array
 
         //obstacle
-        SettingCard setting_obstacle = new SettingCard(mContext, Keys.option_obstacle);
+        SettingCard setting_obstacle = new SettingCard(getContext(), Keys.option_obstacle);
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_none, getString(R.string.option_obstacle_none), R.drawable.option_obstacle_none));
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_few, getString(R.string.option_obstacle_few), R.drawable.option_obstacle_few));
         setting_obstacle.addChoice(new SettingCard.Choice(Keys.option_obstacle_many, getString(R.string.option_obstacle_many), R.drawable.option_obstacle_many));
@@ -163,14 +168,14 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         settingCards.add(setting_daynight);*/
 
         //draw
-        SettingCard setting_draw = new SettingCard(mContext, Keys.option_draw);
+        SettingCard setting_draw = new SettingCard(getContext(), Keys.option_draw);
         setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_fill, getString(R.string.option_draw_01), R.drawable.option_draw_01));
         setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_new, getString(R.string.option_draw_02), R.drawable.option_draw_02));
         setting_draw.init(getString(R.string.option_draw), Keys.option_draw_new);
         settingCards.add(setting_draw);
 
         //order
-        SettingCard setting_order = new SettingCard(mContext, Keys.option_order);
+        SettingCard setting_order = new SettingCard(getContext(), Keys.option_order);
         setting_order.addChoice(new SettingCard.Choice(Keys.option_order_same, getString(R.string.option_order_01), R.drawable.option_order_01));
         setting_order.addChoice(new SettingCard.Choice(Keys.option_order_random, getString(R.string.option_order_02), R.drawable.option_order_02));
         setting_order.init(getString(R.string.option_order), Keys.option_order_same);
@@ -184,14 +189,14 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         settingCards.add(setting_suddendeath);*/
 
         //order
-        SettingCard setting_victory = new SettingCard(mContext, Keys.option_victory);
+        SettingCard setting_victory = new SettingCard(getContext(), Keys.option_victory);
         setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_last, getString(R.string.option_victory_last), R.drawable.option_victory_01));
         setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_distance, getString(R.string.option_victory_dist), R.drawable.option_victory_02));
         setting_victory.init(getString(R.string.option_victory), Keys.option_victory_last);
         settingCards.add(setting_victory);
 
         //collision
-        SettingCard setting_collision = new SettingCard(mContext, Keys.option_collision);
+        SettingCard setting_collision = new SettingCard(getContext(), Keys.option_collision);
         setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_on, getString(R.string.option_collision_on), R.drawable.option_collision_02));
         setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_off, getString(R.string.option_collision_off), R.drawable.option_collision_01));
         setting_collision.init(getString(R.string.option_collision), Keys.option_collision_on);
@@ -199,7 +204,7 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
 
         adapterOptions = new AdapterOptions(settingCards);
-        LinearLayoutManager llm_options = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager llm_options = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rv_options.setLayoutManager(llm_options);
         rv_options.setAdapter(adapterOptions);
         if (connections == 8){
@@ -222,42 +227,41 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
             if (getNumPlayers() < 2) {
                 showDialog();
             } else {
-                Intent newGameScreen= new Intent(mContext, GameActivity.class);
-                newGameScreen.putExtra("Players", adapterCarts.getSelected());
-                newGameScreen.putExtra("Options", adapterOptions.getKeys());
-                newGameScreen.putExtra("connections", connections);
-                startActivity(newGameScreen);
-                finish();
+                Bundle b = new Bundle();
+                b.putSerializable("Players", adapterCarts.getSelected());
+                b.putStringArrayList("Options", adapterOptions.getKeys());
+                b.putInt("connections", connections);
+                getAct().showGame(b);
             }
         });
 
-        GameSignButton gsb_back = findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(view -> finish());
+        GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
+        gsb_back.setOnClickListener(view -> getAct().onBackPressed());
 
 
-        GameSignButton gsb_play = (GameSignButton) findViewById(R.id.gsb_play);
+        GameSignButton gsb_play = (GameSignButton) rootView.findViewById(R.id.gsb_play);
         gsb_play.setOnClickListener(view -> {
             if (getNumPlayers() < 2) {
                 showDialog();
             } else {
-                Intent newGameScreen= new Intent(mContext, GameActivity.class);
-                newGameScreen.putExtra("Players", adapterCarts.getSelected());
-                newGameScreen.putExtra("Options", adapterOptions.getKeys());
-                newGameScreen.putExtra("connections", connections);
-                startActivity(newGameScreen);
-                finish();
+                Bundle b = new Bundle();
+                b.putSerializable("Players", adapterCarts.getSelected());
+                b.putStringArrayList("Options", adapterOptions.getKeys());
+                b.putInt("connections", connections);
+                getAct().showGame(b);
             }
         });
 
 
-        bt_back = (Button) findViewById(R.id.bt_back);
-        bt_back.setOnClickListener(view -> finish());
+        bt_back = rootView.findViewById(R.id.bt_back);
+        bt_back.setOnClickListener(view -> getAct().onBackPressed());
 
-        adapterPlayers = new AdapterPlayers(mContext);
-        GridLayoutManager glm_players = new GridLayoutManager(this, 2);
+        adapterPlayers = new AdapterPlayers(getContext());
+        GridLayoutManager glm_players = new GridLayoutManager(getContext(), 2);
         rv_players.setLayoutManager(glm_players);
         rv_players.setAdapter(adapterPlayers);
 
+        return rootView;
     }
 
     void toggle(View v){
@@ -317,14 +321,14 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
 
     public void showDialog() {
 
-        final Dialog dialog = new Dialog(this, R.style.AlertDialogCustom);
+        final Dialog dialog = new Dialog(getContext(), R.style.AlertDialogCustom);
         dialog.setContentView(R.layout.dialog_few_player);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView tv_title = dialog.findViewById(R.id.tv_title);
-        tv_title.setTypeface(MainActivity.customtf_normal);
+        tv_title.setTypeface(getAct().customtf_normal);
         TextView tv_description = dialog.findViewById(R.id.tv_description);
-        tv_description.setTypeface(MainActivity.customtf_normal);
+        tv_description.setTypeface(getAct().customtf_normal);
         ImageView iv_ok = dialog.findViewById(R.id.iv_ok);
 
         iv_ok.setOnClickListener(v -> dialog.dismiss());
@@ -332,14 +336,8 @@ public class StartMenuActivity extends Activity implements AdapterCart.ChangeLis
         dialog.show();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
+    ActivityMain getAct(){
+        return (ActivityMain) getActivity();
     }
 
 }

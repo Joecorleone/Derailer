@@ -9,7 +9,8 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.ActivityMain;
+import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
 
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class SettingCard extends LinearLayout implements
         v = inflate(mContext, R.layout.view_setting_card, this);
         tv_option = v.findViewById(R.id.tv_option);
         iv_option = v.findViewById(R.id.iv_option);
-        tv_option.setTypeface(MainActivity.customtf_normal);
+        tv_option.setTypeface(ActivityMain.customtf_normal);
 
         setContent();
     }

@@ -10,9 +10,8 @@ import android.graphics.PorterDuffColorFilter;
 import androidx.core.util.Pair;
 import android.util.Log;
 
-import de.badgersburrow.derailer.GameActivity;
+import de.badgersburrow.derailer.FragmentGame;
 import de.badgersburrow.derailer.GameView;
-import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 import de.badgersburrow.derailer.objects.PlayerResult;
@@ -116,7 +115,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             x = edge + (this.xIndex) * width;
             y = edge + (this.yIndex) * width;
 
-            Pair<float[],float[]> p = GameActivity.animPath.getPosTan(pos, destPosOnTile, currentStep*1f/moveSteps);
+            Pair<float[],float[]> p = FragmentGame.animPath.getPosTan(pos, destPosOnTile, currentStep*1f/moveSteps);
             float[] posPath = (float[]) p.first;
             float[] tanPath = (float[]) p.second;
 

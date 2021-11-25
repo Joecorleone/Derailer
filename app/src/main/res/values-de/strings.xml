@@ -43,7 +43,7 @@
     <string name="option_suddendeath_01">Aus</string>
     <string name="option_suddendeath_02">An</string>
 
-    <string name="play_card">Karte spielen</string>
+    <string name="play_card">Spielen</string>
     <string name="game_over">Spiel vorbei</string>
 
     <string name="play_with_spaces">" Spielen "</string>

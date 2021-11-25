@@ -1,6 +1,5 @@
 package de.badgersburrow.derailer.adapters;
 
-import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.ActivityMain;
+import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.views.SettingCard;
 
@@ -59,7 +59,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         holder.ll_option.addView(settingCard, llparams);
 
         holder.tv_option.setText(settingCard.getTitle());
-        holder.tv_option.setTypeface(MainActivity.customtf_normal);
+        holder.tv_option.setTypeface(ActivityMain.customtf_normal);
     }
 
     public void enable(String key){

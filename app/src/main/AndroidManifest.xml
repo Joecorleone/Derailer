@@ -11,15 +11,11 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".ActivityMain"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".StartMenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".StartActivity"
+        <activity android:name=".ActivitySplash"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -28,18 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".GameActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".ThemeActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".GameOverActivity"
-            android:screenOrientation="portrait">
         </activity>
 
     </application>

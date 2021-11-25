@@ -6,9 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,11 +26,9 @@ import java.util.ArrayList;
  * Created by reim on 27.11.16.
  */
 
-public class ThemeActivity extends Activity {
+public class FragmentThemeSelection extends Fragment {
     TextView tv_header;
     RecyclerView rvTheme;
-    SharedPreferences SP;
-    SharedPreferences.Editor SPE;
     Context mContext;
     ArrayList<Theme> themes;
     AdapterTheme mAdapter;
@@ -35,23 +36,23 @@ public class ThemeActivity extends Activity {
     int selectedThemeId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_theme);
+    }
 
-        Utilities.FullScreencall(this);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        mContext = this.getApplicationContext();
-        SP = PreferenceManager.getDefaultSharedPreferences(this);
-        selectedThemeId = SP.getInt("theme",0);
+        View rootView = inflater.inflate(R.layout.fragment_theme_selection, container, false);
 
-        tv_header = (TextView) findViewById(R.id.tv_header);
-        tv_header.setTypeface(MainActivity.customtf_normal);
+        selectedThemeId = getAct().SP.getInt("theme",0);
 
-        SPE = SP.edit();
+        tv_header = rootView.findViewById(R.id.tv_header);
+        tv_header.setTypeface(getAct().customtf_normal);
 
-        GameSignButton gsb_back = findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(view -> finish());
+        GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
+        gsb_back.setOnClickListener(view -> getAct().onBackPressed());
 
 
         // populate theme arraylist
@@ -62,13 +63,13 @@ public class ThemeActivity extends Activity {
         themes.add(new Theme(3, selectedThemeId==3));
 
 
-        rvTheme = (RecyclerView) findViewById(R.id.rv_history);
+        rvTheme = rootView.findViewById(R.id.rv_history);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rvTheme.setLayoutManager(llm);
 
         //registerForContextMenu(rv_history);
-        mAdapter = new AdapterTheme(this, themes);
+        mAdapter = new AdapterTheme(getContext(), themes);
         rvTheme.setAdapter(mAdapter);
 
         /*sTheme = (Spinner) findViewById(R.id.sTheme);
@@ -84,19 +85,24 @@ public class ThemeActivity extends Activity {
 
             }
         });*/
+        return rootView;
     }
 
     public void selectTheme(View view) {
         int position = (int) view.getTag();
         Log.d("test","pos:" + view.getTag() + ", type:" + themes.get(position).getTitle(mContext));
         selectedThemeId = position;
-        SPE.putInt("theme",position);
-        SPE.commit();
+        getAct().SPE.putInt("theme",position);
+        getAct().SPE.commit();
 
         for (int i = 0; i < themes.size(); i++){
             themes.get(i).setSelected(position == i);
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    ActivityMain getAct(){
+        return (ActivityMain) getActivity();
     }
 
 }

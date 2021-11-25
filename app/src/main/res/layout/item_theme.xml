@@ -11,7 +11,7 @@
     android:clickable="true"
     android:onClick="selectTheme"
     android:orientation="vertical"
-    tools:context="de.badgersburrow.derailer.ThemeActivity">
+    tools:context="de.badgersburrow.derailer.FragmentThemeSelection">
 
 
 

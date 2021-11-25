@@ -12,7 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.ActivityMain;
+import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.objects.Theme;
 
@@ -62,7 +63,7 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
         holder.ll_theme.setTag(position);
         holder.tv_title.setText(mThemes.get(position).getTitle(mContext));
-        holder.tv_title.setTypeface(MainActivity.customtf_normal);
+        holder.tv_title.setTypeface(ActivityMain.customtf_normal);
         holder.iv_start.setImageDrawable(mThemes.get(position).getBackgroundResId(mContext));
         holder.ll_theme_bg.setBackground(mThemes.get(position).getBackgroundResId(mContext));
         holder.iv_theme.setImageDrawable(mThemes.get(position).getCartResId(mContext));

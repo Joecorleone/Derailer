@@ -14,8 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.badgersburrow.derailer.ActivityMain;
 import de.badgersburrow.derailer.Keys;
-import de.badgersburrow.derailer.MainActivity;
+import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.Utilities;
 
@@ -82,7 +83,7 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
 
             holder.iv_icon.setImageBitmap(Bitmap.createBitmap(icon , 0, 0, p_width, p_height, m, true));
             holder.tv_num.setText(String.valueOf(player_num.get(key)));
-            holder.tv_num.setTypeface(MainActivity.customtf_normal);
+            holder.tv_num.setTypeface(ActivityMain.customtf_normal);
         }
     }
 

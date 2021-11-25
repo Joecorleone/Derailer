@@ -1,93 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
-    tools:context="de.badgersburrow.derailer.MainActivity"
-    android:background="@color/sand">
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_title"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/rl_menu"
-        android:layout_alignParentTop="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/title_screen" />
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_navigation"/>
 
-
-    <LinearLayout
-        android:id="@+id/rl_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/menu_vertical_margin"
-        android:layout_marginBottom="@dimen/menu_vertical_margin_bottom"
-        android:layout_alignParentBottom="true">
-
-        <RelativeLayout
-            android:id="@+id/ll_menu01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/menu_background01">
-            <Button
-                android:id="@+id/bLocal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_with_spaces"
-                android:lines="1"
-                android:fontFamily="sans-serif"
-                android:textSize="@dimen/menu_text_size"
-                android:background="@drawable/menu_cart01" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/ll_menu02"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/menu_vertical_margin"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/menu_background02">
-            <Button
-                android:id="@+id/bTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/menu_cart02"
-                android:text="@string/theme_with_spaces"
-                android:fontFamily="sans-serif"
-                android:textSize="@dimen/menu_text_size"/>
-        </RelativeLayout>
-    </LinearLayout>
-
-
-    <de.badgersburrow.derailer.views.GameSignButton
-        android:id="@+id/gsb_exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:position="start"
-        app:sign="@drawable/sign_exit"
-        app:shadow="@drawable/sign_exit_shadow"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/sign_offset"
-        android:layout_marginBottom="@dimen/sign_offset"/>
-
-    <de.badgersburrow.derailer.views.GameSignButton
-        android:id="@+id/gsb_sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:position="end"
-        app:sign="@drawable/sign_sound"
-        app:shadow="@drawable/sign_sound_shadow"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/sign_offset"
-        android:layout_marginBottom="@dimen/sign_offset"/>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

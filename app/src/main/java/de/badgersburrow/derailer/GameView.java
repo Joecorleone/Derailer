@@ -44,7 +44,7 @@ public class GameView extends SurfaceView {
 
     private final static String TAG = "GameView";
 
-    private GameActivity gameActivity = new GameActivity();
+    private FragmentGame fragmentGame = new FragmentGame();
     private Bitmap background;
     Bitmap rotateIndicator;
     private ArrayList<ChoiceCardSprite> cards = new ArrayList<>();
@@ -93,11 +93,11 @@ public class GameView extends SurfaceView {
 
     private Button bt_play;
 
-    public GameView(Context context, ArrayList<PlayerSelection> players, ArrayList<String> options, int connections, GameTheme selectedTheme) {
-        super(context);
+    public GameView(FragmentGame fragmentGame, ArrayList<PlayerSelection> players, ArrayList<String> options, int connections, GameTheme selectedTheme) {
+        super(fragmentGame.getContext());
         background = BitmapFactory.decodeResource(getResources(), R.drawable.start_screen);
         rotateIndicator = BitmapFactory.decodeResource(getResources(), R.drawable.tile_rotate);
-        gameActivity = (GameActivity) context;
+        this.fragmentGame = fragmentGame;
         edge = Math.round(getResources().getDimension(R.dimen.play_field_edge));
         bottomMargin = Math.round(getResources().getDimension(R.dimen.play_field_bottomMargin));
         gameLoopThread = new GameLoopThread(this);
@@ -244,7 +244,7 @@ public class GameView extends SurfaceView {
                 currentPlayer += 1;
                 currentPlayer = currentPlayer% playerSprites.size();
                 startPositions.remove(sprite);
-                gameActivity.showNotification(playerSprites.get(currentPlayer));
+                fragmentGame.showNotification(playerSprites.get(currentPlayer));
 
                 if (currentPlayer == 0) {
                     currentPlayer = playerSprites.size()-1;
@@ -359,7 +359,7 @@ public class GameView extends SurfaceView {
                 //button.onDraw(canvas, true);
             }
             if (bt_play != null){
-                gameActivity.runOnUiThread(() -> bt_play.setEnabled(true));
+                fragmentGame.getAct().runOnUiThread(() -> bt_play.setEnabled(true));
             }
         } else {
             for (int i=0; i<buttons.size(); i++){
@@ -367,7 +367,7 @@ public class GameView extends SurfaceView {
                 //button.onDraw(canvas, false);
             }
             if (bt_play != null){
-                gameActivity.runOnUiThread(() -> bt_play.setEnabled(false));
+                fragmentGame.getAct().runOnUiThread(() -> bt_play.setEnabled(false));
             }
         }
     }
@@ -386,7 +386,7 @@ public class GameView extends SurfaceView {
 
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTypeface(MainActivity.customtf_bold);
+        paint.setTypeface(ActivityMain.customtf_bold);
         paint.setTextSize(fontSizeCurrent);
         paint.setAntiAlias(true);
 
@@ -399,7 +399,7 @@ public class GameView extends SurfaceView {
             if (playerSprite.isAlive()) {
                 Paint pPlayer = new Paint();
                 pPlayer.setColor(playerSprite.getColor());
-                pPlayer.setTypeface(MainActivity.customtf_bold);
+                pPlayer.setTypeface(ActivityMain.customtf_bold);
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSizeCurrent);
                 pPlayer.setAntiAlias(true);
@@ -420,7 +420,7 @@ public class GameView extends SurfaceView {
             if (playerSprite.isAlive()) {
                 Paint pPlayer = new Paint();
                 pPlayer.setColor(playerSprite.getColor());
-                pPlayer.setTypeface(MainActivity.customtf_normal);
+                pPlayer.setTypeface(ActivityMain.customtf_normal);
                 pPlayer.setFakeBoldText(true);
                 pPlayer.setTextSize(fontSize);
                 pPlayer.setAntiAlias(true);
@@ -551,9 +551,9 @@ public class GameView extends SurfaceView {
                     if (Math.abs(positions.get(i).second - positions.get(j).second) < collisionDistance){
                         if (Math.abs(positions.get(i).first - positions.get(j).first) < collisionDistance){
                             playerSprites.get(i).kill();
-                            gameActivity.showNotification(playerSprites.get(i));
+                            fragmentGame.showNotification(playerSprites.get(i));
                             playerSprites.get(j).kill();
-                            gameActivity.showNotification(playerSprites.get(j));
+                            fragmentGame.showNotification(playerSprites.get(j));
                             Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
                             Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
                             //drawExplosion(canvas);
@@ -575,7 +575,7 @@ public class GameView extends SurfaceView {
                     explosionSprites.add(new ExplosionSprite(this,
                             center.first, center.second));
                 }
-                gameActivity.showNotification(playerSprites.get(i));
+                fragmentGame.showNotification(playerSprites.get(i));
             }
         }
     }
@@ -815,7 +815,7 @@ public class GameView extends SurfaceView {
                             currentPlayer += 1;
                             currentPlayer = currentPlayer% playerSprites.size();
                             startPositions.remove(sprite);
-                            gameActivity.showNotification(playerSprites.get(currentPlayer));
+                            fragmentGame.showNotification(playerSprites.get(currentPlayer));
 
                             if (currentPlayer == 0) {
                                 currentPlayer = playerSprites.size()-1;
@@ -846,7 +846,7 @@ public class GameView extends SurfaceView {
         if (number_live_players <= 1) {
             this.gamePhase = "GameOver";
             gameLoopThread.setRunning(false);
-            gameActivity.onGameOver();
+            fragmentGame.onGameOver();
         }
     }
 
@@ -904,7 +904,7 @@ public class GameView extends SurfaceView {
             playersMoved.add(p.id());
             cardSelected = -1;
             if (p.isAlive()) {
-                gameActivity.showNotification(p);
+                fragmentGame.showNotification(p);
                 if (p.isKI()){
                     startThinking();
                 }

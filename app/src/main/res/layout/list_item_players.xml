@@ -9,8 +9,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:text="@string/player"
-        android:inputType="text"
-    />
+        android:inputType="text" />
 
     <Button
         android:layout_width="wrap_content"

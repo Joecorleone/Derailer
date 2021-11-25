@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * Created by cetty on 26.07.16.
  */
-public class StartActivity extends AppCompatActivity {
+public class ActivitySplash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
 
 
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ActivityMain.class);
         try
         {
             Thread.sleep(1000);

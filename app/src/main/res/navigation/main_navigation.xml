@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_main">
+
+    <fragment
+        android:id="@+id/navigation_main"
+        android:name="de.badgersburrow.derailer.FragmentMain"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_navigation_main_to_navigation_game_settings"
+            app:destination="@id/navigation_game_settings" />
+        <action
+            android:id="@+id/action_navigation_main_to_navigation_theme_selection"
+            app:destination="@id/navigation_theme_selection" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_game_settings"
+        android:name="de.badgersburrow.derailer.FragmentGameSettings"
+        android:label="@string/title_game_settings"
+        tools:layout="@layout/fragment_game_settings" >
+        <action
+            android:id="@+id/action_navigation_game_settings_to_navigation_game"
+            app:destination="@id/navigation_game" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_game"
+        android:name="de.badgersburrow.derailer.FragmentGame"
+        android:label="@string/title_game"
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_navigation_game_to_navigation_game_over2"
+            app:destination="@id/navigation_game_over" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_theme_selection"
+        android:name="de.badgersburrow.derailer.FragmentThemeSelection"
+        android:label="@string/title_theme_selection"
+        tools:layout="@layout/fragment_theme_selection" />
+
+    <fragment
+        android:id="@+id/navigation_game_over"
+        android:name="de.badgersburrow.derailer.FragmentGameOver"
+        android:label="@string/title_game_over"
+        tools:layout="@layout/fragment_game_over" />
+
+</navigation>

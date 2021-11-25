@@ -5,16 +5,20 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.content.DialogInterface.OnDismissListener;
 import android.view.View.OnClickListener;
 import android.content.DialogInterface;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import de.badgersburrow.derailer.objects.AnimationPath;
 import de.badgersburrow.derailer.objects.GameTheme;
@@ -28,11 +32,10 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 27.07.16.
  */
-public class GameActivity extends Activity  implements OnClickListener, OnDismissListener{
+public class FragmentGame extends Fragment implements OnClickListener, OnDismissListener{
 
     ArrayList<PlayerSelection> playerSelection;
     int connections;
-    SharedPreferences SP;
     private Dialog gameOverDialog;
     private boolean dialogIsActive = false;
     private GameView theGameView;
@@ -50,64 +53,71 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     ArrayList<String> options;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        Utilities.FullScreencall(this);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        playerSelection = (ArrayList<PlayerSelection>) this.getIntent().getExtras().getSerializable("Players");
-        options = (ArrayList<String>) this.getIntent().getSerializableExtra("Options");
-        connections = this.getIntent().getIntExtra("connections",4);
+        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+
+        Bundle b = getArguments();
+        playerSelection = (ArrayList<PlayerSelection>) b.getSerializable("Players");
+        options = (ArrayList<String>) b.getStringArrayList("Options");
+        connections = b.getInt("connections",4);
         animPath = new AnimationPath(connections);
 
-        SP = PreferenceManager.getDefaultSharedPreferences(this);
-        int selectedThemeId = SP.getInt("theme",0);
-        setContentView(R.layout.activity_game);
-        RelativeLayout rl_main = (RelativeLayout) findViewById(R.id.rl_main);
-        theGameView = new GameView(this, playerSelection, options, connections, new GameTheme(this, selectedThemeId));
+        int selectedThemeId = getAct().SP.getInt("theme",0);
+
+        RelativeLayout rl_main = rootView.findViewById(R.id.rl_main);
+        theGameView = new GameView(this, playerSelection, options, connections, new GameTheme(getContext(), selectedThemeId));
         rl_main.addView(theGameView,0);
         //find all notification views
         // put into separate custom view
-        rl_notification = (RelativeLayout) findViewById(R.id.rl_notification);
-        iv_n_background = (ImageView) findViewById(R.id.iv_n_background);
-        iv_n_player_color = (ImageView) findViewById(R.id.iv_n_player_color);
-        iv_n_player = (ImageView) findViewById(R.id.iv_n_player);
-        tv_n_texttop = (TextView) findViewById(R.id.tv_n_texttop);
-        tv_n_textbig = (TextView) findViewById(R.id.tv_n_textbig);
-        tv_n_textbottom = (TextView) findViewById(R.id.tv_n_textbottom);
+        rl_notification = rootView.findViewById(R.id.rl_notification);
+        iv_n_background = rootView.findViewById(R.id.iv_n_background);
+        iv_n_player_color = rootView.findViewById(R.id.iv_n_player_color);
+        iv_n_player = rootView.findViewById(R.id.iv_n_player);
+        tv_n_texttop = rootView.findViewById(R.id.tv_n_texttop);
+        tv_n_textbig = rootView.findViewById(R.id.tv_n_textbig);
+        tv_n_textbottom = rootView.findViewById(R.id.tv_n_textbottom);
 
         showNotification(theGameView.playerSprites.get(0));
 
-        Button bt_back = (Button) findViewById(R.id.bt_back);
-        bt_back.setOnClickListener(view -> finish());
+        Button bt_back = rootView.findViewById(R.id.bt_back);
+        //bt_back.setOnClickListener(view -> finish());
 
-        GameTextButton bt_play = (GameTextButton) findViewById(R.id.bt_play);
+        GameTextButton bt_play = rootView.findViewById(R.id.bt_play);
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);
         bt_play.setDrawablePressed(R.drawable.button_play_state03);
         bt_play.setDrawableNormal(R.drawable.button_play_state02);
-        bt_play.setTypeface(MainActivity.customtf_normal);
+        bt_play.setTypeface(getAct().customtf_normal);
 
         theGameView.setPlayButton(bt_play);
+
+        return rootView;
     }
 
 
     public void showNotification(final PlayerSprite playerSprite){
         if (notificationThread!=null &&notificationThread.isAlive()){
             notificationThread.interrupt();
-            runOnUiThread(() -> hideNotification());
+            getAct().runOnUiThread(() -> hideNotification());
         }
 
-        runOnUiThread(notificationRun = () -> {
+        getAct().runOnUiThread(notificationRun = () -> {
 
             if (!playerSprite.isVirtual()){
                 iv_n_background.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
                 iv_n_player.setImageBitmap(playerSprite.getBmpMain());
                 iv_n_player_color.setImageBitmap(playerSprite.getBmpColor());
                 iv_n_player_color.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
-                tv_n_texttop.setTypeface(MainActivity.customtf_normal);
-                tv_n_textbig.setTypeface(MainActivity.customtf_normal);
-                tv_n_textbottom.setTypeface(MainActivity.customtf_normal);
-                tv_n_textbig.setText(playerSprite.getLabel(getBaseContext()));
+                tv_n_texttop.setTypeface(getAct().customtf_normal);
+                tv_n_textbig.setTypeface(getAct().customtf_normal);
+                tv_n_textbottom.setTypeface(getAct().customtf_normal);
+                tv_n_textbig.setText(playerSprite.getLabel(getContext()));
                 rl_notification.setVisibility(View.VISIBLE);
 
                 if (playerSprite.isAlive()){
@@ -133,7 +143,9 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
                 try {
                     synchronized (this) {
                         wait(1000);
-                        runOnUiThread(() -> hideNotification());
+                        if (getAct() != null){
+                            getAct().runOnUiThread(() -> hideNotification());
+                        }
                     }
                 } catch (InterruptedException e) {
 
@@ -153,33 +165,43 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
 
 
     public void onGameOver() {
-        Intent theNextIntent = new Intent(getApplicationContext(),
-                GameOverActivity.class);
+        /*Intent theNextIntent = new Intent(getApplicationContext(),
+                FragmentGameOver.class);*/
         ArrayList<PlayerResult> playerResult = new ArrayList<>();
         for (PlayerSprite p: theGameView.playerSprites){
             playerResult.add(p.getResult());
         }
+        /*
         theNextIntent.putExtra("PlayersSelection", playerSelection);
         theNextIntent.putExtra("Players", playerResult);
         theNextIntent.putExtra("Options", options);
         startActivity(theNextIntent);
-        this.finish();
+        this.finish();*/
+
+        Bundle b = new Bundle();
+        b.putSerializable("PlayersSelection", playerSelection);
+        b.putSerializable("Players", playerResult);
+        b.putStringArrayList("Options", options);
+        b.putInt("connections", connections);
+        getAct().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getAct().showGameOver(b);
+            }
+        });
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bMainMenu:
                 gameOverDialog.dismiss();
-                Intent menuIntent = new Intent(getApplicationContext(),
-                        StartMenuActivity.class);
-                startActivity(menuIntent);
-                finish();
+                getAct().onBackPressed();
                 break;
             case R.id.bNewTry:
-                Intent newGameScreen = new Intent(this, GameActivity.class);
+                /*Intent newGameScreen = new Intent(this, FragmentGame.class);
                 startActivity(newGameScreen);
                 gameOverDialog.dismiss();
-                finish();
+                finish();*/
         }
     }
 
@@ -200,8 +222,18 @@ public class GameActivity extends Activity  implements OnClickListener, OnDismis
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         theGameView.resumeThread();
+    }
+
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        theGameView.pauseThread();
+    }
+    ActivityMain getAct(){
+        return (ActivityMain) getActivity();
     }
 }
