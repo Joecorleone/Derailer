@@ -20,13 +20,14 @@ import de.badgersburrow.derailer.objects.Theme;
 import de.badgersburrow.derailer.views.GameSignButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
  * Created by reim on 27.11.16.
  */
 
-public class FragmentThemeSelection extends Fragment {
+public class FragmentThemeSelection extends Fragment implements AdapterTheme.ThemeListener{
     TextView tv_header;
     RecyclerView rvTheme;
     Context mContext;
@@ -52,7 +53,10 @@ public class FragmentThemeSelection extends Fragment {
         tv_header.setTypeface(getAct().customtf_normal);
 
         GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(view -> getAct().onBackPressed());
+        gsb_back.setOnClickListener(view -> {
+            getAct().playSoundSign();
+            getAct().onBackPressed();
+        });
 
 
         // populate theme arraylist
@@ -69,7 +73,7 @@ public class FragmentThemeSelection extends Fragment {
         rvTheme.setLayoutManager(llm);
 
         //registerForContextMenu(rv_history);
-        mAdapter = new AdapterTheme(getContext(), themes);
+        mAdapter = new AdapterTheme(getContext(), themes, this);
         rvTheme.setAdapter(mAdapter);
 
         /*sTheme = (Spinner) findViewById(R.id.sTheme);
@@ -88,9 +92,9 @@ public class FragmentThemeSelection extends Fragment {
         return rootView;
     }
 
-    public void selectTheme(View view) {
-        int position = (int) view.getTag();
-        Log.d("test","pos:" + view.getTag() + ", type:" + themes.get(position).getTitle(mContext));
+    @Override
+    public void selectTheme(int position) {
+        Log.d("test","pos:" + position + ", type:" + themes.get(position).getTitle(requireContext()));
         selectedThemeId = position;
         getAct().SPE.putInt("theme",position);
         getAct().SPE.commit();

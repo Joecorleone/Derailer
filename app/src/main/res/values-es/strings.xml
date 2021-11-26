@@ -66,4 +66,8 @@
     <string name = "place_a_tile"> Coloque un mosaico </string>
     <string name = "kaboom"> Kaboom </string>
     ¡<string name = "is_out"> está fuera! </string>
+
+    <string name="sound_settings">Soundeinstellungen</string>
+    <string name="music">Musik</string>
+    <string name="sfx">Effekte</string>
 </resources>

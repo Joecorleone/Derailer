@@ -195,7 +195,10 @@ public class GameView extends SurfaceView {
 
     public void setPlayButton(Button bt_play){
         this.bt_play = bt_play;
-        this.bt_play.setOnClickListener(v -> movePlayers());
+        this.bt_play.setOnClickListener(v -> {
+            fragmentGame.getAct().playSoundButton();
+            movePlayers();
+        });
     }
 
     public int getKilledCount(){

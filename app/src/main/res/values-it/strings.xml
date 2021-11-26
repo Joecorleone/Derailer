@@ -66,4 +66,8 @@
     <string name="place_a_tile">Posiziona una tessera</string>
     <string name="kaboom">Kaboom</string>
     <string name="is_out">è uscito!</string>
+
+    <string name="sound_settings">Impostazioni audio</string>
+    <string name="music">Musica</string>
+    <string name="sfx">Effetti</string>
 </resources>

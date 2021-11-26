@@ -9,7 +9,6 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_horizontal_margin"
     android:clickable="true"
-    android:onClick="selectTheme"
     android:orientation="vertical"
     tools:context="de.badgersburrow.derailer.FragmentThemeSelection">
 

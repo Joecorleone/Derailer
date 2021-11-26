@@ -112,9 +112,11 @@ public class FragmentMain extends Fragment implements OnClickListener{
                 break;
             case R.id.gsb_exit:
                 //this.finish();
+                getAct().playSoundSign();
                 getAct().onBackPressed();
                 break;
             case R.id.gsb_sound:
+                getAct().playSoundSign();
                 showDialog();
                 break;
 

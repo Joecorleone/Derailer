@@ -66,4 +66,8 @@
     <string name="place_a_tile">Umieść kafelek</string>
     <string name="kaboom">Kaboom</string>
     <string name="is_out">wychodzi!</string>
+
+    <string name="sound_settings">Ustawienia dźwięku</string>
+    <string name="music">Muzyka</string>
+    <string name="sfx">Efekty</string>
 </resources>

@@ -125,6 +125,7 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bNewTry:
+                getAct().playSoundButton();
                 Bundle b = new Bundle();
                 b.putSerializable("Players", playersSelection);
                 b.putStringArrayList("Options", options);
@@ -132,6 +133,7 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
                 getAct().showGame(b);
                 break;
             case R.id.bMainMenu:
+                getAct().playSoundButton();
                 getAct().onBackPressed();
                 break;
         }

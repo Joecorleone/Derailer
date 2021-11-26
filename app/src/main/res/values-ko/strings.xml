@@ -66,4 +66,8 @@
     <string name="place_a_tile">타일 배치</string>
     <string name="kaboom">카붐</string>
     <string name="is_out">종료되었습니다!</string>
+
+    <string name="sound_settings">사운드 설정</string>
+    <string name="music">음악</string>
+    <string name="sfx">효과</string>
 </resources>

@@ -66,4 +66,8 @@
     <string name="place_a_tile">Placer une tuile</string>
     <string name="kaboom">Kaboom</string>
     <string name="is_out">est sorti!</string>
+
+    <string name="sound_settings">Paramètres du son</string>
+    <string name="music">Musique</string>
+    <string name="sfx">Effets</string>
 </resources>

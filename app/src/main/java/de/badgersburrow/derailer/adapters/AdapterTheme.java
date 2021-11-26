@@ -25,6 +25,7 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
     private static String LOG_TAG = "AdapterFridge";
     private ArrayList<Theme> mThemes;
     private Context mContext;
+    ThemeListener listener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         LinearLayoutCompat ll_theme, ll_theme_bg;
@@ -45,9 +46,10 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
         }
     }
 
-    public AdapterTheme(Context mContext, ArrayList<Theme> mThemes) {
+    public AdapterTheme(Context mContext, ArrayList<Theme> mThemes, ThemeListener listener) {
         this.mContext = mContext;
         this.mThemes = mThemes;
+        this.listener = listener;
     }
 
     @Override
@@ -76,6 +78,7 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
         } else {
             holder.iv_select.setVisibility(View.INVISIBLE);
         }
+        holder.ll_theme.setOnClickListener(v -> this.listener.selectTheme(position));
     }
 
     public void update(ArrayList<Theme> themes) {
@@ -88,6 +91,10 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
     @Override
     public int getItemCount() {
         return mThemes.size();
+    }
+
+    public interface ThemeListener{
+        void selectTheme(int pos);
     }
 
 }

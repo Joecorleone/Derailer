@@ -66,4 +66,8 @@
     <string name="place_a_tile">Bir kutucuk yerleştirin</string>
     <string name="kaboom">Kaboom</string>
     <string name="is_out">çıktı!</string>
+
+    <string name="sound_settings">Ses ayarları</string>
+    <string name="music">Müzik</string>
+    <string name="sfx">Efektler</string>
 </resources>

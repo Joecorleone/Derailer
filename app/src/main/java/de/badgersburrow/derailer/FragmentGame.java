@@ -87,7 +87,10 @@ public class FragmentGame extends Fragment implements OnClickListener, OnDismiss
         showNotification(theGameView.playerSprites.get(0));
 
         Button bt_back = rootView.findViewById(R.id.bt_back);
-        //bt_back.setOnClickListener(view -> finish());
+        bt_back.setOnClickListener(view -> {
+            getAct().playSoundButton();
+            getAct().onBackPressed();
+        });
 
         GameTextButton bt_play = rootView.findViewById(R.id.bt_play);
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);

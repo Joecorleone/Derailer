@@ -66,4 +66,8 @@
     <string name = "place_a_tile"> Coloque um bloco </string>
     <string name = "kaboom"> Kaboom </string>
     <string name = "is_out"> foi lançado! </string>
+
+    <string name = "sound_settings"> Configurações de som </string>
+    <string name = "music"> Música </string>
+    <string name = "sfx"> Efeitos </string>
 </resources>

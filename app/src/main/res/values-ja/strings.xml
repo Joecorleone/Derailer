@@ -66,4 +66,8 @@
     <string name = "place_a_tile">タイルを配置する</string>
     <string name = "kaboom">カブーム</string>
     <string name = "is_out">出ています！</string>
+
+    <string name = "sound_settings">サウンド設定</string>
+    <string name = "music">音楽</string>
+    <string name = "sfx">効果</string>
 </resources>

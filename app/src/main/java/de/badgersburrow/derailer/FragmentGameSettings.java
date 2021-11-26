@@ -236,11 +236,15 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         });
 
         GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(view -> getAct().onBackPressed());
+        gsb_back.setOnClickListener(view -> {
+            getAct().playSoundSign();
+            getAct().onBackPressed();
+        });
 
 
         GameSignButton gsb_play = (GameSignButton) rootView.findViewById(R.id.gsb_play);
         gsb_play.setOnClickListener(view -> {
+            getAct().playSoundSign();
             if (getNumPlayers() < 2) {
                 showDialog();
             } else {
