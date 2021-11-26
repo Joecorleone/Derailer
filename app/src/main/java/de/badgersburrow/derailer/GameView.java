@@ -1,6 +1,5 @@
 package de.badgersburrow.derailer;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -93,6 +92,8 @@ public class GameView extends SurfaceView {
 
     private Button bt_play;
 
+    private int streamIdMoving;
+
     public GameView(FragmentGame fragmentGame, ArrayList<PlayerSelection> players, ArrayList<String> options, int connections, GameTheme selectedTheme) {
         super(fragmentGame.getContext());
         background = BitmapFactory.decodeResource(getResources(), R.drawable.start_screen);
@@ -104,6 +105,7 @@ public class GameView extends SurfaceView {
         this.options = options;
         tiles = connections;
         virtual = false;
+        this.streamIdMoving = 0;
 
         if (options.contains(Keys.option_obstacle_few)){
             obstacleNumber = randomGenerator.nextInt(3) + 1;
@@ -185,6 +187,7 @@ public class GameView extends SurfaceView {
 
     public void pauseThread() {
         gameLoopThread.setRunning(false);
+        fragmentGame.getAct().pauseSoundStream(streamIdMoving);
     }
 
     public void resumeThread() {
@@ -582,8 +585,10 @@ public class GameView extends SurfaceView {
     }
 
     private void addExplosion(int x, int y){
+        setSoundMoving();
         fragmentGame.getAct().playSoundExplosion();
         explosionSprites.add(new ExplosionSprite(this, x, y));
+        // maybe todo -> check
     }
 
     public void drawStartPositions(Canvas canvas){
@@ -622,6 +627,7 @@ public class GameView extends SurfaceView {
         this.virtual = virtuel;
     }
     public void movePlayers(){
+        boolean isMoving = false;
         gamePhase = Keys.gpMoving;
         for (PlayerSprite playerSprite : playerSprites) {
             playerSprite.setVirtual(virtual);
@@ -744,6 +750,7 @@ public class GameView extends SurfaceView {
                     playerSprite.setMoving(false);
                 }
             }
+
         }
 
         if (virtual) {
@@ -752,6 +759,27 @@ public class GameView extends SurfaceView {
                 if (playerSprites.get(i).isChanged()) changed = true;
             }
             if (!changed) gamePhase = Keys.gpPlaying;
+        } else {
+            setSoundMoving();
+        }
+    }
+
+    public void setSoundMoving(){
+        boolean isMoving = false;
+        for (PlayerSprite playerSprite : playerSprites){
+            if (!playerSprite.isVirtual() && playerSprite.isAlive() && playerSprite.isMoving()){
+                isMoving = true;
+            }
+        }
+
+        if (isMoving){
+            if (streamIdMoving == 0){
+                streamIdMoving = fragmentGame.getAct().playSoundMoving(selectedTheme.getThemeId());
+            } else {
+                fragmentGame.getAct().resumeSoundStream(streamIdMoving);
+            }
+        } else {
+            fragmentGame.getAct().pauseSoundStream(streamIdMoving);
         }
     }
 
@@ -990,4 +1018,5 @@ public class GameView extends SurfaceView {
     public Bitmap getRotateIndicator() {
         return rotateIndicator;
     }
+
 }

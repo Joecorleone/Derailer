@@ -45,6 +45,8 @@ public class ActivityMain extends AppCompatActivity{
     private float volume;
 
     private HashMap<Integer, SoundRef> soundRefs;
+    private HashMap<Integer, Integer> soundMoveThemeToRes;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +109,17 @@ public class ActivityMain extends AppCompatActivity{
         soundLoad(R.raw.sound_swipe01,1);
         soundLoad(R.raw.sound_klonk01,1);
         soundLoad(R.raw.sound_option01,1);
+        soundLoad(R.raw.sound_train_elec01,1);
+        soundLoad(R.raw.sound_train_steam01,1);
+        soundLoad(R.raw.sound_car_vintage01,1);
+        soundLoad(R.raw.sound_car_cadillac01,1);
+
+        // moving sounds for themes
+        soundMoveThemeToRes = new HashMap<>();
+        soundMoveThemeToRes.put(0, R.raw.sound_train_steam01);
+        soundMoveThemeToRes.put(1, R.raw.sound_train_elec01);
+        soundMoveThemeToRes.put(2, R.raw.sound_car_vintage01);
+        soundMoveThemeToRes.put(3, R.raw.sound_car_cadillac01);
     }
 
     private void soundLoad(int resId, int priority){
@@ -128,42 +141,62 @@ public class ActivityMain extends AppCompatActivity{
     }
 
     // When users click on a button
-    public void playSoundButton()  {
-        playSound(R.raw.sound_button01);
+    public void playSoundButton(){
+        playSoundEffect(R.raw.sound_button01, false);
     }
 
     // When users click on a sign
-    public void playSoundSign()  {
-        playSound(R.raw.sound_sign01);
+    public void playSoundSign(){
+        playSoundEffect(R.raw.sound_sign01, false);
     }
 
     // When an explosion occurs
-    public void playSoundExplosion()  {
-        playSound(R.raw.sound_explosion01);
+    public void playSoundExplosion(){
+        playSoundEffect(R.raw.sound_explosion01, false);
     }
 
     // When an option is turned
-    public void playSoundOption()  {
-        playSound(R.raw.sound_option01);
+    public void playSoundOption(){
+        playSoundEffect(R.raw.sound_option01, false);
     }
 
     // When a switch is changed
-    public void playSoundSwitch()  {
-        playSound(R.raw.sound_swipe01);
+    public void playSoundSwitch(){
+        playSoundEffect(R.raw.sound_swipe01, false);
     }
 
     // When a switch is changed
-    public void playSoundToggle()  {
-        playSound(R.raw.sound_klonk01);
+    public void playSoundToggle(){
+        playSoundEffect(R.raw.sound_klonk01, false);
     }
 
-    public void playSound(int resId){
+    public int playSoundMoving(int theme){
+        if (soundMoveThemeToRes.containsKey(theme)){
+            return playSoundEffect( soundMoveThemeToRes.get(theme), true);
+        }
+        return 0;
+    }
+
+    public int playSoundEffect(int resId, boolean loop){
         if(soundRefs.containsKey(resId) && soundRefs.get(resId).isLoaded() && SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default))  {
             float leftVolumn = volume;
             float rightVolumn = volume;
             // Play sound objects destroyed. Returns the ID of the new stream.
-            int streamId = this.soundPool.play(soundRefs.get(resId).getSoundId(),leftVolumn, rightVolumn, 1, 0, 1f);
+            if (loop){
+                return this.soundPool.play(soundRefs.get(resId).getSoundId(),leftVolumn, rightVolumn, 1, -1, 1f);
+            } else {
+                return this.soundPool.play(soundRefs.get(resId).getSoundId(),leftVolumn, rightVolumn, 1, 0, 1f);
+            }
         }
+        return 0;
+    }
+
+    public void pauseSoundStream(int streamId){
+        this.soundPool.pause(streamId);
+    }
+
+    public void resumeSoundStream(int streamId){
+        this.soundPool.resume(streamId);
     }
 
     @Override

@@ -127,7 +127,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         connections = SP.getInt("connections",4);
 
         tb_toggle.setChecked(connections == 8);
-        toggleAnimate(tb_toggle);
+        toggleAnimate(tb_toggle, false);
 
         TypedArray cart_color_selection = res.obtainTypedArray(R.array.cart_color_selection);
         int color_default = res.getColor(R.color.cartdefault);
@@ -276,14 +276,14 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
             connections=4;
             adapterOptions.disable(Keys.option_draw);
         }
-        toggleAnimate(v);
+        toggleAnimate(v, true);
         Log.d(TAG, "connections: " + connections);
         SPE.putInt("connections",connections);
         SPE.commit();
     }
 
-    void toggleAnimate(View v){
-        getAct().playSoundToggle();
+    void toggleAnimate(View v, boolean sound){
+        if (sound) getAct().playSoundToggle();
         StateListDrawable stateListDrawable = (StateListDrawable) v.getBackground();
         AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
         animationDrawable.start();

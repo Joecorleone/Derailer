@@ -20,6 +20,9 @@ import java.util.HashMap;
 
 public class GameTheme {
 
+    private final static String TAG = "GameTheme";
+
+    private int themeId;
     private Bitmap cart;
     private Bitmap cart_color;
     private MoveAnimSecondary animSecondary;
@@ -28,7 +31,8 @@ public class GameTheme {
     HashMap<Integer, Bitmap> card_bottom = new HashMap<>();
 
     public GameTheme(Context context, int themeId){
-        Log.d("Theme selected: ",String.valueOf(themeId));
+        this.themeId = themeId;
+        Log.d(TAG, "Theme selected: " + themeId);
 
         Resources res = context.getResources();
         TypedArray carts = res.obtainTypedArray(R.array.carts);
@@ -301,6 +305,10 @@ public class GameTheme {
         }
 
 
+    }
+
+    public int getThemeId() {
+        return themeId;
     }
 
     public Bitmap getCart(){

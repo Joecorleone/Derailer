@@ -111,6 +111,9 @@ public class FragmentGame extends Fragment implements OnClickListener, OnDismiss
         }
 
         getAct().runOnUiThread(notificationRun = () -> {
+            if (getContext() == null){
+                return;
+            }
 
             if (!playerSprite.isVirtual()){
                 iv_n_background.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
