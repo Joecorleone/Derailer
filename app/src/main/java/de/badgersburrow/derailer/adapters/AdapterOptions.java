@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObjectHolder> {
 
     private ArrayList<SettingCard> settingCards = new ArrayList<>();
+    SoundListener listener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         LinearLayout ll_option;
@@ -34,13 +35,13 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
         }
     }
 
-    public AdapterOptions(ArrayList<SettingCard> settingCards) {
+    public AdapterOptions(ArrayList<SettingCard> settingCards, SoundListener listener) {
         this.settingCards = settingCards;
+        this.listener = listener;
     }
 
     @Override
-    public DataObjectHolder onCreateViewHolder(ViewGroup parent,
-                                               int viewType) {
+    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_option, parent, false);
 
@@ -56,6 +57,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER_HORIZONTAL);
         settingCard.setPadding(0,settingCard.getTopPadding(),0,0); // necessary
+        settingCard.setSoundListener(listener);
         holder.ll_option.addView(settingCard, llparams);
 
         holder.tv_option.setText(settingCard.getTitle());
@@ -95,5 +97,9 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
             }
         }
         return keys;
+    }
+
+    public interface SoundListener{
+        void playSoundOptionChanged();
     }
 }

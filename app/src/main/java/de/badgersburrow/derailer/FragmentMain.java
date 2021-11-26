@@ -36,7 +36,7 @@ public class FragmentMain extends Fragment implements OnClickListener{
 
     // Animation using transition
     TransitionSet mStaggeredTransition;
-    ViewGroup mSceneRoot;
+    //ViewGroup mSceneRoot;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,10 @@ public class FragmentMain extends Fragment implements OnClickListener{
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mSceneRoot = rootView.findViewById(R.id.activity_main);
+        //mSceneRoot = rootView.findViewById(R.id.activity_main);
+
+        ActivityMain.customtf_normal = Typeface.createFromAsset(getContext().getAssets(), "fonts/Acme-Regular.ttf" );
+        ActivityMain.customtf_bold = Typeface.create(ActivityMain.customtf_normal, Typeface.BOLD);
 
         bLocal = rootView.findViewById(R.id.bLocal);
         bLocal.setOnClickListener(this);
@@ -136,6 +139,7 @@ public class FragmentMain extends Fragment implements OnClickListener{
         cb_music.setTypeface(ActivityMain.customtf_normal);
         cb_music.setChecked(getAct().SP.getBoolean(Keys.setting_music, Keys.setting_music_default));
         cb_music.setOnCheckedChangeListener((compoundButton, b) -> {
+            getAct().playSoundSwitch();
             getAct().SPE.putBoolean(Keys.setting_music, b);
             getAct().SPE.apply();
         });
@@ -144,6 +148,7 @@ public class FragmentMain extends Fragment implements OnClickListener{
         cb_sfx.setTypeface(getAct().customtf_normal);
         cb_sfx.setChecked(getAct().SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default));
         cb_sfx.setOnCheckedChangeListener((compoundButton, b) -> {
+            getAct().playSoundSwitch();
             getAct().SPE.putBoolean(Keys.setting_sfx, b);
             getAct().SPE.apply();
         });

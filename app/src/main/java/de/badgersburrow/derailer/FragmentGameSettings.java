@@ -43,7 +43,7 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 26.07.16.
  */
-public class FragmentGameSettings extends Fragment implements AdapterCart.ChangeListener {
+public class FragmentGameSettings extends Fragment implements AdapterCart.ChangeListener, AdapterOptions.SoundListener {
 
     private static String TAG = "StartMenuActivity";
 
@@ -127,9 +127,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         connections = SP.getInt("connections",4);
 
         tb_toggle.setChecked(connections == 8);
-        StateListDrawable stateListDrawable = (StateListDrawable) tb_toggle.getBackground();
-        AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
-        animationDrawable.start();
+        toggleAnimate(tb_toggle);
 
         TypedArray cart_color_selection = res.obtainTypedArray(R.array.cart_color_selection);
         int color_default = res.getColor(R.color.cartdefault);
@@ -203,7 +201,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         settingCards.add(setting_collision);
 
 
-        adapterOptions = new AdapterOptions(settingCards);
+        adapterOptions = new AdapterOptions(settingCards, this);
         LinearLayoutManager llm_options = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rv_options.setLayoutManager(llm_options);
         rv_options.setAdapter(adapterOptions);
@@ -278,12 +276,17 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
             connections=4;
             adapterOptions.disable(Keys.option_draw);
         }
-        StateListDrawable stateListDrawable = (StateListDrawable) v.getBackground();
-        AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
-        animationDrawable.start();
+        toggleAnimate(v);
         Log.d(TAG, "connections: " + connections);
         SPE.putInt("connections",connections);
         SPE.commit();
+    }
+
+    void toggleAnimate(View v){
+        getAct().playSoundToggle();
+        StateListDrawable stateListDrawable = (StateListDrawable) v.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
+        animationDrawable.start();
     }
 
     @Override
@@ -294,6 +297,11 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
     @Override
     public void playerDeselected(String key) {
         adapterPlayers.removePlayer(key);
+    }
+
+    @Override
+    public void playSoundOptionChanged() {
+        getAct().playSoundOption();
     }
 
 
@@ -324,7 +332,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
 
     public void showDialog() {
-
         final Dialog dialog = new Dialog(getContext(), R.style.AlertDialogCustom);
         dialog.setContentView(R.layout.dialog_few_player);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));

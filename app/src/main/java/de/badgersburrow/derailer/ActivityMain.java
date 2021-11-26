@@ -16,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import java.util.HashMap;
+
+import de.badgersburrow.derailer.objects.SoundRef;
+
 public class ActivityMain extends AppCompatActivity{
 
     SharedPreferences SP;
@@ -37,8 +41,10 @@ public class ActivityMain extends AppCompatActivity{
 
     private int soundIdButton;
     private int soundIdSign;
+    private int soundIdExplosion;
     private float volume;
 
+    private HashMap<Integer, SoundRef> soundRefs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,11 +53,10 @@ public class ActivityMain extends AppCompatActivity{
 
         Utilities.FullScreencall(this);
 
-        customtf_normal = Typeface.createFromAsset(getAssets(), "fonts/Acme-Regular.ttf" );
-        customtf_bold = Typeface.create(Typeface.createFromAsset(getAssets(),"fonts/Acme-Regular.ttf"), Typeface.BOLD);
 
         SP = PreferenceManager.getDefaultSharedPreferences(this);
         SPE = SP.edit();
+
 
         // AudioManager audio settings for adjusting the volume
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -91,36 +96,73 @@ public class ActivityMain extends AppCompatActivity{
         this.soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                loaded = true;
+                soundLoaded(sampleId);
             }
         });
 
-        // Load sound file (destroy.wav) into SoundPool.
-        this.soundIdButton = this.soundPool.load(this, R.raw.sound_button01,1);
+        // Load sound files into SoundPool.
+        soundLoad(R.raw.sound_button01,1);
+        soundLoad(R.raw.sound_sign01,1);
+        soundLoad(R.raw.sound_explosion01,1);
+        soundLoad(R.raw.sound_swipe01,1);
+        soundLoad(R.raw.sound_klonk01,1);
+        soundLoad(R.raw.sound_option01,1);
+    }
 
-        // Load sound file (gun.wav) into SoundPool.
-        this.soundIdSign = this.soundPool.load(this, R.raw.sound_sign01,1);
+    private void soundLoad(int resId, int priority){
+        if (soundRefs == null){
+            soundRefs = new HashMap<>();
+        }
+        soundRefs.put(resId, new SoundRef(resId, this.soundPool.load(this, resId, priority)));
+    }
+
+    private void soundLoaded(int resId){
+        for (SoundRef soundRef : soundRefs.values()){
+            if (soundRef.getSoundId() == resId){
+                soundRef.setLoaded(true);
+            }
+        }
+        //if (soundRefs.containsKey(resId)){
+        //    soundRefs.get(resId).setLoaded(true);
+        //}
     }
 
     // When users click on a button
     public void playSoundButton()  {
-        if(loaded)  {
-            float leftVolumn = volume;
-            float rightVolumn = volume;
-
-            // Play sound objects destroyed. Returns the ID of the new stream.
-            int streamId = this.soundPool.play(this.soundIdButton,leftVolumn, rightVolumn, 1, 0, 1f);
-        }
+        playSound(R.raw.sound_button01);
     }
 
     // When users click on a sign
     public void playSoundSign()  {
-        if(loaded)  {
+        playSound(R.raw.sound_sign01);
+    }
+
+    // When an explosion occurs
+    public void playSoundExplosion()  {
+        playSound(R.raw.sound_explosion01);
+    }
+
+    // When an option is turned
+    public void playSoundOption()  {
+        playSound(R.raw.sound_option01);
+    }
+
+    // When a switch is changed
+    public void playSoundSwitch()  {
+        playSound(R.raw.sound_swipe01);
+    }
+
+    // When a switch is changed
+    public void playSoundToggle()  {
+        playSound(R.raw.sound_klonk01);
+    }
+
+    public void playSound(int resId){
+        if(soundRefs.containsKey(resId) && soundRefs.get(resId).isLoaded() && SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default))  {
             float leftVolumn = volume;
             float rightVolumn = volume;
-
             // Play sound objects destroyed. Returns the ID of the new stream.
-            int streamId = this.soundPool.play(this.soundIdSign,leftVolumn, rightVolumn, 1, 0, 1f);
+            int streamId = this.soundPool.play(soundRefs.get(resId).getSoundId(),leftVolumn, rightVolumn, 1, 0, 1f);
         }
     }
 

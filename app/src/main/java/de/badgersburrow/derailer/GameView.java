@@ -559,10 +559,9 @@ public class GameView extends SurfaceView {
                             fragmentGame.showNotification(playerSprites.get(j));
                             Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
                             Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
-                            //drawExplosion(canvas);
-                            explosionSprites.add(new ExplosionSprite(this,
+                            addExplosion(
                                     (positions.get(i).first + positions.get(j).first)/2,
-                                    (positions.get(i).second + positions.get(j).second)/2));
+                                    (positions.get(i).second + positions.get(j).second)/2);
                             checkForGameOver();
                         }
                     }
@@ -575,12 +574,16 @@ public class GameView extends SurfaceView {
                 playerSprites.get(i).kill();
                 Pair<Integer,Integer> center = playerSprites.get(i).getCenter();
                 if (center.first != -1){
-                    explosionSprites.add(new ExplosionSprite(this,
-                            center.first, center.second));
+                    addExplosion(center.first, center.second);
                 }
                 fragmentGame.showNotification(playerSprites.get(i));
             }
         }
+    }
+
+    private void addExplosion(int x, int y){
+        fragmentGame.getAct().playSoundExplosion();
+        explosionSprites.add(new ExplosionSprite(this, x, y));
     }
 
     public void drawStartPositions(Canvas canvas){

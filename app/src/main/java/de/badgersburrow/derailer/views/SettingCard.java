@@ -12,6 +12,7 @@ import android.view.View;
 import de.badgersburrow.derailer.ActivityMain;
 import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.adapters.AdapterOptions;
 
 import java.util.ArrayList;
 import android.os.Handler;
@@ -34,6 +35,8 @@ public class SettingCard extends LinearLayout implements
     private String keyChosen;
 
     private View v;
+
+    AdapterOptions.SoundListener listener;
 
     private View.OnClickListener clickListener;
     private Context mContext;
@@ -218,13 +221,19 @@ public class SettingCard extends LinearLayout implements
         if (enabled){
             if (!animating){
                 this.toggleState();
+                if (listener != null){
+                    listener.playSoundOptionChanged();
+                }
             }
 
             if (clickListener != null) {
                 clickListener.onClick(this);
             }
         }
+    }
 
+    public void setSoundListener(AdapterOptions.SoundListener listener){
+        this.listener = listener;
     }
 
     public static class Choice{
