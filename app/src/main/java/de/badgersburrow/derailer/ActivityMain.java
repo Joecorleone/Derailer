@@ -37,11 +37,6 @@ public class ActivityMain extends AppCompatActivity{
     // Stream type.
     private static final int streamType = AudioManager.STREAM_MUSIC;
 
-    private boolean loaded;
-
-    private int soundIdButton;
-    private int soundIdSign;
-    private int soundIdExplosion;
     private float volume;
 
     private HashMap<Integer, SoundRef> soundRefs;
@@ -170,12 +165,6 @@ public class ActivityMain extends AppCompatActivity{
         playSoundEffect(R.raw.sound_klonk01, false);
     }
 
-    public int playSoundMoving(int theme){
-        if (soundMoveThemeToRes.containsKey(theme)){
-            return playSoundEffect( soundMoveThemeToRes.get(theme), true);
-        }
-        return 0;
-    }
 
     public int playSoundEffect(int resId, boolean loop){
         if(soundRefs.containsKey(resId) && soundRefs.get(resId).isLoaded() && SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default))  {
@@ -187,6 +176,13 @@ public class ActivityMain extends AppCompatActivity{
             } else {
                 return this.soundPool.play(soundRefs.get(resId).getSoundId(),leftVolumn, rightVolumn, 1, 0, 1f);
             }
+        }
+        return 0;
+    }
+
+    public int playSoundMoving(int theme){
+        if (soundMoveThemeToRes.containsKey(theme)){
+            return playSoundEffect( soundMoveThemeToRes.get(theme), true);
         }
         return 0;
     }

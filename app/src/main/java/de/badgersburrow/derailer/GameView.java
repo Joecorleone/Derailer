@@ -627,7 +627,6 @@ public class GameView extends SurfaceView {
         this.virtual = virtuel;
     }
     public void movePlayers(){
-        boolean isMoving = false;
         gamePhase = Keys.gpMoving;
         for (PlayerSprite playerSprite : playerSprites) {
             playerSprite.setVirtual(virtual);
@@ -769,12 +768,15 @@ public class GameView extends SurfaceView {
         for (PlayerSprite playerSprite : playerSprites){
             if (!playerSprite.isVirtual() && playerSprite.isAlive() && playerSprite.isMoving()){
                 isMoving = true;
+                break;
             }
         }
 
         if (isMoving){
             if (streamIdMoving == 0){
+                streamIdMoving = -1;
                 streamIdMoving = fragmentGame.getAct().playSoundMoving(selectedTheme.getThemeId());
+                Log.d(TAG, "streamIdMoving: " + streamIdMoving);
             } else {
                 fragmentGame.getAct().resumeSoundStream(streamIdMoving);
             }
