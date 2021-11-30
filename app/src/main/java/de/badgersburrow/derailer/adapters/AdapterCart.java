@@ -19,6 +19,7 @@ import de.badgersburrow.derailer.R;
 
 import de.badgersburrow.derailer.Utilities;
 import de.badgersburrow.derailer.objects.PlayerSelection;
+import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.objects.Theme;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
     private Context mContext;
     private ArrayList<PlayerSelection> selected;
     private ChangeListener listener;
+    private SoundListener soundListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         RelativeLayout rl_cart;
@@ -55,6 +57,10 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         this.listener = listener;
     }
 
+    public void setSoundListener(SoundListener soundListener) {
+        this.soundListener = soundListener;
+    }
+
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent,
                                                int viewType) {
@@ -71,10 +77,13 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         holder.rl_cart.setTag(position);
         holder.rl_cart.setOnDragListener(new MyDragListener());
         holder.rl_cart.setOnClickListener(v -> {
-            listener.playerDeselected( player.getSelection());
-            player.setSelection(Keys.unselected);
-            selected.remove(player);
-            update();
+            if ( !player.getSelection().equals(Keys.unselected)){
+                soundListener.playSoundSwosh();
+                listener.playerDeselected( player.getSelection());
+                player.setSelection(Keys.unselected);
+                selected.remove(player);
+                update();
+            }
         });
 
         Matrix m = new Matrix();
@@ -141,6 +150,10 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
+                    if (soundListener != null){
+                        soundListener.playSoundDrop();
+                    }
+
                     PlayerSelection player = mPlayers.get((int) v.getTag());
                     listener.playerDeselected(player.getSelection());
                     player.setSelection((String) dragView.getTag());

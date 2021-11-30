@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -54,9 +55,9 @@ public class FragmentThemeSelection extends Fragment implements AdapterTheme.The
 
         GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
         gsb_back.setOnClickListener(view -> {
-            getAct().playSoundSign();
             getAct().onBackPressed();
         });
+        gsb_back.setSoundListener(getAct());
 
 
         // populate theme arraylist

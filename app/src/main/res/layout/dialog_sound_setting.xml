@@ -50,11 +50,11 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <ImageView
-        android:id="@+id/iv_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/dialog_close"
+    <de.badgersburrow.derailer.views.DialogButton
+        android:id="@+id/db_ok"
+        android:layout_width="@dimen/dialog_close_size"
+        android:layout_height="@dimen/dialog_close_size"
+        android:background="@drawable/dialog_close_state"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"

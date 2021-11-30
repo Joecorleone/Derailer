@@ -31,6 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.badgersburrow.derailer.adapters.AdapterCart;
 import de.badgersburrow.derailer.adapters.AdapterOptions;
 import de.badgersburrow.derailer.adapters.AdapterPlayers;
+import de.badgersburrow.derailer.objects.SoundListener;
+import de.badgersburrow.derailer.views.DialogButton;
 import de.badgersburrow.derailer.views.GameTextButton;
 import de.badgersburrow.derailer.views.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
@@ -43,7 +45,7 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 26.07.16.
  */
-public class FragmentGameSettings extends Fragment implements AdapterCart.ChangeListener, AdapterOptions.SoundListener {
+public class FragmentGameSettings extends Fragment implements AdapterCart.ChangeListener, AdapterOptions.SoundListener, View.OnTouchListener {
 
     private static String TAG = "StartMenuActivity";
 
@@ -66,8 +68,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
-    Button bt_back;
-    GameTextButton bt_play;
     ToggleButton tb_toggle;
 
     static Resources res;
@@ -108,9 +108,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         tv_options.setTypeface(getAct().customtf_normal);
         tv_conn_title.setTypeface(getAct().customtf_normal);
 
-        bt_play = rootView.findViewById(R.id.bt_play);
-        bt_play.setTypeface(getAct().customtf_normal);
-
         rv_options = rootView.findViewById(R.id.rv_options);
         rv_players = rootView.findViewById(R.id.rv_players);
 
@@ -139,8 +136,9 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rv_carts.setLayoutManager(llm);
         adapterCarts = new AdapterCart(getContext(), gameTheme, availablePlayers, this);
+        adapterCarts.setSoundListener(getAct());
         rv_carts.setAdapter(adapterCarts);
-
+        rv_carts.setListener(getAct());
         rv_carts.setBt_left(rootView.findViewById(R.id.bt_carts_left));
         rv_carts.setBt_right(rootView.findViewById(R.id.bt_carts_right));
 
@@ -217,32 +215,15 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         iv_ai_normal.setOnTouchListener(new MyTouchListener());
         iv_ai_hard.setOnTouchListener(new MyTouchListener());
 
-        //Utilities.selector(bt_play, R.drawable.button_play_state02, R.drawable.button_play_state01, R.drawable.button_play_state03);
-        bt_play.setDrawableDisabled(R.drawable.button_play_state01);
-        bt_play.setDrawablePressed(R.drawable.button_play_state03);
-        bt_play.setDrawableNormal(R.drawable.button_play_state02);
-        bt_play.setOnClickListener(v -> {
-            if (getNumPlayers() < 2) {
-                showDialog();
-            } else {
-                Bundle b = new Bundle();
-                b.putSerializable("Players", adapterCarts.getSelected());
-                b.putStringArrayList("Options", adapterOptions.getKeys());
-                b.putInt("connections", connections);
-                getAct().showGame(b);
-            }
-        });
-
         GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
         gsb_back.setOnClickListener(view -> {
-            getAct().playSoundSign();
             getAct().onBackPressed();
         });
+        gsb_back.setOnTouchListener(this);
 
 
         GameSignButton gsb_play = (GameSignButton) rootView.findViewById(R.id.gsb_play);
         gsb_play.setOnClickListener(view -> {
-            getAct().playSoundSign();
             if (getNumPlayers() < 2) {
                 showDialog();
             } else {
@@ -253,10 +234,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
                 getAct().showGame(b);
             }
         });
-
-
-        bt_back = rootView.findViewById(R.id.bt_back);
-        bt_back.setOnClickListener(view -> getAct().onBackPressed());
+        gsb_play.setOnTouchListener(this);
 
         adapterPlayers = new AdapterPlayers(getContext());
         GridLayoutManager glm_players = new GridLayoutManager(getContext(), 2);
@@ -264,6 +242,23 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         rv_players.setAdapter(adapterPlayers);
 
         return rootView;
+    }
+
+    public boolean onTouch(View v, MotionEvent event) {
+        switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                switch (v.getId()){
+                    case R.id.gsb_play:
+                        getAct().playSoundSign();
+                        break;
+                    case R.id.gsb_back:
+                        getAct().playSoundSign();
+                        break;
+
+                }
+                break;
+        }
+        return false;
     }
 
     void toggle(View v){
@@ -305,7 +300,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
     }
 
 
-    private static final class MyTouchListener implements View.OnTouchListener {
+    private final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 ClipData data = ClipData.newPlainText("", "");
@@ -313,6 +308,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
                         view);
                 view.startDrag(data, shadowBuilder, view, 0);
                 view.setVisibility(View.INVISIBLE);
+                getAct().playSoundPickup();
                 return true;
             } else {
                 return false;
@@ -340,9 +336,10 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         tv_title.setTypeface(getAct().customtf_normal);
         TextView tv_description = dialog.findViewById(R.id.tv_description);
         tv_description.setTypeface(getAct().customtf_normal);
-        ImageView iv_ok = dialog.findViewById(R.id.iv_ok);
 
-        iv_ok.setOnClickListener(v -> dialog.dismiss());
+        DialogButton db_ok = dialog.findViewById(R.id.db_ok);
+        db_ok.setOnClickListener(v -> dialog.dismiss());
+        db_ok.setSoundListener(getAct());
 
         dialog.show();
     }

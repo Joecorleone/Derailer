@@ -28,6 +28,7 @@ import java.util.List;
 
 import de.badgersburrow.derailer.objects.PlayerResult;
 import de.badgersburrow.derailer.objects.PlayerSelection;
+import de.badgersburrow.derailer.views.GameButton;
 
 public class FragmentGameOver extends Fragment implements OnClickListener{
 
@@ -114,26 +115,27 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
             ll_place3_podium.setVisibility(View.INVISIBLE);
         }
 
-        Button bReplay = rootView.findViewById(R.id.bNewTry);
-        Button bExit = rootView.findViewById(R.id.bMainMenu);
+        GameButton bReplay = rootView.findViewById(R.id.gb_newtry);
         bReplay.setOnClickListener(this);
+        bReplay.setSoundListener(getAct());
+
+        GameButton bExit = rootView.findViewById(R.id.gb_menu);
         bExit.setOnClickListener(this);
+        bExit.setSoundListener(getAct());
 
         return rootView;
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bNewTry:
-                getAct().playSoundButton();
+            case R.id.gb_newtry:
                 Bundle b = new Bundle();
                 b.putSerializable("Players", playersSelection);
                 b.putStringArrayList("Options", options);
                 b.putInt("connections", connections);
                 getAct().showGame(b);
                 break;
-            case R.id.bMainMenu:
-                getAct().playSoundButton();
+            case R.id.gb_menu:
                 getAct().onBackPressed();
                 break;
         }

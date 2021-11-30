@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.core.util.Pair;
@@ -29,6 +30,7 @@ import de.badgersburrow.derailer.sprites.ChoiceCardSprite;
 import de.badgersburrow.derailer.sprites.ObstacleCardSprite;
 import de.badgersburrow.derailer.sprites.PlayedCardSprite;
 import de.badgersburrow.derailer.sprites.StartSprite;
+import de.badgersburrow.derailer.views.GameTextButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,7 +92,7 @@ public class GameView extends SurfaceView {
     private  ArrayList<MyButton> buttons = new ArrayList<>();
     private  ArrayList<ObstacleCardSprite> obstacles = new ArrayList<>();
 
-    private Button bt_play;
+    private GameTextButton bt_play;
 
     private int streamIdMoving;
 
@@ -196,12 +198,12 @@ public class GameView extends SurfaceView {
         gameLoopThread.start();
     }
 
-    public void setPlayButton(Button bt_play){
+    public void setPlayButton(GameTextButton bt_play){
         this.bt_play = bt_play;
         this.bt_play.setOnClickListener(v -> {
-            fragmentGame.getAct().playSoundButton();
             movePlayers();
         });
+        this.bt_play.setSoundListener(fragmentGame.getAct());
     }
 
     public int getKilledCount(){
@@ -827,6 +829,7 @@ public class GameView extends SurfaceView {
                         } else {
                             playCard(i);
                         }
+                        fragmentGame.getAct().playSoundOption();
                         Log.d("CardSelected", String.valueOf(cardSelected));
                     }
                 }

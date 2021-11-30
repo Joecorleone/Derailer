@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
 import android.preference.PreferenceManager;
@@ -23,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import de.badgersburrow.derailer.objects.AnimationPath;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.sprites.PlayerSprite;
+import de.badgersburrow.derailer.views.GameButton;
 import de.badgersburrow.derailer.views.GameTextButton;
 import de.badgersburrow.derailer.objects.PlayerResult;
 import de.badgersburrow.derailer.objects.PlayerSelection;
@@ -32,11 +34,10 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 27.07.16.
  */
-public class FragmentGame extends Fragment implements OnClickListener, OnDismissListener{
+public class FragmentGame extends Fragment implements OnClickListener{
 
     ArrayList<PlayerSelection> playerSelection;
     int connections;
-    private Dialog gameOverDialog;
     private boolean dialogIsActive = false;
     private GameView theGameView;
 
@@ -86,11 +87,12 @@ public class FragmentGame extends Fragment implements OnClickListener, OnDismiss
 
         showNotification(theGameView.playerSprites.get(0));
 
-        Button bt_back = rootView.findViewById(R.id.bt_back);
-        bt_back.setOnClickListener(view -> {
-            getAct().playSoundButton();
+        GameButton gb_back = rootView.findViewById(R.id.gb_back);
+        gb_back.setOnClickListener(view -> {
             getAct().onBackPressed();
         });
+        gb_back.setSoundListener(getAct());
+
 
         GameTextButton bt_play = rootView.findViewById(R.id.bt_play);
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);
@@ -99,6 +101,8 @@ public class FragmentGame extends Fragment implements OnClickListener, OnDismiss
         bt_play.setTypeface(getAct().customtf_normal);
 
         theGameView.setPlayButton(bt_play);
+
+
 
         return rootView;
     }
@@ -199,32 +203,10 @@ public class FragmentGame extends Fragment implements OnClickListener, OnDismiss
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bMainMenu:
-                gameOverDialog.dismiss();
+            case R.id.gb_back:
                 getAct().onBackPressed();
                 break;
-            case R.id.bNewTry:
-                /*Intent newGameScreen = new Intent(this, FragmentGame.class);
-                startActivity(newGameScreen);
-                gameOverDialog.dismiss();
-                finish();*/
         }
-    }
-
-    public void dialogState() {
-        if (dialogIsActive) {
-            gameOverDialog.hide();
-            dialogIsActive = false;
-            theGameView.resumeThread();
-        } else if (!dialogIsActive) {
-            theGameView.pauseThread();
-            gameOverDialog.show();
-            dialogIsActive = true;
-        }
-    }
-
-    public void onDismiss(DialogInterface dialog) {
-        dialogState();
     }
 
     @Override

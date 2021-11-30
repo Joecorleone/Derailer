@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
@@ -26,9 +27,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import de.badgersburrow.derailer.objects.SoundListener;
+import de.badgersburrow.derailer.views.DialogButton;
 import de.badgersburrow.derailer.views.GameSignButton;
 
-public class FragmentMain extends Fragment implements OnClickListener{
+public class FragmentMain extends Fragment implements OnClickListener {
 
     Button bLocal;
     Button bTheme;
@@ -93,9 +96,11 @@ public class FragmentMain extends Fragment implements OnClickListener{
 
         GameSignButton gsb_exit = rootView.findViewById(R.id.gsb_exit);
         gsb_exit.setOnClickListener(this);
+        gsb_exit.setSoundListener(getAct());
 
         GameSignButton gsb_sound = rootView.findViewById(R.id.gsb_sound);
         gsb_sound.setOnClickListener(this);
+        gsb_sound.setSoundListener(getAct());
 
         return rootView;
     }
@@ -115,11 +120,9 @@ public class FragmentMain extends Fragment implements OnClickListener{
                 break;
             case R.id.gsb_exit:
                 //this.finish();
-                getAct().playSoundSign();
                 getAct().onBackPressed();
                 break;
             case R.id.gsb_sound:
-                getAct().playSoundSign();
                 showDialog();
                 break;
 
@@ -153,8 +156,9 @@ public class FragmentMain extends Fragment implements OnClickListener{
             getAct().SPE.apply();
         });
 
-        ImageView iv_ok = dialog.findViewById(R.id.iv_ok);
-        iv_ok.setOnClickListener(v -> dialog.dismiss());
+        DialogButton db_ok = dialog.findViewById(R.id.db_ok);
+        db_ok.setOnClickListener(v -> dialog.dismiss());
+        db_ok.setSoundListener(getAct());
 
         dialog.show();
     }

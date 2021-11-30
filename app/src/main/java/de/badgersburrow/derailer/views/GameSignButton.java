@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.objects.SoundListener;
 
 public class GameSignButton extends RelativeLayout {
 
@@ -30,6 +31,7 @@ public class GameSignButton extends RelativeLayout {
 
     private ImageView iv_sign, iv_shadow;
 
+    private SoundListener listener;
 
     public GameSignButton(Context context) {
         super(context);
@@ -55,6 +57,10 @@ public class GameSignButton extends RelativeLayout {
 
     public GameSignButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public void setSoundListener(SoundListener soundListener){
+        this.listener = soundListener;
     }
 
     public void initView(){
@@ -89,7 +95,6 @@ public class GameSignButton extends RelativeLayout {
 
     public void setImageRotation(float rot_x, float rot_y){
 
-
         iv_sign.setRotationX(rot_x);
         iv_shadow.setRotationX(rot_x);
 
@@ -101,6 +106,10 @@ public class GameSignButton extends RelativeLayout {
     public boolean onTouchEvent(MotionEvent event) {
 
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (listener != null && isEnabled()){
+                listener.playSoundSign();
+            }
+
             switch(position){
                 case start:
                     setImageRotation(0,-20);
@@ -133,7 +142,4 @@ public class GameSignButton extends RelativeLayout {
 
         return bitmap;
     }
-
-
-
 }

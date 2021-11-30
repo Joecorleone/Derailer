@@ -3,6 +3,9 @@ package de.badgersburrow.derailer.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
+
+import de.badgersburrow.derailer.objects.SoundListener;
 
 public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
 
@@ -11,6 +14,8 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
     private int res_disabled = -1;
     private int res_pressed = -1;
     private int res_normal = -1;
+
+    private SoundListener listener;
 
     public GameTextButton(Context context) {
         super(context);
@@ -22,6 +27,10 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
 
     public GameTextButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public void setSoundListener(SoundListener soundListener){
+        this.listener = soundListener;
     }
 
     public void setDrawableNormal(int resId){
@@ -36,6 +45,20 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
         res_pressed = resId;
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (listener != null && isEnabled()){
+                listener.playSoundButton();
+            }
+
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+
+        }
+
+        return super.onTouchEvent(event);
+    }
 
     @Override
     protected void drawableStateChanged() {
@@ -55,6 +78,6 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
                 setBackgroundResource(res_disabled);
             }
         }
-
     }
+
 }

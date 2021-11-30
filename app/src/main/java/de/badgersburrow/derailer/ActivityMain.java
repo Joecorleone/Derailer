@@ -18,9 +18,10 @@ import androidx.navigation.Navigation;
 
 import java.util.HashMap;
 
+import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.objects.SoundRef;
 
-public class ActivityMain extends AppCompatActivity{
+public class ActivityMain extends AppCompatActivity implements SoundListener {
 
     SharedPreferences SP;
     SharedPreferences.Editor SPE;
@@ -102,8 +103,12 @@ public class ActivityMain extends AppCompatActivity{
         soundLoad(R.raw.sound_sign01,1);
         soundLoad(R.raw.sound_explosion01,1);
         soundLoad(R.raw.sound_swipe01,1);
+        soundLoad(R.raw.sound_swipe02,1);
         soundLoad(R.raw.sound_klonk01,1);
         soundLoad(R.raw.sound_option01,1);
+        soundLoad(R.raw.sound_dialog01,1);
+        soundLoad(R.raw.sound_metal_pickup01,1);
+        soundLoad(R.raw.sound_metal_drop02,1);
         soundLoad(R.raw.sound_train_elec01,1);
         soundLoad(R.raw.sound_train_steam01,1);
         soundLoad(R.raw.sound_car_vintage01,1);
@@ -163,6 +168,26 @@ public class ActivityMain extends AppCompatActivity{
     // When a switch is changed
     public void playSoundToggle(){
         playSoundEffect(R.raw.sound_klonk01, false);
+    }
+
+    // When a switch is changed
+    public void playSoundSwosh(){
+        playSoundEffect(R.raw.sound_swipe02, false);
+    }
+
+    // When is picked up
+    public void playSoundPickup(){
+        playSoundEffect(R.raw.sound_metal_pickup01, false);
+    }
+
+    // When a is dropped on cart
+    public void playSoundDrop(){
+        playSoundEffect(R.raw.sound_metal_drop02, false);
+    }
+
+    // When a dialog is closed
+    public void playSoundDialog(){
+        playSoundEffect(R.raw.sound_dialog01, false);
     }
 
 

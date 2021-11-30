@@ -81,8 +81,8 @@
         android:layout_alignParentBottom="true">
 
 
-        <Button
-            android:id="@+id/bt_back"
+        <de.badgersburrow.derailer.views.GameButton
+            android:id="@+id/gb_back"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"

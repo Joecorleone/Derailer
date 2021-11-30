@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.badgersburrow.derailer.objects.SoundListener;
+
 public class ButtonRecyclerView extends RecyclerView {
 
     Button bt_top;
@@ -25,6 +27,8 @@ public class ButtonRecyclerView extends RecyclerView {
     int wait = 100;
 
     Timer timer;
+
+    SoundListener listener;
 
 
 
@@ -59,12 +63,19 @@ public class ButtonRecyclerView extends RecyclerView {
         }
     }
 
+    public void setListener(SoundListener listener) {
+        this.listener = listener;
+    }
+
     public void setBt_top(Button bt_top) {
         this.bt_top = bt_top;
         this.bt_top.setOnTouchListener((v, event) -> {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 startScrolling(0, speed);
                 v.setPressed(true);
+                if (listener != null){
+                    listener.playSoundButton();
+                }
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 stopScrolling();
                 v.setPressed(false);
@@ -81,6 +92,10 @@ public class ButtonRecyclerView extends RecyclerView {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 startScrolling(-speed, 0);
                 v.setPressed(true);
+                if (listener != null){
+                    listener.playSoundButton();
+                }
+
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 stopScrolling();
                 v.setPressed(false);
@@ -97,6 +112,9 @@ public class ButtonRecyclerView extends RecyclerView {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 startScrolling(speed, 0);
                 v.setPressed(true);
+                if (listener != null){
+                    listener.playSoundButton();
+                }
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 stopScrolling();
                 v.setPressed(false);
@@ -113,6 +131,9 @@ public class ButtonRecyclerView extends RecyclerView {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 startScrolling(0, -speed);
                 v.setPressed(true);
+                if (listener != null){
+                    listener.playSoundButton();
+                }
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 stopScrolling();
                 v.setPressed(false);
