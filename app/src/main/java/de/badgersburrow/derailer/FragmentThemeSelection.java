@@ -99,6 +99,7 @@ public class FragmentThemeSelection extends Fragment implements AdapterTheme.The
         selectedThemeId = position;
         getAct().SPE.putInt("theme",position);
         getAct().SPE.commit();
+        getAct().playSoundHorn(position);
 
         for (int i = 0; i < themes.size(); i++){
             themes.get(i).setSelected(position == i);

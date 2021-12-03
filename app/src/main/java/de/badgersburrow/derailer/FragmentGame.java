@@ -93,6 +93,12 @@ public class FragmentGame extends Fragment implements OnClickListener{
         });
         gb_back.setSoundListener(getAct());
 
+        GameButton gb_horn = rootView.findViewById(R.id.gb_horn);
+        gb_horn.setOnClickListener(view -> {
+            getAct().playSoundHorn(selectedThemeId);
+        });
+        gb_horn.setSoundListener(getAct());
+
 
         GameTextButton bt_play = rootView.findViewById(R.id.bt_play);
         bt_play.setDrawableDisabled(R.drawable.button_play_state01);

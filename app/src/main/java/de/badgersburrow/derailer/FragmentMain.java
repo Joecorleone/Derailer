@@ -3,6 +3,7 @@ package de.badgersburrow.derailer;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -60,9 +61,27 @@ public class FragmentMain extends Fragment implements OnClickListener {
         bLocal = rootView.findViewById(R.id.bLocal);
         bLocal.setOnClickListener(this);
         bLocal.setTypeface(ActivityMain.customtf_normal);
+        bLocal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    getAct().playSoundThump();
+                }
+                return false;
+            }
+        });
         bTheme = rootView.findViewById(R.id.bTheme);
         bTheme.setOnClickListener(this);
         bTheme.setTypeface(ActivityMain.customtf_normal);
+        bTheme.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    getAct().playSoundThump();
+                }
+                return false;
+            }
+        });
 
         Display display = getAct().getWindowManager().getDefaultDisplay();
         Point size = new Point(); display.getSize(size);

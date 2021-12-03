@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.objects.SoundRef;
+import de.badgersburrow.derailer.objects.SoundTheme;
 
 public class ActivityMain extends AppCompatActivity implements SoundListener {
 
@@ -41,7 +42,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     private float volume;
 
     private HashMap<Integer, SoundRef> soundRefs;
-    private HashMap<Integer, Integer> soundMoveThemeToRes;
+    private HashMap<Integer, SoundTheme> soundThemes;
 
 
     @Override
@@ -105,21 +106,18 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         soundLoad(R.raw.sound_swipe01,1);
         soundLoad(R.raw.sound_swipe02,1);
         soundLoad(R.raw.sound_klonk01,1);
+        soundLoad(R.raw.sound_thump01,1);
         soundLoad(R.raw.sound_option01,1);
         soundLoad(R.raw.sound_dialog01,1);
         soundLoad(R.raw.sound_metal_pickup01,1);
         soundLoad(R.raw.sound_metal_drop02,1);
-        soundLoad(R.raw.sound_train_elec01,1);
-        soundLoad(R.raw.sound_train_steam01,1);
-        soundLoad(R.raw.sound_car_vintage01,1);
-        soundLoad(R.raw.sound_car_cadillac01,1);
 
-        // moving sounds for themes
-        soundMoveThemeToRes = new HashMap<>();
-        soundMoveThemeToRes.put(0, R.raw.sound_train_steam01);
-        soundMoveThemeToRes.put(1, R.raw.sound_train_elec01);
-        soundMoveThemeToRes.put(2, R.raw.sound_car_vintage01);
-        soundMoveThemeToRes.put(3, R.raw.sound_car_cadillac01);
+        // combine sounds for themes
+        soundThemes = new HashMap<>();
+        soundThemes.put(0, new SoundTheme(0, this, this.soundPool, R.raw.sound_train_steam01, R.raw.sound_horn_steam01));
+        soundThemes.put(1, new SoundTheme(1, this, this.soundPool, R.raw.sound_train_elec01, R.raw.sound_horn_elec01));
+        soundThemes.put(2, new SoundTheme(2, this, this.soundPool, R.raw.sound_car_vintage01, R.raw.sound_horn_vintage01));
+        soundThemes.put(3, new SoundTheme(3, this, this.soundPool, R.raw.sound_car_cadillac01, R.raw.sound_horn_cadillac01));
     }
 
     private void soundLoad(int resId, int priority){
@@ -175,12 +173,17 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         playSoundEffect(R.raw.sound_swipe02, false);
     }
 
+    // When a menu item is selected
+    public void playSoundThump(){
+        playSoundEffect(R.raw.sound_thump01, false);
+    }
+
     // When is picked up
     public void playSoundPickup(){
         playSoundEffect(R.raw.sound_metal_pickup01, false);
     }
 
-    // When a is dropped on cart
+    // When a player is dropped on cart
     public void playSoundDrop(){
         playSoundEffect(R.raw.sound_metal_drop02, false);
     }
@@ -188,6 +191,20 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     // When a dialog is closed
     public void playSoundDialog(){
         playSoundEffect(R.raw.sound_dialog01, false);
+    }
+
+    // When a dialog is closed
+    public void playSoundHorn(int theme){
+        if (soundThemes.containsKey(theme) && SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default)){
+            soundThemes.get(theme).playHorn(soundPool, volume);
+        }
+    }
+
+    public int playSoundMoving(int theme){
+        if (soundThemes.containsKey(theme) && SP.getBoolean(Keys.setting_sfx, Keys.setting_sfx_default)){
+            return soundThemes.get(theme).playMoving(soundPool, volume);
+        }
+        return 0;
     }
 
 
@@ -201,13 +218,6 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
             } else {
                 return this.soundPool.play(soundRefs.get(resId).getSoundId(),leftVolumn, rightVolumn, 1, 0, 1f);
             }
-        }
-        return 0;
-    }
-
-    public int playSoundMoving(int theme){
-        if (soundMoveThemeToRes.containsKey(theme)){
-            return playSoundEffect( soundMoveThemeToRes.get(theme), true);
         }
         return 0;
     }
