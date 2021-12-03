@@ -22,6 +22,8 @@
     <dimen name="player_icon_size">100dp</dimen>
     <dimen name="player_indicator_size">60dp</dimen>
 
+    <dimen name="game_button">130dp</dimen>
+
     <dimen name="sign_height">226dp</dimen>
     <dimen name="sign_width_exit">192dp</dimen>
     <dimen name="sign_width_play">189.6dp</dimen>

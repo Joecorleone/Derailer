@@ -83,16 +83,16 @@
 
         <de.badgersburrow.derailer.views.GameButton
             android:id="@+id/gb_back"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/game_button"
+            android:layout_height="@dimen/game_button"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:background="@drawable/button_exit_state" />
 
         <de.badgersburrow.derailer.views.GameButton
             android:id="@+id/gb_horn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/game_button"
+            android:layout_height="@dimen/game_button"
             android:background="@drawable/button_horn_state" />
 
         <de.badgersburrow.derailer.views.GameTextButton
