@@ -123,6 +123,8 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
         bExit.setOnClickListener(this);
         bExit.setSoundListener(getAct());
 
+        getAct().playSoundVictory();
+
         return rootView;
     }
 

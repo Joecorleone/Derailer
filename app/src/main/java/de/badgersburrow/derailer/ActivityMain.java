@@ -111,6 +111,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         soundLoad(R.raw.sound_dialog01,1);
         soundLoad(R.raw.sound_metal_pickup01,1);
         soundLoad(R.raw.sound_metal_drop02,1);
+        soundLoad(R.raw.sound_victory01,1);
 
         // combine sounds for themes
         soundThemes = new HashMap<>();
@@ -191,6 +192,11 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     // When a dialog is closed
     public void playSoundDialog(){
         playSoundEffect(R.raw.sound_dialog01, false);
+    }
+
+    // When a dialog is closed
+    public void playSoundVictory(){
+        playSoundEffect(R.raw.sound_victory01, false);
     }
 
     // When a dialog is closed
