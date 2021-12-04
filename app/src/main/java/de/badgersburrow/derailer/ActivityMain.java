@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import de.badgersburrow.derailer.objects.SoundListener;
@@ -30,8 +32,8 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     public static Typeface customtf_normal;
     public static Typeface customtf_bold;
 
+    MediaPlayer mediaPlayer;
     private SoundPool soundPool;
-
     private AudioManager audioManager;
     // Maximumn sound stream.
     private static final int MAX_STREAMS = 5;
@@ -119,6 +121,8 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         soundThemes.put(1, new SoundTheme(1, this, this.soundPool, R.raw.sound_train_elec01, R.raw.sound_horn_elec01));
         soundThemes.put(2, new SoundTheme(2, this, this.soundPool, R.raw.sound_car_vintage01, R.raw.sound_horn_vintage01));
         soundThemes.put(3, new SoundTheme(3, this, this.soundPool, R.raw.sound_car_cadillac01, R.raw.sound_horn_cadillac01));
+
+
     }
 
     private void soundLoad(int resId, int priority){
@@ -137,6 +141,38 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         //if (soundRefs.containsKey(resId)){
         //    soundRefs.get(resId).setLoaded(true);
         //}
+    }
+
+
+    public void prepareMusic(){
+        mediaPlayer = MediaPlayer.create(this, R.raw.music_background01);
+        mediaPlayer.setLooping(true); // Set looping
+        mediaPlayer.setVolume(volume*.5f, volume*.5f);
+    }
+
+
+    public void playMusic(){
+        if (mediaPlayer == null){
+            prepareMusic();
+        }
+        if (mediaPlayer != null){
+            mediaPlayer.start();
+        }
+
+    }
+
+    public void pauseMusic(){
+        if (mediaPlayer != null){
+            mediaPlayer.pause();
+        }
+    }
+
+    public void stopMusic(){
+        if (mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     // When users click on a button
@@ -271,5 +307,21 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (SP.getBoolean(Keys.setting_music, Keys.setting_music_default)) {
+            playMusic();
+        }
+    }
+
+
+
+    @Override
+    public void onPause(){
+        stopMusic();
+        super.onPause();
     }
 }

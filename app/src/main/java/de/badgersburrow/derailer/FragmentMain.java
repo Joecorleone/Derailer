@@ -164,6 +164,13 @@ public class FragmentMain extends Fragment implements OnClickListener {
             getAct().playSoundSwitch();
             getAct().SPE.putBoolean(Keys.setting_music, b);
             getAct().SPE.apply();
+
+            if(b){
+                getAct().playMusic();
+            } else {
+                getAct().pauseMusic();
+            }
+
         });
 
         SwitchCompat cb_sfx = dialog.findViewById(R.id.sw_sfx);
