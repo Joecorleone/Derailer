@@ -9,6 +9,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -17,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import de.badgersburrow.derailer.objects.SoundListener;
@@ -25,6 +25,8 @@ import de.badgersburrow.derailer.objects.SoundRef;
 import de.badgersburrow.derailer.objects.SoundTheme;
 
 public class ActivityMain extends AppCompatActivity implements SoundListener {
+
+    private final static String TAG = "ActivityMain";
 
     SharedPreferences SP;
     SharedPreferences.Editor SPE;
@@ -144,30 +146,56 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     }
 
 
-    public void prepareMusic(){
+    public void musicPrepare(){
         mediaPlayer = MediaPlayer.create(this, R.raw.music_background01);
         mediaPlayer.setLooping(true); // Set looping
-        mediaPlayer.setVolume(volume*.5f, volume*.5f);
+        //mediaPlayer.setVolume(volume*.5f, volume*.5f);
+        musicVolume();
     }
 
 
-    public void playMusic(){
+    public void musicPlay(){
         if (mediaPlayer == null){
-            prepareMusic();
+            musicPrepare();
         }
         if (mediaPlayer != null){
             mediaPlayer.start();
         }
-
     }
 
-    public void pauseMusic(){
+    public void musicVolume(){
+        int v = Keys.setting_music_volume_default;
+        try {
+            v = SP.getInt(Keys.setting_music_volume, Keys.setting_music_volume_default);
+        }catch (ClassCastException e){
+            Log.d(TAG, "setting_music_volume - wrong val");
+        }
+        if (mediaPlayer != null){
+            mediaPlayer.setVolume(volume*v/100,volume*v/100);
+            if (v <= 0){
+                mediaPlayer.pause();
+            } else if (!mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+            }
+        }
+    }
+    public void musicVolume(int v){
+        if (mediaPlayer != null){
+            mediaPlayer.setVolume(volume*v/100,volume*v/100);
+            if (v <= 0){
+                mediaPlayer.pause();
+            } else if (!mediaPlayer.isPlaying()) {
+                mediaPlayer.start();
+            }
+        }
+    }
+    public void musicPause(){
         if (mediaPlayer != null){
             mediaPlayer.pause();
         }
     }
 
-    public void stopMusic(){
+    public void musicStop(){
         if (mediaPlayer != null){
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -313,7 +341,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     public void onResume(){
         super.onResume();
         if (SP.getBoolean(Keys.setting_music, Keys.setting_music_default)) {
-            playMusic();
+            musicPlay();
         }
     }
 
@@ -321,7 +349,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
 
     @Override
     public void onPause(){
-        stopMusic();
+        musicStop();
         super.onPause();
     }
 }

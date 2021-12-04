@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_carts_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,11 +137,11 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_small"
                 android:adjustViewBounds="true"
+                android:background="@drawable/button_left_state"
                 android:cropToPadding="true"
-                android:elevation="@dimen/elevation"
-                android:background="@drawable/button_left_state" />
+                android:elevation="@dimen/elevation" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_carts_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

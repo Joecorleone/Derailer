@@ -1,20 +1,18 @@
 package de.badgersburrow.derailer;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Typeface;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.transition.TransitionSet;
 
 import android.graphics.drawable.ColorDrawable;
-import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,13 +20,11 @@ import android.view.View.OnClickListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
-import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.views.DialogButton;
 import de.badgersburrow.derailer.views.GameSignButton;
 
@@ -70,6 +66,8 @@ public class FragmentMain extends Fragment implements OnClickListener {
                 return false;
             }
         });
+        bLocal.setBackgroundResource(R.drawable.menu_cart01);
+
         bTheme = rootView.findViewById(R.id.bTheme);
         bTheme.setOnClickListener(this);
         bTheme.setTypeface(ActivityMain.customtf_normal);
@@ -82,6 +80,7 @@ public class FragmentMain extends Fragment implements OnClickListener {
                 return false;
             }
         });
+        bTheme.setBackgroundResource(R.drawable.menu_cart02);
 
         Display display = getAct().getWindowManager().getDefaultDisplay();
         Point size = new Point(); display.getSize(size);
@@ -148,6 +147,13 @@ public class FragmentMain extends Fragment implements OnClickListener {
         }
     }
 
+
+    /*
+    android:text="@string/music"
+    app:track="@drawable/switch_track"
+    android:thumb="@drawable/switch_thumb"
+     */
+
     public void showDialog() {
 
         final Dialog dialog = new Dialog(getContext(), R.style.AlertDialogCustom);
@@ -155,22 +161,66 @@ public class FragmentMain extends Fragment implements OnClickListener {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         TextView tv_title = dialog.findViewById(R.id.tv_title);
+        TextView tv_music = dialog.findViewById(R.id.tv_music);
         tv_title.setTypeface(ActivityMain.customtf_normal);
+        tv_music.setTypeface(ActivityMain.customtf_normal);
 
-        SwitchCompat cb_music = dialog.findViewById(R.id.sw_music);
-        cb_music.setTypeface(ActivityMain.customtf_normal);
-        cb_music.setChecked(getAct().SP.getBoolean(Keys.setting_music, Keys.setting_music_default));
-        cb_music.setOnCheckedChangeListener((compoundButton, b) -> {
-            getAct().playSoundSwitch();
-            getAct().SPE.putBoolean(Keys.setting_music, b);
-            getAct().SPE.apply();
 
-            if(b){
-                getAct().playMusic();
+        AppCompatSeekBar sb_music = dialog.findViewById(R.id.sb_music);
+        //sl_music.setTypeface(ActivityMain.customtf_normal);
+        //sl_music.setChecked(getAct().SP.getBoolean(Keys.setting_music, Keys.setting_music_default));
+        try {
+            int v = getAct().SP.getInt(Keys.setting_music_volume, Keys.setting_music_volume_default);
+            sb_music.setProgress(v);
+            if (v==0){
+                sb_music.setThumb(getResources().getDrawable(R.drawable.switch_thumb_unchecked));
             } else {
-                getAct().pauseMusic();
+                sb_music.setThumb(getResources().getDrawable(R.drawable.switch_thumb_checked));
+            }
+        }catch (ClassCastException e){
+        }
+
+        sb_music.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress==0 && progressChangedValue>0){
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.switch_thumb_unchecked));
+                } else if (progressChangedValue == 0){
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.switch_thumb_checked));
+                }
+
+                progressChangedValue = progress;
+                getAct().SPE.putFloat(Keys.setting_music_volume, progress);
+                getAct().SPE.apply();
+                getAct().musicVolume(progress);
+
+                if (progress==0){
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.switch_thumb_unchecked));
+                } else {
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.switch_thumb_checked));
+                }
             }
 
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
+                //        Toast.LENGTH_SHORT).show();
+            }
+        });
+        sb_music.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        getAct().playSoundSwitch();
+                        break;
+                }
+                return false;
+            }
         });
 
         SwitchCompat cb_sfx = dialog.findViewById(R.id.sw_sfx);

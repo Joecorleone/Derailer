@@ -33,7 +33,8 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/menu_background01">
-            <Button
+            
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bLocal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +44,8 @@
                 android:textSize="@dimen/menu_text_size"
                 android:textColor="@color/textColor"
                 android:gravity="center"
-                android:background="@drawable/menu_cart01" />
+                android:background="@drawable/menu_cart01"
+                app:backgroundTint="@null"/>
         </RelativeLayout>
 
 
@@ -55,16 +57,18 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/menu_background02">
-            <Button
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/menu_cart02"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
                 android:text="@string/theme_with_spaces"
                 android:textColor="@color/textColor"
-                android:fontFamily="sans-serif"
                 android:textSize="@dimen/menu_text_size"
-                android:gravity="center"/>
+                app:backgroundTint="@null"/>
         </RelativeLayout>
     </LinearLayout>
 

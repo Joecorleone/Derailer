@@ -6,8 +6,10 @@ public class Keys {
 
     // settings start
     public final static String setting_music = "setting_music";
+    public final static String setting_music_volume = "setting_music_volume";
     public final static String setting_sfx = "setting_sfx";
     public final static boolean setting_music_default = true;
+    public final static int setting_music_volume_default = 50;
     public final static boolean setting_sfx_default = true;
 
 

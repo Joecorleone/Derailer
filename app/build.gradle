@@ -9,8 +9,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 31
         vectorDrawables.useSupportLibrary = true
-        versionCode 14
-        versionName "1.14"
+        versionCode 15
+        versionName "1.15"
     }
 
     sourceSets{
@@ -38,7 +38,7 @@ task wrapper(type: Wrapper) {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.appcompat:appcompat:1.4.0'

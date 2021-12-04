@@ -3,7 +3,7 @@
     <item android:state_checked="false">
         <shape android:shape="line">
             <stroke
-                android:width="3dp"
+                android:width="4dp"
                 android:color="@color/switch_track" />
         </shape>
     </item>
@@ -11,7 +11,7 @@
     <item android:state_checked="true">
         <shape android:shape="line">
             <stroke
-                android:width="3dp"
+                android:width="4dp"
                 android:color="@color/switch_track" />
         </shape>
     </item>
