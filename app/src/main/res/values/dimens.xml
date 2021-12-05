@@ -37,6 +37,8 @@
     <dimen name="cart_theme_height">75dp</dimen>
     <dimen name="cart_settings_width">50dp</dimen>
 
+    <dimen name="option_info">40dp</dimen>
+
     <dimen name="dialog_close_size">48dp</dimen>
 
 

@@ -2,8 +2,6 @@ package de.badgersburrow.derailer;
 
 import android.app.Dialog;
 import android.content.ClipData;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -17,8 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -31,9 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.badgersburrow.derailer.adapters.AdapterCart;
 import de.badgersburrow.derailer.adapters.AdapterOptions;
 import de.badgersburrow.derailer.adapters.AdapterPlayers;
-import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.views.DialogButton;
-import de.badgersburrow.derailer.views.GameTextButton;
 import de.badgersburrow.derailer.views.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
@@ -165,15 +159,15 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
         //draw
         SettingCard setting_draw = new SettingCard(getContext(), Keys.option_draw);
-        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_fill, getString(R.string.option_draw_01), R.drawable.option_draw_01));
-        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_new, getString(R.string.option_draw_02), R.drawable.option_draw_02));
+        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_fill, getString(R.string.option_draw_01), R.drawable.option_draw_fill));
+        setting_draw.addChoice(new SettingCard.Choice(Keys.option_draw_new, getString(R.string.option_draw_02), R.drawable.option_draw_new));
         setting_draw.init(getString(R.string.option_draw), Keys.option_draw_new);
         settingCards.add(setting_draw);
 
         //order
         SettingCard setting_order = new SettingCard(getContext(), Keys.option_order);
-        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_same, getString(R.string.option_order_01), R.drawable.option_order_01));
-        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_random, getString(R.string.option_order_02), R.drawable.option_order_02));
+        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_same, getString(R.string.option_order_01), R.drawable.option_order_same));
+        setting_order.addChoice(new SettingCard.Choice(Keys.option_order_random, getString(R.string.option_order_02), R.drawable.option_order_random));
         setting_order.init(getString(R.string.option_order), Keys.option_order_same);
         settingCards.add(setting_order);
 
@@ -186,15 +180,15 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
         //order
         SettingCard setting_victory = new SettingCard(getContext(), Keys.option_victory);
-        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_last, getString(R.string.option_victory_last), R.drawable.option_victory_01));
-        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_distance, getString(R.string.option_victory_dist), R.drawable.option_victory_02));
+        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_last, getString(R.string.option_victory_last), R.drawable.option_victory_last));
+        setting_victory.addChoice(new SettingCard.Choice(Keys.option_victory_distance, getString(R.string.option_victory_dist), R.drawable.option_victory_distance));
         setting_victory.init(getString(R.string.option_victory), Keys.option_victory_last);
         settingCards.add(setting_victory);
 
         //collision
         SettingCard setting_collision = new SettingCard(getContext(), Keys.option_collision);
-        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_on, getString(R.string.option_collision_on), R.drawable.option_collision_02));
-        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_off, getString(R.string.option_collision_off), R.drawable.option_collision_01));
+        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_on, getString(R.string.option_collision_on), R.drawable.option_collision_on));
+        setting_collision.addChoice(new SettingCard.Choice(Keys.option_collision_off, getString(R.string.option_collision_off), R.drawable.option_collision_off));
         setting_collision.init(getString(R.string.option_collision), Keys.option_collision_on);
         settingCards.add(setting_collision);
 

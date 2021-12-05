@@ -71,8 +71,24 @@
     </RelativeLayout>
 
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_control"
+        android:layout_marginStart="@dimen/activity_horizontal_margin_large"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin_large"
+        android:background="@drawable/train_bottom_info_bg">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bottom_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <LinearLayout
+        android:id="@+id/ll_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

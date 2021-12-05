@@ -20,7 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import de.badgersburrow.derailer.adapters.AdapterOptionsInfo;
 import de.badgersburrow.derailer.objects.AnimationPath;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.sprites.PlayerSprite;
@@ -86,6 +89,13 @@ public class FragmentGame extends Fragment implements OnClickListener{
         tv_n_textbottom = rootView.findViewById(R.id.tv_n_textbottom);
 
         showNotification(theGameView.playerSprites.get(0));
+
+        RecyclerView rv_bottom_info = rootView.findViewById(R.id.rv_bottom_info);
+        rv_bottom_info.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        rv_bottom_info.setAdapter(new AdapterOptionsInfo(options));
+
+
+
 
         GameButton gb_back = rootView.findViewById(R.id.gb_back);
         gb_back.setOnClickListener(view -> {

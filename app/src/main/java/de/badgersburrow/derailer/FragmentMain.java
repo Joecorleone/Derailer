@@ -191,7 +191,7 @@ public class FragmentMain extends Fragment implements OnClickListener {
                 }
 
                 progressChangedValue = progress;
-                getAct().SPE.putFloat(Keys.setting_music_volume, progress);
+                getAct().SPE.putInt(Keys.setting_music_volume, progress);
                 getAct().SPE.apply();
                 getAct().musicVolume(progress);
 
