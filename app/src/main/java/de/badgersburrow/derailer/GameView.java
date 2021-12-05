@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.core.util.Pair;
 
@@ -543,6 +541,9 @@ public class GameView extends SurfaceView {
         ArrayList<Pair<Integer,Integer>> positions = new ArrayList<>();
         for (PlayerSprite sprite : playerSprites) {
             if (sprite.isAlive()) {
+                if (currentPlayer == sprite.id()){
+                    sprite.drawIndicator(canvas);
+                }
                 sprite.onDraw(canvas);
                 positions.add(sprite.getCenter());
             } else {

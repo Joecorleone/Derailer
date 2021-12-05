@@ -19,6 +19,8 @@ import com.snatik.polygon.Polygon;
 
 import de.badgersburrow.derailer.FragmentGame;
 import de.badgersburrow.derailer.GameView;
+import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.Utilities;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 import de.badgersburrow.derailer.objects.PlayerResult;
@@ -34,12 +36,17 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
     private static String TAG = "Player";
     private static int counter = 0;
 
+
+
     public ArrayList<ChoiceCardSprite> choiceCards;
 
     private Bitmap bmp_color;
+    private Bitmap bmp_indicator;
     GameView gameView;
     private int screenWidth;
     private int width;
+
+    float indicator_angle = 0;
 
     int xIndex = -1;
     int yIndex = -1;
@@ -87,6 +94,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
         this.bmp_color = theme.getCart_color();
+        this.bmp_indicator = Utilities.drawableToBitmap(gameView.getContext().getDrawable(R.drawable.player_indicator));
         this.collisionRect = theme.getCollisionRect();
         this.virtual = false;
 
@@ -98,6 +106,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         this.moveSteps = gameView.getMoveSteps();
         this.currentStep = gameView.getMoveSteps();
         this.scaleFactor = gameView.getScaleFactor();
+
     }
 
     public int id(){
@@ -286,6 +295,27 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             setCollisionPolygon(rectCorners);
 
             this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
+        }
+    }
+
+    public void drawIndicator(Canvas canvas){
+        if (cur_centerX != -1){
+            indicator_angle = (indicator_angle+25)%360;
+            int scaledWidth = Math.round(scaleFactor* bmp_indicator.getWidth());
+            int scaledHeight = Math.round(scaleFactor* bmp_indicator.getHeight());
+
+
+
+            int posX = cur_centerX - scaledWidth/2;
+            int posY = cur_centerY - scaledHeight/2;
+
+
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(scaleFactor,scaleFactor);
+            matrix.postRotate(indicator_angle, scaledWidth/2, scaledHeight/2);
+            matrix.postTranslate(posX,posY);
+            canvas.drawBitmap(bmp_indicator, matrix, color_paint);
         }
     }
 
