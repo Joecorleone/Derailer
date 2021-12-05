@@ -553,22 +553,22 @@ public class GameView extends SurfaceView {
         if (options.contains(Keys.option_collision_on)){
             for (int i = 0; i < playerSprites.size(); i ++ ) {
                 if (positions.get(i).first == -1) continue;
+                PlayerSprite playerFirst = playerSprites.get(i);
                 for (int j = i + 1; j < playerSprites.size(); j ++ ) {
                     if (positions.get(j).first == -1) continue;
+                    PlayerSprite playerSecond = playerSprites.get(j);
 
-                    if (Math.abs(positions.get(i).second - positions.get(j).second) < collisionDistance){
-                        if (Math.abs(positions.get(i).first - positions.get(j).first) < collisionDistance){
-                            playerSprites.get(i).kill();
-                            fragmentGame.showNotification(playerSprites.get(i));
-                            playerSprites.get(j).kill();
-                            fragmentGame.showNotification(playerSprites.get(j));
-                            Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
-                            Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
-                            addExplosion(
-                                    (positions.get(i).first + positions.get(j).first)/2,
-                                    (positions.get(i).second + positions.get(j).second)/2);
-                            checkForGameOver();
-                        }
+                    if (playerFirst.collides(playerSecond)){
+                        playerSprites.get(i).kill();
+                        fragmentGame.showNotification(playerSprites.get(i));
+                        playerSprites.get(j).kill();
+                        fragmentGame.showNotification(playerSprites.get(j));
+                        Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
+                        Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
+                        addExplosion(
+                                (positions.get(i).first + positions.get(j).first)/2,
+                                (positions.get(i).second + positions.get(j).second)/2);
+                        checkForGameOver();
                     }
                 }
             }

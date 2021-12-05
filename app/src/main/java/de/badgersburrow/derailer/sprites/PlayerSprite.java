@@ -3,12 +3,20 @@ package de.badgersburrow.derailer.sprites;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import androidx.core.util.Pair;
+
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
+
+import com.snatik.polygon.Line;
+import com.snatik.polygon.Point;
+import com.snatik.polygon.Polygon;
 
 import de.badgersburrow.derailer.FragmentGame;
 import de.badgersburrow.derailer.GameView;
@@ -67,6 +75,9 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
     private MoveAnimSecondary animSecondary;
     private float scaleFactor;
 
+    private Rect collsionRect;
+    private com.snatik.polygon.Polygon collisionPolygon;
+
     private int _id;
 
     public PlayerSprite(GameView gameView, GameTheme theme, int num, int color, int tiles){
@@ -77,6 +88,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
         this.bmp_color = theme.getCart_color();
+        this.collsionRect = theme.getCollisionRect();
         this.virtual = false;
 
         this.num = num;
@@ -152,6 +164,22 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             matrix.postTranslate(cur_centerX - scaledWidth / 2,cur_centerY - scaledHeight / 2);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp, matrix, null);
+
+            Paint collisionPaint = new Paint();
+            collisionPaint.setColor(Color.rgb(0,0,0));
+            collisionPaint.setStrokeWidth(5);
+            collisionPaint.setStyle(Paint.Style.STROKE);
+            float[] rectCorners = {
+                    collsionRect.left, collsionRect.top, //left, top
+                    collsionRect.right, collsionRect.top, //right, top
+                    collsionRect.right, collsionRect.bottom, //right, bottom
+                    collsionRect.left, collsionRect.bottom//left, bottom
+            };
+            matrix.mapPoints(rectCorners);
+            setCollisionPolygon(rectCorners);
+            canvas.drawPoints(rectCorners, collisionPaint);
+
+
 
             this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, angle);
             currentStep +=1;
@@ -240,8 +268,47 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             matrix.postTranslate(cur_centerX-scaledWidth/2,cur_centerY-scaledHeight/2);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp, matrix, null);
+
+            Paint collisionPaint = new Paint();
+            collisionPaint.setColor(Color.rgb(0,0,0));
+            collisionPaint.setStrokeWidth(3);
+            collisionPaint.setStyle(Paint.Style.STROKE);
+            RectF r2 = new RectF(this.collsionRect);
+            matrix.mapRect(r2);
+            canvas.drawRect(r2, collisionPaint);
+
+            float[] rectCorners = {
+                    collsionRect.left, collsionRect.top, //left, top
+                    collsionRect.right, collsionRect.top, //right, top
+                    collsionRect.right, collsionRect.bottom, //right, bottom
+                    collsionRect.left, collsionRect.bottom//left, bottom
+            };
+            matrix.mapPoints(rectCorners);
+            setCollisionPolygon(rectCorners);
+
             this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
         }
+    }
+
+    private void setCollisionPolygon(float[] corners){
+        Polygon.Builder b = new Polygon.Builder();
+        for (int i = 0; i< corners.length; i+=2){
+            b.addVertex(new Point(corners[i], corners[i+1]));
+        }
+        collisionPolygon = b.build();
+        b.close();
+    }
+
+    public boolean collides(PlayerSprite other){
+        if (collisionPolygon == null || other.collisionPolygon == null){
+            return false;
+        }
+        for (Line l : other.collisionPolygon.getSides()){
+            if (collisionPolygon.contains(l.getStart())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public Pair<Integer, Integer> getCenter(){

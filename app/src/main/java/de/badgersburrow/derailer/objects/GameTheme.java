@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.util.Log;
 
 import de.badgersburrow.derailer.GameView;
@@ -25,7 +26,9 @@ public class GameTheme {
     private int themeId;
     private Bitmap cart;
     private Bitmap cart_color;
+    private Rect collisionRect;
     private MoveAnimSecondary animSecondary;
+
 
     HashMap<Integer, Bitmap> card_top = new HashMap<>();
     HashMap<Integer, Bitmap> card_bottom = new HashMap<>();
@@ -281,6 +284,8 @@ public class GameTheme {
         cards_54761032_top.recycle();
         cards_72143650_top.recycle();
 
+        int height = cart.getHeight();
+        int width = cart.getWidth();
 
         switch(themeId) {
 
@@ -288,19 +293,30 @@ public class GameTheme {
                 // steam engine
                 animSecondary = new MoveAnimSecondary(R.drawable.smoke2,
                 5, 14, 0.8f, 0.0f, 1.0f, 6.0f, true, true, false);
+                collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.9*height));
                 break;
 
             case 1 :
                 // electric engine
                 animSecondary = new MoveAnimSecondary();
+                collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.95*height));
                 break;
 
             case 2 :
                 // vintage car
                 animSecondary = new MoveAnimSecondary();
+                collisionRect = new Rect((int)(0.20*width), (int)(0.1*height), (int)(0.85*width), (int)(0.9*height));
                 break;
+
+            case 3 :
+                // cadillac
+                animSecondary = new MoveAnimSecondary();
+                collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.95*width), (int)(0.9*height));
+                break;
+
             default :
                 animSecondary = new MoveAnimSecondary();
+                collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.9*height));
                 break;
         }
 
@@ -323,6 +339,10 @@ public class GameTheme {
 
     public Bitmap getCard_bottom(int cardId){
         return card_bottom.get(cardId);
+    }
+
+    public Rect getCollisionRect(){
+        return collisionRect;
     }
 
     public MoveAnimSecondary getMoveAnimSecondary(GameView gameView){
