@@ -3,7 +3,6 @@ package de.badgersburrow.derailer.sprites;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -75,7 +74,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
     private MoveAnimSecondary animSecondary;
     private float scaleFactor;
 
-    private Rect collsionRect;
+    private Rect collisionRect;
     private com.snatik.polygon.Polygon collisionPolygon;
 
     private int _id;
@@ -88,7 +87,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         this.gameView = gameView;
         this.animSecondary = theme.getMoveAnimSecondary(gameView);
         this.bmp_color = theme.getCart_color();
-        this.collsionRect = theme.getCollisionRect();
+        this.collisionRect = theme.getCollisionRect();
         this.virtual = false;
 
         this.num = num;
@@ -165,19 +164,19 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp, matrix, null);
 
-            Paint collisionPaint = new Paint();
-            collisionPaint.setColor(Color.rgb(0,0,0));
-            collisionPaint.setStrokeWidth(5);
-            collisionPaint.setStyle(Paint.Style.STROKE);
+            //Paint collisionPaint = new Paint();
+            //collisionPaint.setColor(Color.rgb(0,0,0));
+            //collisionPaint.setStrokeWidth(5);
+            //collisionPaint.setStyle(Paint.Style.STROKE);
             float[] rectCorners = {
-                    collsionRect.left, collsionRect.top, //left, top
-                    collsionRect.right, collsionRect.top, //right, top
-                    collsionRect.right, collsionRect.bottom, //right, bottom
-                    collsionRect.left, collsionRect.bottom//left, bottom
+                    collisionRect.left, collisionRect.top, //left, top
+                    collisionRect.right, collisionRect.top, //right, top
+                    collisionRect.right, collisionRect.bottom, //right, bottom
+                    collisionRect.left, collisionRect.bottom//left, bottom
             };
             matrix.mapPoints(rectCorners);
             setCollisionPolygon(rectCorners);
-            canvas.drawPoints(rectCorners, collisionPaint);
+            //canvas.drawPoints(rectCorners, collisionPaint);
 
 
 
@@ -269,19 +268,19 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp, matrix, null);
 
-            Paint collisionPaint = new Paint();
-            collisionPaint.setColor(Color.rgb(0,0,0));
-            collisionPaint.setStrokeWidth(3);
-            collisionPaint.setStyle(Paint.Style.STROKE);
-            RectF r2 = new RectF(this.collsionRect);
+            //Paint collisionPaint = new Paint();
+            //collisionPaint.setColor(Color.rgb(0,0,0));
+            //collisionPaint.setStrokeWidth(3);
+            //collisionPaint.setStyle(Paint.Style.STROKE);
+            RectF r2 = new RectF(this.collisionRect);
             matrix.mapRect(r2);
-            canvas.drawRect(r2, collisionPaint);
+            //canvas.drawRect(r2, collisionPaint);
 
             float[] rectCorners = {
-                    collsionRect.left, collsionRect.top, //left, top
-                    collsionRect.right, collsionRect.top, //right, top
-                    collsionRect.right, collsionRect.bottom, //right, bottom
-                    collsionRect.left, collsionRect.bottom//left, bottom
+                    collisionRect.left, collisionRect.top, //left, top
+                    collisionRect.right, collisionRect.top, //right, top
+                    collisionRect.right, collisionRect.bottom, //right, bottom
+                    collisionRect.left, collisionRect.bottom//left, bottom
             };
             matrix.mapPoints(rectCorners);
             setCollisionPolygon(rectCorners);
