@@ -234,8 +234,8 @@ public class FragmentGame extends Fragment implements OnClickListener{
 
     @Override
     public void onPause(){
-        super.onPause();
         theGameView.pauseThread();
+        super.onPause();
     }
     ActivityMain getAct(){
         return (ActivityMain) getActivity();

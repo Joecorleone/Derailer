@@ -304,12 +304,8 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             int scaledWidth = Math.round(scaleFactor* bmp_indicator.getWidth());
             int scaledHeight = Math.round(scaleFactor* bmp_indicator.getHeight());
 
-
-
             int posX = cur_centerX - scaledWidth/2;
             int posY = cur_centerY - scaledHeight/2;
-
-
 
             Matrix matrix = new Matrix();
             matrix.postScale(scaleFactor,scaleFactor);
