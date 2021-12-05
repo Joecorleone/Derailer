@@ -41,5 +41,6 @@
     <color name="salmon_pink">#FF7043</color>
     <color name="purple">#AB47BC</color>
     <color name="switch_track">#733311</color>
+    <color name="header_background">#333</color>
 
 </resources>

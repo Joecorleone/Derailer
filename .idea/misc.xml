@@ -41,14 +41,16 @@
         <entry key="app/src/main/res/layout/dialog_sound_setting.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_game.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_game_over.xml" value="0.12329234972677595" />
-        <entry key="app/src/main/res/layout/fragment_game_settings.xml" value="0.12329234972677595" />
+        <entry key="app/src/main/res/layout/fragment_game_settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.13217213114754098" />
+        <entry key="app/src/main/res/layout/fragment_theme_selection.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_over.xml" value="0.125" />
         <entry key="app/src/main/res/layout/game_sign_button.xml" value="1.1" />
         <entry key="app/src/main/res/layout/item_cart.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_option.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_option_info.xml" value="0.1359375" />
         <entry key="app/src/main/res/layout/item_player.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_spacer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_theme.xml" value="0.49119170984455957" />
         <entry key="app/src/main/res/layout/list_item_players.xml" value="0.125" />
         <entry key="app/src/main/res/layout/start_menu_v2.xml" value="0.22" />
@@ -65,6 +67,7 @@
         <entry key="app/src/main/tiles/drawable/sign_play_shadow.xml" value="0.16611842105263158" />
         <entry key="app/src/main/tiles/drawable/sign_sound.xml" value="0.16611842105263158" />
         <entry key="app/src/main/tiles/drawable/sign_sound_shadow.xml" value="0.16611842105263158" />
+        <entry key="app/src/main/tiles/drawable/train_header_holder.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -20,8 +20,11 @@
     <dimen name="sign_deviation_top">5dp</dimen>
     <dimen name="sign_deviation_bottom">-5dp</dimen>
     <dimen name="sign_offset">-10dp</dimen>
+    <dimen name="option_width">80dp</dimen>
     <item name="cart_scale" type="fraction">60%</item>
     <item name="card_flip_time_half" type="integer">150</item>
+
+    <dimen name="header_scroll_padding">32dp</dimen>
 
 
     <dimen name="player_icon_size">60dp</dimen>

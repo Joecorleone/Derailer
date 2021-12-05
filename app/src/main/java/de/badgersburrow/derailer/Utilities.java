@@ -1,12 +1,14 @@
 package de.badgersburrow.derailer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
@@ -63,6 +65,14 @@ public class Utilities {
         states.addState(new int[] { },
                 b.getContext().getResources().getDrawable(image_disabled));
         b.setBackground(states);
+    }
+
+    public static int calculateNoOfColumns(Context context, int width) {
+        float section_item_width = context.getResources().getDimension(R.dimen.option_width);
+        float border = context.getResources().getDimension(R.dimen.activity_horizontal_margin_small);
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = width / displayMetrics.density;
+        return Math.max(1,(int) (dpWidth / (section_item_width) * displayMetrics.density));
     }
 
 

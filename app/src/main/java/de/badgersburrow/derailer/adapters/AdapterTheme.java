@@ -20,12 +20,21 @@ import de.badgersburrow.derailer.objects.Theme;
 import java.util.ArrayList;
 
 
-public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHolder> {
+public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static String LOG_TAG = "AdapterFridge";
     private ArrayList<Theme> mThemes;
     private Context mContext;
     ThemeListener listener;
+
+    public static class Spacer extends RecyclerView.ViewHolder{
+
+
+        public Spacer(View itemView) {
+            super(itemView);
+
+        }
+    }
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         LinearLayoutCompat ll_theme, ll_theme_bg;
@@ -53,8 +62,13 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
     }
 
     @Override
-    public DataObjectHolder onCreateViewHolder(ViewGroup parent,
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                int viewType) {
+        if (viewType == 0){
+            return new Spacer(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_spacer, parent, false));
+        }
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_theme, parent, false);
 
@@ -62,23 +76,37 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
     }
 
     @Override
-    public void onBindViewHolder(final DataObjectHolder holder, final int position) {
-        holder.ll_theme.setTag(position);
-        holder.tv_title.setText(mThemes.get(position).getTitle(mContext));
-        holder.tv_title.setTypeface(ActivityMain.customtf_normal);
-        holder.iv_start.setImageDrawable(mThemes.get(position).getBackgroundResId(mContext));
-        holder.ll_theme_bg.setBackground(mThemes.get(position).getBackgroundResId(mContext));
-        holder.iv_theme.setImageDrawable(mThemes.get(position).getCartResId(mContext));
-        int color = mThemes.get(position).getThemeColorResId(mContext);
-        Drawable drawable_color = mThemes.get(position).getCartColorResId(mContext);
-        drawable_color.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        holder.iv_theme_color.setImageDrawable(drawable_color);
-        if (mThemes.get(position).isSelected()){
-            holder.iv_select.setVisibility(View.VISIBLE);
-        } else {
-            holder.iv_select.setVisibility(View.INVISIBLE);
+    public int getItemViewType(int pos){
+        if (pos == 0){
+            return 0;
         }
-        holder.ll_theme.setOnClickListener(v -> this.listener.selectTheme(position));
+        return 1;
+
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        if (holder.getItemViewType()!=0){
+            int themeId = position-1;
+            Theme theme = mThemes.get(themeId);
+            DataObjectHolder objectHolder = (DataObjectHolder) holder;
+            objectHolder.ll_theme.setTag(themeId);
+            objectHolder.tv_title.setText(theme.getTitle(mContext));
+            objectHolder.tv_title.setTypeface(ActivityMain.customtf_normal);
+            objectHolder.iv_start.setImageDrawable(theme.getBackgroundResId(mContext));
+            objectHolder.ll_theme_bg.setBackground(theme.getBackgroundResId(mContext));
+            objectHolder.iv_theme.setImageDrawable(theme.getCartResId(mContext));
+            int color = theme.getThemeColorResId(mContext);
+            Drawable drawable_color = theme.getCartColorResId(mContext);
+            drawable_color.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            objectHolder.iv_theme_color.setImageDrawable(drawable_color);
+            if (theme.isSelected()){
+                objectHolder.iv_select.setVisibility(View.VISIBLE);
+            } else {
+                objectHolder.iv_select.setVisibility(View.INVISIBLE);
+            }
+            objectHolder.ll_theme.setOnClickListener(v -> this.listener.selectTheme(themeId));
+        }
     }
 
     public void update(ArrayList<Theme> themes) {
@@ -90,7 +118,7 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.DataObjectHo
 
     @Override
     public int getItemCount() {
-        return mThemes.size();
+        return mThemes.size() + 1;
     }
 
     public interface ThemeListener{

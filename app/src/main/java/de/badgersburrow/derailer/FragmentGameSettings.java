@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -28,6 +29,7 @@ import de.badgersburrow.derailer.adapters.AdapterCart;
 import de.badgersburrow.derailer.adapters.AdapterOptions;
 import de.badgersburrow.derailer.adapters.AdapterPlayers;
 import de.badgersburrow.derailer.views.DialogButton;
+import de.badgersburrow.derailer.views.NoScrollGridLayoutManager;
 import de.badgersburrow.derailer.views.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
@@ -194,8 +196,24 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
 
         adapterOptions = new AdapterOptions(settingCards, this);
-        LinearLayoutManager llm_options = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rv_options.setLayoutManager(llm_options);
+
+        ViewTreeObserver viewTreeObserver = rv_options.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                rv_options.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int width  = rv_options.getMeasuredWidth();
+                //int height = rv_options.getMeasuredHeight();
+
+                Log.d(TAG, "rv_options width " + width);
+                int noCol = Utilities.calculateNoOfColumns(getContext(), width);
+
+                GridLayoutManager llm_options = new NoScrollGridLayoutManager(getContext(), noCol, RecyclerView.VERTICAL, false);
+                rv_options.setLayoutManager(llm_options);
+
+            }
+        });
+
         rv_options.setAdapter(adapterOptions);
         if (connections == 8){
             adapterOptions.enable(Keys.option_draw);

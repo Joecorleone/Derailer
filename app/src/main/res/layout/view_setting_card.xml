@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/iv_option"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/option_width"
+        android:layout_height="@dimen/option_width"
         android:src="@drawable/option_obstacle_many"/>
 
     <TextView
