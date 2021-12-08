@@ -6,7 +6,7 @@
     <string name="settings_header">Impostazioni di gioco</string>
     <string name="settingCards">Opzioni</string>
     <string name="playerSelection">Selezione giocatore (trascina e rilascia)</string>
-    <string name="connections">Connessioni</string>
+    <string name="option_connections">Connessioni</string>
 
     <string name="human">Umano</string>
     <string name="ai">AI</string>
@@ -42,6 +42,8 @@
     <string name="option_order_02">Casuale</string>
     <string name="option_suddendeath_01">Off</string>
     <string name="option_suddendeath_02">On</string>
+    <string name="option_connections_4">Quattro</string>
+    <string name="option_connections_8">Otto</string>
 
     <string name="play_card">Gioca a carte</string>
     <string name="game_over">Game Over</string>

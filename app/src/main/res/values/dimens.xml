@@ -43,6 +43,8 @@
     <dimen name="option_info">40dp</dimen>
 
     <dimen name="dialog_close_size">48dp</dimen>
+    <dimen name="option_text_size">16sp</dimen>
+    <dimen name="option_description_text_size">12sp</dimen>
 
 
 </resources>

@@ -35,7 +35,6 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
     ArrayList<PlayerResult> players;
     ArrayList<PlayerSelection> playersSelection;
     ArrayList<String> options;
-    int connections;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
         playersSelection = (ArrayList<PlayerSelection>)b.getSerializable("PlayersSelection");
         players = (ArrayList<PlayerResult>)b.getSerializable("Players");
         options = b.getStringArrayList("Options");
-        connections = b.getInt("connections");
 
         int selectedThemeId = getAct().SP.getInt("theme",0);
 
@@ -134,7 +132,6 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
                 Bundle b = new Bundle();
                 b.putSerializable("Players", playersSelection);
                 b.putStringArrayList("Options", options);
-                b.putInt("connections", connections);
                 getAct().showGame(b);
                 break;
             case R.id.gb_menu:

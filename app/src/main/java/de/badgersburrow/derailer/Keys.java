@@ -61,4 +61,8 @@ public class Keys {
     public final static String option_collision    = "key_collision";
     public final static String option_collision_on = "key_collision_01";
     public final static String option_collision_off = "key_collision_02";
+
+    public final static String option_connections    = "key_connections";
+    public final static String option_connections_4 = "key_connections_4";
+    public final static String option_connections_8 = "key_connections_8";
 }

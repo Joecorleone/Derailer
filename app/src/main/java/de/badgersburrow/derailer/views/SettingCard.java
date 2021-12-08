@@ -57,7 +57,7 @@ public class SettingCard extends LinearLayout implements
         this.key = key;
         setOnClickListener(this);
         anim_duration = getResources().getInteger(R.integer.card_flip_time_half);
-        topPadding = Math.round(getResources().getDimension(R.dimen.activity_vertical_margin_small));
+        topPadding = 0;//Math.round(getResources().getDimension(R.dimen.activity_vertical_margin_small));
         enabled = true;
     }
 

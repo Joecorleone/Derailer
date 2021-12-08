@@ -40,13 +40,13 @@ import java.util.ArrayList;
 public class FragmentGame extends Fragment implements OnClickListener{
 
     ArrayList<PlayerSelection> playerSelection;
-    int connections;
     private boolean dialogIsActive = false;
     private GameView theGameView;
 
     Runnable notificationRun;
     Thread notificationThread;
 
+    int connections = 4;
 
     public static AnimationPath animPath;
 
@@ -70,7 +70,11 @@ public class FragmentGame extends Fragment implements OnClickListener{
         Bundle b = getArguments();
         playerSelection = (ArrayList<PlayerSelection>) b.getSerializable("Players");
         options = (ArrayList<String>) b.getStringArrayList("Options");
-        connections = b.getInt("connections",4);
+        if (options.contains(Keys.option_connections_4)){
+            connections = 4;
+        } else if (options.contains(Keys.option_connections_8)){
+            connections = 8;
+        }
         animPath = new AnimationPath(connections);
 
         int selectedThemeId = getAct().SP.getInt("theme",0);
@@ -208,7 +212,6 @@ public class FragmentGame extends Fragment implements OnClickListener{
         b.putSerializable("PlayersSelection", playerSelection);
         b.putSerializable("Players", playerResult);
         b.putStringArrayList("Options", options);
-        b.putInt("connections", connections);
         getAct().runOnUiThread(new Runnable() {
             @Override
             public void run() {

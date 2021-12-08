@@ -6,7 +6,7 @@
     <string name="settings_header">Oyun ayarları</string>
     <string name="settingCards">Seçenekler</string>
     <string name="playerSelection">Oyuncu seçimi (sürükle ve bırak)</string>
-    <string name="connections">Bağlantılar</string>
+    <string name="option_connections">Bağlantılar</string>
 
     <string name="human">İnsan</string>
     <string name="ai">Yapay Zeka</string>
@@ -42,6 +42,9 @@
     <string name="option_order_02">Rastgele</string>
     <string name="option_suddendeath_01">Kapalı</string>
     <string name="option_suddendeath_02">Açık</string>
+    <string name="option_connections_4">Dört</string>
+    <string name="option_connections_8">Sekiz</string>
+    
 
     <string name="play_card">Oyun kartı</string>
     <string name="game_over">Oyun Bitti</string>

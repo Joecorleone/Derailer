@@ -6,7 +6,7 @@
     <string name="settings_header">Ustawienia gry</string>
     <string name="settingCards">Opcje</string>
     <string name="playerSelection">Wybór gracza (przeciągnij i upuść)</string>
-    <string name="connections">Połączenia</string>
+    <string name="option_connections">Połączenia</string>
 
     <string name="human">Człowiek</string>
     <string name="ai">AI</string>
@@ -42,6 +42,8 @@
     <string name="option_order_02">Losowo</string>
     <string name="option_suddendeath_01">Wyłączone</string>
     <string name="option_suddendeath_02">Włączone</string>
+    <string name="option_connections_4">Cztery</string>
+    <string name="option_connections_8">Osiem</string>
 
     <string name="play_card">Zagraj w kartę</string>
     <string name="game_over">Koniec gry</string>

@@ -64,8 +64,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
     ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
-    ToggleButton tb_toggle;
-
     static Resources res;
 
    @Override
@@ -95,32 +93,21 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         TextView tv_human = rootView.findViewById(R.id.tv_human);
         TextView tv_ai = rootView.findViewById(R.id.tv_ai);
         TextView tv_options = rootView.findViewById(R.id.tv_options);
-        TextView tv_conn_title = rootView.findViewById(R.id.tv_connections);
 
         tv_header.setTypeface(getAct().customtf_normal);
         tv_players.setTypeface(getAct().customtf_normal);
         tv_human.setTypeface(getAct().customtf_normal);
         tv_ai.setTypeface(getAct().customtf_normal);
         tv_options.setTypeface(getAct().customtf_normal);
-        tv_conn_title.setTypeface(getAct().customtf_normal);
 
         rv_options = rootView.findViewById(R.id.rv_options);
         rv_players = rootView.findViewById(R.id.rv_players);
-
-
-        tb_toggle = rootView.findViewById(R.id.tb_toggle);
-        tb_toggle.setOnClickListener(v -> toggle(v));
 
         SP = PreferenceManager.getDefaultSharedPreferences(getContext());
         SPE = SP.edit();
 
         int selectedThemeId = SP.getInt("theme",0);
         Theme gameTheme = new Theme(selectedThemeId, true);
-
-        connections = SP.getInt("connections",4);
-
-        tb_toggle.setChecked(connections == 8);
-        toggleAnimate(tb_toggle, false);
 
         TypedArray cart_color_selection = res.obtainTypedArray(R.array.cart_color_selection);
         int color_default = res.getColor(R.color.cartdefault);
@@ -194,6 +181,13 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         setting_collision.init(getString(R.string.option_collision), Keys.option_collision_on);
         settingCards.add(setting_collision);
 
+        //connections
+        SettingCard setting_connections = new SettingCard(getContext(), Keys.option_connections);
+        setting_connections.addChoice(new SettingCard.Choice(Keys.option_connections_4, getString(R.string.option_connections_4), R.drawable.option_connections_01));
+        setting_connections.addChoice(new SettingCard.Choice(Keys.option_connections_8, getString(R.string.option_connections_8), R.drawable.option_connections_02));
+        setting_connections.init(getString(R.string.option_connections), Keys.option_connections_4);
+        settingCards.add(setting_connections);
+
 
         adapterOptions = new AdapterOptions(settingCards, this);
 
@@ -242,7 +236,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
                 Bundle b = new Bundle();
                 b.putSerializable("Players", adapterCarts.getSelected());
                 b.putStringArrayList("Options", adapterOptions.getKeys());
-                b.putInt("connections", connections);
                 getAct().showGame(b);
             }
         });
@@ -271,29 +264,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
                 break;
         }
         return false;
-    }
-
-    void toggle(View v){
-        if (connections == 4){
-            //iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state1));
-            connections=8;
-            adapterOptions.enable(Keys.option_draw);
-        } else if (connections == 8){
-            //iv_toggle.setImageDrawable(getResources().getDrawable(R.drawable.toggle_state0));
-            connections=4;
-            adapterOptions.disable(Keys.option_draw);
-        }
-        toggleAnimate(v, true);
-        Log.d(TAG, "connections: " + connections);
-        SPE.putInt("connections",connections);
-        SPE.commit();
-    }
-
-    void toggleAnimate(View v, boolean sound){
-        if (sound) getAct().playSoundToggle();
-        StateListDrawable stateListDrawable = (StateListDrawable) v.getBackground();
-        AnimationDrawable animationDrawable = (AnimationDrawable) stateListDrawable.getCurrent();
-        animationDrawable.start();
     }
 
     @Override

@@ -15,8 +15,9 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:text="@string/option_obstacle"
-        android:textSize="18sp"
+        android:textSize="@dimen/option_text_size"
         android:textStyle="bold"
-        android:textColor="@color/textColor"/>
+        android:textColor="@color/textColor"
+        android:gravity="bottom"/>
 
 </LinearLayout>

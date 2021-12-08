@@ -6,7 +6,7 @@
     <string name = "settings_header">ゲーム設定</string>
     <string name = "settingCards">オプション</string>
     <string name = "playerSelection">プレーヤーの選択（ドラッグ＆ドロップ）</string>
-    <string name = "connections">接続</string>
+    <string name = "option_connections">接続</string>
 
     <string name = "human">人間</string>
     <string name = "ai"> AI </string>
@@ -42,6 +42,8 @@
     <string name = "option_order_02">ランダム</string>
     <string name = "option_suddendeath_01">オフ</string>
     <string name = "option_suddendeath_02">オン</string>
+    <string name = "option_connections_4">4つ</string>
+    <string name = "option_connections_8">8つ</string>
 
     <string name = "play_card">トランプ</string>
     <string name = "game_over">ゲームオーバー</string>

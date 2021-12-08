@@ -6,7 +6,7 @@
     <string name="settings_header">Game settings</string>
     <string name="settingCards">Options</string>
     <string name="playerSelection">Player selection (drag&amp;drop)</string>
-    <string name="connections">Connections</string>
+    <string name="option_connections">Connections</string>
 
     <string name="human">Human</string>
     <string name="ai">AI</string>
@@ -42,6 +42,8 @@
     <string name="option_order_02">Random</string>
     <string name="option_suddendeath_01">Off</string>
     <string name="option_suddendeath_02">On</string>
+    <string name="option_connections_4">Four</string>
+    <string name="option_connections_8">Eight</string>
 
     <string name="play_card">Play card</string>
     <string name="game_over">Game Over</string>

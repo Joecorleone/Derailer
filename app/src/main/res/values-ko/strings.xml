@@ -6,7 +6,7 @@
     <string name="settings_header">게임 설정</string>
     <string name="settingCards">옵션</string>
     <string name="playerSelection">플레이어 선택(끌어서 놓기)</string>
-    <string name="connections">연결</string>
+    <string name="option_connections">연결</string>
 
     <string name="human">인간</string>
     <string name="ai">AI</string>
@@ -42,6 +42,8 @@
     <string name="option_order_02">무작위</string>
     <string name="option_suddendeath_01">끄기</string>
     <string name="option_suddendeath_02">켜기</string>
+    <string name="option_connections_4">4개</string>
+    <string name="option_connections_8">8개</string>
 
     <string name="play_card">플레이 카드</string>
     <string name="game_over">게임 종료</string>
