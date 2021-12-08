@@ -72,7 +72,7 @@ public class Utilities {
         float border = context.getResources().getDimension(R.dimen.activity_horizontal_margin_small);
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = width / displayMetrics.density;
-        return Math.max(1,(int) (dpWidth / (section_item_width) * displayMetrics.density));
+        return Math.max(1,(int) (dpWidth / (section_item_width + border) * displayMetrics.density));
     }
 
 

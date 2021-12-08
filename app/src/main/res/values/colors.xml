@@ -11,8 +11,8 @@
 
 
 
-    <color name="option_enabled">#000000</color>
-    <color name="option_disabled">#A6A6A6</color>
+    <color name="option_enabled">#000</color><!--#DDDDDD-->
+    <color name="option_disabled">#E1E1E1</color>
     <color name="option_image_disabled">#7AA6A6A6</color>
 
     <color name="theme01">#860000</color>
