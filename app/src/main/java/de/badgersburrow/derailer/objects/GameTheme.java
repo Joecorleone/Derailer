@@ -13,6 +13,8 @@ import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.Utilities;
 import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -27,7 +29,7 @@ public class GameTheme {
     private Bitmap cart;
     private Bitmap cart_color;
     private Rect collisionRect;
-    private MoveAnimSecondary animSecondary;
+    private ArrayList<MoveAnimSecondary> animSecondaryList;
 
 
     HashMap<Integer, Bitmap> card_top = new HashMap<>();
@@ -287,35 +289,46 @@ public class GameTheme {
         int height = cart.getHeight();
         int width = cart.getWidth();
 
+
+        animSecondaryList = new ArrayList<>();
+
         switch(themeId) {
 
             case 0 :
                 // steam engine
-                animSecondary = new MoveAnimSecondary(R.drawable.smoke2,
-                5, 14, 0.8f, 0.0f, 1.0f, 6.0f, true, true, false);
+                SecondaryMoveAnimBuilder builder_steam = new SecondaryMoveAnimBuilder(R.drawable.smoke2,
+                        5, 14, 0.8f, 0.0f)
+                        .setScale(0.5f, 3.0f)
+                        .setAlpha(200, -20)
+                        .setPosFixed(true)
+                        .setRandRot(true);
+                animSecondaryList.add(builder_steam.build());
                 collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.9*height));
                 break;
 
             case 1 :
                 // electric engine
-                animSecondary = new MoveAnimSecondary();
                 collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.95*height));
                 break;
 
             case 2 :
                 // vintage car
-                animSecondary = new MoveAnimSecondary();
+                SecondaryMoveAnimBuilder builder_vintage = new SecondaryMoveAnimBuilder(R.drawable.vintage_smoke,
+                        8, 10, -0.7f, -0.5f)//-0.7f, -0.5f)
+                        .setScale(0.2f, 1.0f)
+                        .setAlpha(200, 0)
+                        .setPosFixed(true)
+                        .setRandRot(true);
+                animSecondaryList.add(builder_vintage.build());
                 collisionRect = new Rect((int)(0.20*width), (int)(0.1*height), (int)(0.85*width), (int)(0.9*height));
                 break;
 
             case 3 :
                 // cadillac
-                animSecondary = new MoveAnimSecondary();
                 collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.95*width), (int)(0.9*height));
                 break;
 
             default :
-                animSecondary = new MoveAnimSecondary();
                 collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.9*height));
                 break;
         }
@@ -345,10 +358,14 @@ public class GameTheme {
         return collisionRect;
     }
 
-    public MoveAnimSecondary getMoveAnimSecondary(GameView gameView){
-        MoveAnimSecondary copy = animSecondary.getCopy();
-        copy.attachGameView(gameView, cart.getWidth(), cart.getHeight());
-        return copy;
+    public ArrayList<MoveAnimSecondary> getMoveAnimSecondaryList(GameView gameView){
+        ArrayList<MoveAnimSecondary> list = new ArrayList<>();
+        for (MoveAnimSecondary anim : animSecondaryList){
+            MoveAnimSecondary copy = anim.getCopy();
+            copy.attachGameView(gameView, cart.getWidth(), cart.getHeight());
+            list.add(copy);
+        }
+        return list;
     }
 
 }

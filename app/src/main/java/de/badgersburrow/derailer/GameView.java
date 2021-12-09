@@ -244,9 +244,9 @@ public class GameView extends SurfaceView {
                 playerSprite.setYIndex(sprite.getYIndex());
                 playerSprite.setPos(sprite.getPos());
 
-                Log.d("X", String.valueOf(sprite.getXIndex()));
-                Log.d("Y", String.valueOf(sprite.getYIndex()));
-                Log.d("Pos", String.valueOf(sprite.getPos()));
+                //Log.d("X", String.valueOf(sprite.getXIndex()));
+                //Log.d("Y", String.valueOf(sprite.getYIndex()));
+                //Log.d("Pos", String.valueOf(sprite.getPos()));
                 currentPlayer += 1;
                 currentPlayer = currentPlayer% playerSprites.size();
                 startPositions.remove(sprite);
@@ -564,8 +564,8 @@ public class GameView extends SurfaceView {
                         fragmentGame.showNotification(playerSprites.get(i));
                         playerSprites.get(j).kill();
                         fragmentGame.showNotification(playerSprites.get(j));
-                        Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
-                        Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
+                        //Log.d(TAG, "first - " + positions.get(i).first + ", " + positions.get(i).second);
+                        //Log.d(TAG, "second - " + positions.get(j).first + ", " + positions.get(j).second);
                         addExplosion(
                                 (positions.get(i).first + positions.get(j).first)/2,
                                 (positions.get(i).second + positions.get(j).second)/2);
@@ -738,14 +738,14 @@ public class GameView extends SurfaceView {
                     //player.setXIndex(player.getXIndex() + dx);
                     //player.setYIndex(player.getYIndex() + dy);
 
-                    Log.d("NewPos", String.valueOf(playerSprite.getPos()));
-                    Log.d("NewX", String.valueOf(playerSprite.getXIndex()));
-                    Log.d("NewY", String.valueOf(playerSprite.getYIndex()));
+                    //Log.d("NewPos", String.valueOf(playerSprite.getPos()));
+                    //Log.d("NewX", String.valueOf(playerSprite.getXIndex()));
+                    //Log.d("NewY", String.valueOf(playerSprite.getYIndex()));
 
-                    Log.d("-------------", "--------------");
-                    for (int j = 0; j < playerSprites.size(); j++) {
-                        Log.d("Pos", String.valueOf(playerSprites.get(j).getPos()));
-                    }
+                    //Log.d("-------------", "--------------");
+                    //for (int j = 0; j < playerSprites.size(); j++) {
+                    //    Log.d("Pos", String.valueOf(playerSprites.get(j).getPos()));
+                    //}
 
                 } else {
                     playerSprite.setChanged(false);

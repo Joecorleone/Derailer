@@ -78,7 +78,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
     private int outCount = 100;
     private int tileCount = 0;
 
-    private MoveAnimSecondary animSecondary;
+    private ArrayList<MoveAnimSecondary> animSecondaryList;
     private float scaleFactor;
 
     private Rect collisionRect;
@@ -92,7 +92,7 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         counter++;
         choiceCards = new ArrayList<>();
         this.gameView = gameView;
-        this.animSecondary = theme.getMoveAnimSecondary(gameView);
+        this.animSecondaryList = theme.getMoveAnimSecondaryList(gameView);
         this.bmp_color = theme.getCart_color();
         this.bmp_indicator = Utilities.drawableToBitmap(gameView.getContext().getDrawable(R.drawable.player_indicator));
         this.collisionRect = theme.getCollisionRect();
@@ -168,8 +168,8 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             Matrix matrix = new Matrix();
             matrix.postScale(scaleFactor,scaleFactor);
 
-            matrix.postRotate(angle, scaledWidth/2, scaledHeight/2);
-            matrix.postTranslate(cur_centerX - scaledWidth / 2,cur_centerY - scaledHeight / 2);
+            matrix.postRotate(angle, scaledWidth/2f, scaledHeight/2f);
+            matrix.postTranslate(cur_centerX - scaledWidth / 2f,cur_centerY - scaledHeight / 2f);
             canvas.drawBitmap(bmp_color, matrix, color_paint);
             canvas.drawBitmap(bmp, matrix, null);
 
@@ -188,8 +188,9 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             //canvas.drawPoints(rectCorners, collisionPaint);
 
 
-
-            this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, angle);
+            for (MoveAnimSecondary anim : animSecondaryList){
+                anim.onDraw(canvas, currentStep, cur_centerX, cur_centerY, angle);
+            }
             currentStep +=1;
             if (currentStep == moveSteps){
                 pos = destPosNextTile;
@@ -294,7 +295,9 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
             matrix.mapPoints(rectCorners);
             setCollisionPolygon(rectCorners);
 
-            this.animSecondary.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
+            for (MoveAnimSecondary anim : animSecondaryList){
+                anim.onDraw(canvas, currentStep, cur_centerX, cur_centerY, rotation);
+            }
         }
     }
 

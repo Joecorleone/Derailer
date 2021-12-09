@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -23,6 +24,8 @@ import java.util.ArrayList;
  */
 
 public class MoveAnimSecondary {
+
+    private final static String TAG = "MoveAnimSecondary";
 
     private int ModeKeyNone = 1;
     private int ModeKeySingle = 2;
@@ -43,6 +46,9 @@ public class MoveAnimSecondary {
     private boolean posFixed; // whether the animation is fixed to playing filed -> does not move when cart moves
     private boolean randRot; // randomize the rotation of the drawable
     private boolean randInterval;
+    private int alphaStart;
+    private int alphaEnd;
+
     private ArrayList<Item> items = new ArrayList<>(); // holds all instances of each created animation object
     private int cartWidth;
     private int cartHeight;
@@ -53,7 +59,8 @@ public class MoveAnimSecondary {
 
     public MoveAnimSecondary(int drawableId, int numAnims, int duration,
                              float posStartX, float posStartY, float scaleStart, float scaleEnd,
-                             boolean posFixed, boolean randRot, boolean randInterval) {
+                             boolean posFixed, boolean randRot, boolean randInterval,
+                             int alphaStart, int alphaEnd) {
         /*
         Constructor for an move animation object consisting of a single frame
          */
@@ -68,12 +75,18 @@ public class MoveAnimSecondary {
         this.posFixed = posFixed;
         this.randRot = randRot;
         this.randInterval = randInterval;
+        this.alphaStart = alphaStart;
+        this.alphaEnd = alphaEnd;
     }
+
+
+
 
     public MoveAnimSecondary getCopy(){
         MoveAnimSecondary move = new MoveAnimSecondary(drawableId, numAnims, duration,
                 posStartX, posStartY, scaleStart, scaleEnd,
-                posFixed, randRot, randInterval);
+                posFixed, randRot, randInterval,
+                alphaStart, alphaEnd);
         move.mode = mode;
         return move;
     }
@@ -81,6 +94,8 @@ public class MoveAnimSecondary {
     public void onDraw(final Canvas canvas, int step, int centerX, int centerY, float rotation){
         // centerX, centerY is the center of the cart on the playfield
         // rotation is the current rotation of the cart in deg
+
+
         if (mode!=ModeKeyNone) {
             float scaleFactor = gameView.getScaleFactor();
 
@@ -89,8 +104,10 @@ public class MoveAnimSecondary {
 
             int deltaX_x = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartWidth * posStartX/2);
             int deltaX_y = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartWidth * posStartX/2);
-            int deltaY_x = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
+            int deltaY_x = Math.round(-(float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
             int deltaY_y = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
+
+            Log.d(TAG, "onDraw - rotation: " + rotation + ", deltaX_x: " + deltaX_x + ", deltaX_y: " + deltaX_y);
 
             int startEach = Math.round(moveSteps / numAnims);
             if (step < moveSteps) {
@@ -99,11 +116,13 @@ public class MoveAnimSecondary {
                 }
             }
 
+            int alphaStep = (alphaEnd - alphaStart)/duration;
+
             for (int i = 0; i < this.items.size(); i++) {
                 Item item = this.items.get(i);
                 if (item.step < duration) {
 
-                    int alpha = Math.max(200 - item.step * 16,0);
+                    int alpha = Math.min(Math.max(alphaStart + alphaStep,0),255);
                     if (alpha == 0){
                         continue;
                     }
@@ -111,29 +130,34 @@ public class MoveAnimSecondary {
                     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                     paint.setAlpha(alpha);
 
-                    float fullScaleFactor = scaleFactor *( scaleEnd / duration * item.step + scaleStart / duration * (duration - item.step));
+                    float fullScaleFactor = scaleFactor * ( scaleEnd / duration * item.step + scaleStart / duration * (duration - item.step));
 
                     int scaledWidth = Math.round(fullScaleFactor* item.getBmp().getWidth());
                     int scaledHeight = Math.round(fullScaleFactor* item.getBmp().getHeight());
 
                     Matrix mat = new Matrix();
-                    mat.postScale(fullScaleFactor,fullScaleFactor);
+                    mat.postScale(fullScaleFactor, fullScaleFactor);
 
                     if (posFixed) {
-                        mat.postRotate(item.rot, scaledWidth / 2, scaledHeight / 2);
-                        mat.postTranslate(item.x + deltaX_x + deltaY_x-scaledWidth/2, item.y+ deltaX_y + deltaY_y-scaledHeight/2);
+                        mat.postRotate(item.rot, scaledWidth / 2f, scaledHeight / 2f);
+                        mat.postTranslate(item.x + deltaX_x + deltaY_x - scaledWidth/2f, item.y + deltaX_y + deltaY_y - scaledHeight/2f);
                     } else {
-                        mat.postRotate(rotation, scaledWidth / 2, scaledHeight / 2);
-                        mat.postTranslate(centerX + deltaX_x + deltaY_x-scaledWidth/2, centerY+ deltaX_y + deltaY_y-scaledHeight/2);
+                        mat.postRotate(rotation, scaledWidth / 2f, scaledHeight / 2f);
+                        mat.postTranslate(centerX + deltaX_x + deltaY_x - scaledWidth/2f, centerY + deltaX_y + deltaY_y - scaledHeight/2f);
                     }
 
                     canvas.drawBitmap(item.getBmp(), mat, paint);
+
                     item.nextStep();
                 } else {
                     this.items.remove(item);
                     i--;
                 }
             }
+            /*Paint pointPaint = new Paint();
+            pointPaint.setColor(0xFFFF00FF);
+            pointPaint.setStrokeWidth(5);
+            canvas.drawPoints(new float[]{centerX + deltaX_x + deltaY_x, centerY + deltaX_y + deltaY_y}, pointPaint);*/
         }
     }
 
