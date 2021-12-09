@@ -308,6 +308,20 @@ public class GameTheme {
 
             case 1 :
                 // electric engine
+                SecondaryMoveAnimBuilder builder_train_electric = new SecondaryMoveAnimBuilder(R.drawable.train_electric_spark01,
+                        3, 5, -0.5f, 0f)//-0.7f, -0.5f)
+                        .setScale(0.5f, 1.5f)
+                        .setAlpha(150, 255)
+                        .setPosFixed(false)
+                        .setRandRot(true);
+                animSecondaryList.add(builder_train_electric.build());
+                builder_train_electric = new SecondaryMoveAnimBuilder(R.drawable.train_electric_spark01,
+                        2, 5, 0.5f, 0f)//-0.7f, -0.5f)
+                        .setScale(0.5f, 1.5f)
+                        .setAlpha(150, 255)
+                        .setPosFixed(false)
+                        .setRandRot(true);
+                animSecondaryList.add(builder_train_electric.build());
                 collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.9*width), (int)(0.95*height));
                 break;
 
