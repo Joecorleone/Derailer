@@ -11,9 +11,7 @@ import de.badgersburrow.derailer.GameView;
 import de.badgersburrow.derailer.R;
 
 import de.badgersburrow.derailer.Utilities;
-import de.badgersburrow.derailer.objects.MoveAnimSecondary;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,7 +28,6 @@ public class GameTheme {
     private Bitmap cart_color;
     private Rect collisionRect;
     private ArrayList<MoveAnimSecondary> animSecondaryList;
-
 
     HashMap<Integer, Bitmap> card_top = new HashMap<>();
     HashMap<Integer, Bitmap> card_bottom = new HashMap<>();
@@ -296,7 +293,7 @@ public class GameTheme {
 
             case 0 :
                 // steam engine
-                SecondaryMoveAnimBuilder builder_steam = new SecondaryMoveAnimBuilder(R.drawable.smoke2,
+                AnimBuilderSingle builder_steam = new AnimBuilderSingle(R.drawable.smoke2,
                         5, 14, 0.8f, 0.0f)
                         .setScale(0.5f, 3.0f)
                         .setAlpha(200, -20)
@@ -308,14 +305,14 @@ public class GameTheme {
 
             case 1 :
                 // electric engine
-                SecondaryMoveAnimBuilder builder_train_electric = new SecondaryMoveAnimBuilder(R.drawable.train_electric_spark01,
+                AnimBuilderSingle builder_train_electric = new AnimBuilderSingle(R.drawable.train_electric_spark01,
                         3, 5, -0.5f, 0f)//-0.7f, -0.5f)
                         .setScale(0.5f, 1.5f)
                         .setAlpha(150, 255)
                         .setPosFixed(false)
                         .setRandRot(true);
                 animSecondaryList.add(builder_train_electric.build());
-                builder_train_electric = new SecondaryMoveAnimBuilder(R.drawable.train_electric_spark01,
+                builder_train_electric = new AnimBuilderSingle(R.drawable.train_electric_spark01,
                         2, 5, 0.5f, 0f)//-0.7f, -0.5f)
                         .setScale(0.5f, 1.5f)
                         .setAlpha(150, 255)
@@ -327,7 +324,7 @@ public class GameTheme {
 
             case 2 :
                 // vintage car
-                SecondaryMoveAnimBuilder builder_vintage = new SecondaryMoveAnimBuilder(R.drawable.vintage_smoke,
+                AnimBuilderSingle builder_vintage = new AnimBuilderSingle(R.drawable.vintage_smoke,
                         8, 10, -0.7f, -0.5f)//-0.7f, -0.5f)
                         .setScale(0.2f, 1.0f)
                         .setAlpha(200, 0)
@@ -339,6 +336,19 @@ public class GameTheme {
 
             case 3 :
                 // cadillac
+                AnimBuilderFrames builder_cadillac = new AnimBuilderFrames(R.drawable.cadillac_anim_wiper_idle, 1, 0f, 0f);//cadillac_anim_wiper_idle
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_01);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_02);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_03);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_04);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_05);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_06);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_05);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_04);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_03);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_02);
+                builder_cadillac.addFrame(R.drawable.cadillac_anim_wiper_01);
+                animSecondaryList.add(builder_cadillac.build());
                 collisionRect = new Rect((int)(0.05*width), (int)(0.1*height), (int)(0.95*width), (int)(0.9*height));
                 break;
 

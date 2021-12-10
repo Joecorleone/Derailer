@@ -1,8 +1,6 @@
 package de.badgersburrow.derailer.objects;
 
-import de.badgersburrow.derailer.GameView;
-
-public class SecondaryMoveAnimBuilder {
+public class AnimBuilderSingle {
 
     private int drawableId; // image used in the animation, can be drawable set for a frame by frame animation
     private int moveSteps; // frames to complete a move from the start to the end of a tile
@@ -23,7 +21,7 @@ public class SecondaryMoveAnimBuilder {
     private int alphaStart = 255;
     private int alphaEnd = 255;
 
-    public SecondaryMoveAnimBuilder(int drawableId, int numAnims, int duration, float posStartX, float posStartY){
+    public AnimBuilderSingle(int drawableId, int numAnims, int duration, float posStartX, float posStartY){
         this.drawableId = drawableId;
         this.numAnims = numAnims;
         this.duration = duration;
@@ -31,28 +29,28 @@ public class SecondaryMoveAnimBuilder {
         this.posStartY = posStartY;
     }
 
-    public SecondaryMoveAnimBuilder setPosFixed(boolean posFixed){
+    public AnimBuilderSingle setPosFixed(boolean posFixed){
         this.posFixed = posFixed;
         return this;
     }
 
-    public SecondaryMoveAnimBuilder setRandRot(boolean randRot){
+    public AnimBuilderSingle setRandRot(boolean randRot){
         this.randRot = randRot;
         return this;
     }
 
-    public SecondaryMoveAnimBuilder setRandInterval(boolean randInterval){
+    public AnimBuilderSingle setRandInterval(boolean randInterval){
         this.randInterval = randInterval;
         return this;
     }
 
-    public SecondaryMoveAnimBuilder setScale(float scaleStart, float scaleEnd){
+    public AnimBuilderSingle setScale(float scaleStart, float scaleEnd){
         this.scaleStart = scaleStart;
         this.scaleEnd = scaleEnd;
         return this;
     }
 
-    public SecondaryMoveAnimBuilder setAlpha(int alphaStart, int alphaEnd){
+    public AnimBuilderSingle setAlpha(int alphaStart, int alphaEnd){
         this.alphaStart = alphaStart;
         this.alphaEnd = alphaEnd;
         return this;

@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 
 import de.badgersburrow.derailer.GameView;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 /**
@@ -49,6 +50,9 @@ public class MoveAnimSecondary {
     private int alphaStart;
     private int alphaEnd;
 
+    private int frameCounter;
+    private ArrayList<Integer> frames;
+
     private ArrayList<Item> items = new ArrayList<>(); // holds all instances of each created animation object
     private int cartWidth;
     private int cartHeight;
@@ -79,24 +83,38 @@ public class MoveAnimSecondary {
         this.alphaEnd = alphaEnd;
     }
 
-
-
+    public MoveAnimSecondary(int drawableId, int numAnims,
+                             float posStartX, float posStartY, ArrayList<Integer> frames){
+        /*
+        Constructor for an move animation object consisting of a frames
+         */
+        this.mode = ModeKeyFrames;
+        this.drawableId = drawableId;
+        this.numAnims = numAnims;
+        this.posStartX = posStartX;
+        this.posStartY = posStartY;
+        this.frames = frames;
+        this.frameCounter = frames.size();
+    }
 
     public MoveAnimSecondary getCopy(){
-        MoveAnimSecondary move = new MoveAnimSecondary(drawableId, numAnims, duration,
-                posStartX, posStartY, scaleStart, scaleEnd,
-                posFixed, randRot, randInterval,
-                alphaStart, alphaEnd);
-        move.mode = mode;
-        return move;
+        if (mode == ModeKeySingle){
+            return new MoveAnimSecondary(drawableId, numAnims, duration,
+                    posStartX, posStartY, scaleStart, scaleEnd,
+                    posFixed, randRot, randInterval,
+                    alphaStart, alphaEnd);
+        } else if (mode == ModeKeyFrames){
+            return new MoveAnimSecondary(drawableId, numAnims, posStartX, posStartY, frames);
+        }
+
+        return new MoveAnimSecondary();
     }
 
     public void onDraw(final Canvas canvas, int step, int centerX, int centerY, float rotation){
         // centerX, centerY is the center of the cart on the playfield
         // rotation is the current rotation of the cart in deg
 
-
-        if (mode!=ModeKeyNone) {
+        if (mode == ModeKeySingle) {
             float scaleFactor = gameView.getScaleFactor();
 
             // center of cart is 0,0
@@ -158,6 +176,48 @@ public class MoveAnimSecondary {
             pointPaint.setColor(0xFFFF00FF);
             pointPaint.setStrokeWidth(5);
             canvas.drawPoints(new float[]{centerX + deltaX_x + deltaY_x, centerY + deltaX_y + deltaY_y}, pointPaint);*/
+        } else if (mode == ModeKeyFrames) {
+            Log.d(TAG, "onDraw: " + mode);
+            float scaleFactor = gameView.getScaleFactor();
+
+            // center of cart is 0,0
+            // start of cart is 1,0
+
+            int deltaX_x = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartWidth * posStartX/2);
+            int deltaX_y = Math.round((float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartWidth * posStartX/2);
+            int deltaY_x = Math.round(-(float) Math.sin(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
+            int deltaY_y = Math.round((float) Math.cos(Math.toRadians(rotation)) * scaleFactor * cartHeight * posStartY/2);
+
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+            Matrix mat = new Matrix();
+            mat.postScale(scaleFactor, scaleFactor);
+
+            Bitmap bmp;
+
+            if (frameCounter<frames.size()){
+                frameCounter++;
+            } else {
+                if (Math.random() < 0.02){
+                    frameCounter = 0;
+                }
+            }
+            if (frameCounter<frames.size()){
+                bmp = getBitmap(gameView.getContext(), frames.get(frameCounter));
+            } else {
+                bmp = getBitmap(gameView.getContext(), drawableId);
+            }
+
+
+            int scaledWidth = Math.round(scaleFactor* bmp.getWidth());
+            int scaledHeight = Math.round(scaleFactor* bmp.getHeight());
+
+
+
+            mat.postRotate(rotation, scaledWidth / 2f, scaledHeight / 2f);
+            mat.postTranslate(centerX + deltaX_x + deltaY_x - scaledWidth/2f, centerY + deltaX_y + deltaY_y - scaledHeight/2f);
+
+            canvas.drawBitmap(bmp, mat, paint);
         }
     }
 
