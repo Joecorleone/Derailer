@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.badgersburrow.derailer.ActivityMain;
 import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.databinding.ItemCartBinding;
+import de.badgersburrow.derailer.databinding.ItemOptionBinding;
 import de.badgersburrow.derailer.views.SettingCard;
 
 import java.util.ArrayList;
@@ -25,13 +27,11 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
     SoundListener listener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
-        LinearLayout ll_option;
-        TextView tv_option;
+        ItemOptionBinding binding;
 
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            ll_option = (LinearLayout) itemView.findViewById(R.id.ll_option);
-            tv_option = (TextView) itemView.findViewById(R.id.tv_option);
+        public DataObjectHolder(ItemOptionBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
@@ -42,15 +42,14 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
 
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_option, parent, false);
 
-        return new DataObjectHolder(view);
+        ItemOptionBinding binding = ItemOptionBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new DataObjectHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
-        holder.ll_option.setTag(position);
+        holder.binding.llOption.setTag(position);
         SettingCard settingCard = settingCards.get(position);
 
         LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(
@@ -58,10 +57,10 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
                 Gravity.CENTER_HORIZONTAL);
         settingCard.setPadding(0,settingCard.getTopPadding(),0,0); // necessary
         settingCard.setSoundListener(listener);
-        holder.ll_option.addView(settingCard, llparams);
+        holder.binding.llOption.addView(settingCard, llparams);
 
-        holder.tv_option.setText(settingCard.getTitle());
-        holder.tv_option.setTypeface(ActivityMain.customtf_normal);
+        holder.binding.tvOption.setText(settingCard.getTitle());
+        holder.binding.tvOption.setTypeface(ActivityMain.customtf_normal);
     }
 
     public void enable(String key){

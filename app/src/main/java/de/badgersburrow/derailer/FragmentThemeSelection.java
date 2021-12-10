@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.badgersburrow.derailer.adapters.AdapterTheme;
+import de.badgersburrow.derailer.databinding.FragmentThemeSelectionBinding;
 import de.badgersburrow.derailer.objects.Theme;
 import de.badgersburrow.derailer.views.GameSignButton;
 
@@ -29,8 +30,9 @@ import java.util.Objects;
  */
 
 public class FragmentThemeSelection extends Fragment implements AdapterTheme.ThemeListener{
-    TextView tv_header;
-    RecyclerView rvTheme;
+
+    FragmentThemeSelectionBinding binding;
+
     Context mContext;
     ArrayList<Theme> themes;
     AdapterTheme mAdapter;
@@ -46,18 +48,19 @@ public class FragmentThemeSelection extends Fragment implements AdapterTheme.The
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_theme_selection, container, false);
+        binding = FragmentThemeSelectionBinding.inflate(getLayoutInflater());
+        View rootView = binding.getRoot();
+
+        //View rootView = inflater.inflate(R.layout.fragment_theme_selection, container, false);
 
         selectedThemeId = getAct().SP.getInt("theme",0);
 
-        tv_header = rootView.findViewById(R.id.tv_header);
-        tv_header.setTypeface(getAct().customtf_normal);
+        binding.tvHeader.setTypeface(getAct().customtf_normal);
 
-        GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(view -> {
+        binding.gsbBack.setOnClickListener(view -> {
             getAct().onBackPressed();
         });
-        gsb_back.setSoundListener(getAct());
+        binding.gsbBack.setSoundListener(getAct());
 
 
         // populate theme arraylist
@@ -68,14 +71,12 @@ public class FragmentThemeSelection extends Fragment implements AdapterTheme.The
         themes.add(new Theme(3, selectedThemeId==3));
 
 
-        rvTheme = rootView.findViewById(R.id.rv_history);
-
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        rvTheme.setLayoutManager(llm);
+        binding.rvTheme.setLayoutManager(llm);
 
         //registerForContextMenu(rv_history);
         mAdapter = new AdapterTheme(getContext(), themes, this);
-        rvTheme.setAdapter(mAdapter);
+        binding.rvTheme.setAdapter(mAdapter);
 
         /*sTheme = (Spinner) findViewById(R.id.sTheme);
         sTheme.setSelection(selectedTheme);

@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.badgersburrow.derailer.adapters.AdapterOptionsInfo;
+import de.badgersburrow.derailer.databinding.ActivityMainBinding;
+import de.badgersburrow.derailer.databinding.FragmentGameBinding;
 import de.badgersburrow.derailer.objects.AnimationPath;
 import de.badgersburrow.derailer.objects.GameTheme;
 import de.badgersburrow.derailer.sprites.PlayerSprite;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
  */
 public class FragmentGame extends Fragment implements OnClickListener{
 
+    FragmentGameBinding binding;
     ArrayList<PlayerSelection> playerSelection;
     private boolean dialogIsActive = false;
     private GameView theGameView;
@@ -49,10 +52,6 @@ public class FragmentGame extends Fragment implements OnClickListener{
     int connections = 4;
 
     public static AnimationPath animPath;
-
-    RelativeLayout rl_notification;
-    ImageView iv_n_background, iv_n_player_color, iv_n_player;
-    TextView tv_n_texttop, tv_n_textbig, tv_n_textbottom;
 
     ArrayList<String> options;
 
@@ -65,7 +64,10 @@ public class FragmentGame extends Fragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+        binding = FragmentGameBinding.inflate(getLayoutInflater());
+        View rootView = binding.getRoot();
+
+        //View rootView = inflater.inflate(R.layout.fragment_game, container, false);
 
         Bundle b = getArguments();
         playerSelection = (ArrayList<PlayerSelection>) b.getSerializable("Players");
@@ -79,50 +81,33 @@ public class FragmentGame extends Fragment implements OnClickListener{
 
         int selectedThemeId = getAct().SP.getInt("theme",0);
 
-        RelativeLayout rl_main = rootView.findViewById(R.id.rl_main);
         theGameView = new GameView(this, playerSelection, options, connections, new GameTheme(getContext(), selectedThemeId));
-        rl_main.addView(theGameView,0);
+        binding.rlMain.addView(theGameView,0);
         //find all notification views
         // put into separate custom view
-        rl_notification = rootView.findViewById(R.id.rl_notification);
-        iv_n_background = rootView.findViewById(R.id.iv_n_background);
-        iv_n_player_color = rootView.findViewById(R.id.iv_n_player_color);
-        iv_n_player = rootView.findViewById(R.id.iv_n_player);
-        tv_n_texttop = rootView.findViewById(R.id.tv_n_texttop);
-        tv_n_textbig = rootView.findViewById(R.id.tv_n_textbig);
-        tv_n_textbottom = rootView.findViewById(R.id.tv_n_textbottom);
 
         showNotification(theGameView.playerSprites.get(0));
 
-        RecyclerView rv_bottom_info = rootView.findViewById(R.id.rv_bottom_info);
-        rv_bottom_info.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        rv_bottom_info.setAdapter(new AdapterOptionsInfo(options));
+        binding.rvBottomInfo.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.rvBottomInfo.setAdapter(new AdapterOptionsInfo(options));
 
 
-
-
-        GameButton gb_back = rootView.findViewById(R.id.gb_back);
-        gb_back.setOnClickListener(view -> {
+        binding.gbBack.setOnClickListener(view -> {
             getAct().onBackPressed();
         });
-        gb_back.setSoundListener(getAct());
+        binding.gbBack.setSoundListener(getAct());
 
-        GameButton gb_horn = rootView.findViewById(R.id.gb_horn);
-        gb_horn.setOnClickListener(view -> {
+        binding.gbHorn.setOnClickListener(view -> {
             getAct().playSoundHorn(selectedThemeId);
         });
-        gb_horn.setSoundListener(getAct());
+        binding.gbHorn.setSoundListener(getAct());
 
+        binding.btPlay.setDrawableDisabled(R.drawable.button_play_state01);
+        binding.btPlay.setDrawablePressed(R.drawable.button_play_state03);
+        binding.btPlay.setDrawableNormal(R.drawable.button_play_state02);
+        binding.btPlay.setTypeface(getAct().customtf_normal);
 
-        GameTextButton bt_play = rootView.findViewById(R.id.bt_play);
-        bt_play.setDrawableDisabled(R.drawable.button_play_state01);
-        bt_play.setDrawablePressed(R.drawable.button_play_state03);
-        bt_play.setDrawableNormal(R.drawable.button_play_state02);
-        bt_play.setTypeface(getAct().customtf_normal);
-
-        theGameView.setPlayButton(bt_play);
-
-
+        theGameView.setPlayButton(binding.btPlay);
 
         return rootView;
     }
@@ -140,28 +125,28 @@ public class FragmentGame extends Fragment implements OnClickListener{
             }
 
             if (!playerSprite.isVirtual()){
-                iv_n_background.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
-                iv_n_player.setImageBitmap(playerSprite.getBmpMain());
-                iv_n_player_color.setImageBitmap(playerSprite.getBmpColor());
-                iv_n_player_color.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
-                tv_n_texttop.setTypeface(getAct().customtf_normal);
-                tv_n_textbig.setTypeface(getAct().customtf_normal);
-                tv_n_textbottom.setTypeface(getAct().customtf_normal);
-                tv_n_textbig.setText(playerSprite.getLabel(getContext()));
-                rl_notification.setVisibility(View.VISIBLE);
+                binding.ivNBackground.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
+                binding.ivNPlayer.setImageBitmap(playerSprite.getBmpMain());
+                binding.ivNPlayerColor.setImageBitmap(playerSprite.getBmpColor());
+                binding.ivNPlayerColor.setColorFilter(playerSprite.getColor(), PorterDuff.Mode.SRC_IN);
+                binding.tvNTexttop.setTypeface(getAct().customtf_normal);
+                binding.tvNTextbig.setTypeface(getAct().customtf_normal);
+                binding.tvNTextbottom.setTypeface(getAct().customtf_normal);
+                binding.tvNTextbig.setText(playerSprite.getLabel(getContext()));
+                binding.rlNotification.setVisibility(View.VISIBLE);
 
                 if (playerSprite.isAlive()){
                     String gp = theGameView.gamePhase;
                     if (gp.equals(Keys.gpStart)) {
-                        tv_n_texttop.setVisibility(View.GONE);
-                        tv_n_textbottom.setText(R.string.choose_your_start_spot);
+                        binding.tvNTexttop.setVisibility(View.GONE);
+                        binding.tvNTextbottom.setText(R.string.choose_your_start_spot);
                     } else if (gp.equals(Keys.gpPlaying)) {
-                        tv_n_texttop.setText(R.string.on_to);
-                        tv_n_textbottom.setText(R.string.place_a_tile);
+                        binding.tvNTexttop.setText(R.string.on_to);
+                        binding.tvNTextbottom.setText(R.string.place_a_tile);
                     }
                 } else {
-                    tv_n_texttop.setText(R.string.kaboom);
-                    tv_n_textbottom.setText(R.string.is_out);
+                    binding.tvNTexttop.setText(R.string.kaboom);
+                    binding.tvNTextbottom.setText(R.string.is_out);
                 }
             }
         });
@@ -186,11 +171,11 @@ public class FragmentGame extends Fragment implements OnClickListener{
     }
 
     public boolean isNotification(){
-        return rl_notification != null && rl_notification.getVisibility() == View.VISIBLE;
+        return binding.rlNotification != null && binding.rlNotification.getVisibility() == View.VISIBLE;
     }
 
     public void hideNotification(){
-        rl_notification.setVisibility(View.INVISIBLE);
+        binding.rlNotification.setVisibility(View.INVISIBLE);
     }
 
 

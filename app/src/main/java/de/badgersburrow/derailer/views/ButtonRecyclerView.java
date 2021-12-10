@@ -67,7 +67,7 @@ public class ButtonRecyclerView extends RecyclerView {
         this.listener = listener;
     }
 
-    public void setBt_top(Button bt_top) {
+    public void setBtTop(Button bt_top) {
         this.bt_top = bt_top;
         this.bt_top.setOnTouchListener((v, event) -> {
             if(event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -85,7 +85,7 @@ public class ButtonRecyclerView extends RecyclerView {
         });
     }
 
-    public void setBt_left(Button bt_left) {
+    public void setBtLeft(Button bt_left) {
         this.bt_left = bt_left;
 
         this.bt_left.setOnTouchListener((v, event) -> {
@@ -105,7 +105,7 @@ public class ButtonRecyclerView extends RecyclerView {
         });
     }
 
-    public void setBt_right(Button bt_right) {
+    public void setBtRight(Button bt_right) {
         this.bt_right = bt_right;
 
         this.bt_right.setOnTouchListener((v, event) -> {
@@ -124,7 +124,7 @@ public class ButtonRecyclerView extends RecyclerView {
         });
     }
 
-    public void setBt_bottom(Button bt_bottom) {
+    public void setBtBottom(Button bt_bottom) {
         this.bt_bottom = bt_bottom;
 
         this.bt_bottom.setOnTouchListener((v, event) -> {

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.badgersburrow.derailer.ActivityMain;
 import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
+import de.badgersburrow.derailer.databinding.ItemSpacerBinding;
+import de.badgersburrow.derailer.databinding.ItemThemeBinding;
 import de.badgersburrow.derailer.objects.Theme;
 
 import java.util.ArrayList;
@@ -28,30 +30,20 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     ThemeListener listener;
 
     public static class Spacer extends RecyclerView.ViewHolder{
+        ItemSpacerBinding binding;
 
-
-        public Spacer(View itemView) {
-            super(itemView);
-
+        public Spacer(ItemSpacerBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
-        LinearLayoutCompat ll_theme, ll_theme_bg;
-        ImageView iv_start, iv_select;
-        TextView tv_title;
-        ImageView iv_theme;
-        ImageView iv_theme_color;
+        ItemThemeBinding binding;
 
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            ll_theme = (LinearLayoutCompat) itemView.findViewById(R.id.ll_theme);
-            ll_theme_bg = (LinearLayoutCompat) itemView.findViewById(R.id.ll_theme_bg);
-            iv_start = (ImageView) itemView.findViewById(R.id.iv_start);
-            iv_select = (ImageView) itemView.findViewById(R.id.iv_select);
-            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-            iv_theme = (ImageView) itemView.findViewById(R.id.iv_theme);
-            iv_theme_color = (ImageView) itemView.findViewById(R.id.iv_theme_color);
+        public DataObjectHolder(ItemThemeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
@@ -65,14 +57,11 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                int viewType) {
         if (viewType == 0){
-            return new Spacer(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_spacer, parent, false));
+            return new Spacer(ItemSpacerBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
         }
 
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_theme, parent, false);
-
-        return new DataObjectHolder(view);
+        ItemThemeBinding binding = ItemThemeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new DataObjectHolder(binding);
     }
 
     @Override
@@ -86,26 +75,26 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if (holder.getItemViewType()!=0){
+        if (holder instanceof DataObjectHolder){
+            DataObjectHolder objectHolder = (DataObjectHolder) holder;
             int themeId = position-1;
             Theme theme = mThemes.get(themeId);
-            DataObjectHolder objectHolder = (DataObjectHolder) holder;
-            objectHolder.ll_theme.setTag(themeId);
-            objectHolder.tv_title.setText(theme.getTitle(mContext));
-            objectHolder.tv_title.setTypeface(ActivityMain.customtf_normal);
-            objectHolder.iv_start.setImageDrawable(theme.getBackgroundResId(mContext));
-            objectHolder.ll_theme_bg.setBackground(theme.getBackgroundResId(mContext));
-            objectHolder.iv_theme.setImageDrawable(theme.getCartResId(mContext));
+            objectHolder.binding.llTheme.setTag(themeId);
+            objectHolder.binding.tvTitle.setText(theme.getTitle(mContext));
+            objectHolder.binding.tvTitle.setTypeface(ActivityMain.customtf_normal);
+            objectHolder.binding.ivStart.setImageDrawable(theme.getBackgroundResId(mContext));
+            objectHolder.binding.llThemeBg.setBackground(theme.getBackgroundResId(mContext));
+            objectHolder.binding.ivTheme.setImageDrawable(theme.getCartResId(mContext));
             int color = theme.getThemeColorResId(mContext);
             Drawable drawable_color = theme.getCartColorResId(mContext);
             drawable_color.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            objectHolder.iv_theme_color.setImageDrawable(drawable_color);
+            objectHolder.binding.ivThemeColor.setImageDrawable(drawable_color);
             if (theme.isSelected()){
-                objectHolder.iv_select.setVisibility(View.VISIBLE);
+                objectHolder.binding.ivSelect.setVisibility(View.VISIBLE);
             } else {
-                objectHolder.iv_select.setVisibility(View.INVISIBLE);
+                objectHolder.binding.ivSelect.setVisibility(View.INVISIBLE);
             }
-            objectHolder.ll_theme.setOnClickListener(v -> this.listener.selectTheme(themeId));
+            objectHolder.binding.llTheme.setOnClickListener(v -> this.listener.selectTheme(themeId));
         }
     }
 

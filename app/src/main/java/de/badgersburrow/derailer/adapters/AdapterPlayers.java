@@ -19,6 +19,7 @@ import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.Utilities;
+import de.badgersburrow.derailer.databinding.ItemPlayerBinding;
 
 /**
  * Created by cetty on 27.07.16.
@@ -44,14 +45,11 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
     private Context mContext;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
-        ImageView iv_icon;
-        TextView tv_num;
+        ItemPlayerBinding binding;
 
-
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            iv_icon = itemView.findViewById(R.id.iv_icon);
-            tv_num = itemView.findViewById(R.id.tv_num);
+        public DataObjectHolder(ItemPlayerBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
@@ -63,10 +61,8 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent,
                                                int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_player, parent, false);
-
-        return new DataObjectHolder(view);
+        ItemPlayerBinding binding = ItemPlayerBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new DataObjectHolder(binding);
     }
 
     @Override
@@ -81,9 +77,9 @@ public class AdapterPlayers extends RecyclerView.Adapter<AdapterPlayers.DataObje
             int p_width = icon.getWidth();
             int p_height = icon.getHeight();
 
-            holder.iv_icon.setImageBitmap(Bitmap.createBitmap(icon , 0, 0, p_width, p_height, m, true));
-            holder.tv_num.setText(String.valueOf(player_num.get(key)));
-            holder.tv_num.setTypeface(ActivityMain.customtf_normal);
+            holder.binding.ivIcon.setImageBitmap(Bitmap.createBitmap(icon , 0, 0, p_width, p_height, m, true));
+            holder.binding.tvNum.setText(String.valueOf(player_num.get(key)));
+            holder.binding.tvNum.setTypeface(ActivityMain.customtf_normal);
         }
     }
 

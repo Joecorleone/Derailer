@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 
 import java.util.HashMap;
 
+import de.badgersburrow.derailer.databinding.ActivityMainBinding;
 import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.objects.SoundRef;
 import de.badgersburrow.derailer.objects.SoundTheme;
@@ -27,6 +28,8 @@ import de.badgersburrow.derailer.objects.SoundTheme;
 public class ActivityMain extends AppCompatActivity implements SoundListener {
 
     private final static String TAG = "ActivityMain";
+
+    private ActivityMainBinding binding;
 
     SharedPreferences SP;
     SharedPreferences.Editor SPE;
@@ -52,7 +55,10 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         Utilities.FullScreencall(this);
 

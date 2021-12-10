@@ -18,6 +18,7 @@ import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.R;
 
 import de.badgersburrow.derailer.Utilities;
+import de.badgersburrow.derailer.databinding.ItemCartBinding;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.SoundListener;
 import de.badgersburrow.derailer.objects.Theme;
@@ -35,17 +36,11 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
     private SoundListener soundListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
-        RelativeLayout rl_cart;
-        ImageView iv_cart;
-        ImageView iv_cart_color;
-        ImageView iv_indicator;
+        ItemCartBinding binding;
 
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            rl_cart = (RelativeLayout) itemView.findViewById(R.id.rl_cart);
-            iv_cart = (ImageView) itemView.findViewById(R.id.iv_cart);
-            iv_cart_color = (ImageView) itemView.findViewById(R.id.iv_cart_color);
-            iv_indicator = (ImageView) itemView.findViewById(R.id.iv_indicator);
+        public DataObjectHolder(ItemCartBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
@@ -64,19 +59,17 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent,
                                                int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_cart, parent, false);
-
-        return new DataObjectHolder(view);
+        ItemCartBinding binding = ItemCartBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new DataObjectHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
         PlayerSelection player = mPlayers.get(position);
 
-        holder.rl_cart.setTag(position);
-        holder.rl_cart.setOnDragListener(new MyDragListener());
-        holder.rl_cart.setOnClickListener(v -> {
+        holder.binding.rlCart.setTag(position);
+        holder.binding.rlCart.setOnDragListener(new MyDragListener());
+        holder.binding.rlCart.setOnClickListener(v -> {
             if ( !player.getSelection().equals(Keys.unselected)){
                 soundListener.playSoundSwosh();
                 listener.playerDeselected( player.getSelection());
@@ -95,27 +88,27 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.DataObjectHold
         Bitmap cart = Utilities.drawableToBitmap(mTheme.getCartResId(mContext));
         int width = cart.getWidth();
         int height = cart.getHeight();
-        holder.iv_cart.setImageBitmap(Bitmap.createBitmap(cart , 0, 0, width, height, m, true));
+        holder.binding.ivCart.setImageBitmap(Bitmap.createBitmap(cart , 0, 0, width, height, m, true));
 
         int color = player.getColor();
         Bitmap cart_color = Utilities.drawableToBitmap(mTheme.getCartColorResId(mContext));
-        holder.iv_cart_color.setImageBitmap(Bitmap.createBitmap(cart_color , 0, 0, width, height, m, true));
-        holder.iv_cart_color.setColorFilter(color);
+        holder.binding.ivCartColor.setImageBitmap(Bitmap.createBitmap(cart_color , 0, 0, width, height, m, true));
+        holder.binding.ivCartColor.setColorFilter(color);
 
         if (player.isUnselected()){
-            holder.iv_indicator.setVisibility(View.INVISIBLE);
+            holder.binding.ivIndicator.setVisibility(View.INVISIBLE);
         } else if (player.isPlayer()){
-            holder.iv_indicator.setImageResource(R.drawable.human_indicator);
-            holder.iv_indicator.setVisibility(View.VISIBLE);
+            holder.binding.ivIndicator.setImageResource(R.drawable.human_indicator);
+            holder.binding.ivIndicator.setVisibility(View.VISIBLE);
         } else if (player.isEasyAI()){
-            holder.iv_indicator.setImageResource(R.drawable.ai_easy_indicator);
-            holder.iv_indicator.setVisibility(View.VISIBLE);
+            holder.binding.ivIndicator.setImageResource(R.drawable.ai_easy_indicator);
+            holder.binding.ivIndicator.setVisibility(View.VISIBLE);
         } else if (player.isNormalAI()){
-            holder.iv_indicator.setImageResource(R.drawable.ai_normal_indicator);
-            holder.iv_indicator.setVisibility(View.VISIBLE);
+            holder.binding.ivIndicator.setImageResource(R.drawable.ai_normal_indicator);
+            holder.binding.ivIndicator.setVisibility(View.VISIBLE);
         } else if (player.isHardAI()){
-            holder.iv_indicator.setImageResource(R.drawable.ai_hard_indicator);
-            holder.iv_indicator.setVisibility(View.VISIBLE);
+            holder.binding.ivIndicator.setImageResource(R.drawable.ai_hard_indicator);
+            holder.binding.ivIndicator.setVisibility(View.VISIBLE);
         }
     }
 

@@ -5,9 +5,7 @@ import android.content.ClipData;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -16,9 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,13 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.badgersburrow.derailer.adapters.AdapterCart;
 import de.badgersburrow.derailer.adapters.AdapterOptions;
 import de.badgersburrow.derailer.adapters.AdapterPlayers;
-import de.badgersburrow.derailer.views.DialogButton;
+import de.badgersburrow.derailer.databinding.DialogFewPlayerBinding;
+import de.badgersburrow.derailer.databinding.FragmentGameSettingsBinding;
 import de.badgersburrow.derailer.views.NoScrollGridLayoutManager;
 import de.badgersburrow.derailer.views.SettingCard;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.objects.Theme;
-import de.badgersburrow.derailer.views.ButtonRecyclerView;
-import de.badgersburrow.derailer.views.GameSignButton;
 
 import java.util.ArrayList;
 
@@ -45,24 +39,20 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
     private static String TAG = "StartMenuActivity";
 
+    FragmentGameSettingsBinding binding;
+
     int connections = 4;
 
     SharedPreferences SP;
     SharedPreferences.Editor SPE;
 
-    RecyclerView rv_options;
     AdapterOptions adapterOptions;
     ArrayList<SettingCard> settingCards;
 
     AdapterCart adapterCarts;
     static ArrayList<PlayerSelection> availablePlayers;
-    ButtonRecyclerView rv_carts;
 
-    RecyclerView rv_players;
     AdapterPlayers adapterPlayers;
-
-
-    ImageView iv_player, iv_ai_easy, iv_ai_normal, iv_ai_hard;
 
     static Resources res;
 
@@ -75,7 +65,10 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_game_settings, container, false);
+        binding = FragmentGameSettingsBinding.inflate(getLayoutInflater());
+        View rootView = binding.getRoot();
+
+        //View rootView = inflater.inflate(R.layout.fragment_game_settings, container, false);
 
         availablePlayers = new ArrayList<>();
 
@@ -83,25 +76,11 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
         res = getResources();
 
-        iv_player = rootView.findViewById(R.id.iv_player);
-        iv_ai_easy = rootView.findViewById(R.id.iv_ai_easy);
-        iv_ai_normal = rootView.findViewById(R.id.iv_ai_normal);
-        iv_ai_hard = rootView.findViewById(R.id.iv_ai_hard);
-
-        TextView tv_header = rootView.findViewById(R.id.tv_header);
-        TextView tv_players = rootView.findViewById(R.id.tv_players);
-        TextView tv_human = rootView.findViewById(R.id.tv_human);
-        TextView tv_ai = rootView.findViewById(R.id.tv_ai);
-        TextView tv_options = rootView.findViewById(R.id.tv_options);
-
-        tv_header.setTypeface(getAct().customtf_normal);
-        tv_players.setTypeface(getAct().customtf_normal);
-        tv_human.setTypeface(getAct().customtf_normal);
-        tv_ai.setTypeface(getAct().customtf_normal);
-        tv_options.setTypeface(getAct().customtf_normal);
-
-        rv_options = rootView.findViewById(R.id.rv_options);
-        rv_players = rootView.findViewById(R.id.rv_players);
+        binding.tvHeader.setTypeface(getAct().customtf_normal);
+        binding.tvPlayers.setTypeface(getAct().customtf_normal);
+        binding.tvHuman.setTypeface(getAct().customtf_normal);
+        binding.tvAi.setTypeface(getAct().customtf_normal);
+        binding.tvOptions.setTypeface(getAct().customtf_normal);
 
         SP = PreferenceManager.getDefaultSharedPreferences(getContext());
         SPE = SP.edit();
@@ -115,15 +94,14 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
             availablePlayers.add(new PlayerSelection(cart_color_selection.getColor(i, color_default)));
         }
         cart_color_selection.recycle();
-        rv_carts = rootView.findViewById(R.id.rv_carts);
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rv_carts.setLayoutManager(llm);
+        binding.rvCarts.setLayoutManager(llm);
         adapterCarts = new AdapterCart(getContext(), gameTheme, availablePlayers, this);
         adapterCarts.setSoundListener(getAct());
-        rv_carts.setAdapter(adapterCarts);
-        rv_carts.setListener(getAct());
-        rv_carts.setBt_left(rootView.findViewById(R.id.bt_carts_left));
-        rv_carts.setBt_right(rootView.findViewById(R.id.bt_carts_right));
+        binding.rvCarts.setAdapter(adapterCarts);
+        binding.rvCarts.setListener(getAct());
+        binding.rvCarts.setBtLeft(binding.btCartsLeft);
+        binding.rvCarts.setBtRight(binding.btCartsRight);
 
 
 
@@ -191,24 +169,24 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
         adapterOptions = new AdapterOptions(settingCards, this);
 
-        ViewTreeObserver viewTreeObserver = rv_options.getViewTreeObserver();
+        ViewTreeObserver viewTreeObserver = binding.rvOptions.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                rv_options.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                int width  = rv_options.getMeasuredWidth();
+                binding.rvOptions.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int width  = binding.rvOptions.getMeasuredWidth();
                 //int height = rv_options.getMeasuredHeight();
 
                 Log.d(TAG, "rv_options width " + width);
                 int noCol = Utilities.calculateNoOfColumns(getContext(), width);
 
                 GridLayoutManager llm_options = new NoScrollGridLayoutManager(getContext(), noCol, RecyclerView.VERTICAL, false);
-                rv_options.setLayoutManager(llm_options);
+                binding.rvOptions.setLayoutManager(llm_options);
 
             }
         });
 
-        rv_options.setAdapter(adapterOptions);
+        binding.rvOptions.setAdapter(adapterOptions);
         if (connections == 8){
             adapterOptions.enable(Keys.option_draw);
         } else {
@@ -216,20 +194,18 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         }
 
 
-        iv_player.setOnTouchListener(new MyTouchListener());
-        iv_ai_easy.setOnTouchListener(new MyTouchListener());
-        iv_ai_normal.setOnTouchListener(new MyTouchListener());
-        iv_ai_hard.setOnTouchListener(new MyTouchListener());
+        binding.ivPlayer.setOnTouchListener(new MyTouchListener());
+        binding.ivAiEasy.setOnTouchListener(new MyTouchListener());
+        binding.ivAiNormal.setOnTouchListener(new MyTouchListener());
+        binding.ivAiHard.setOnTouchListener(new MyTouchListener());
 
-        GameSignButton gsb_back = rootView.findViewById(R.id.gsb_back);
-        gsb_back.setOnClickListener(view -> {
+
+        binding.gsbBack.setOnClickListener(view -> {
             getAct().onBackPressed();
         });
-        gsb_back.setOnTouchListener(this);
+        binding.gsbBack.setOnTouchListener(this);
 
-
-        GameSignButton gsb_play = (GameSignButton) rootView.findViewById(R.id.gsb_play);
-        gsb_play.setOnClickListener(view -> {
+        binding.gsbPlay.setOnClickListener(view -> {
             if (getNumPlayers() < 2) {
                 showDialog();
             } else {
@@ -239,12 +215,12 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
                 getAct().showGame(b);
             }
         });
-        gsb_play.setOnTouchListener(this);
+        binding.gsbPlay.setOnTouchListener(this);
 
         adapterPlayers = new AdapterPlayers(getContext());
         GridLayoutManager glm_players = new GridLayoutManager(getContext(), 2);
-        rv_players.setLayoutManager(glm_players);
-        rv_players.setAdapter(adapterPlayers);
+        binding.rvPlayers.setLayoutManager(glm_players);
+        binding.rvPlayers.setAdapter(adapterPlayers);
 
         return rootView;
     }
@@ -310,18 +286,21 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
 
     public void showDialog() {
+
         final Dialog dialog = new Dialog(getContext(), R.style.AlertDialogCustom);
-        dialog.setContentView(R.layout.dialog_few_player);
+
+        DialogFewPlayerBinding binding = DialogFewPlayerBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+
+        dialog.setContentView(view);
+        //dialog.setContentView(R.layout.dialog_few_player);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-        TextView tv_title = dialog.findViewById(R.id.tv_title);
-        tv_title.setTypeface(getAct().customtf_normal);
-        TextView tv_description = dialog.findViewById(R.id.tv_description);
-        tv_description.setTypeface(getAct().customtf_normal);
+        binding.tvTitle.setTypeface(getAct().customtf_normal);
+        binding.tvDescription.setTypeface(getAct().customtf_normal);
 
-        DialogButton db_ok = dialog.findViewById(R.id.db_ok);
-        db_ok.setOnClickListener(v -> dialog.dismiss());
-        db_ok.setSoundListener(getAct());
+        binding.dbOk.setOnClickListener(v -> dialog.dismiss());
+        binding.dbOk.setSoundListener(getAct());
 
         dialog.show();
     }

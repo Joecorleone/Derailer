@@ -26,11 +26,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import de.badgersburrow.derailer.databinding.FragmentGameBinding;
+import de.badgersburrow.derailer.databinding.FragmentGameOverBinding;
 import de.badgersburrow.derailer.objects.PlayerResult;
 import de.badgersburrow.derailer.objects.PlayerSelection;
 import de.badgersburrow.derailer.views.GameButton;
 
 public class FragmentGameOver extends Fragment implements OnClickListener{
+
+    FragmentGameOverBinding binding;
 
     ArrayList<PlayerResult> players;
     ArrayList<PlayerSelection> playersSelection;
@@ -45,7 +49,10 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_game_over, container, false);
+        binding = FragmentGameOverBinding.inflate(getLayoutInflater());
+        View rootView = binding.getRoot();
+
+        //View rootView = inflater.inflate(R.layout.fragment_game_over, container, false);
 
         Bundle b = getArguments();
 
@@ -55,32 +62,19 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
 
         int selectedThemeId = getAct().SP.getInt("theme",0);
 
-        TextView tv_header = rootView.findViewById(R.id.tv_header);
-        tv_header.setTypeface(getAct().customtf_normal);
+        binding.tvHeader.setTypeface(getAct().customtf_normal);
 
         // podium
-        TextView tv_place1_dist = rootView.findViewById(R.id.tv_place1_dist);
-        TextView tv_place2_dist = rootView.findViewById(R.id.tv_place2_dist);
-        TextView tv_place3_dist = rootView.findViewById(R.id.tv_place3_dist);
-        TextView tv_place1_label = rootView.findViewById(R.id.tv_place1_label);
-        TextView tv_place2_label = rootView.findViewById(R.id.tv_place2_label);
-        TextView tv_place3_label = rootView.findViewById(R.id.tv_place3_label);
-        ImageView iv_place1_main = rootView.findViewById(R.id.iv_place1_main);
-        ImageView iv_place2_main = rootView.findViewById(R.id.iv_place2_main);
-        ImageView iv_place3_main = rootView.findViewById(R.id.iv_place3_main);
-        ImageView iv_place1_color = rootView.findViewById(R.id.iv_place1_color);
-        ImageView iv_place2_color = rootView.findViewById(R.id.iv_place2_color);
-        ImageView iv_place3_color = rootView.findViewById(R.id.iv_place3_color);
 
-        List<TextView> list_tv_dist = Arrays.asList(tv_place1_dist, tv_place2_dist, tv_place3_dist);
-        List<TextView> list_tv_label = Arrays.asList(tv_place1_label, tv_place2_label, tv_place3_label);
-        List<ImageView> list_iv_main = Arrays.asList(iv_place1_main, iv_place2_main, iv_place3_main);
-        List<ImageView> list_iv_color = Arrays.asList(iv_place1_color, iv_place2_color, iv_place3_color);
+        List<TextView> list_tv_dist = Arrays.asList(binding.tvPlace1Dist, binding.tvPlace2Dist, binding.tvPlace3Dist);
+        List<TextView> list_tv_label = Arrays.asList(binding.tvPlace1Label, binding.tvPlace2Label, binding.tvPlace3Label);
+        List<ImageView> list_iv_main = Arrays.asList(binding.ivPlace1Main, binding.ivPlace2Main, binding.ivPlace3Main);
+        List<ImageView> list_iv_color = Arrays.asList(binding.ivPlace1Color, binding.ivPlace2Color, binding.ivPlace3Color);
 
         if (options.contains(Keys.option_victory_last)){
-            tv_place1_dist.setVisibility(View.INVISIBLE);
-            tv_place2_dist.setVisibility(View.INVISIBLE);
-            tv_place3_dist.setVisibility(View.INVISIBLE);
+            binding.tvPlace1Dist.setVisibility(View.INVISIBLE);
+            binding.tvPlace2Dist.setVisibility(View.INVISIBLE);
+            binding.tvPlace3Dist.setVisibility(View.INVISIBLE);
 
             Collections.sort(players,
                     (o1, o2) -> -Integer.compare(o1.getOutCount(), o2.getOutCount()));
@@ -109,17 +103,14 @@ public class FragmentGameOver extends Fragment implements OnClickListener{
         }
 
         if (players.size() < 3){
-            LinearLayoutCompat ll_place3_podium = rootView.findViewById(R.id.ll_place3_podium);
-            ll_place3_podium.setVisibility(View.INVISIBLE);
+            binding.llPlace3Podium.setVisibility(View.INVISIBLE);
         }
 
-        GameButton bReplay = rootView.findViewById(R.id.gb_newtry);
-        bReplay.setOnClickListener(this);
-        bReplay.setSoundListener(getAct());
+        binding.gbNewtry.setOnClickListener(this);
+        binding.gbNewtry.setSoundListener(getAct());
 
-        GameButton bExit = rootView.findViewById(R.id.gb_menu);
-        bExit.setOnClickListener(this);
-        bExit.setSoundListener(getAct());
+        binding.gbMenu.setOnClickListener(this);
+        binding.gbMenu.setSoundListener(getAct());
 
         getAct().playSoundVictory();
 
