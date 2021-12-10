@@ -77,7 +77,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         float maxVolumeIndex  = (float) audioManager.getStreamMaxVolume(streamType);
 
         // Volumn (0 --> 1)
-        this.volume = currentVolumeIndex / maxVolumeIndex;
+        this.volume = 1;//currentVolumeIndex / maxVolumeIndex;
 
         // Suggests an audio stream whose volume should be changed by
         // the hardware volume controls.
@@ -156,13 +156,13 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
         mediaPlayer = MediaPlayer.create(this, R.raw.music_background01);
         mediaPlayer.setLooping(true); // Set looping
         //mediaPlayer.setVolume(volume*.5f, volume*.5f);
-        musicVolume();
     }
 
 
     public void musicPlay(){
         if (mediaPlayer == null){
             musicPrepare();
+            musicVolume();
         }
         if (mediaPlayer != null){
             mediaPlayer.start();
@@ -191,6 +191,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
             if (v <= 0){
                 mediaPlayer.pause();
             } else if (!mediaPlayer.isPlaying()) {
+                musicPrepare();
                 mediaPlayer.start();
             }
         }
@@ -346,9 +347,7 @@ public class ActivityMain extends AppCompatActivity implements SoundListener {
     @Override
     public void onResume(){
         super.onResume();
-        if (SP.getBoolean(Keys.setting_music, Keys.setting_music_default)) {
-            musicPlay();
-        }
+        musicPlay();
     }
 
 
