@@ -11,8 +11,8 @@
     <string name = "human"> Humano </string>
     <string name = "ai"> IA </string>
 
-    <string name = "label_player"> Jogador% d </string>
-    <string name = "label_ai"> AI% d </string>
+    <string name = "label_player"> Jogador %d </string>
+    <string name = "label_ai"> AI %d </string>
 
     <string name = "theme_steam_engine"> Motor Steam </string>
     <string name = "theme_electric_engine"> Motor elétrico </string>

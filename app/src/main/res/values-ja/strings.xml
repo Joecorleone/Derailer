@@ -11,8 +11,8 @@
     <string name = "human">人間</string>
     <string name = "ai"> AI </string>
 
-    <string name = "label_player">プレーヤー％d </string>
-    <string name = "label_ai"> AI％d </string>
+    <string name = "label_player">プレーヤー%d </string>
+    <string name = "label_ai"> AI%d </string>
 
     <string name = "theme_steam_engine">蒸気エンジン</string>
     <string name = "theme_electric_engine">電気エンジン</string>

@@ -237,19 +237,17 @@ public class GameView extends SurfaceView {
                 startThinking();
             }
             if (p.isKI() && ((PlayerAiSprite) p).getAiPhase().equals(Keys.ppFinishedThinking)){
-                int i = randomGenerator.nextInt(startPositions.size());
-                StartSprite sprite = startPositions.get(i);
-                PlayerSprite playerSprite = playerSprites.get(currentPlayer);
-                playerSprite.setXIndex(sprite.getXIndex());
-                playerSprite.setYIndex(sprite.getYIndex());
-                playerSprite.setPos(sprite.getPos());
+                // eval start positions
+                PlayerAiSprite playerAiSprite = (PlayerAiSprite) playerSprites.get(currentPlayer);
+                playerAiSprite.setStartPosition(startPositions, obstacles);
+
+
 
                 //Log.d("X", String.valueOf(sprite.getXIndex()));
                 //Log.d("Y", String.valueOf(sprite.getYIndex()));
                 //Log.d("Pos", String.valueOf(sprite.getPos()));
                 currentPlayer += 1;
                 currentPlayer = currentPlayer% playerSprites.size();
-                startPositions.remove(sprite);
                 fragmentGame.showNotification(playerSprites.get(currentPlayer));
 
                 if (currentPlayer == 0) {
