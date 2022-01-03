@@ -4,16 +4,20 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 import de.badgersburrow.derailer.objects.SoundListener;
 
-public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
+public class GameTextButton extends androidx.appcompat.widget.AppCompatButton
+        implements View.OnClickListener {
 
     private static String TAG = "GameTextButton";
 
     private int res_disabled = -1;
     private int res_pressed = -1;
     private int res_normal = -1;
+
+    private boolean played = false;
 
     private SoundListener listener;
 
@@ -53,8 +57,14 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
                 listener.playSoundButton();
             }
 
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
+        } else if (event.getAction() == MotionEvent.ACTION_UP && isPressed()) {
+            float x = event.getX();
+            float y = event.getY();
+
+            if (0 < x && x < getMeasuredWidth() && 0 < y && y < getMeasuredHeight()){
+                played = true;
+            }
         }
 
         return super.onTouchEvent(event);
@@ -64,8 +74,8 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
     protected void drawableStateChanged() {
         Log.d(TAG, String.format("button focused: %s, enabled: %s, pressed: %s",
                 isFocused() ? "yes" : "no", isEnabled() ? "yes" : "no", isPressed() ? "yes" : "no"));
-        super.drawableStateChanged();
-        if (isPressed()){
+
+        if (isPressed() || played){
             if (res_pressed > 0){
                 setBackgroundResource(res_pressed);
             }
@@ -78,6 +88,17 @@ public class GameTextButton extends androidx.appcompat.widget.AppCompatButton {
                 setBackgroundResource(res_disabled);
             }
         }
+        super.drawableStateChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.callOnClick();
+    }
+
+    public void reset(){
+        played = false;
+        drawableStateChanged();
     }
 
 }

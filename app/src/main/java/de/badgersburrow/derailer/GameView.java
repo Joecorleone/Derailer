@@ -202,6 +202,7 @@ public class GameView extends SurfaceView {
         this.bt_play = bt_play;
         this.bt_play.setOnClickListener(v -> {
             movePlayers();
+
         });
         this.bt_play.setSoundListener(fragmentGame.getAct());
     }
@@ -242,8 +243,6 @@ public class GameView extends SurfaceView {
                 // eval start positions
                 PlayerAiSprite playerAiSprite = (PlayerAiSprite) playerSprites.get(currentPlayer);
                 playerAiSprite.setStartPosition(startPositions, obstacles);
-
-
 
                 //Log.d("X", String.valueOf(sprite.getXIndex()));
                 //Log.d("Y", String.valueOf(sprite.getYIndex()));
@@ -891,6 +890,8 @@ public class GameView extends SurfaceView {
     }
 
     public void nextPlayer(){
+        fragmentGame.getAct().runOnUiThread(() -> bt_play.reset());
+
         int number_live_players = 0;
         String playerAliveLabel = "NoBody";
         int playerAliveColor = 0xFF000000;
