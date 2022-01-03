@@ -1023,4 +1023,7 @@ public class GameView extends SurfaceView {
         return rotateIndicator;
     }
 
+    public int getTiles() {
+        return tiles;
+    }
 }

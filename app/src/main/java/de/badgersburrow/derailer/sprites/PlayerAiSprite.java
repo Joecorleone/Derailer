@@ -154,8 +154,31 @@ public class PlayerAiSprite extends PlayerSprite{
         Random randomGenerator = new Random();
         ArrayList<Integer> scores = new ArrayList<>();
 
+        // determine tiles without occupied start positions
+        ArrayList<StartSprite> freePositions = new ArrayList<>();
+        for (int i=0; i<startPositions.size(); i++){
+            StartSprite start = startPositions.get(i);
+            int count = 0;
+            for (int j=i; j<startPositions.size(); j++){
+                StartSprite startCompare = startPositions.get(j);
+                if (start.getXIndex() == startCompare.getXIndex() && start.getYIndex() == startCompare.getYIndex()){
+                    count++;
+                }
+                if ((start.getXIndex() == 0 || start.getXIndex() == gameView.getBoardSize()-1) && (start.getYIndex() == 0 || start.getYIndex() == gameView.getBoardSize()-1)){
+                    if ((count == 4 && gameView.getTiles()==8) || (count == 2 && gameView.getTiles()==4)){
+                        freePositions.add(start);
+                    }
+                } else {
+                    if ((count == 2 && gameView.getTiles()==8) || (count == 1 && gameView.getTiles()==4)){
+                        freePositions.add(start);
+                    }
+                }
+            }
+        }
+        Log.d(TAG, "freePositions: " + freePositions.size());
+
         for (StartSprite start : startPositions){
-            scores.add(calcStartScore(start, startPositions, obstacles));
+            scores.add(calcStartScore(start, freePositions, obstacles));
         }
         int max = Collections.max(scores);
         Log.d(TAG, "scores: " + scores + ", max: " + max);
@@ -180,7 +203,7 @@ public class PlayerAiSprite extends PlayerSprite{
 
     private int calcStartScore(StartSprite start, ArrayList<StartSprite> startPositions, ArrayList<ObstacleCardSprite> obstacles){
         int score = 0;
-        Log.d(TAG, "start.xIndex: " + start.getXIndex() + ", start.yIndex: " + start.getYIndex());
+        //Log.d(TAG, "start.xIndex: " + start.getXIndex() + ", start.yIndex: " + start.getYIndex());
         for (int x=0; x<gameView.getBoardSize(); x++){
             if (abs(start.getXIndex() - x) > max_dist){
                 continue;
@@ -191,10 +214,10 @@ public class PlayerAiSprite extends PlayerSprite{
                 }
 
                 // has no obstacle on it
-                score++;
+                score += distanceWeight(start, x, y);
                 for (ObstacleCardSprite obstacle: obstacles){
                     if (x == obstacle.getXIndex() && y == obstacle.getYIndex()){
-                        score--;
+                        score -= distanceWeight(start, x, y);
                         break;
                     }
                 }
@@ -202,7 +225,7 @@ public class PlayerAiSprite extends PlayerSprite{
                 // occupied start positions
                 for (StartSprite startSprite: startPositions){
                     if (x == startSprite.getXIndex() && y == startSprite.getYIndex()){
-                        score += distanceWeight(start,startSprite);
+                        score += distanceWeight(start,startSprite.getXIndex(), startSprite.getYIndex());
                     }
                 }
 
@@ -212,11 +235,9 @@ public class PlayerAiSprite extends PlayerSprite{
         return score;
     }
 
-    private int distanceWeight(StartSprite s1, StartSprite s2){
+    private int distanceWeight(StartSprite s1, int x2, int y2){
         int x1 = s1.getXIndex();
         int y1 = s1.getYIndex();
-        int x2 = s2.getXIndex();
-        int y2 = s2.getYIndex();
 
         return 2*max_dist - abs(x1-x2) - abs(y1-y2);
     }
