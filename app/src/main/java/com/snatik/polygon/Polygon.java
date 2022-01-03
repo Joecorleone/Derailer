@@ -137,6 +137,24 @@ public class Polygon {
     }
 
     /**
+     * Check if the given polygon overlaps with the polygon
+     *
+     * @param polygon The polygon to check
+     * @return <code>True</code> if the polygons overlap, otherwise return <code>False</code>
+     */
+    public boolean overlaps(com.snatik.polygon.Polygon polygon){
+        for (com.snatik.polygon.Line side : _sides) {
+            for (com.snatik.polygon.Line side_other : polygon._sides) {
+                if (intersect(side_other, side)) {
+                    // System.out.println("intersection++");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Check if the the given point is inside of the polygon.<br>
      *
      * @param point The point to check

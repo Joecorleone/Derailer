@@ -331,12 +331,13 @@ public abstract class PlayerSprite extends BaseSprite implements Serializable {
         if (collisionPolygon == null || other.collisionPolygon == null){
             return false;
         }
-        for (Line l : other.collisionPolygon.getSides()){
+        return collisionPolygon.overlaps(other.collisionPolygon);
+        /*for (Line l : other.collisionPolygon.getSides()){
             if (collisionPolygon.contains(l.getStart())){
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 
     public Pair<Integer, Integer> getCenter(){
