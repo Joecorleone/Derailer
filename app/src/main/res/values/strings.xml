@@ -81,5 +81,6 @@
     <string name="title_game" translatable="false">Game</string>
     <string name="title_theme_selection" translatable="false">Theme selection</string>
     <string name="title_game_over" translatable="false">Game over</string>
+    <string name="next">Next</string>
 
 </resources>

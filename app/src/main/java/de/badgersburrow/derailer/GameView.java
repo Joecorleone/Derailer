@@ -418,7 +418,7 @@ public class GameView extends SurfaceView {
             }
         }
 
-        canvas.drawText("Next", (float) (x*2/3), (float) (yTextPos + dy * 2), paint);
+        canvas.drawText(getContext().getString(R.string.next), (float) (x*2/3), (float) (yTextPos + dy * 2), paint);
 
         for (; count< playerSprites.size(); count++){
             int index = (currentPlayer +count)% playerSprites.size();
