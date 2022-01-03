@@ -36,7 +36,7 @@ public class SettingCard extends LinearLayout implements
 
     private View v;
 
-    AdapterOptions.SoundListener listener;
+    ChangeListener listener;
 
     private View.OnClickListener clickListener;
     private Context mContext;
@@ -191,6 +191,7 @@ public class SettingCard extends LinearLayout implements
             public void onAnimationEnd(Animator animator) {
                 setChoiceNext();
                 anim2.start();
+                listener.changedTo(getKeyChosen());
             }
             @Override
             public void onAnimationCancel(Animator animator) { }
@@ -222,7 +223,7 @@ public class SettingCard extends LinearLayout implements
             if (!animating){
                 this.toggleState();
                 if (listener != null){
-                    listener.playSoundOptionChanged();
+                    listener.pressed();
                 }
             }
 
@@ -232,7 +233,7 @@ public class SettingCard extends LinearLayout implements
         }
     }
 
-    public void setSoundListener(AdapterOptions.SoundListener listener){
+    public void setChangeListener(ChangeListener listener){
         this.listener = listener;
     }
 
@@ -247,5 +248,10 @@ public class SettingCard extends LinearLayout implements
             this.image = image;
         }
 
+    }
+
+    public interface ChangeListener{
+        void pressed();
+        void changedTo(String key);
     }
 }

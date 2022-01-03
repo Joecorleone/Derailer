@@ -2,17 +2,13 @@ package de.badgersburrow.derailer.adapters;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.badgersburrow.derailer.ActivityMain;
-import de.badgersburrow.derailer.FragmentMain;
-import de.badgersburrow.derailer.R;
-import de.badgersburrow.derailer.databinding.ItemCartBinding;
+import de.badgersburrow.derailer.Keys;
 import de.badgersburrow.derailer.databinding.ItemOptionBinding;
 import de.badgersburrow.derailer.views.SettingCard;
 
@@ -21,10 +17,25 @@ import java.util.ArrayList;
 /**
  * Created by cetty on 27.07.16.
  */
-public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObjectHolder> {
+public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObjectHolder>
+        implements SettingCard.ChangeListener {
 
     private ArrayList<SettingCard> settingCards = new ArrayList<>();
     SoundListener listener;
+
+    @Override
+    public void pressed() {
+        listener.playSoundOptionChanged();
+    }
+
+    @Override
+    public void changedTo(String keyChosen) {
+        if (keyChosen.equals(Keys.option_connections_4)){
+            disable(Keys.option_draw);
+        } else if (keyChosen.equals(Keys.option_connections_8)){
+            enable(Keys.option_draw);
+        }
+    }
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder{
         ItemOptionBinding binding;
@@ -38,6 +49,16 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
     public AdapterOptions(ArrayList<SettingCard> settingCards, SoundListener listener) {
         this.settingCards = settingCards;
         this.listener = listener;
+
+        for (SettingCard settingCard : settingCards){
+            if (settingCard.getKey().equals(Keys.option_connections)){
+                if (settingCard.getKeyChosen().equals(Keys.option_connections_8)){
+                    enable(Keys.option_draw);
+                } else {
+                    disable(Keys.option_draw);
+                }
+            }
+        }
     }
 
     @Override
@@ -56,7 +77,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER_HORIZONTAL);
         settingCard.setPadding(0,settingCard.getTopPadding(),0,0); // necessary
-        settingCard.setSoundListener(listener);
+        settingCard.setChangeListener(this);
         holder.binding.llOption.addView(settingCard, llparams);
 
         holder.binding.tvOption.setText(settingCard.getTitle());
@@ -64,8 +85,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
     }
 
     public void enable(String key){
-        for (int i=0; i<settingCards.size(); i++){
-            SettingCard card = settingCards.get(i);
+        for (SettingCard card : settingCards){
             if (card.getKey().equals(key)){
                 card.setEnabled(true);
             }
@@ -73,8 +93,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.DataObje
     }
 
     public void disable(String key){
-        for (int i=0; i<settingCards.size(); i++){
-            SettingCard card = settingCards.get(i);
+        for (SettingCard card : settingCards){
             if (card.getKey().equals(key)){
                 card.setEnabled(false);
             }

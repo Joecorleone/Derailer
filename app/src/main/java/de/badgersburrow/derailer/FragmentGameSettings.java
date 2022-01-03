@@ -41,8 +41,6 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
 
     FragmentGameSettingsBinding binding;
 
-    int connections = 4;
-
     SharedPreferences SP;
     SharedPreferences.Editor SPE;
 
@@ -187,11 +185,7 @@ public class FragmentGameSettings extends Fragment implements AdapterCart.Change
         });
 
         binding.rvOptions.setAdapter(adapterOptions);
-        if (connections == 8){
-            adapterOptions.enable(Keys.option_draw);
-        } else {
-            adapterOptions.disable(Keys.option_draw);
-        }
+
 
 
         binding.ivPlayer.setOnTouchListener(new MyTouchListener());
