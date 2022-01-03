@@ -43,6 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowRadius="8"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="-10dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -54,6 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textSize="50sp"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowRadius="8"
             android:layout_below="@+id/tv_n_texttop"
             android:text="@string/notification_player"/>
 
@@ -62,6 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowRadius="8"
             android:layout_below="@+id/tv_n_textbig"
             android:layout_marginTop="-10dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
