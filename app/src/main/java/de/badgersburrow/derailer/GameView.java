@@ -115,6 +115,8 @@ public class GameView extends SurfaceView {
             obstacleNumber = randomGenerator.nextInt(3) + 4;
         }
 
+        List<Integer> obstacleDrawables = Arrays.asList(R.drawable.obstacle_rock01,R.drawable.obstacle_rock02,R.drawable.obstacle_rock03);
+
         for (int j = 0; j < obstacleNumber; j ++ ) {
             int x;
             int y;
@@ -129,8 +131,8 @@ public class GameView extends SurfaceView {
                 break;
             }
 
-            ObstacleCardSprite obstacle = new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), R.drawable.option_obstacle_many), x, y);
-            obstacles.add(obstacle);
+            int listPos = randomGenerator.nextInt(obstacleDrawables.size());
+            obstacles.add(new ObstacleCardSprite(this, BitmapFactory.decodeResource(getResources(), obstacleDrawables.get(listPos)), x, y));
         }
 
         this.selectedTheme = selectedTheme;
