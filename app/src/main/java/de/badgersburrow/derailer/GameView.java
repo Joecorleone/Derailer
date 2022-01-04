@@ -488,7 +488,7 @@ public class GameView extends SurfaceView {
 
             updateChoiceCards();
         }
-        Bitmap blue_dot = BitmapFactory.decodeResource(getResources(), R.drawable.blue_dot);
+        Bitmap blue_dot = Utilities.drawableToBitmap(getResources().getDrawable(R.drawable.start_indicator));
         if (tiles == 4) {
             for (int i = 0; i < 6; i++) {
                 if (checkObstacleCollision(0, i)) {

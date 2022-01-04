@@ -69,6 +69,7 @@
         <entry key="app/src/main/tiles/drawable/sign_play_shadow.xml" value="0.16611842105263158" />
         <entry key="app/src/main/tiles/drawable/sign_sound.xml" value="0.16611842105263158" />
         <entry key="app/src/main/tiles/drawable/sign_sound_shadow.xml" value="0.16611842105263158" />
+        <entry key="app/src/main/tiles/drawable/start_indicator.xml" value="0.1328125" />
         <entry key="app/src/main/tiles/drawable/train_header_holder.xml" value="0.1" />
         <entry key="app/src/main/tiles/drawable/volume_high.xml" value="0.1203125" />
       </map>
