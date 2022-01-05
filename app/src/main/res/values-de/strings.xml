@@ -14,7 +14,7 @@
     <string name="label_player">Spieler %d</string>
     <string name="label_ai">KI %d</string>
 
-    <string name="theme_steam_engine">Dampfmaschine</string>
+    <string name="theme_steam_engine">Dampflokomotive</string>
     <string name="theme_electric_engine">Elektromotor</string>
     <string name="theme_vintage_car">Oldtimer</string>
     <string name="theme_cadillac">Cadillac</string>
@@ -49,7 +49,7 @@
     <string name="game_over">Spiel vorbei</string>
 
     <string name="play_with_spaces">" Spielen "</string>
-    <string name="start_with_spaces">"    Start    "</string>
+    <string name="start_with_spaces">"      Start      "</string>
     <string name="theme_with_spaces">" Themen "</string>
     <string name="select_a_theme">Wähle ein Thema aus</string>
     <string name="too_few">Zu wenige</string>
@@ -73,4 +73,5 @@
     <string name="music">Musik</string>
     <string name="sfx">Effekte</string>
     <string name="next">Als nächstes</string>
+    <string name="themes_upcoming">Weitere Themen folgen in Kürze</string>
 </resources>

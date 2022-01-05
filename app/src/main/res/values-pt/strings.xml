@@ -73,4 +73,5 @@
     <string name = "music"> Música </string>
     <string name = "sfx"> Efeitos </string>
     <string name="next">A seguir</string>
+    <string name="themes_upcoming">Mais temas em breve</string>
 </resources>

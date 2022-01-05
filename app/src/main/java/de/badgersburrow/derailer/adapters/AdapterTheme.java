@@ -17,6 +17,7 @@ import de.badgersburrow.derailer.FragmentMain;
 import de.badgersburrow.derailer.R;
 import de.badgersburrow.derailer.databinding.ItemSpacerBinding;
 import de.badgersburrow.derailer.databinding.ItemThemeBinding;
+import de.badgersburrow.derailer.databinding.ItemUpcomingIndicatorBinding;
 import de.badgersburrow.derailer.objects.Theme;
 
 import java.util.ArrayList;
@@ -33,6 +34,15 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ItemSpacerBinding binding;
 
         public Spacer(ItemSpacerBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+
+    public static class UpcomingIndicator extends RecyclerView.ViewHolder{
+        ItemUpcomingIndicatorBinding binding;
+
+        public UpcomingIndicator(ItemUpcomingIndicatorBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -58,7 +68,10 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                                int viewType) {
         if (viewType == 0){
             return new Spacer(ItemSpacerBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        } else if (viewType == 2){
+            return new UpcomingIndicator(ItemUpcomingIndicatorBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
         }
+
 
         ItemThemeBinding binding = ItemThemeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new DataObjectHolder(binding);
@@ -68,6 +81,8 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public int getItemViewType(int pos){
         if (pos == 0){
             return 0;
+        } else if (pos == getItemCount()-1){
+            return 2;
         }
         return 1;
 
@@ -95,6 +110,9 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 objectHolder.binding.ivSelect.setVisibility(View.INVISIBLE);
             }
             objectHolder.binding.llTheme.setOnClickListener(v -> this.listener.selectTheme(themeId));
+        } else if (holder instanceof UpcomingIndicator){
+            UpcomingIndicator indicatorHolder = (UpcomingIndicator) holder;
+            indicatorHolder.binding.tvIndicator.setTypeface(ActivityMain.customtf_normal);
         }
     }
 
@@ -107,8 +125,8 @@ public class AdapterTheme extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mThemes.size() + 1;
-    }
+        return mThemes.size() + 2;
+    } // +1 for top spacer +2 for upcoming themes
 
     public interface ThemeListener{
         void selectTheme(int pos);

@@ -305,8 +305,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="start_indicator" />
-                            <entry key="sourceFile" value="$USER_HOME$/Dropbox/AppAssets/Derailer/start_indicator.svg" />
+                            <entry key="outputName" value="grass_texture" />
+                            <entry key="sourceFile" value="$USER_HOME$/Dropbox/AppAssets/Derailer/grass_texture.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -78,6 +78,15 @@ public class FragmentThemeSelection extends Fragment implements AdapterTheme.The
         mAdapter = new AdapterTheme(getContext(), themes, this);
         binding.rvTheme.setAdapter(mAdapter);
 
+        binding.rvTheme.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int scrollY = binding.rvTheme.computeVerticalScrollOffset();
+                binding.vBackground.setTranslationY(-scrollY);
+            }
+        });
+
         /*sTheme = (Spinner) findViewById(R.id.sTheme);
         sTheme.setSelection(selectedTheme);
         sTheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

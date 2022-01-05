@@ -14,7 +14,7 @@
     <string name="label_player">Player %d</string>
     <string name="label_ai">AI %d</string>
 
-    <string name="theme_steam_engine">Steam engine</string>
+    <string name="theme_steam_engine">Steam locomotive</string>
     <string name="theme_electric_engine">Electric engine</string>
     <string name="theme_vintage_car">Vintage car</string>
     <string name="theme_cadillac">Cadillac</string>
@@ -81,6 +81,7 @@
     <string name="title_game" translatable="false">Game</string>
     <string name="title_theme_selection" translatable="false">Theme selection</string>
     <string name="title_game_over" translatable="false">Game over</string>
-    <string name="next">Next</string>
+    <string name="next">Next up</string>
+    <string name="themes_upcoming">More themes coming soon</string>
 
 </resources>
