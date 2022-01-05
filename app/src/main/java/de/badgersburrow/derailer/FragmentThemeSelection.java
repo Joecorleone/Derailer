@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.badgersburrow.derailer.adapters.AdapterTheme;
+import de.badgersburrow.derailer.adapters.AdapterThemeBg;
 import de.badgersburrow.derailer.databinding.FragmentThemeSelectionBinding;
 import de.badgersburrow.derailer.objects.Theme;
 import de.badgersburrow.derailer.views.GameSignButton;
@@ -31,11 +32,14 @@ import java.util.Objects;
 
 public class FragmentThemeSelection extends Fragment implements AdapterTheme.ThemeListener{
 
+    private final static String TAG = "FragmentThemeSelection";
+
     FragmentThemeSelectionBinding binding;
 
     Context mContext;
     ArrayList<Theme> themes;
     AdapterTheme mAdapter;
+    AdapterThemeBg mAdapterBg;
 
     int selectedThemeId;
 
@@ -73,17 +77,21 @@ public class FragmentThemeSelection extends Fragment implements AdapterTheme.The
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         binding.rvTheme.setLayoutManager(llm);
-
-        //registerForContextMenu(rv_history);
         mAdapter = new AdapterTheme(getContext(), themes, this);
         binding.rvTheme.setAdapter(mAdapter);
+
+        LinearLayoutManager llm_bg = new LinearLayoutManager(getContext());
+        binding.rvBackground.setLayoutManager(llm_bg);
+        mAdapterBg = new AdapterThemeBg(getContext());
+        binding.rvBackground.setAdapter(mAdapterBg);
 
         binding.rvTheme.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int scrollY = binding.rvTheme.computeVerticalScrollOffset();
-                binding.vBackground.setTranslationY(-scrollY);
+                Log.d(TAG, "dy: " + dy + ", scrollY:" + scrollY);
+                binding.rvBackground.scrollBy(0, dy);//-scrollY);
             }
         });
 

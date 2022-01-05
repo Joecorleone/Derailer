@@ -53,6 +53,7 @@
         <entry key="app/src/main/res/layout/item_player.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_spacer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_theme.xml" value="0.49119170984455957" />
+        <entry key="app/src/main/res/layout/item_theme_bg.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_upcoming_indicator.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_players.xml" value="0.125" />
         <entry key="app/src/main/res/layout/start_menu_v2.xml" value="0.22" />
