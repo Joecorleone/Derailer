@@ -6,7 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     tools:context="de.badgersburrow.derailer.FragmentMain"
-    android:background="@color/sand">
+    android:background="@color/main_menu_bg">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/earth_texture_tiled"/>
 
     <ImageView
         android:id="@+id/iv_title"
