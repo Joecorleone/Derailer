@@ -25,4 +25,22 @@
       android:fillColor="#aa1e1b"
       android:strokeColor="#7b1514"
       android:fillType="evenOdd"/>
+  <path
+      android:pathData="M1.5098,6.6836C1.5035,6.7889 1.5002,6.8945 1.5,7c0,3.0376 2.4624,5.5 5.5,5.5 1.0762,-0 2.1288,-0.3158 3.0273,-0.9082 -1.4962,0.1713 -3.3191,-0.2808 -4.9688,-1.2324 -1.6466,-0.9499 -2.9481,-2.298 -3.5488,-3.6758z"
+      android:strokeWidth="1"
+      android:fillColor="#961a18"
+      android:strokeColor="#00000000"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="m7,1.5c-1.0762,0 -2.1288,0.3158 -3.0273,0.9082 1.4962,-0.1713 3.3191,0.2808 4.9688,1.2324 1.6466,0.9499 2.9481,2.298 3.5488,3.6758 0.0063,-0.1054 0.0095,-0.2109 0.0098,-0.3164 0,-3.0376 -2.4624,-5.5 -5.5,-5.5z"
+      android:strokeWidth="1"
+      android:fillColor="#cf2521"
+      android:strokeColor="#00000000"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M7,7m-5.5,0a5.5,5.5 0,1 1,11 0a5.5,5.5 0,1 1,-11 0"
+      android:strokeWidth="1"
+      android:fillColor="#00000000"
+      android:strokeColor="#7b1514"
+      android:fillType="evenOdd"/>
 </vector>

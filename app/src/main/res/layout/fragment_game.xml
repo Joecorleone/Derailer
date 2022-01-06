@@ -83,7 +83,7 @@
         android:layout_above="@+id/ll_control"
         android:layout_marginStart="@dimen/activity_horizontal_margin_large"
         android:layout_marginEnd="@dimen/activity_horizontal_margin_large"
-        android:background="@drawable/train_bottom_info_bg">
+        android:background="@drawable/train_bottom_info_bg02">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bottom_info"
